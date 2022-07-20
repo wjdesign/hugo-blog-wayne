@@ -6,7 +6,26 @@
         <description>Recent content on 偉恩的部落格</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-tw</language>
-        <lastBuildDate>Sun, 17 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wjdesign.github.io/hugo-blog-wayne/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 20 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wjdesign.github.io/hugo-blog-wayne/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>關於本站</title>
+        <link>https://wjdesign.github.io/hugo-blog-wayne/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</link>
+        <pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate>
+        
+        <guid>https://wjdesign.github.io/hugo-blog-wayne/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</guid>
+        <description>&lt;h2 id=&#34;介紹&#34;&gt;介紹&lt;/h2&gt;
+&lt;p&gt;本站僅為技術性分享網站，資料來源多為網路收集、課程學習、自行領悟而來，經由本站做為個人紀錄筆記使用，以便需要時查詢，若文章內容有誤或有不當引用敬請告知本人，感謝。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;免責聲明&#34;&gt;免責聲明&lt;/h2&gt;
+&lt;p&gt;本網站對於任何使用或引用本網站網頁資料引致之損失或損害，概不負責。 本網站亦有權隨時刪除、暫停或編輯本網站所登載之各項資料，以維護本網站之權益。 除法律有強制規定外，在任何情況下，本網站對於下列情形所致生之任何直接、間接、附帶、特別、懲罰性或衍生性損害，一概不負賠償責任。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;使用或無法使用本網站之各項服務。&lt;/li&gt;
+&lt;li&gt;經由本網站取得訊息或進行交易。&lt;/li&gt;
+&lt;li&gt;第三人在本網站上之陳述或作為。&lt;/li&gt;
+&lt;li&gt;其他與本網站服務有關之事項。&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>尚硅谷 Vue3 視頻筆記</title>
         <link>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/</link>
         <pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate>
@@ -1796,9 +1815,9 @@
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>Archives</title>
+        <title>文章卷宗</title>
         <link>https://wjdesign.github.io/hugo-blog-wayne/archives/</link>
-        <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
+        <pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate>
         
         <guid>https://wjdesign.github.io/hugo-blog-wayne/archives/</guid>
         <description></description>
@@ -1876,39 +1895,11 @@ $$&lt;/p&gt;</description>
 &lt;/div&gt;</description>
         </item>
         <item>
-        <title>About</title>
-        <link>https://wjdesign.github.io/hugo-blog-wayne/about/</link>
-        <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
-        
-        <guid>https://wjdesign.github.io/hugo-blog-wayne/about/</guid>
-        <description>&lt;p&gt;Written in Go, Hugo is an open source static site generator available under the &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio/hugo/blob/master/LICENSE&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Apache Licence 2.0.&lt;/a&gt; Hugo supports TOML, YAML and JSON data file types, Markdown and HTML content files and uses shortcodes to add rich content. Other notable features are taxonomies, multilingual mode, image processing, custom output formats, HTML/CSS/JS minification and support for Sass SCSS workflows.&lt;/p&gt;
-&lt;p&gt;Hugo makes use of a variety of open source projects including:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/yuin/goldmark&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/yuin/goldmark&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/alecthomas/chroma&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/alecthomas/chroma&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/muesli/smartcrop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/muesli/smartcrop&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/spf13/cobra&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/spf13/cobra&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/spf13/viper&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;https://github.com/spf13/viper&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;Hugo is ideal for blogs, corporate websites, creative portfolios, online magazines, single page applications or even a website with thousands of pages.&lt;/p&gt;
-&lt;p&gt;Hugo is for people who want to hand code their own website without worrying about setting up complicated runtimes, dependencies and databases.&lt;/p&gt;
-&lt;p&gt;Websites built with Hugo are extremelly fast, secure and can be deployed anywhere including, AWS, GitHub Pages, Heroku, Netlify and any other hosting provider.&lt;/p&gt;
-&lt;p&gt;Learn more and contribute on &lt;a class=&#34;link&#34; href=&#34;https://github.com/gohugoio&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Links</title>
-        <link>https://wjdesign.github.io/hugo-blog-wayne/links/</link>
+        <title>相關連結</title>
+        <link>https://wjdesign.github.io/hugo-blog-wayne/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://wjdesign.github.io/hugo-blog-wayne/links/</guid>
+        <guid>https://wjdesign.github.io/hugo-blog-wayne/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1939,7 +1930,7 @@ $$&lt;/p&gt;</description>
 </description>
         </item>
         <item>
-        <title>Search</title>
+        <title>搜尋檢索</title>
         <link>https://wjdesign.github.io/hugo-blog-wayne/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         

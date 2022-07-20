@@ -2,6 +2,45 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://wjdesign.github.io/hugo-blog-wayne/page/</loc>
+    <lastmod>2020-10-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://wjdesign.github.io/hugo-blog-wayne/en/page/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://wjdesign.github.io/hugo-blog-wayne/page/"
+                />
+  </url><url>
+    <loc>https://wjdesign.github.io/hugo-blog-wayne/</loc>
+    <lastmod>2022-07-17T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://wjdesign.github.io/hugo-blog-wayne/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://wjdesign.github.io/hugo-blog-wayne/"
+                />
+  </url><url>
+    <loc>https://wjdesign.github.io/hugo-blog-wayne/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</loc>
+    <lastmod>2020-10-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://wjdesign.github.io/hugo-blog-wayne/en/abouts/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://wjdesign.github.io/hugo-blog-wayne/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/"
+                />
+  </url><url>
     <loc>https://wjdesign.github.io/hugo-blog-wayne/categories/</loc>
     <lastmod>2022-07-17T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -56,19 +95,6 @@
     <loc>https://wjdesign.github.io/hugo-blog-wayne/categories/%E5%89%8D%E7%AB%AF/</loc>
     <lastmod>2022-07-17T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://wjdesign.github.io/hugo-blog-wayne/</loc>
-    <lastmod>2022-07-17T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://wjdesign.github.io/hugo-blog-wayne/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-tw"
-                href="https://wjdesign.github.io/hugo-blog-wayne/"
-                />
-  </url><url>
     <loc>https://wjdesign.github.io/hugo-blog-wayne/tags/css/</loc>
     <lastmod>2022-07-16T00:00:00+00:00</lastmod>
   </url><url>
@@ -91,10 +117,17 @@
     <lastmod>2022-07-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://wjdesign.github.io/hugo-blog-wayne/archives/</loc>
-    <lastmod>2019-05-28T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://wjdesign.github.io/hugo-blog-wayne/page/</loc>
-    <lastmod>2020-10-09T00:00:00+00:00</lastmod>
+    <lastmod>2020-01-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://wjdesign.github.io/hugo-blog-wayne/en/archives/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://wjdesign.github.io/hugo-blog-wayne/archives/"
+                />
   </url><url>
     <loc>https://wjdesign.github.io/hugo-blog-wayne/p/math-typesetting/</loc>
     <lastmod>2019-03-08T00:00:00+00:00</lastmod>
@@ -118,11 +151,28 @@
                 href="https://wjdesign.github.io/hugo-blog-wayne/categories/test/"
                 />
   </url><url>
-    <loc>https://wjdesign.github.io/hugo-blog-wayne/about/</loc>
-    <lastmod>2020-10-09T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://wjdesign.github.io/hugo-blog-wayne/links/</loc>
+    <loc>https://wjdesign.github.io/hugo-blog-wayne/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://wjdesign.github.io/hugo-blog-wayne/en/links/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://wjdesign.github.io/hugo-blog-wayne/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/"
+                />
   </url><url>
     <loc>https://wjdesign.github.io/hugo-blog-wayne/search/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://wjdesign.github.io/hugo-blog-wayne/en/search/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-tw"
+                href="https://wjdesign.github.io/hugo-blog-wayne/search/"
+                />
   </url>
 </urlset>
