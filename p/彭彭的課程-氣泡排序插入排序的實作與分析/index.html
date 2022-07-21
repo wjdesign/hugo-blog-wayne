@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-tw" dir="ltr">
-    <head>
-	<meta name="generator" content="Hugo 0.101.0" /><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='單純玩玩 Hugo'><title>偉恩的部落格</title>
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='JavaScript 資料結構與演算法：氣泡排序 Bubble Sort、插入排序 Insertion Sort 實作與分析。'><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title>
 
-<link rel='canonical' href='https://wjdesign.github.io/hugo-blog-wayne/'>
+<link rel='canonical' href='https://wjdesign.github.io/hugo-blog-wayne/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/'>
 
-<link rel="stylesheet" href="https://wjdesign.github.io/hugo-blog-wayne/scss/style.min.1261ae405e6cb4603b0ca8ecb6caea183cf5e6703232d693ba45b4eee6c1d967.css"><meta property='og:title' content='偉恩的部落格'>
-<meta property='og:description' content='單純玩玩 Hugo'>
-<meta property='og:url' content='https://wjdesign.github.io/hugo-blog-wayne/'>
+<link rel="stylesheet" href="https://wjdesign.github.io/hugo-blog-wayne/scss/style.min.1261ae405e6cb4603b0ca8ecb6caea183cf5e6703232d693ba45b4eee6c1d967.css"><meta property='og:title' content='彭彭的課程 - 氣泡排序、插入排序的實作與分析'>
+<meta property='og:description' content='JavaScript 資料結構與演算法：氣泡排序 Bubble Sort、插入排序 Insertion Sort 實作與分析。'>
+<meta property='og:url' content='https://wjdesign.github.io/hugo-blog-wayne/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/'>
 <meta property='og:site_name' content='偉恩的部落格'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2022-07-21T00:00:00&#43;00:00 '/>
-<meta name="twitter:title" content="偉恩的部落格">
-<meta name="twitter:description" content="單純玩玩 Hugo"><link rel="alternate" type="application/rss&#43;xml" href="https://wjdesign.github.io/hugo-blog-wayne/index.xml">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='演算法' /><meta property='article:tag' content='排序' /><meta property='article:published_time' content='2022-07-21T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2022-07-21T00:00:00&#43;00:00'/><meta property='og:image' content='https://wjdesign.github.io/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/hqdefault.jpg' />
+<meta name="twitter:title" content="彭彭的課程 - 氣泡排序、插入排序的實作與分析">
+<meta name="twitter:description" content="JavaScript 資料結構與演算法：氣泡排序 Bubble Sort、插入排序 Insertion Sort 實作與分析。"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://wjdesign.github.io/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/hqdefault.jpg' />
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-FG6KQD7H6C"></script>
 <script>
 var doNotTrack = false;
@@ -25,7 +25,9 @@ if (!doNotTrack) {
 </script>
 
     </head>
-    <body class="">
+    <body class="
+    article-page
+    ">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -261,15 +263,7 @@ if (!doNotTrack) {
     </ol>
 </aside>
 <main class="main full-width">
-    
-    
-    
-    
-
-    <section class="article-list">
-        
-            
-<article class="has-image">
+    <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
             <a href="https://wjdesign.github.io/hugo-blog-wayne/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/">
@@ -349,314 +343,346 @@ if (!doNotTrack) {
     
 </div>
 </header>
-</article>
-        
-            
-<article class="has-image">
-    <header class="article-header">
-        <div class="article-image">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/">
-                <img src="https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/143400003_253834612811965_4864474600445741482_n_huc185496ed55e6f95ddd80689badb475a_232407_800x0_resize_q75_box.jpeg"
-                        srcset="https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/143400003_253834612811965_4864474600445741482_n_huc185496ed55e6f95ddd80689badb475a_232407_800x0_resize_q75_box.jpeg 800w, https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/143400003_253834612811965_4864474600445741482_n_huc185496ed55e6f95ddd80689badb475a_232407_1600x0_resize_q75_box.jpeg 1600w"
-                        width="800" 
-                        height="450" 
-                        loading="lazy"
-                        alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />
-                
-            </a>
-        </div>
+
+    <section class="article-content">
     
-
-    <div class="article-details">
     
-    <header class="article-category">
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/%E5%89%8D%E7%AB%AF/" >
-                前端
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/vue3/" >
-                vue3
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/">尚硅谷 Vue3 視頻筆記</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            Vue是一套用於構建用戶界面的漸進式JavaScript框架，是目前最火的一個前端框架，是前端工程師的必備技能。
-        </h3>
-        
-    </div>
-
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">Jul 17, 2022</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    閱讀時間: 11 分鐘
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
+    <style>
+.focus {
+    background: #f1e2e2;
+    color: #d62c2c;
+    padding: 0 5px;
+}
+</style>
+<p><a class="link" href="https://youtu.be/i-0wxW5Aun4"  target="_blank" rel="noopener"
+    >參考網站 - JavaScript 資料結構與演算法：氣泡排序 Bubble Sort、插入排序 Insertion Sort 實作與分析 - 彭彭直播</a></p>
+<hr>
+<h2 id="排序演算法">排序演算法</h2>
+<h3 id="氣泡排序法bubble-sort">氣泡排序法(bubble sort)</h3>
+<p><img src="https://i.imgur.com/dhpsLsT.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h4 id="概要">概要</h4>
+<ul>
+<li>使用雙層迴圈，<strong>由後往前</strong>。</li>
+<li>每輪<strong>固定最右邊</strong>的值，接著倆倆比較大小，將大的<strong>放右邊</strong>。</li>
+<li>下輪則 <strong>- 1</strong>。</li>
+<li>完畢後即可排序完畢。</li>
+<li>執行的總輪數為<strong>陣列長度 - 1</strong>。</li>
+</ul>
+<h4 id="時間複雜度">時間複雜度</h4>
+<p><img src="https://i.imgur.com/zI5aeQp.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>如果陣列長度是 <strong>4</strong>，要比對 <strong>3+2+1</strong> 總共 <strong>6</strong> 次。</li>
+<li>如果陣列長度是 <strong>7</strong>，要比對 <strong>6+5+&hellip;+1</strong> 總共 <strong>21</strong> 次。</li>
+<li>如果陣列長度是 <strong>n</strong>，要比對 <strong>(n-1)+(n-2)+&hellip;+1</strong> 總共<br>
+<strong>(n * (n - 1)) / 2</strong> = <mark>n²/2 - n/2</mark> 次</li>
+<li>搜尋所需時間隨著陣列的長度<br>
+呈<mark>平方成長 O(N²)</mark>。</li>
+</ul>
+<h4 id="假設">假設</h4>
+<p><img src="https://i.imgur.com/QIeIkQk.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>可以加入一個 <strong>flag</strong> 來做判定，假設比較完第一輪發現沒有交換的情況發生，則代表已經排序完成，不需要再跑下一輪，即可稍微優化排序。</li>
+</ul>
+<h4 id="實作">實作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 實作氣泡排序演算法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">bubbleSort</span><span class="p">(</span><span class="nx">arr</span><span class="p">){</span> <span class="c1">// arr 是一個數字陣列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&gt;=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">--</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">let</span> <span class="nx">swap</span><span class="o">=</span><span class="kc">false</span><span class="p">;</span> <span class="c1">// 假設沒有交換發生
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="o">&lt;</span><span class="nx">i</span><span class="p">;</span><span class="nx">j</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="o">&gt;</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span> <span class="c1">// 如果順序不對，交換
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="kd">let</span> <span class="nx">temp</span><span class="o">=</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="o">=</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="nx">temp</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">swap</span><span class="o">=</span><span class="kc">true</span><span class="p">;</span> <span class="c1">// 紀錄發生交換
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">swap</span><span class="p">){</span> <span class="c1">// 發現一整輪中都沒有交換發生，直接判定排序完成
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">bubbleSort</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
 </div>
-</header>
-</article>
-        
-            
-<article class="has-image">
-    <header class="article-header">
-        <div class="article-image">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/markdown-%E8%AA%9E%E6%B3%95%E6%8C%87%E5%8D%97/">
-                <img src="https://wjdesign.github.io/hugo-blog-wayne/p/markdown-%E8%AA%9E%E6%B3%95%E6%8C%87%E5%8D%97/pawel-czerwinski-8uZPynIu-rQ-unsplash_hud7e36f7e20e71be184458283bdae4646_55974_800x0_resize_q75_box.jpg"
-                        srcset="https://wjdesign.github.io/hugo-blog-wayne/p/markdown-%E8%AA%9E%E6%B3%95%E6%8C%87%E5%8D%97/pawel-czerwinski-8uZPynIu-rQ-unsplash_hud7e36f7e20e71be184458283bdae4646_55974_800x0_resize_q75_box.jpg 800w, https://wjdesign.github.io/hugo-blog-wayne/p/markdown-%E8%AA%9E%E6%B3%95%E6%8C%87%E5%8D%97/pawel-czerwinski-8uZPynIu-rQ-unsplash_hud7e36f7e20e71be184458283bdae4646_55974_1600x0_resize_q75_box.jpg 1600w"
-                        width="800" 
-                        height="534" 
-                        loading="lazy"
-                        alt="Featured image of post Markdown 語法指南" />
-                
-            </a>
-        </div>
-    
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/markdown/" >
-                markdown
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/syntax/" >
-                syntax
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/markdown-%E8%AA%9E%E6%B3%95%E6%8C%87%E5%8D%97/">Markdown 語法指南</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            Markdown 是目前非常普遍用來撰寫文檔的語言，一開始的目標就是使用「易讀易寫的純文字格式編寫文件」，此初衷讓使用者可以專注在文字的本身，而不需要透過其它工具來切換格式。
-        </h3>
-        
-    </div>
-
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">Jul 16, 2022</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    閱讀時間: 3 分鐘
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
+</div><h6 id="輸出">輸出：</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="gp">&gt;</span> <span class="o">[</span>1, 3, 4, 6<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
-</header>
-</article>
-        
-            
-<article class="">
-    <header class="article-header">
-
-    <div class="article-details">
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/math-typesetting/">Math Typesetting</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            A brief guide to setup KaTeX
-        </h3>
-        
-    </div>
-
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">Mar 08, 2019</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    閱讀時間: 1 分鐘
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
+</div><hr>
+<h3 id="插入排序法insertion-sort">插入排序法(insertion sort)</h3>
+<p><img src="https://i.imgur.com/qnJOrAZ.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h4 id="概要-1">概要</h4>
+<ul>
+<li>使用雙層迴圈，<strong>由前往後</strong>。</li>
+<li>從第二筆開始，每輪將該筆資料往前比較大小，將大的<strong>放右邊</strong>：每輪比較從 <strong>(i - 1) ~ 0</strong>。</li>
+<li>下輪則 <strong>+ 1</strong>。</li>
+<li>完畢後即可排序完畢。</li>
+<li>執行的總輪數為<strong>陣列長度 - 1</strong>。</li>
+</ul>
+<h4 id="時間複雜度複雜度同氣泡排序法">時間複雜度(複雜度同氣泡排序法)</h4>
+<p><img src="https://i.imgur.com/FyUSUGl.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>如果陣列長度是 <strong>4</strong>，要比對 <strong>1+2+3</strong> 總共 <strong>6</strong> 次。</li>
+<li>如果陣列長度是 <strong>7</strong>，要比對 <strong>1+2+&hellip;+6</strong> 總共 <strong>21</strong> 次。</li>
+<li>如果陣列長度是 <strong>n</strong>，要比對 <strong>1+2+&hellip;+(n-1)</strong> 總共<br>
+<strong>(n * (n - 1)) / 2</strong> = <mark>n²/2 - n/2</mark> 次</li>
+<li>搜尋所需時間隨著陣列的長度<br>
+呈<mark>平方成長 O(N²)</mark>。</li>
+</ul>
+<h4 id="假設-1">假設</h4>
+<p><img src="https://i.imgur.com/2u7G5aD.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<ul>
+<li>假設當前比對的值與第一個要比較的值一比較，恰好正確，則代表前面皆已經排序完成，可以進到下一輪。</li>
+</ul>
+<h4 id="實作-1">實作</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 實作插入排序演算法
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">insertionSort</span><span class="p">(</span><span class="nx">arr</span><span class="p">){</span> <span class="c1">// arr 是一個數字陣列
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="nx">arr</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">j</span><span class="o">=</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="nx">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="nx">j</span><span class="o">--</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span><span class="o">&gt;</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]){</span> <span class="c1">// 如果順序不對，交換
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="p">[</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span><span class="o">=</span><span class="p">[</span><span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">],</span> <span class="nx">arr</span><span class="p">[</span><span class="nx">j</span><span class="p">]];</span> <span class="c1">// javascript 交換的語法糖
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">// 任何一次比較，發現順序對了，這一輪就不用繼續了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">insertionSort</span><span class="p">(</span><span class="nx">data</span><span class="p">));</span>
+</span></span></code></pre></td></tr></table>
 </div>
-</header>
-</article>
-        
-            
-<article class="has-image">
-    <header class="article-header">
-        <div class="article-image">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/emoji-support/">
-                <img src="https://wjdesign.github.io/hugo-blog-wayne/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash_huf941de4769045cdfa8c9ee7036519a2a_35369_800x0_resize_q75_box.jpg"
-                        srcset="https://wjdesign.github.io/hugo-blog-wayne/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash_huf941de4769045cdfa8c9ee7036519a2a_35369_800x0_resize_q75_box.jpg 800w, https://wjdesign.github.io/hugo-blog-wayne/p/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash_huf941de4769045cdfa8c9ee7036519a2a_35369_1600x0_resize_q75_box.jpg 1600w"
-                        width="800" 
-                        height="566" 
-                        loading="lazy"
-                        alt="Featured image of post Emoji Support" />
-                
-            </a>
-        </div>
-    
-
-    <div class="article-details">
-    
-    <header class="article-category">
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/test/" >
-                Test
-            </a>
-        
-    </header>
-    
-
-    <div class="article-title-wrapper">
-        <h2 class="article-title">
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/p/emoji-support/">Emoji Support</a>
-        </h2>
-    
-        
-        <h3 class="article-subtitle">
-            Guide to emoji usage in Hugo
-        </h3>
-        
-    </div>
-
-    
-    <footer class="article-time">
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
-  <circle cx="18" cy="18" r="4" />
-  <path d="M15 3v4" />
-  <path d="M7 3v4" />
-  <path d="M3 11h16" />
-  <path d="M18 16.496v1.504l1 1" />
-</svg>
-                <time class="article-time--published">Mar 05, 2019</time>
-            </div>
-        
-
-        
-            <div>
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="12" cy="12" r="9" />
-  <polyline points="12 7 12 12 15 15" />
-</svg>
-
-
-
-                <time class="article-time--reading">
-                    閱讀時間: 1 分鐘
-                </time>
-            </div>
-        
-    </footer>
-    
-
-    
+</div><h6 id="輸出-1">輸出：</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="line"><span class="cl"><span class="gp">&gt;</span> <span class="o">[</span>1, 3, 4, 6<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
-</header>
-</article>
+</div><hr>
+<h3 id="大型資料量的進階探討">大型資料量的進階探討</h3>
+<p>O(N²)：(讀作 big-O N平方) 是相當可怕的，排序的執行時間將會是資料量的平方倍數成長。</p>
+<h6 id="演示">演示：</h6>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// 產生隨機資料
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span> <span class="nx">data</span><span class="o">=</span><span class="p">[];</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="p">(</span><span class="kd">let</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nx">i</span><span class="o">&lt;</span><span class="mi">100000</span><span class="p">;</span><span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">data</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">1000000</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 資料量是 100,000，我的演算法時間複雜度是 O(N^2)，預期要花 100,000^2 = 10,000,000,000 次的比較運算
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 我們的電腦一秒鐘跑 10 億個指令(粗略預估 1 GB)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">time</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 插入排序法，大約跑了10幾秒
+</span></span></span><span class="line"><span class="cl"><span class="c1">//insertionSort(data);
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 使用 JavaScript 內建的排序功能 sort()，大約跑了 0.2 ~ 0.3 秒
+</span></span></span><span class="line"><span class="cl"><span class="c1">// 很有機會是使用快速排序 Quick Sort(快速排序法) 或其變形
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">data</span><span class="p">.</span><span class="nx">sort</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">timeEnd</span><span class="p">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><hr>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/%E6%BC%94%E7%AE%97%E6%B3%95/">演算法</a>
+        
+            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/%E6%8E%92%E5%BA%8F/">排序</a>
         
     </section>
-<footer class="site-footer">
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
@@ -668,73 +694,93 @@ if (!doNotTrack) {
     
 </footer>
 
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
             </main>
     <aside class="sidebar right-sidebar sticky">
         
             
-                <form action="https://wjdesign.github.io/hugo-blog-wayne/search/" class="search-form widget" >
-        <p>
-            <label>搜尋</label>
-            <input name="keyword" required placeholder="輸入關鍵字..." />
-        
-            <button title="搜尋">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
-
-
-
-            </button>
-        </p>
-    </form>
-            
-        
-            
-                <section class="widget archives">
+                
+    <section class="widget archives">
         <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
-</svg>
-
-
-
-        </div>
-        <h2 class="widget-title section-title">紀錄</h2>
-
-        
-        
-        
-        
-        
-        <div class="widget-archive--list">
-            <div class="archives-year">
-                    <a href="https://wjdesign.github.io/hugo-blog-wayne/archives/#2022">
-                        
-                            <span class="year">2022</span>
-                            <span class="count">3</span>
-                        
-                    </a> 
-                </div>
-            <div class="archives-year">
-                    <a href="https://wjdesign.github.io/hugo-blog-wayne/archives/#2019">
-                        
-                            <span class="year">2019</span>
-                            <span class="count">2</span>
-                        
-                    </a> 
-                </div>
-            
-        </div>
-    </section>
-            
-        
-            
-                <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -744,98 +790,42 @@ if (!doNotTrack) {
 
 
 
-    </div>
-    <h2 class="widget-title section-title">Categories</h2>
+        </div>
+        <h2 class="widget-title section-title">目錄</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#排序演算法">排序演算法</a>
+      <ol>
+        <li><a href="#氣泡排序法bubble-sort">氣泡排序法(bubble sort)</a>
+          <ol>
+            <li><a href="#概要">概要</a></li>
+            <li><a href="#時間複雜度">時間複雜度</a></li>
+            <li><a href="#假設">假設</a></li>
+            <li><a href="#實作">實作</a></li>
+          </ol>
+        </li>
+        <li><a href="#插入排序法insertion-sort">插入排序法(insertion sort)</a>
+          <ol>
+            <li><a href="#概要-1">概要</a></li>
+            <li><a href="#時間複雜度複雜度同氣泡排序法">時間複雜度(複雜度同氣泡排序法)</a></li>
+            <li><a href="#假設-1">假設</a></li>
+            <li><a href="#實作-1">實作</a></li>
+          </ol>
+        </li>
+        <li><a href="#大型資料量的進階探討">大型資料量的進階探討</a>
+          <ol>
+            <li></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
 
-    <div class="tagCloud-tags">
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/markdown/" class="font_size_1">
-                markdown
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/syntax/" class="font_size_1">
-                syntax
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/test/" class="font_size_1">
-                Test
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/vue3/" class="font_size_1">
-                vue3
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/%E5%89%8D%E7%AB%AF/" class="font_size_1">
-                前端
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/%E6%8E%92%E5%BA%8F/" class="font_size_1">
-                排序
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/categories/%E6%BC%94%E7%AE%97%E6%B3%95/" class="font_size_1">
-                演算法
-            </a>
-        
-    </div>
-</section>
-
-            
-        
-            
-                <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
-
-
-
-    </div>
-    <h2 class="widget-title section-title">標籤雲</h2>
-
-    <div class="tagCloud-tags">
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/css/" class="font_size_1">
-                css
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/emoji/" class="font_size_1">
-                emoji
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/html/" class="font_size_1">
-                html
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/markdown/" class="font_size_1">
-                markdown
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/themes/" class="font_size_1">
-                themes
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/vue3/" class="font_size_1">
-                vue3
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/%E5%89%8D%E7%AB%AF/" class="font_size_1">
-                前端
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/%E6%8E%92%E5%BA%8F/" class="font_size_1">
-                排序
-            </a>
-        
-            <a href="https://wjdesign.github.io/hugo-blog-wayne/tags/%E6%BC%94%E7%AE%97%E6%B3%95/" class="font_size_1">
-                演算法
-            </a>
-        
-    </div>
-</section>
             
         
     </aside>
