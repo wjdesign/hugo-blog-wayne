@@ -1,4 +1,186 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>偉恩的部落格</title><link>https://wjdesign.github.io/hugo-blog-wayne/</link><description>Recent content on 偉恩的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 22 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wjdesign.github.io/hugo-blog-wayne/index.xml" rel="self" type="application/rss+xml"/><item><title>gRPC 基本介紹</title><link>https://wjdesign.github.io/hugo-blog-wayne/p/grpc-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</link><pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate><guid>https://wjdesign.github.io/hugo-blog-wayne/p/grpc-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</guid><description>&lt;img src="https://i.imgur.com/Wby0iiz.png" alt="Featured image of post gRPC 基本介紹" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>偉恩的部落格</title><link>https://wjdesign.github.io/hugo-blog-wayne/</link><description>Recent content on 偉恩的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wjdesign.github.io/hugo-blog-wayne/index.xml" rel="self" type="application/rss+xml"/><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%88%9D%E5%AD%B8%E8%80%85%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95%E5%BE%9E%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E8%AA%8D%E8%AD%98%E5%B8%B8%E8%A6%8B%E6%BC%94%E7%AE%97%E6%B3%95/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%88%9D%E5%AD%B8%E8%80%85%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95%E5%BE%9E%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E8%AA%8D%E8%AD%98%E5%B8%B8%E8%A6%8B%E6%BC%94%E7%AE%97%E6%B3%95/</guid><description>&lt;img src="https://i.imgur.com/TqtfUrE.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://medium.com/appworks-school/%E5%88%9D%E5%AD%B8%E8%80%85%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95-%E5%BE%9E%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E8%AA%8D%E8%AD%98%E5%B8%B8%E8%A6%8B%E6%BC%94%E7%AE%97%E6%B3%95-%E4%B8%80-b46fece65ba5" target="_blank" rel="noopener"
+>參考網站 - 初學者學演算法｜從時間複雜度認識常見演算法&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="溫故知新">溫故知新&lt;/h2>
+&lt;ul>
+&lt;li>演算法的簡單定義：&lt;code>輸入 + 演算法 = 輸出&lt;/code>&lt;/li>
+&lt;li>時間複雜度：衡量演算法執行好壞的工具&lt;/li>
+&lt;li>大 O 符號：用來描述演算法在輸入 n 個東西時，所需時間與 n 的關係&lt;/li>
+&lt;li>在 n 非常大時，好的演算法設計可以省下非常多時間&lt;/li>
+&lt;li>演算法的速度不是以秒計算，而是以步驟次數&lt;/li>
+&lt;li>實務上，我們只會紀錄最高次方的那一項，並忽略其所有的係數&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="目錄常見的六種時間複雜度與演算法">目錄：常見的六種時間複雜度與演算法&lt;/h2>
+&lt;ul>
+&lt;li>O(1)：陣列讀取&lt;/li>
+&lt;li>O(n)：簡易搜尋&lt;/li>
+&lt;li>O(log n)：二分搜尋&lt;/li>
+&lt;li>O(nlogn)：合併排序&lt;/li>
+&lt;li>O(n²)：選擇排序&lt;/li>
+&lt;li>O(2^n)：費波那契數列&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="o1陣列讀取">O(1)：陣列讀取&lt;/h3>
+&lt;h4 id="說明">說明&lt;/h4>
+&lt;p>時間複雜度為 O(1) 的演算法，代表著不管你輸入多少個東西，程式都會在同一個時間跑完。在程式設計中，最簡單的例子就是讀取一個陣列中特定索引值的元素(程式麻瓜先別急著吐血，且讓我們在下面慢慢說明)。&lt;/p>
+&lt;h4 id="陣列讀取">陣列讀取&lt;/h4>
+&lt;p>陣列是程式中儲存東西的一種容器，我們可以想像成一排已經編號好的櫃子。每一個櫃子上的編號我們稱為「索引值」（Index，在程式中這個編號通常從 0 開始），而櫃子裡的物品我們稱為「元素」。例如：假設神奇寶貝大師小明在一個名叫 Pokemons 的陣列裡依序放入他的神奇寶貝們，我們來複習一下陣列、元素、索引值的關係：&lt;/p>
+&lt;p>&lt;img src="https://i.imgur.com/KhnnEpC.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>在程式碼中我們把七隻神奇寶貝這樣表達：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Python" data-lang="Python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Pokemons&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;卡丘&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;胖丁&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;尼龜&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;比獸&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;呆獸&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;種子&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;小剛&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這時，假設我們想要知道在這個 Pokemons 陣列中任一個編號所對應到的神奇寶貝，我們都只需要把這個編號對應的元素印出來，就能知道對應的神奇寶貝是誰了。如果我想知道這個陣列中的第 n 號櫃的神奇寶貝是誰（以下假設我們想知道 n= 0），在程式碼中我們可以這樣表達：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Python" data-lang="Python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">n&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Pokemons&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">n&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&lt;/span> &lt;span class="s2">&amp;#34;卡丘&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>陣列讀取時，因為我們已經知道櫃子的索引值，不管放入的 n 等於多少，程式都可以在 “一個步驟” 就到達 n 所對應到編號的櫃子並取出該元素，像這樣的案例，我們就會說陣列讀取演算法的時間複雜度為 O(1)。&lt;/p>
+&lt;hr>
+&lt;h3 id="on簡易搜尋">O(n)：簡易搜尋&lt;/h3>
+&lt;h4 id="說明-1">說明&lt;/h4>
+&lt;p>時間複雜度為 O(n) 的演算法，代表著執行步驟會跟著輸入 n 等比例的增加。例如當 n = 8，程式就會在 8 個步驟完成。最簡單的例子，就是所謂的簡易搜尋。&lt;/p>
+&lt;blockquote>
+&lt;p>這邊要特別提醒一點，通常程式步驟的時間複雜度會是用程式執行會碰到的最壞狀況 (Worst Case) 來表示，詳細例子我們可以在下面看到。&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="簡易搜尋">簡易搜尋&lt;/h4>
+&lt;p>讓我們沿用上一段的 Pokemons 陣列作為例子。Pokemons 這一排櫃子裡有八隻神奇寶貝，假設每個櫃子的門都被關上，我們事前也不知道各個神奇寶貝的位置，這時如果想要知道「呆獸」神奇寶貝在哪裡時，我們第一個想到的方法會是什麼呢？&lt;/p>
+&lt;p>最直觀地想，我們會從第一個櫃子開始試，一次開一個櫃子，直到找到「呆獸」為止。像這樣的搜尋方法，就是最經典簡單的「簡易搜尋」。&lt;/p>
+&lt;p>在程式碼中，簡易搜尋的方法可以這樣表達：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Python" data-lang="Python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Pokemons&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;卡丘&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;胖丁&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;尼龜&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;比獸&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;呆獸&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;種子&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;小剛&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="n">Pokemon&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">Pokemons&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">Pokemon&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;呆獸&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;找到呆獸！&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;這個櫃子裡不是呆獸&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>觀察上面的程式碼時，我們可以發現，如果呆獸在第 0 號櫃，我們一個步驟就會找到它，但如果他是在第 6 號櫃，我們要花七個步驟才能找到他。&lt;/p>
+&lt;p>還記得我們在上面提過的小小提醒嗎？我們通常會用程式執行會碰到的「最壞狀況」來決定複雜度的表示，也因此，當我們要從 n 個櫃子中找到一隻特定的神奇寶貝，我們最慘最慘的情況需要花剛好 n 個步驟才能找到（想像要找的神奇寶貝在最後一個櫃子的情況）。像這樣的案例，我們就會說簡易搜尋演算法的時間複雜度為 O(n)。&lt;/p>
+&lt;hr>
+&lt;h3 id="olog-n二分搜尋法">O(log n)：二分搜尋法&lt;/h3>
+&lt;h4 id="說明-2">說明&lt;/h4>
+&lt;p>時間複雜度為 O(log n) 的演算法（這邊的 log 都是以二為底），代表當輸入的數量是 n 時，執行的步驟數會是 log n。（讓忘記 log 是什麼的同學們複習一下，當 log n = x 的意思是 n = 2^x，如果這部分的腦細胞尚未復活，且讓我們先記住 n = 2^x，再來看看例子）。&lt;/p>
+&lt;p>舉例來說，當 n = 4，程式會在 2 個步驟完成（4 = 2²）；n = 16 時，程式會在 4 個步驟完成（16 = 2⁴），以此類推。&lt;/p>
+&lt;p>在程式中，O(log n) 的最常見例子是二分搜尋法。&lt;/p>
+&lt;h4 id="二分搜尋法">二分搜尋法&lt;/h4>
+&lt;p>假設我們在一本字典中想要找到一個單字，這個字以 W 開頭，我們可以用前面提過「簡易搜尋」的邏輯，從第一頁的 A 開始找起，一個一個找到天荒地老海枯石爛。也可以用更珍惜生命的方式，直接翻到字典的後面，找到以 W 開頭的第一個字後再開始往後找。&lt;/p>
+&lt;p>同樣的邏輯，假設有一長串有小到大排序好的數字們，我要在其中找特定一個數字，我們一樣可以從第一個往後一個一個檢查。但假設我們想要更珍惜生命，聰明的讀者可能已經想到了我們在「終極密碼」這種遊戲中會使用的策略，也就是每次都先檢查最中間的數字，如果中間的數字比我們要找的數字大，我們要找的數量就只剩原本的一半（因為在後段的數字顯然都會比我們要找的數字大），這樣的方法，就稱作二分搜尋法。&lt;/p>
+&lt;p>舉一個實際的例子，假設今天有一排編號好的櫃子，裡面擺著八個由小到大排序好的數字。假設我們知道裡面的數字包含 55，但我們不知道在哪一個編號櫃子中。讓我們來比較簡易搜尋（從第一格往後一個一個檢查）跟二分搜尋法有什麼差別。&lt;/p>
+&lt;p>&lt;img src="https://i.imgur.com/a6K8ZNC.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>從上面的圖可以看到，一般的搜尋方法需要花五個步驟才能找到 55。&lt;/p>
+&lt;p>&lt;img src="https://i.imgur.com/N24DLqt.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>而在二分搜尋法中，我們先打開最中間的櫃子，發現裡面的數字是 41。因為 55 比 41 大，因此我們知道從一號櫃到三號櫃都不會有 55，接下來只需要檢查五號櫃到七號櫃。&lt;/p>
+&lt;p>同樣的邏輯，我們打開剩下三個可能性中最中間的櫃子，發現六號櫃裡面的數字是 61，因為 61 比 55 大，我們可以知道七號櫃的數字一定也比 55 大，得知 55 一定就在五號櫃之中。&lt;/p>
+&lt;p>接下來，要再次來關心兩個搜尋方法的時間複雜度。簡易搜尋的情況中，我們可以輕鬆地知道最壞的情況就是剛好七個步驟（要找的數字是 80 ）。而二分搜尋法，我們可以先練習去計算各種情況需要的步驟，而最終的答案如下表：&lt;/p>
+&lt;p>&lt;img src="https://i.imgur.com/bf1ZxXK.jpg"
+loading="lazy"
+>&lt;/p>
+&lt;p>從上表我們可以發現，二分搜尋法最慘最慘，也只需要三個步驟。&lt;/p>
+&lt;p>推廣到有 n 個櫃子時，我們可以發現：二分搜尋法在每進行一個步驟時，就可以排除掉一半的可能性。每次都能減少一半，因此二分搜尋法最糟最糟也只需要以 2 為底的 log n 個步驟就能完成。&lt;/p>
+&lt;p>二分搜尋法在程式碼中的例子，對於程式新手可能需要花比較多的理解。如果你是對程式有一定理解的人，可以嘗試動手實做看看。而如果下方的程式碼對於讀者還有些吃力的話，也可以先多多熟悉語法後回來複習即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-Python" data-lang="Python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Numbers&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">17&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">33&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">41&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">55&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">61&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">80&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">Find&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">55&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">​&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">low&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">high&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">len&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Numbers&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">​&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">while&lt;/span> &lt;span class="n">low&lt;/span> &lt;span class="o">&amp;lt;=&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">mid&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">low&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="n">high&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">//&lt;/span> &lt;span class="mi">2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="n">Numbers&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">mid&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="n">Find&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">high&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mid&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">elif&lt;/span> &lt;span class="n">Numbers&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="n">mid&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="n">Find&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">low&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">mid&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="mi">1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">​&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">mid&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="小結">小結&lt;/h3>
+&lt;p>在這篇文章中，我們分別了解了 O(1)、O(n)、O(logn) 的時間複雜度，以及對應到的三個常見演算法。而在接下來的文章中，我們會開始認識新朋友，在演算法中佔有重要地位的「排序法」，以及在更進階的例子。&lt;/p>
+&lt;hr></description></item><item><title>從找衣服了解時間複雜度</title><link>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%BE%9E%E6%89%BE%E8%A1%A3%E6%9C%8D%E4%BA%86%E8%A7%A3%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%BE%9E%E6%89%BE%E8%A1%A3%E6%9C%8D%E4%BA%86%E8%A7%A3%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/</guid><description>&lt;img src="https://i.imgur.com/zNCtQM4.jpg" alt="Featured image of post 從找衣服了解時間複雜度" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://medium.com/appworks-school/%E5%88%9D%E5%AD%B8%E8%80%85%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95-%E5%BE%9E%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E8%AA%8D%E8%AD%98%E5%B8%B8%E8%A6%8B%E6%BC%94%E7%AE%97%E6%B3%95-%E4%B8%80-b46fece65ba5" target="_blank" rel="noopener"
+>參考網站 - 初學者學演算法｜從時間複雜度認識常見演算法&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>剛剛用日常上班前挑衣服的例子和沒學過程式的 00 說明時間複雜度的概念很好理解耶～！&lt;/p>
+&lt;p>例子是這樣的&amp;hellip;&lt;/p>
+&lt;p>一早要出門的時候，想要從衣櫃中找出紅色的上衣。&lt;/p>
+&lt;p>其中一種方式是像左圖一樣，這是掏寶上很熱門的「疊衣服褲子收納神器」，雖然看起來整理的很乾淨，但如果你要從中找到紅色的衣服，你就得要由上而下一件一件找，最糟的情況就是一直翻到最下面才能找到你要的紅色衣服。&lt;/p>
+&lt;p>另一種方式是像右圖一樣，把衣服用立起來的方式，一眼就可以看到紅色的衣服在哪，直接拿出來，幾乎不用找。&lt;/p>
+&lt;p>左圖的那種方式，時間複雜的就是 O(n)，n 就是衣服的件數，雖然紅色的衣服有可能就放在最上面，一眼就可以看到，但在探討時間複雜度的時候都要考慮最差的情況，所以如果你有 n 件衣服，最差的情況就是要把 n 件衣服都翻過才會找到紅色那件。&lt;/p>
+&lt;p>右圖的方式它的時間複雜度是 O(1)，在你沒有忘記其實衣服已經被丟到洗衣籃的前提下，你看一眼，翻都不用翻就可以把紅衣服直接取出（請先忽略掉人腦內建的視覺搜尋系統，那是另一個有趣的故事 XD）。這種不用一個一個找，就直接取出的，時間複雜度就是 O(1)。&lt;/p>
+&lt;p>有了這個時間複雜度的概念後，是不是覺得左邊的那個商品實用性沒這麼高啦～ XDD&lt;/p>
+&lt;p>真的是沒想到學演算法還可以用在購物吧！&lt;/p>
+&lt;hr></description></item><item><title>gRPC 基本介紹</title><link>https://wjdesign.github.io/hugo-blog-wayne/p/grpc-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</link><pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate><guid>https://wjdesign.github.io/hugo-blog-wayne/p/grpc-%E5%9F%BA%E6%9C%AC%E4%BB%8B%E7%B4%B9/</guid><description>&lt;img src="https://i.imgur.com/Wby0iiz.png" alt="Featured image of post gRPC 基本介紹" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -748,7 +930,7 @@ loading="lazy"
 &lt;li>經由本網站取得訊息或進行交易。&lt;/li>
 &lt;li>第三人在本網站上之陳述或作為。&lt;/li>
 &lt;li>其他與本網站服務有關之事項。&lt;/li>
-&lt;/ol></description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/</guid><description>&lt;img src="https://wjdesign.github.io/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/143400003_253834612811965_4864474600445741482_n.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />&lt;style>
+&lt;/ol></description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://wjdesign.github.io/hugo-blog-wayne/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/</guid><description>&lt;img src="https://wjdesign.github.io/p/%E5%B0%9A%E7%A1%85%E8%B0%B7-vue3-%E8%A6%96%E9%A0%BB%E7%AD%86%E8%A8%98/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
