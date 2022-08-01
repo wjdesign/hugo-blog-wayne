@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>演算法 on 偉恩的部落格</title><link>/categories/%E6%BC%94%E7%AE%97%E6%B3%95/</link><description>Recent content in 演算法 on 偉恩的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml"/><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>/p/%E5%88%9D%E5%AD%B8%E8%80%85%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95%E5%BE%9E%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E8%AA%8D%E8%AD%98%E5%B8%B8%E8%A6%8B%E6%BC%94%E7%AE%97%E6%B3%95/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/p/%E5%88%9D%E5%AD%B8%E8%80%85%E5%AD%B8%E6%BC%94%E7%AE%97%E6%B3%95%E5%BE%9E%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6%E8%AA%8D%E8%AD%98%E5%B8%B8%E8%A6%8B%E6%BC%94%E7%AE%97%E6%B3%95/</guid><description>&lt;img src="https://i.imgur.com/TqtfUrE.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>演算法 on 偉恩的部落格</title><link>/categories/%E6%BC%94%E7%AE%97%E6%B3%95/</link><description>Recent content in 演算法 on 偉恩的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/%E6%BC%94%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml"/><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://i.imgur.com/TqtfUrE.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -161,7 +161,7 @@ loading="lazy"
 &lt;/div>&lt;hr>
 &lt;h3 id="小結">小結&lt;/h3>
 &lt;p>在這篇文章中，我們分別了解了 O(1)、O(n)、O(logn) 的時間複雜度，以及對應到的三個常見演算法。而在接下來的文章中，我們會開始認識新朋友，在演算法中佔有重要地位的「排序法」，以及在更進階的例子。&lt;/p>
-&lt;hr></description></item><item><title>從找衣服了解時間複雜度</title><link>/p/%E5%BE%9E%E6%89%BE%E8%A1%A3%E6%9C%8D%E4%BA%86%E8%A7%A3%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/p/%E5%BE%9E%E6%89%BE%E8%A1%A3%E6%9C%8D%E4%BA%86%E8%A7%A3%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/</guid><description>&lt;img src="https://i.imgur.com/zNCtQM4.jpg" alt="Featured image of post 從找衣服了解時間複雜度" />&lt;style>
+&lt;hr></description></item><item><title>從找衣服了解時間複雜度</title><link>/2022-07-23/learn-time-complexity-by-clothes/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-23/learn-time-complexity-by-clothes/</guid><description>&lt;img src="https://i.imgur.com/zNCtQM4.jpg" alt="Featured image of post 從找衣服了解時間複雜度" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -178,7 +178,7 @@ padding: 0 5px;
 &lt;p>右圖的方式它的時間複雜度是 O(1)，在你沒有忘記其實衣服已經被丟到洗衣籃的前提下，你看一眼，翻都不用翻就可以把紅衣服直接取出（請先忽略掉人腦內建的視覺搜尋系統，那是另一個有趣的故事 XD）。這種不用一個一個找，就直接取出的，時間複雜度就是 O(1)。&lt;/p>
 &lt;p>有了這個時間複雜度的概念後，是不是覺得左邊的那個商品實用性沒這麼高啦～ XDD&lt;/p>
 &lt;p>真的是沒想到學演算法還可以用在購物吧！&lt;/p>
-&lt;hr></description></item><item><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title><link>/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/</link><pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate><guid>/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/</guid><description>&lt;img src="/p/%E5%BD%AD%E5%BD%AD%E7%9A%84%E8%AA%B2%E7%A8%8B-%E6%B0%A3%E6%B3%A1%E6%8E%92%E5%BA%8F%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E7%9A%84%E5%AF%A6%E4%BD%9C%E8%88%87%E5%88%86%E6%9E%90/hqdefault.jpg" alt="Featured image of post 彭彭的課程 - 氣泡排序、插入排序的實作與分析" />&lt;style>
+&lt;hr></description></item><item><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title><link>/2022-07-21/bubble-sort-and-insertion-sort/</link><pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-21/bubble-sort-and-insertion-sort/</guid><description>&lt;img src="/2022-07-21/bubble-sort-and-insertion-sort/hqdefault.jpg" alt="Featured image of post 彭彭的課程 - 氣泡排序、插入排序的實作與分析" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
