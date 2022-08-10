@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>時間複雜度 on 偉恩的部落格</title><link>/tags/%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/</link><description>Recent content in 時間複雜度 on 偉恩的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://i.imgur.com/TqtfUrE.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>時間複雜度 on 偉恩的部落格</title><link>/tags/%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/</link><description>Recent content in 時間複雜度 on 偉恩的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 23 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/index.xml" rel="self" type="application/rss+xml"/><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276285230_7f886f0bca_o.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -33,7 +33,7 @@ padding: 0 5px;
 &lt;p>時間複雜度為 O(1) 的演算法，代表著不管你輸入多少個東西，程式都會在同一個時間跑完。在程式設計中，最簡單的例子就是讀取一個陣列中特定索引值的元素(程式麻瓜先別急著吐血，且讓我們在下面慢慢說明)。&lt;/p>
 &lt;h4 id="陣列讀取">陣列讀取&lt;/h4>
 &lt;p>陣列是程式中儲存東西的一種容器，我們可以想像成一排已經編號好的櫃子。每一個櫃子上的編號我們稱為「索引值」（Index，在程式中這個編號通常從 0 開始），而櫃子裡的物品我們稱為「元素」。例如：假設神奇寶貝大師小明在一個名叫 Pokemons 的陣列裡依序放入他的神奇寶貝們，我們來複習一下陣列、元素、索引值的關係：&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/KhnnEpC.jpg"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275821863_26937a0dab_o.jpg"
 loading="lazy"
 >&lt;/p>
 &lt;p>在程式碼中我們把七隻神奇寶貝這樣表達：&lt;/p>
@@ -104,17 +104,17 @@ loading="lazy"
 &lt;p>假設我們在一本字典中想要找到一個單字，這個字以 W 開頭，我們可以用前面提過「簡易搜尋」的邏輯，從第一頁的 A 開始找起，一個一個找到天荒地老海枯石爛。也可以用更珍惜生命的方式，直接翻到字典的後面，找到以 W 開頭的第一個字後再開始往後找。&lt;/p>
 &lt;p>同樣的邏輯，假設有一長串有小到大排序好的數字們，我要在其中找特定一個數字，我們一樣可以從第一個往後一個一個檢查。但假設我們想要更珍惜生命，聰明的讀者可能已經想到了我們在「終極密碼」這種遊戲中會使用的策略，也就是每次都先檢查最中間的數字，如果中間的數字比我們要找的數字大，我們要找的數量就只剩原本的一半（因為在後段的數字顯然都會比我們要找的數字大），這樣的方法，就稱作二分搜尋法。&lt;/p>
 &lt;p>舉一個實際的例子，假設今天有一排編號好的櫃子，裡面擺著八個由小到大排序好的數字。假設我們知道裡面的數字包含 55，但我們不知道在哪一個編號櫃子中。讓我們來比較簡易搜尋（從第一格往後一個一個檢查）跟二分搜尋法有什麼差別。&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/a6K8ZNC.jpg"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275821858_1ae3815cde_o.jpg"
 loading="lazy"
 >&lt;/p>
 &lt;p>從上面的圖可以看到，一般的搜尋方法需要花五個步驟才能找到 55。&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/N24DLqt.jpg"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275803781_5fe0ae4bdb_o.jpg"
 loading="lazy"
 >&lt;/p>
 &lt;p>而在二分搜尋法中，我們先打開最中間的櫃子，發現裡面的數字是 41。因為 55 比 41 大，因此我們知道從一號櫃到三號櫃都不會有 55，接下來只需要檢查五號櫃到七號櫃。&lt;/p>
 &lt;p>同樣的邏輯，我們打開剩下三個可能性中最中間的櫃子，發現六號櫃裡面的數字是 61，因為 61 比 55 大，我們可以知道七號櫃的數字一定也比 55 大，得知 55 一定就在五號櫃之中。&lt;/p>
 &lt;p>接下來，要再次來關心兩個搜尋方法的時間複雜度。簡易搜尋的情況中，我們可以輕鬆地知道最壞的情況就是剛好七個步驟（要找的數字是 80 ）。而二分搜尋法，我們可以先練習去計算各種情況需要的步驟，而最終的答案如下表：&lt;/p>
-&lt;p>&lt;img src="https://i.imgur.com/bf1ZxXK.jpg"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276285185_e6aefb9097_o.jpg"
 loading="lazy"
 >&lt;/p>
 &lt;p>從上表我們可以發現，二分搜尋法最慘最慘，也只需要三個步驟。&lt;/p>
