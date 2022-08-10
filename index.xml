@@ -1,4 +1,1152 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne(偉恩)的部落格</title><link>/</link><description>Recent content on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 01 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD。</title><link>/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD。" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne(偉恩)的部落格</title><link>/</link><description>Recent content on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 10 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Javascript ES6 特性</title><link>/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.youtube.com/playlist?list=PLmOn9nNkQxJFlj86lvBSpC2UsNw-pdmdq" target="_blank" rel="noopener"
+>【尚硅谷】ES6教程 - 涵盖 ES6~ES11&lt;/a>&lt;br>
+&lt;a class="link" href="https://book.vue.tw/appendix/es6.html" target="_blank" rel="noopener"
+>給進入 Vue.js 前的 ES6 必備知識&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/kjssjj12/article/details/107090338" target="_blank" rel="noopener"
+>超级实用的 ES6 特性&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/users/20110579/ironman/1846" target="_blank" rel="noopener"
+>【詳細 MDN 文件】&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="ecmascript">ECMAScript&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>ES&lt;/code> 是 &lt;code>ECMAScript&lt;/code> 的簡稱，&lt;code>ECMAScript&lt;/code> 是腳本語言的規範。而我們所使用的 &lt;code>JavaScript&lt;/code> 是 &lt;code>ECMAScript&lt;/code> 的一種實現。&lt;/li>
+&lt;li>簡言之：ECMA做出規範，各瀏覽器依照規範做出實現，因而不同瀏覽器會有兼容性不同的情況。&lt;/li>
+&lt;li>&lt;code>ES6&lt;/code> 是 &lt;code>ES&lt;/code> 的經典版本，是前端工程師崗位的高頻需求，是前端開發工程師求職的必備技能。&lt;/li>
+&lt;li>現階段前端行業發展迅猛，前端技術也在高速迭代， ES6-ES11 規范增加了很多 &lt;code>JavaScript&lt;/code> 新特性。 &lt;code>ES&lt;/code> 新特性已經成為前端技術發展的趨勢，語法簡潔，功能豐富，部分特性還有性能提升，前端開發三大框架 &lt;code>Vue&lt;/code>、&lt;code>React&lt;/code>、&lt;code>Angular&lt;/code> 都用到了大量的新特性代碼，框架的升級也在向著新特性語法靠攏。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="var--let-與-const">&lt;code>var&lt;/code> 、 &lt;code>let&lt;/code> 與 &lt;code>const&lt;/code>&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>var&lt;/code> 、 &lt;code>let&lt;/code> 與 &lt;code>const&lt;/code> 在 Javascript 都是用來宣告變數的語法，最大的差別是他們的scope(變數有效範圍)的不同。切分&lt;code>var&lt;/code>作用範圍的最小單位為 &lt;code>function&lt;/code>，而 &lt;code>let&lt;/code> 與 &lt;code>const&lt;/code> 的作用範圍是 &lt;code>block&lt;/code> 也就是俗稱的大括號：&lt;code>{ }&lt;/code> 來切分。&lt;/li>
+&lt;li>&lt;code>const&lt;/code> 所宣告的變數還有另一個特性是無法被重新賦值 (re-assign)。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="let-特性">&lt;code>let&lt;/code> 特性&lt;/h3>
+&lt;ol>
+&lt;li>var 可以重複聲明，但 let 不能重複聲明。&lt;/li>
+&lt;/ol>
+&lt;h5 id="演示">演示：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">testA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;AAA&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">testA&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;BBB&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 不會報錯
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;AAA&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testB&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;BBB&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 會報錯
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>let 為塊級作用域&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>塊級作用域：變數只在代碼塊裡面有效(&lt;code>{ ... }&lt;/code>、&lt;code>if else&lt;/code>、&lt;code>while&lt;/code>、&lt;code>for&lt;/code>)&lt;/li>
+&lt;li>在 ES5 中，作用域有：全局、函數、eval(嚴格模式下)&lt;/li>
+&lt;/ul>
+&lt;h5 id="演示-1">演示：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">var&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;BBB&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// &amp;#34;BBB&amp;#34;，因為 var 非塊級作用域，所以聲明時會往外層(全局window)添加這個屬性
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;AAA&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 會報錯 a is not defined
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>不存在變數提升&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>變數提升：代碼執行前會先進行變數搜集，&lt;code>var&lt;/code> 聲明的變量在搜集時會先定義一個 &lt;code>undefined&lt;/code> 的初始值。&lt;/li>
+&lt;/ul>
+&lt;h5 id="演示-2">演示：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 在 a 用 var 聲明前輸出
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 不會報錯，會輸出 undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;AAA&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 在 b 用 let 聲明前輸出
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 會報錯，Cannot access &amp;#39;b&amp;#39; before initialization
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;BBB&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>不影響作用域鏈&lt;/li>
+&lt;/ol>
+&lt;h5 id="演示-3">演示：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">school&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;尚硅谷&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">function&lt;/span> &lt;span class="nx">fn&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">school&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fn&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// 輸出 &amp;#34;尚硅谷&amp;#34;，在 fn 內沒有 school，會往外層尋找
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="let-經典範例實踐">let 經典範例實踐&lt;/h3>
+&lt;ul>
+&lt;li>實作點擊 div 時切換顏色&lt;/li>
+&lt;/ul>
+&lt;h5 id="代碼">代碼：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;container&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;page-header&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 點擊切換顏色
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;item&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;item&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;item&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 獲取 div 元素對象
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">items&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getElementsByClassName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;item&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 遍歷並綁定事件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">items&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">item&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">onclick&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 修改當前元素的背景顏色
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 最佳寫法應為：
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">background&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;pink&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 常見錯誤寫法：
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// items[i].style.background = &amp;#34;pink&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">//
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 原因：
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// i 使用 var 來聲明，var 聲明的變數非塊級作用域，
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 因此 i 被聲明在全局(window)，此處取 i 會發現 window.i 已經等於 3
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 所以 items[3].style 會找不到。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">//
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 修正方式：
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 將 i 改用 let 來聲明，讓 i 只存在於 for 迴圈中。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">body&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">html&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="const-特性">const 特性&lt;/h3>
+&lt;ol>
+&lt;li>一定要賦初始值，且聲明後值不能被修改。&lt;/li>
+&lt;li>一般常數使用大寫(淺規則)。&lt;/li>
+&lt;li>也是塊級作用域&lt;/li>
+&lt;/ol>
+&lt;h5 id="演示-4">演示：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">PLAYER&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;UZI&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">PLAYER&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 會報錯，PLAYER is not defined
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>對於 Array 和 Object 的元素修改，不算對常數的修改，不會報錯。&lt;/li>
+&lt;/ol>
+&lt;h5 id="演示-5">演示：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">TEAM&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;UZI&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;MXLG&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Ming&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Letme&amp;#34;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">TEAM&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Meiko&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 不會報錯，因為變數所指向的地址沒有改變
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="函式的參數默認值">函式的參數默認值&lt;/h2>
+&lt;ul>
+&lt;li>在 ES5 中必須這麼寫：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">text&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="s2">&amp;#34;default&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>在 ES6 以後可以這樣簡寫屬性：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;default&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="二進制與八進制字面量">二進制與八進制字面量&lt;/h2>
+&lt;ul>
+&lt;li>ES6 支持二進制與八進制的字面量，通過在數字前面添加 &lt;code>0o&lt;/code> 或者 &lt;code>0O&lt;/code> 即可將其轉換為&lt;span class="focus">八進制值&lt;/span>、添加 &lt;code>0b&lt;/code> 或者 &lt;code>0B&lt;/code> 即可將其轉換為&lt;span class="focus">二進制值&lt;/span>。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">oValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;0o10&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">oValue&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">bValue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mb">0b10&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">bValue&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 2
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="es-module-與-import--export">ES Module 與 import 、 export&lt;/h2>
+&lt;ul>
+&lt;li>Javascript 自從 ES6 開始新增了模組系統(ES Module)，我們可以將每個 Javascript 的檔案當作是一個獨立的模組來看待，在 A 檔案匯出(export)在 B 檔案匯入(import)。&lt;/li>
+&lt;/ul>
+&lt;h5 id="ajs">a.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">aString&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;This is A String&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">aFunction&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;A Function test&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">aObject&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="bjs">b.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">aString&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">aFunction&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">aObject&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;./a.js&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">aString&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;This is A String&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">aObject&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; { a: 1 }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">aFounction&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;A Function test&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>當然在 &lt;code>export&lt;/code> 也可以不用給變數名稱：&lt;/li>
+&lt;/ul>
+&lt;h5 id="cjs">c.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello 008 JS!!!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>在另一個檔案就可以這樣來使用：&lt;/li>
+&lt;/ul>
+&lt;h5 id="djs">d.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">greeting&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s2">&amp;#34;./c.js&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">greeting&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;Hello 008 JS!!!&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="箭頭函數與-this">箭頭函數與 &lt;code>this&lt;/code>&lt;/h2>
+&lt;ul>
+&lt;li>從 ES6 開始新增了一種叫做 「箭頭函式表示式」 (Arrow Function expression) 的函式表達式。快速看一下，如何將一般的函式轉換成箭頭函式的寫法：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">plus&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">numA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">numB&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">numA&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">numB&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>首先我們把參數往前提，然後把關鍵字 &lt;code>function&lt;/code> 刪掉改成箭頭符號 &lt;code>=&amp;gt;&lt;/code>：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">plus&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">numA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">numB&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">numA&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">numB&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>如果這個函式只是想要回傳某個運算結果的時候，可以將 &lt;code>return&lt;/code> 以及大括號 &lt;code>{ }&lt;/code> 省略：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">plus&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">numA&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">numB&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">numA&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">numB&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>而只有一個參數的時候，參數前面的小括號&lt;code>( )&lt;/code>則可以省略：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">saySomething&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">msg&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">saySomething&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;Hello!&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>另外需要注意的是，在箭頭函式使用 &lt;code>this&lt;/code> 時，這時 &lt;code>this&lt;/code> 會&lt;span class="focus">指向箭頭函式外面的 &lt;code>this&lt;/code>&lt;/span>，這個規則與原本 &lt;code>function&lt;/code> 所宣告的函式不同，而且箭頭函式無法透過 &lt;code>bind()&lt;/code> 強制指定裡面的 &lt;code>this&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="字串模板-template-literals">字串模板 (Template literals)&lt;/h2>
+&lt;ul>
+&lt;li>以往我們在組合 JavaScript 的變數與 HTML 模板的時候，大多會透過「字串結合」 &lt;code>+&lt;/code> 的模式，或透過陣列來新增字串，最後再用 &lt;code>[].join(&amp;quot;&amp;quot;)&lt;/code> 的方式串接起來。但自 ES6 起，我們可以透過字串模板的語法，將變數、運算式等插入至我們的網頁模板當中，像這樣：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 用「`...`」取代單/雙引號
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="sb">`string text &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">expression&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> string text`&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>這樣我們就可以將這個 &lt;code>expression&lt;/code> 所代表的運算式或數值置入到字串裡頭了。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="解構賦值-destructuring-assignment">解構賦值 (Destructuring assignment)&lt;/h2>
+&lt;ul>
+&lt;li>ES6 提供了解構賦值的語法，可以將陣列或者物件裡面的資料解開變成獨立的變數：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">user&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">42&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">displayName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;jdoe&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">fullName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">firstName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;John&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">lastName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Doe&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">displayName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fullName&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">user&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 42
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">displayName&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;jdoe&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fullName&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; { firstName: &amp;#34;John&amp;#34;, lastName: &amp;#34;Doe&amp;#34; }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>除了物件以外，陣列也可以：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">number&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">number&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 2
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="-展開運算子-spread-operator--其餘運算子-rest-operator">&lt;code>...&lt;/code> 展開運算子 (Spread Operator) / 其餘運算子 (Rest Operator)&lt;/h2>
+&lt;ul>
+&lt;li>雖然 ES6 提供的展開運算子與其餘運算子的語法都是 &lt;code>...&lt;/code>，不過它們兩者所代表的涵意還是不太一樣。&lt;/li>
+&lt;/ul>
+&lt;h3 id="展開運算子">展開運算子&lt;/h3>
+&lt;ul>
+&lt;li>展開運算子通常會用在陣列，或者是函式的參數，如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">frameworks&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Vue.js&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Angular&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;React&amp;#34;&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">arr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Awesome&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">frameworks&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; [&amp;#34;Awesome&amp;#34;, &amp;#34;Vue.js&amp;#34;, &amp;#34;Angular&amp;#34;, &amp;#34;React&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="其餘運算子">其餘運算子&lt;/h3>
+&lt;ul>
+&lt;li>延續前面的例子，我們可以透過 「其餘運算子」 將剩下的部分拆解出來：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; [&amp;#34;Awesome&amp;#34;, &amp;#34;Vue.js&amp;#34;, &amp;#34;Angular&amp;#34;, &amp;#34;React&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">others&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">arr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;Awesome&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;Vue.js&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">others&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;Angular&amp;#34;, &amp;#34;React&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>像這樣，我們可以搭配解構賦值的語法，將 &lt;code>arr&lt;/code> 陣列拆解處來，並將剩餘的元素透過 &lt;code>...others&lt;/code> 分離。&lt;/li>
+&lt;li>當然，使用在物件上也是可以的：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 其餘 Properties
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">z&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">4&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 2
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">z&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; { a: 3, b: 4 }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 展開 Properties
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">obj&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">...&lt;/span>&lt;span class="nx">z&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">obj&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; { x: 1, y: 2, a: 3, b: 4 }
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>要注意的是，&lt;span class="focus">其餘運算子&lt;/span>所分離的部分只是陣列或物件的&lt;span class="focus">「淺拷貝」&lt;/span>，若在多層物件使用時要特別小心。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="promise-物件">&lt;code>Promise&lt;/code> 物件&lt;/h2>
+&lt;ul>
+&lt;li>為了解決過去同步與非同步的問題，ES6 提供了 &lt;code>Promise&lt;/code> 物件：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">myPromiseFunc&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reject&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">resolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">someValue&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 完成
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// reject(&amp;#34;failure reason&amp;#34;); // 拒絕
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>當 &lt;code>Promise&lt;/code> 的任務被完成的時候，我們就可以呼叫 &lt;code>resolve()&lt;/code>，然後將取得的資料傳遞出去。 或是說想要拒絕這個 &lt;code>Promise&lt;/code>，那麼就裡面呼叫 &lt;code>reject()&lt;/code> 來拒絕他。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">myAsyncFunction&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">url&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reject&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// resolve() or reject()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 透過 .then() 來取代過去的 callback hell
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">myAsyncFunction&lt;/span>&lt;span class="p">(...)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">...&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="async-與-await">&lt;code>async&lt;/code> 與 &lt;code>await&lt;/code>&lt;/h2>
+&lt;ul>
+&lt;li>在後來，從 &lt;code>Promise&lt;/code> 物件又延伸出 &lt;code>async&lt;/code> 與 &lt;code>await&lt;/code> 兩個新特性，其實本質上是更簡便的語法糖。&lt;/li>
+&lt;/ul>
+&lt;h4 id="假設我們有兩個非同步任務要處理並且我們希望在-asyncfunc1-執行完成之後才去執行-asyncfunc2">假設我們有兩個非同步任務要處理，並且我們希望在 &lt;code>asyncFunc1&lt;/code> 執行完成之後才去執行 &lt;code>asyncFunc2&lt;/code>：&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">asyncFunc1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">url&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reject&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// resolve() or reject()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">asyncFunc2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">url&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">reject&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// resolve() or reject()
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">asyncCall&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">result1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">asyncFunc1&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">result2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">asyncFunc2&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>像這樣，透過 &lt;code>async&lt;/code> 與 &lt;code>await&lt;/code> 我們就可以擺脫過去一層層 &lt;code>callback&lt;/code> 的惡夢，程式碼也更加簡潔。&lt;/p>
+&lt;hr>
+&lt;h2 id="簡寫屬性">簡寫屬性&lt;/h2>
+&lt;ul>
+&lt;li>在 ES5 中必須這麼寫：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">createCoord&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">x&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">y&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">y&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>在 ES6 以後可以這樣簡寫屬性：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">createCoord&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">y&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="方法屬性">方法屬性&lt;/h2>
+&lt;ul>
+&lt;li>在 ES5 中必須這麼寫：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">math&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">add&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sub&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">multiply&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>在 ES6 以後可以這樣簡寫屬性：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">math&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sub&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">multiply&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="陣列方法">陣列方法&lt;/h2>
+&lt;h4 id="es6-引入了許多有用的陣列方法例如">ES6 引入了許多有用的陣列方法，例如：&lt;/h4>
+&lt;ul>
+&lt;li>find()：查找陣列中的成員，返回 null 表示沒找到&lt;/li>
+&lt;li>findIndex()：查找陣列成員的索引&lt;/li>
+&lt;li>some()：檢查某個斷言是否至少一個成員在陣列中&lt;/li>
+&lt;li>includes：陣列是否包含某項目&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">array&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">checked&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="p">}];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">find&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">item&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; { id: 2 }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">findIndex&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">item&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">id&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">some&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">item&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">item&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">checked&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">numberArray&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="mi">4&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">numberArray&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">includes&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; true
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="es6-的-class">ES6 的 class&lt;/h2>
+&lt;ul>
+&lt;li>ES6 支持 &lt;code>class&lt;/code> 語法，但不是新的對象繼承模型，只是原型鍊的語法糖。&lt;/li>
+&lt;/ul>
+&lt;h3 id="函式中使用-static-關鍵字定義構造函式的方法與屬性">函式中使用 &lt;code>static&lt;/code> 關鍵字定義構造函式的方法與屬性：&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">class&lt;/span> &lt;span class="nx">Student&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">constructor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;I&amp;#39;m a student.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">study&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;study!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">static&lt;/span> &lt;span class="nx">read&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Reading Now.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">Student&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; Function
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">stu&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Student&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;I&amp;#39;m a student.&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">stu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">study&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;study!&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">stu&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">read&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;Reading Now.&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="class-的繼承extends">&lt;code>class&lt;/code> 的繼承(&lt;code>extends&lt;/code>)&lt;/h2>
+&lt;ul>
+&lt;li>&lt;code>extends&lt;/code> 允許一個子類繼承父類，需要注意的是，子類的 constructor 函式中需要執行 supre() 函式。&lt;/li>
+&lt;li>當然你也可以在子類方法中調用父類的方法，如 &lt;code>supre.parentMethodName()&lt;/code>。&lt;/li>
+&lt;li>&lt;code>class&lt;/code> 的聲明不會提升 &lt;code>hoisting&lt;/code> ，如果你要使用某個 &lt;code>class&lt;/code> ，那你必須在使用之前定義他，否則會拋出 &lt;code>reference error&lt;/code> 的錯誤。&lt;/li>
+&lt;li>在 &lt;code>class&lt;/code> 中定義函式不需要使用 &lt;code>function&lt;/code> 關鍵字。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">class&lt;/span> &lt;span class="nx">Phone&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">constructor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;I&amp;#39;m a phone.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">class&lt;/span> &lt;span class="nx">MI&lt;/span> &lt;span class="kr">extends&lt;/span> &lt;span class="nx">Phone&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">constructor&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">supre&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;I&amp;#39;m a phone designed by xiaomi.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">mi8&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">MI&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;I&amp;#39;m a phone.&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; &amp;#34;I&amp;#39;m a phone designed by xiaomi.&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="class-的-super-方法">&lt;code>class&lt;/code> 的 &lt;code>super&lt;/code> 方法&lt;/h2>
+&lt;ul>
+&lt;li>super 關鍵字被使用於通過函式存取父層&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/super" target="_blank" rel="noopener"
+>【詳細 MDN 文件】&lt;/a>&lt;/p>
+&lt;h3 id="語法">語法&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">super&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="nx">arguments&lt;/span>&lt;span class="p">]);&lt;/span> &lt;span class="c1">// calls the parent constructor.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">super&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">functionOnParent&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="nx">arguments&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>當使用&lt;span class="focus">建構子&lt;/span>，&lt;code>super&lt;/code> 關鍵字&lt;span class="focus">必須出現&lt;/span>在 &lt;code>this&lt;/code> 關鍵字之前使用，&lt;code>super&lt;/code> 關鍵字也可以使用在呼叫函式與父對象。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">parent&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">foo&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello from the Parent&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">child&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">foo&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">super&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">foo&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello from the Child&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">setPrototypeOf&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">child&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">parent&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">child&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">foo&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; Hello from the Parent
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; Hello from the Child
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="非同步處理工具---generator生成器函式">非同步處理工具 - &lt;code>Generator&lt;/code>(生成器函式)&lt;/h2>
+&lt;ul>
+&lt;li>生成器函式&lt;/li>
+&lt;li>生成器對像是由一個 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*" target="_blank" rel="noopener"
+>generator function&lt;/a> 返回的,並且它符合&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#iterable" target="_blank" rel="noopener"
+>可迭代協議&lt;/a>和&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols#iterator" target="_blank" rel="noopener"
+>迭代器協議&lt;/a>。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator" target="_blank" rel="noopener"
+>【詳細 MDN 文件】&lt;/a>&lt;/p>
+&lt;h3 id="語法-1">語法&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="nx">gen&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">g&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">gen&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;#34;Generator { }&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="方法">方法&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator/next" target="_blank" rel="noopener"
+>Generator.prototype.next()&lt;/a>：返回一個由 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield" target="_blank" rel="noopener"
+>yield&lt;/a>表達式生成的值。&lt;/li>
+&lt;li>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator/return" target="_blank" rel="noopener"
+>Generator.prototype.return()&lt;/a>：返回給定的值並結束生成器。&lt;/li>
+&lt;li>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Generator/throw" target="_blank" rel="noopener"
+>Generator.prototype.throw()&lt;/a>：向生成器拋出一個錯誤。&lt;/li>
+&lt;/ul>
+&lt;h3 id="範例一個無限迭代器">範例：一個無限迭代器&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span>&lt;span class="o">*&lt;/span> &lt;span class="nx">idMaker&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">yield&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">gen&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">idMaker&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// &amp;#34;Generator { }&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gen&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">next&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 0
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gen&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">next&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">gen&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">next&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// &amp;gt;&amp;gt;&amp;gt; 2
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="生成器對象">生成器對象&lt;/h3>
+&lt;ul>
+&lt;li>Generator.prototype.next()：返回 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield" target="_blank" rel="noopener"
+>yield&lt;/a> 表達式生成的值。&lt;/li>
+&lt;li>Generator.prototype.close()：關閉生成器，因此執行該函式後調用next()方法時將會拋出 &lt;code>StopIteration&lt;/code> 錯誤。&lt;/li>
+&lt;li>Generator.prototype.send()：用於將值發送到生成器。該值由&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield" target="_blank" rel="noopener"
+>yield&lt;/a>表達式返回，並且返回下一個&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/yield" target="_blank" rel="noopener"
+>yield&lt;/a>表達式生成的值。&lt;/li>
+&lt;li>Generator.prototype.throw()：向生成器拋出錯誤。&lt;/li>
+&lt;/ul>
+&lt;hr></description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
