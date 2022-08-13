@@ -3660,12 +3660,12 @@ padding: 0 5px;
 &lt;a class="link" href="https://cli.vuejs.org/zh/guide/webpack.html#%E7%AE%80%E5%8D%95%E7%9A%84%E9%85%8D%E7%BD%AE%E6%96%B9%E5%BC%8F" target="_blank" rel="noopener"
 >Vue CLI 官方webpack相關文檔&lt;/a>&lt;/p>
 &lt;hr>
-&lt;h2 id="0前言">0、前言&lt;/h2>
+&lt;h2 id="前言">前言&lt;/h2>
 &lt;ul>
 &lt;li>&lt;code>webp&lt;/code> 是 2010年 Google 釋出的圖片格式，針對 PNG 可減少 26%，JPEG 約可減少 25% ~ 34%，目前僅 safari、IE 尚不支援，但 safari 在 ios 14 以後開始支援。&lt;/li>
 &lt;li>若在未提供 &lt;code>.webp&lt;/code> 格式圖檔的情況下，使用套件於 &lt;code>webpack&lt;/code> 時進行圖片轉檔，但於 &lt;code>development&lt;/code> 下會因抓不到虛擬的 &lt;code>XXX.webp&lt;/code> 圖檔而導致 &lt;code>npm run&lt;/code> 起時噴錯，可使用以下設定解決此問題。&lt;/li>
 &lt;/ul>
-&lt;h2 id="1使用-webpack-plugin-image-transform-webp-and-minihttpswwwnpmjscompackagewebpack-plugin-image-transform-webp-and-mini-套件將-image-轉檔成-webp-格式">1、使用 &lt;a class="link" href="https://www.npmjs.com/package/webpack-plugin-image-transform-webp-and-mini" target="_blank" rel="noopener"
+&lt;h2 id="使用-webpack-plugin-image-transform-webp-and-minihttpswwwnpmjscompackagewebpack-plugin-image-transform-webp-and-mini-套件將-image-轉檔成-webp-格式">使用 &lt;a class="link" href="https://www.npmjs.com/package/webpack-plugin-image-transform-webp-and-mini" target="_blank" rel="noopener"
 >&lt;code>webpack-plugin-image-transform-webp-and-mini&lt;/code>&lt;/a> 套件將 image 轉檔成 webp 格式&lt;/h2>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -3675,7 +3675,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm i webpack-plugin-image-transform-webp-and-mini
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="2新增一個自訂的-webploader">2、新增一個自訂的 webploader&lt;/h2>
+&lt;/div>&lt;h2 id="新增一個自訂的-webploader">新增一個自訂的 webploader&lt;/h2>
 &lt;ul>
 &lt;li>此 &lt;code>loader&lt;/code> 功用為：若 resource 的 query (使用 &lt;code>chainWebpack&lt;/code> 提供的變數&amp;quot;&lt;code>resourceQuery&lt;/code>&amp;ldquo;抓) 字符中含有 &lt;code>&amp;quot;type=webp&amp;quot;&lt;/code> 且 &lt;code>resource&lt;/code> 為圖片時，將附檔名轉換成 &lt;code>XXX.webp&lt;/code> 。&lt;/li>
 &lt;/ul>
@@ -3709,7 +3709,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="3chainwebpack-設定">3、&lt;code>chainWebpack&lt;/code> 設定&lt;/h2>
+&lt;/div>&lt;h2 id="chainwebpack-設定">&lt;code>chainWebpack&lt;/code> 設定&lt;/h2>
 &lt;ul>
 &lt;li>套件安裝完成後，&lt;code>vue.config.js&lt;/code> 引入套件，並指定webp圖檔存放位置。&lt;/li>
 &lt;li>引入自訂的 &lt;code>webploader&lt;/code> ， 並設定 &lt;code>chainWebpack&lt;/code> 的 &lt;code>images&lt;/code> 需優先跑 &lt;code>webploader&lt;/code>，再跑 &lt;code>url-loader&lt;/code> 與 &lt;code>file-loader&lt;/code>。&lt;/li>
@@ -3801,7 +3801,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="4補上是否支援-webp-的判斷若支援則於-html-補上-class-name供css抓取-class-name-後改讀-webp-圖片">4、補上是否支援 &lt;code>Webp&lt;/code> 的判斷，若支援則於 &lt;code>&amp;lt;html&amp;gt;&lt;/code> 補上 class name，供CSS抓取 class name 後改讀 webp 圖片&lt;/h2>
+&lt;/div>&lt;h2 id="補上是否支援-webp-的判斷若支援則於-html-補上-class-name供css抓取-class-name-後改讀-webp-圖片">補上是否支援 &lt;code>Webp&lt;/code> 的判斷，若支援則於 &lt;code>&amp;lt;html&amp;gt;&lt;/code> 補上 class name，供CSS抓取 class name 後改讀 webp 圖片&lt;/h2>
 &lt;h4 id="mainjs">main.js&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -3849,7 +3849,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})()&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="5若有使用-vue-lazyload則補上-vue-lazyload-提供的-webp-相關設定">5、若有使用 &lt;code>vue-lazyload&lt;/code>，則補上 &lt;code>vue-lazyload&lt;/code> 提供的 webp 相關設定&lt;/h2>
+&lt;/div>&lt;h2 id="若有使用-vue-lazyload則補上-vue-lazyload-提供的-webp-相關設定">若有使用 &lt;code>vue-lazyload&lt;/code>，則補上 &lt;code>vue-lazyload&lt;/code> 提供的 webp 相關設定&lt;/h2>
 &lt;h4 id="img-使用-v-lazy-時src的圖片附檔名皆會轉換成-xxxwebp">&lt;code>&amp;lt;img&amp;gt;&lt;/code> 使用 v-lazy 時，src的圖片附檔名皆會轉換成 &lt;code>XXX.webp&lt;/code>&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -3877,7 +3877,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h2 id="6於各個-css-中若-background-使用到需轉-webp-格式的-img-補上自行設定的-query-typewebp以便-webploader-抓該-query-進行轉換圖檔格式">6、於各個 CSS 中，若 background 使用到需轉 .webp 格式的 img ，補上自行設定的 query (&lt;code>&amp;quot;?type=webp&amp;quot;&lt;/code>)，以便 &lt;code>webploader&lt;/code> 抓該 query 進行轉換圖檔格式&lt;/h2>
+&lt;/div>&lt;h2 id="於各個-css-中若-background-使用到需轉-webp-格式的-img-補上自行設定的-query-typewebp以便-webploader-抓該-query-進行轉換圖檔格式">於各個 CSS 中，若 background 使用到需轉 .webp 格式的 img ，補上自行設定的 query (&lt;code>&amp;quot;?type=webp&amp;quot;&lt;/code>)，以便 &lt;code>webploader&lt;/code> 抓該 query 進行轉換圖檔格式&lt;/h2>
 &lt;h4 id="例如">例如：&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
