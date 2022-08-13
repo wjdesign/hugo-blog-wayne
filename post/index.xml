@@ -1,4 +1,647 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne(偉恩)的部落格</title><link>/post/</link><description>Recent content in Posts on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 11 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne(偉恩)的部落格</title><link>/post/</link><description>Recent content in Posts on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 12 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Vue 基本概念與常見面試題筆記</title><link>/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.csdn.net/kjssjj12/article/details/109726345" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="基礎篇">基礎篇&lt;/h2>
+&lt;h3 id="1-對-spa-單頁的理解優缺點是什麼">1. 對 SPA 單頁⾯的理解，優缺點是什麼？&lt;/h3>
+&lt;ul>
+&lt;li>SPA（ single-page application ）僅在 Web 頁⾯初始化時加載相應的 HTML、JavaScript 和 CSS。 ⼀旦頁⾯加載完成，SPA 不會因為⽤戶的操作⽽進⾏⻚⾯的重新加載或跳轉；取⽽代之的是利⽤路由機制實現 HTML 內容的變換，UI 與⽤戶的交互，避免頁⾯的重新加載。&lt;/li>
+&lt;/ul>
+&lt;h5 id="優點">優點：&lt;/h5>
+&lt;ol>
+&lt;li>⽤戶體驗好、快，內容的改變不需要重新加載整個頁⾯，避免了不必要的跳轉和重複渲染&lt;/li>
+&lt;li>SPA 相對對服務器壓⼒⼩&lt;/li>
+&lt;li>前後端職責分離，架構清晰，前端進⾏交互邏輯，後端負責數據處理&lt;/li>
+&lt;/ol>
+&lt;h5 id="缺點">缺點：&lt;/h5>
+&lt;ol>
+&lt;li>⾸屏（初次）加載慢：為實現單⻚ Web 應⽤功能及顯示效果，需要在加載⻚⾯的時候將JavaScript、CSS 統⼀加載，部分⻚⾯按需加載&lt;/li>
+&lt;li>不利於 SEO：由於所有的內容都在⼀個⻚⾯中動態替換顯示，所以在 SEO 上其有著天然的弱勢&lt;/li>
+&lt;/ol>
+&lt;h3 id="2-new-vue-發生了什麼">2. new Vue() 發生了什麼？&lt;/h3>
+&lt;ol>
+&lt;li>結論：new Vue()是創建Vue實例，它內部執行了根實例的初始化過程&lt;/li>
+&lt;li>具體包括以下操作：
+&lt;ol>
+&lt;li>選項合併，children, refs, slot, createElement等实例属性的方法初始化&lt;/li>
+&lt;li>自定義事件處理&lt;/li>
+&lt;li>數據響應式處理&lt;/li>
+&lt;li>生命週期鉤子調用 (beforecreate created)&lt;/li>
+&lt;li>可能的掛載&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>總結：new Vue()創建了根實例並準備好數據和方法，未來執行掛載時，此過程還會遞歸的應用於它的子組件上，最終形成一個有緊密關係的組件實例樹&lt;/li>
+&lt;/ol>
+&lt;h3 id="3-vueuse是幹什麼的原理是什麼">3. Vue.use是幹什麼的？原理是什麼？&lt;/h3>
+&lt;ul>
+&lt;li>vue.use 是用來使用插件的，我們可以在插件中擴展全局組件、指令、原型方法等。&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>檢查插件是否註冊，若已註冊，則直接跳出&lt;/li>
+&lt;li>處理入參，將第一個參數之後的參數歸集，並在首部塞入 this 上下文&lt;/li>
+&lt;li>執行註冊方法，調用定義好的 install 方法，傳入處理的參數，若沒有 install 方法並且插件本身為 function 則直接進行註冊
+&lt;ol>
+&lt;li>插件不能重複的加載，install 方法的第一個參數是vue的構造函數，其他參數是Vue.set中除了第一個參數的其他參數； 代碼：args.unshift(this)&lt;/li>
+&lt;li>調用插件的install 方法 代碼：typeof plugin.install === &amp;ldquo;function&amp;rdquo;&lt;/li>
+&lt;li>插件本身是一個函數，直接讓函數執行。代碼：plugin.apply(null, args)&lt;/li>
+&lt;li>緩存插件。代碼：installedPlugins.push(plugin)&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="4-請說一下響應式數據的理解">4. 請說一下響應式數據的理解？&lt;/h3>
+&lt;ul>
+&lt;li>根據數據類型來做不同處理，數組和對像類型當值變化時如何劫持。&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>對象內部通過defineReactive方法，使用 Object.defineProperty() 監聽數據屬性的 get 來進行數據依賴收集，再通過 set 來完成數據更新的派發&lt;/li>
+&lt;li>數組則通過重寫數組方法來實現的。擴展它的 7 個變更⽅法，通過監聽這些方法可以做到依賴收集和派發更新&lt;/li>
+&lt;/ol>
+&lt;h5 id="內部依賴收集是怎麼做到的每個屬性都擁有自己的dep屬性存放他所依賴的-watcher當屬性變化後會通知自己對應的-watcher去更新">內部依賴收集是怎麼做到的？每個屬性都擁有自己的dep屬性，存放他所依賴的 watcher，當屬性變化後會通知自己對應的 watcher去更新&lt;/h5>
+&lt;blockquote>
+&lt;p>響應式流程：&lt;/p>
+&lt;ol>
+&lt;li>defineReactive 把數據定義成響應式的&lt;/li>
+&lt;li>給屬性增加一個 dep，用來收集對應的那些watcher&lt;/li>
+&lt;li>等數據變化進行更新&lt;br>
+dep.depend() // get 取值：進行依賴收集&lt;br>
+dep.notify() // set 設置時：通知視圖更新&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;ol>
+&lt;li>對象層級過深，性能就會差&lt;/li>
+&lt;li>不需要響應數據的內容不要放在data中&lt;/li>
+&lt;li>object.freeze() 可以凍結數據&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h3 id="5-vue如何檢測數組變化">5. Vue如何檢測數組變化？&lt;/h3>
+&lt;ul>
+&lt;li>數組考慮性能原因沒有用defineProperty對數組的每一項進行攔截，而是選擇重寫數組 方法以進行重寫。當數組調用到這 7 個方法的時候，執行 ob.dep.notify() 進行派發通知 Watcher 更新&lt;/li>
+&lt;li>在Vue中修改數組的索引和長度是無法監控到的。需要通過以下7種變異方法修改數組才會觸發數組對應的wacther進行更新。數組中如果是對像數據類型也會進行遞歸劫持&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>那如果想要改索引更新數據怎麼辦？&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>可以通過Vue.set()來進行處理 ➞ 核心內部用的是 splice 方法&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 取出原型方法；
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">arrayProto&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Array&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">prototype&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 拷貝原型方法；
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">arrayMethods&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Object&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arrayProto&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 重寫數組方法；
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">def&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">arrayMethods&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">method&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">mutator&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="err">…&lt;/span>&lt;span class="nx">args&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">ob&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dep&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">notify&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">// 調用方法時更新視圖
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="6-vueset-方法是如何實現的">6. Vue.set 方法是如何實現的？&lt;/h3>
+&lt;ul>
+&lt;li>為什麼$set可以觸發更新，我們給對象和數組本身都增加了dep屬性，當給對像新增不存在的屬性則觸發對象依賴的watcher去更新，當修改數組索引時我們調用數組本身的splice方法去更新數組&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>官方定義 Vue.set(object, key, value)&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="7-vue中模板編譯原理">7. Vue中模板編譯原理？&lt;/h3>
+&lt;ul>
+&lt;li>如何將template轉換成render函數(這裡要注意的是我們在開發時盡量不要使用template，因為將template轉化成render方法需要在運行時進行編譯操作會有性能損耗，同時引用帶有complier包的vue體積也會變大) 默認.vue文件中的 template處理是通過vue-loader 來進行處理的並不是通過運行時的編譯&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>將 template 模板轉換成 ast 語法樹 - parserHTML&lt;/li>
+&lt;li>對靜態語法做靜態標記 - markUp&lt;/li>
+&lt;li>重新生成代碼 - codeGen&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>模板引擎的實現原理就是new Function + with來進行實現的&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="vue-loader中处理template属性主要靠的是-vue-template-compiler">vue-loader中处理template属性主要靠的是 vue-template-compiler&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// vue-loader
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// template =&amp;gt; ast =&amp;gt; codegen =&amp;gt; with+function 實現生成render方法
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">ast&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">render&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">VueTemplateCompiler&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">compile&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{{&lt;/span>&lt;span class="nx">aaa&lt;/span>&lt;span class="p">}}&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/div&amp;gt;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ast&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">render&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 模板引擎的實現原理 with + new Function
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="nb">Function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">render&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">tostring&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// render方法執行完畢後生成的是虛擬 dom
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// with(this){return _c(‘div’,[_s(aaa)])}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 代碼生成
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">ast&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">template&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">trim&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 將代碼解析成ast語法樹
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">optimize&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">optimize&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ast&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 優化代碼 標記靜態點 標記樹
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">code&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">generate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">ast&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">options&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 生成代碼
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="8-proxy-與-objectdefineproperty-優劣對比">8. Proxy 與 Object.defineProperty 優劣對比&lt;/h3>
+&lt;ul>
+&lt;li>Proxy 的優勢如下&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>Proxy 可以直接監聽對象而非屬性&lt;/li>
+&lt;li>Proxy 可以直接監聽數組的變化&lt;/li>
+&lt;li>Proxy 有多達 13 種攔截方法,不限於 apply、ownKeys、deleteProperty、has 等等是 Object.defineProperty 不具備的&lt;/li>
+&lt;li>Proxy 返回的是一個新對象,我們可以只操作新的對象達到目的,而 Object.defineProperty 只能遍歷對象屬性直接修改&lt;/li>
+&lt;li>Proxy 作為新標準將受到瀏覽器廠商重點持續的性能優化，也就是傳說中的新標準的性能紅利&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Object.defineProperty 的優勢如下&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>兼容性好，支持 IE9，而 Proxy 的存在瀏覽器兼容性問題，而且無法用 polyfill 磨平，因此 Vue 的作者才聲明需要等到下個大版本( 3.0 )才能用 Proxy 重寫&lt;/li>
+&lt;/ol>
+&lt;h3 id="9-vue3x響應式數據原理">9. Vue3.x響應式數據原理&lt;/h3>
+&lt;ul>
+&lt;li>Vue3.x改用Proxy替代Object.defineProperty。因為Proxy可以直接監聽對象和數組的變化，並且有多達13種攔截方法。並且作為新標準將受到瀏覽器廠商重點持續的性能優化&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>Proxy只會代理對象的第一層，那麼Vue3又是怎樣處理這個問題的呢？&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>判斷當前Reflect.get的返回值是否為Object，如果是則再通過reactive方法做代理， 這樣就實現了深度觀測&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>監測數組的時候可能觸發多次get/set，那麼如何防止觸發多次呢？&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>我們可以判斷key是否為當前被代理對象target自身屬性，也可以判斷舊值與新值是否相等，只有滿足以上兩個條件之一時，才有可能執行trigger&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="生命周期篇">生命周期篇&lt;/h2>
+&lt;h3 id="vue的生命週期方法有哪些一般在哪一步發起請求及原因">Vue的生命週期方法有哪些？一般在哪一步發起請求及原因&lt;/h3>
+&lt;ul>
+&lt;li>總共分為8個階段：創建前/後，載入前/後，更新前/後，銷毀前/後&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>創建前/後：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>beforeCreate階段：vue實例的掛載元素el和數據對象data都為undefined，還未初始化。&lt;br>
+說明：在當前階段data、methods、computed以及watch上的數據和方法都不能被訪問。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>created階段：vue實例的數據對象data有了，el還沒有。&lt;br>
+說明：可以做一些初始數據的獲取，在當前階段無法與Dom進行交互，如果非要想，可以通過vm.$nextTick來訪問Dom。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>載入前/後：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>beforeMount階段：vue實例的$el和data都初始化了，但還是掛載之前為虛擬的dom節點。&lt;br>
+說明：當前階段虛擬Dom已經創建完成，即將開始渲染。在此時也可以對數據進行更改，不會觸發updated。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>mounted階段：vue實例掛載完成，data.message成功渲染。&lt;br>
+說明：在當前階段，真實的Dom掛載完畢，數據完成雙向綁定，可以訪問到Dom節點，使用$refs屬性對Dom進行操作。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>更新前/後：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>beforeUpdate階段：響應式數據更新時調用，發生在虛擬DOM打補丁之前，適合在更新之前訪問現有的DOM，比如手動移除已添加的事件監聽器。&lt;br>
+說明：可以在當前階段進行更改數據，不會造成重渲染。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>updated階段：虛擬DOM重新渲染和打補丁之後調用，組成新的DOM已經更新，避免在這個鉤子函數中操作數據，防止死循環。&lt;br>
+說明：當前階段組件Dom已完成更新。要注意的是避免在此期間更改數據，因為這可能會導致無限循環的更新。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>銷毀前/後：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>beforeDestroy階段：實例銷毀前調用，實例還可以用，this能獲取到實例，常用於銷毀定時器，解綁事件。&lt;br>
+說明：在當前階段實例完全可以被使用，我們可以在這時進行善後收尾工作，比如清除計時器。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>destroyed階段：實例銷毀後調用，調用後所有事件監聽器會被移除，所有的子實例都會被銷毀。&lt;br>
+說明：當前階段組件已被拆解，數據綁定被卸除，監聽被移出，子實例也統統被銷毀。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;blockquote>
+&lt;p>補充：&lt;br>
+第一次頁面加載時會觸發：beforeCreate, created, beforeMount, mounted。&lt;/p>
+&lt;ol>
+&lt;li>created 實例已經創建完成，因為它是最早觸發的原因可以進行一些數據，資源的請求。 (服務器渲染支持created方法)&lt;/li>
+&lt;li>mounted 實例已經掛載完成，可以進行一些DOM操作。 (接口請求)&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h3 id="生命週期鉤子是如何實現的">生命週期鉤子是如何實現的？&lt;/h3>
+&lt;ul>
+&lt;li>Vue的生命週期鉤子就是回調函數而已，當創建組件實例的過程中會調用對應的鉤子方法。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>補充：&lt;br>
+內部主要是使用callHook方法來調用對應的方法。核心是一個發布訂閱模式，將鉤子訂閱好(內部採用數組的方式存儲)，在對應的階段進行發布。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="vue-的父組件和子組件生命週期鉤子執行順序">Vue 的父組件和子組件生命週期鉤子執行順序&lt;/h3>
+&lt;ul>
+&lt;li>第一次頁面加載時會觸發 beforeCreate, created, beforeMount, mounted 這幾個鉤子。&lt;/li>
+&lt;/ul>
+&lt;h4 id="渲染過程">渲染過程：&lt;/h4>
+&lt;blockquote>
+&lt;p>父組件掛載完成一定是等子組件都掛載完成後，才算是父組件掛載完，所以父組件的mounted在子組件mouted之後&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>父beforeCreate ➡ 父created ➡ 父beforeMount ➡ 子beforeCreate ➡ 子created ➡ 子beforeMount ➡ 子mounted ➡ 父mounted&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="子組件更新過程">子組件更新過程：&lt;/h4>
+&lt;blockquote>
+&lt;p>影響到父組件：父beforeUpdate -&amp;gt; 子beforeUpdate-&amp;gt;子updated -&amp;gt; 父updted&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>不影響父組件：子beforeUpdate -&amp;gt; 子updated&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="父組件更新過程">父組件更新過程：&lt;/h4>
+&lt;blockquote>
+&lt;p>影響到子組件：父beforeUpdate -&amp;gt; 子beforeUpdate-&amp;gt;子updated -&amp;gt; 父updted&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>不影響子組件：父beforeUpdate -&amp;gt; 父updated&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="銷毀過程">銷毀過程：&lt;/h4>
+&lt;blockquote>
+&lt;p>父beforeDestroy -&amp;gt; 子beforeDestroy -&amp;gt; 子destroyed -&amp;gt; 父destroyed&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;em>&lt;strong>重要：父組件等待子組件完成後，才會執行自己對應完成的鉤子。&lt;/strong>&lt;/em>&lt;/p>
+&lt;hr>
+&lt;h2 id="組件通信篇">組件通信篇&lt;/h2>
+&lt;h3 id="vue中的組件的data-為什麼是一個函數">Vue中的組件的data 為什麼是一個函數？&lt;/h3>
+&lt;ul>
+&lt;li>每次使用組件時都會對組件進行實例化操作，並且調用data函數返回一個對像作為組件的數據源。這樣可以保證多個組件間數據互不影響。&lt;/li>
+&lt;li>如果data是對象的話，對象屬於引用類型，會影響到所有的實例。所以為了保證組件不同的實例之間data不衝突，data必須是一個函數。&lt;/li>
+&lt;/ul>
+&lt;h3 id="vue-組件間通信有哪幾種方式">Vue 組件間通信有哪幾種方式？&lt;/h3>
+&lt;ul>
+&lt;li>Vue 組件間通信只要指以下 3 類通信：父子組件通信、隔代組件通信、兄弟組件通信，下面我們分別介紹每種通信方式且會說明此種方法可適用於哪類組件間通信。&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>props / $emit 適用父子組件通信&lt;/p>
+&lt;ol>
+&lt;li>這種方法是 Vue 組件的基礎，相信大部分同學耳聞能詳，所以此處就不舉例展開介紹。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>ref 與 $parent / children适用父子组件通信&lt;/p>
+&lt;ol>
+&lt;li>ref：如果在普通的DOM元素上使用，引用指向的就是DOM元素；如果用在子組件上，引用就指向組件實例&lt;/li>
+&lt;li>parent / $children：訪問父 / 子實例&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>EventBus （$emit / $on） 適用於 父子、隔代、兄弟組件通信&lt;/p>
+&lt;ol>
+&lt;li>這種方法通過一個空的 Vue 實例作為中央事件總線（事件中心），用它來觸發事件和監聽事件，從而實現任何組件間的通信，包括父子、隔代、兄弟組件。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>attrs / listeners 適用於隔代組件通信&lt;/p>
+&lt;ol>
+&lt;li>attrs：包含了父作用域中不被prop所識別(且獲取)的特性綁定(class和style除外)。當一個組件沒有聲明任何prop時，這裡會包含所有父作用域的綁定(class和style除外)，並且可以通過v−bind=&amp;ldquo;attrs&amp;rdquo; 傳入內部組件。通常配合 inheritAttrs 選項一起使用。&lt;/li>
+&lt;li>listeners：包含了父作用域中的(不含.native修飾器的) v-on事件監聽器。它可以通過v−on=&amp;ldquo;listeners&amp;rdquo; 傳入內部組件&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>provide / inject 適用於隔代組件通信&lt;/p>
+&lt;ol>
+&lt;li>祖先組件中通過 provider 來提供變量，然後在子孫組件中通過 inject 來注入變量。 provide / inject API 主要解決了跨級組件間的通信問題，不過它的使用場景，主要是子組件獲取上級組件的狀態，跨級組件間建立了一種主動提供與依賴注入的關係。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;span class="focus">Vuex 適用於 父子、隔代、兄弟組件通信&lt;/span>&lt;/p>
+&lt;ol>
+&lt;li>Vuex 是一個專為 Vue.js 應用程序開發的狀態管理模式。每一個 Vuex 應用的核心就是 store（倉庫）。&lt;/li>
+&lt;li>&amp;ldquo;store&amp;rdquo; 基本上就是一個容器，它包含著你的應用中大部分的狀態 (state)。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="組件中寫-name選項有哪些好處及作用">組件中寫 name選項有哪些好處及作用？&lt;/h3>
+&lt;ol>
+&lt;li>可以通過名字找到對應的組件（遞歸組件）&lt;/li>
+&lt;li>可以通過name屬性實現緩存功能 (keep-alive)&lt;/li>
+&lt;li>可以通過name來識別組件（跨級組件通信時非常重要）&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">Vue&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">extend&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Sub&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">componentd&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Sub&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="keep-alive平時在哪裡使用原理是">keep-alive平時在哪裡使用？原理是？&lt;/h3>
+&lt;ul>
+&lt;li>keep-alive 主要是組件緩存，採用的是LRU算法。最近最久未使用法。&lt;/li>
+&lt;li>常用的兩個屬性include/exclude，允許組件有條件的進行緩存。&lt;/li>
+&lt;li>兩個生命週期activated/deactivated，用來得知當前組件是否處於活躍狀態。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">abstract&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 抽象組件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">props&lt;/span>&lt;span class="o">:&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">include&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">patternTypes&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 要緩存的有哪些
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">exclude&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">patternTypes&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 要排除的有哪些
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">max&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nb">String&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">Number&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="c1">//最大緩存數量
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cache&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">])&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// 通過key 找到緩存，獲取實例
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">vnode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">componentInstance&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">cache&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">componentInstance&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">remove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">keys&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">key&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//將key刪除掉
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">keys&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">// 放到末尾
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">cache&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">vnode&lt;/span> &lt;span class="c1">// 沒有緩存過
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">keys&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//存儲key
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">if&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">max&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">keys&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nb">parseInt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">max&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// 如果超過最大緩存數
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 刪除最早緩存的
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">pruneCacheEntry&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">cache&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">keys&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">],&lt;/span> &lt;span class="nx">keys&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">_vnode&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">vnode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">keepAlive&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c1">// 標記走了緩存
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="vueminxin的使用場景和原理">Vue.minxin的使用場景和原理？&lt;/h3>
+&lt;ul>
+&lt;li>Vue.mixin的作用就是抽離公共的業務邏輯，原理類似&amp;quot;對象的繼承&amp;quot;，當組件初始化時會調用 mergeOptions方法進行合併，採用策略模式針對不同的屬性進行合併，如果混入的數據和本身組件中的數據衝突，會採用&amp;quot;就近原則&amp;quot;以組件的數據為準。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>補充：&lt;br>
+mixin中有很多缺陷&amp;quot;命名衝突問題&amp;quot;、&amp;ldquo;依賴問題&amp;rdquo;、&amp;ldquo;數據來源問題&amp;rdquo;，這裡強調一下mixin的數據是不會被共享的。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="路由篇">路由篇&lt;/h2>
+&lt;h3 id="vue-router有幾種鉤子函數具體是什麼及執行流程是怎樣的">Vue-router有幾種鉤子函數？具體是什麼及執行流程是怎樣的？&lt;/h3>
+&lt;ul>
+&lt;li>路由鉤子的執行流程，鉤子函數種類有：全局守衛、路由守衛、組件守衛。&lt;/li>
+&lt;/ul>
+&lt;h4 id="完整的導航解析流程">完整的導航解析流程&lt;/h4>
+&lt;ol>
+&lt;li>導航被觸發&lt;/li>
+&lt;li>在失活的組件裡調用beforeRouteLeave守衛&lt;/li>
+&lt;li>調用全局beforeEach守衛&lt;/li>
+&lt;li>在復用組件裡調用beforeRouteUpdate守衛&lt;/li>
+&lt;li>調用路由配置裡的beforeEnter守衛&lt;/li>
+&lt;li>解析異步路由組件&lt;/li>
+&lt;li>在被激活的組件裡調用beforeRouteEnter守衛&lt;/li>
+&lt;li>調用全局beforeResolve守衛&lt;/li>
+&lt;li>導航被確認&lt;/li>
+&lt;li>調用全局的afterEach鉤子&lt;/li>
+&lt;li>DOM更新&lt;/li>
+&lt;li>用創建好的實例調用beforeRouteEnter守衛中傳給next的回調函數&lt;/li>
+&lt;/ol>
+&lt;h3 id="vue-router-兩種模式的區別">vue-router 兩種模式的區別？&lt;/h3>
+&lt;ul>
+&lt;li>vue-router 有 3 種路由模式：&lt;code>hash&lt;/code>、&lt;code>history&lt;/code>、&lt;code>abstract&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>
+&lt;p>hash模式：hash + hashChange&lt;/p>
+&lt;p>特點：hash雖然在URL中，但不被包括在HTTP請求中；用來指導瀏覽器動作，對服務端安全無用，hash不會重加載頁面。通過監聽 hash（#）的變化來執行js代碼 從而實現 頁面的改變。&lt;/p>
+&lt;p>核心代码：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">‘&lt;/span>&lt;span class="nx">hashchange&lt;/span>&lt;span class="err">‘&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(){&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">self&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">urlChange&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>
+&lt;p>history模式：historyApi + popState&lt;/p>
+&lt;p>HTML5推出的history API，由pushState()記錄操作歷史，監聽popstate事件來監聽到狀態變更。&lt;/p>
+&lt;p>因為只要刷新這個url(&lt;code>www.ff.ff/jjkj/fdfd/fdf/fd&lt;/code>)就會請求服務器，然而服務器上根本沒有這個資源，所以就會報404，解決方案就配置一下服務器端。&lt;/p>
+&lt;p>說明：&lt;br>
+1. hash: 使用 URL hash 值來作路由。支持所有瀏覽器，包括不支持 HTML5 History Api 的瀏覽器&lt;br>
+2. history : 依賴 HTML5 History API 和服務器配置。具體可以查看 HTML5 History 模式&lt;br>
+3. abstract : 支持所有 JavaScript 運行環境，如 Node.js 服務器端。如果發現沒有瀏覽器的 API，路由會自動強制進入這個模式&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="屬性作用與對比篇">屬性作用與對比篇&lt;/h2>
+&lt;h3 id="nexttick在哪裡使用原理是">nextTick在哪裡使用？原理是？&lt;/h3>
+&lt;ul>
+&lt;li>nextTick的回調是在下次DOM更新循環結束之後執行的延遲回調。在修改數據之後立即使用這個方法，獲取更新後的DOM。 nextTick主要使用了宏任務和微任務。原理就是異步方法(promise, mutationObserver, setImmediate, setTimeout)經常與事件循環一起來問。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>補充：&lt;br>
+vue多次更新數據，最終會進行批處理更新。內部調用的就是nextTick實現了延遲更新，用戶自定義的nextTick中的回調會被延遲到更新完成後調用，從而可以獲取更新後的DOM。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="vue-為什麼需要虛擬dom虛擬dom的優劣如何">Vue 為什麼需要虛擬DOM？虛擬DOM的優劣如何？&lt;/h3>
+&lt;ul>
+&lt;li>Virtual DOM 就是用js對象來描述真實DOM，是對真實DOM的抽象，由於直接操作DOM性能低但是js層的操作效率高，可以將DOM操作轉化成對像操作，最終通過diff算法比對差異進行更新DOM(減少了對真實DOM的操作)。虛擬DOM不依賴真實平台環境從而也可以實現跨平台。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>補充：&lt;br>
+虛擬DOM的實現就是普通對象包含tag、data、children等屬性對真實節點的描述。(本質上就是在JS和DOM之間的一個緩存)&lt;/p>
+&lt;p>Vue2的 Virtual DOM 借鑒了開源庫snabbdom的實現。&lt;/p>
+&lt;p>VirtualDOM映射到真實DOM要經歷VNode的create、diff、patch等階段。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="vue中key的作用和工作原理說說你對它的理解">Vue中key的作用和工作原理，說說你對它的理解&lt;/h3>
+&lt;h4 id="例如">例如：&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">v-for=&amp;#34;(item, itemIndex) in tabs&amp;#34; :key=&amp;#34;itemIndex&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>key的作用主要是為了高效的更新虛擬DOM，其原理是vue在patch過程中通過key可以精準判斷兩個節點是否是同一個，從而避免頻繁更新不同元素，使得整個patch過程更加高效，減少DOM操作量，提高性能。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>補充：&lt;/p>
+&lt;ol>
+&lt;li>若不設置key還可能在列表更新時引發一些隱蔽的bug&lt;/li>
+&lt;li>vue中在使用相同標籤名元素的過渡切換時，也會使用到key屬性，其目的也是為了讓vue可以區分它們，否則vue只會替換其內部屬性而不會觸發過渡效果&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h3 id="vue-中的diff原理">Vue 中的diff原理&lt;/h3>
+&lt;ul>
+&lt;li>vue的diff算法是平級比較，不考慮跨級比較的情況。內部採用深度遞歸的方式 + 雙指針的方式進行比較。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>補充：&lt;/p>
+&lt;ol>
+&lt;li>先比較是否是相同節點&lt;/li>
+&lt;li>相同節點比較屬性，並複用老節點&lt;/li>
+&lt;li>比較兒子節點，考慮老節點和新節點兒子的情況&lt;/li>
+&lt;li>優化比較：頭頭、尾尾、頭尾、尾頭&lt;/li>
+&lt;li>比對查找進行複用&lt;/li>
+&lt;/ol>
+&lt;/blockquote>
+&lt;h4 id="vue2-與-vue3x-的diff算法">Vue2 與 Vue3.x 的diff算法：&lt;/h4>
+&lt;ul>
+&lt;li>Vue2的核心Diff算法採用了雙端比較的算法，同時從新舊children的兩端開始進行比較，借助key值找到可複用的節點，再進行相關操作。&lt;/li>
+&lt;li>Vue3.x借鑒了ivi算法和 inferno算法，該算法中還運用了動態規劃的思想求解最長遞歸子序列。 (實際的實現可以結合Vue3.x源碼看。)&lt;/li>
+&lt;/ul>
+&lt;h3 id="v-if-與-v-for的優先級">v-if 與 v-for的優先級&lt;/h3>
+&lt;ol>
+&lt;li>v-for優先於v-if被解析&lt;/li>
+&lt;li>如果同時出現，每次渲染都會先執行循環再判斷條件，無論如何循環都不可避免，浪費了性能&lt;/li>
+&lt;li>要避免出現這種情況，則在外層嵌套template，在這一層進行v-if判斷，然後在內部進行v-for循環&lt;/li>
+&lt;li>如果條件出現在循環內部，可通過計算屬性提前過濾掉那些不需要顯示的項&lt;/li>
+&lt;/ol>
+&lt;h3 id="v-if與v-show的區別">v-if與v-show的區別&lt;/h3>
+&lt;ul>
+&lt;li>v-if 是真正的條件渲染，直到條件第一次變為真時，才會開始渲染。&lt;/li>
+&lt;li>v-show 不管初始條件是什麼會渲染，並且只是簡單地基於 CSS 的 “display” 屬性進行切換。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;em>&lt;strong>注意：v-if 適用於不需要頻繁切換條件的場景；v-show 則適用於需要非常頻繁切換條件的場景。&lt;/strong>&lt;/em>&lt;/p>
+&lt;h3 id="computed-和-watch-的區別和運用的場景">computed 和 watch 的區別和運用的場景？&lt;/h3>
+&lt;ul>
+&lt;li>computed： 計算屬性。依賴其它屬性值，並且 computed 的值有緩存，只有它依賴的屬性值發生改變，下一次獲取 computed 的值時才會重新計算 computed 的值&lt;/li>
+&lt;li>watch： 監聽數據的變化。更多的是「觀察」的作用，類似於某些數據的監聽回調 ，每當監聽的數據變化時都會執行回調進行後續操作&lt;/li>
+&lt;/ul>
+&lt;h4 id="運用場景">運用場景：&lt;/h4>
+&lt;ol>
+&lt;li>當我們需要進行數值計算，並且依賴於其它數據時，應該使用 computed，因為可以利用 computed 的緩存特性，避免每次獲取值時，都要重新計算。&lt;/li>
+&lt;li>當我們需要在數據變化時執行異步或開銷較大的操作時，應該使用 watch，使用 watch 選項允許我們執行異步操作 ( 訪問一個 API )，限制我們執行該操作的頻率，並在我們得到最終結果前，設置中間狀態。這些都是計算屬性無法做到的。&lt;/li>
+&lt;/ol>
+&lt;h3 id="如何理解自定義指令">如何理解自定義指令？&lt;/h3>
+&lt;ul>
+&lt;li>指令的實現原理，可以從編譯原理 ➡ 代碼生成 ➡ 指令鉤子實現進行概述&lt;/li>
+&lt;/ul>
+&lt;ol>
+&lt;li>在生成 ast 語法樹時，遇到指令會給當前元素添加directives屬性&lt;/li>
+&lt;li>通過 genDirectives 生成指令代碼&lt;/li>
+&lt;li>在patch前將指令的鉤子提取到 cbs中，在patch過程中調用對應的鉤子&lt;/li>
+&lt;li>當執行指令對應鉤子函數時，調用對應指令定義的方法&lt;/li>
+&lt;/ol>
+&lt;h3 id="v-model的原理是什麼">v-model的原理是什麼？&lt;/h3>
+&lt;ul>
+&lt;li>v-model本質就是一個語法糖，可以看成是value + input方法的語法糖。可以通過model屬性的prop和event屬性來進行自定義。原生的v-model，會根據標籤的不同生成不同的事件和屬性。&lt;/li>
+&lt;li>v-model 在內部為不同的輸入元素使用不同的屬性並拋出不同的事件：
+&lt;ol>
+&lt;li>text 和 textarea 元素使用 value 屬性和 input 事件。&lt;/li>
+&lt;li>checkbox 和 radio 使用 checked 屬性和 change 事件。&lt;/li>
+&lt;li>select 字段將 value 作為 prop 並將 change 作為事件。&lt;/li>
+&lt;/ol>
+&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="性能優化篇">性能優化篇&lt;/h2>
+&lt;h3 id="vue性能優化---編碼階段">Vue性能優化 - 編碼階段&lt;/h3>
+&lt;ol>
+&lt;li>盡量減少data中的數據，data中的數據都會增加getter和setter，會收集對應的watcher&lt;/li>
+&lt;li>如果需要使用v-for給每項元素綁定事件時使用事件代理&lt;/li>
+&lt;li>SPA 頁面採用keep-alive緩存組件&lt;/li>
+&lt;li>在更多的情況下，使用v-if替代v-show&lt;/li>
+&lt;li>key保證唯一&lt;/li>
+&lt;li>使用路由懶加載、異步組件&lt;/li>
+&lt;li>防抖、節流&lt;/li>
+&lt;li>第三方模塊按需導入&lt;/li>
+&lt;li>長列表滾動到可視區域動態加載&lt;/li>
+&lt;li>圖片懶加載&lt;/li>
+&lt;/ol>
+&lt;h3 id="vue性能優化---用戶體驗">Vue性能優化 - 用戶體驗&lt;/h3>
+&lt;ol>
+&lt;li>骨架屏&lt;/li>
+&lt;li>PWA&lt;/li>
+&lt;li>使用緩存(客戶端緩存、服務端緩存)優化、服務端開啟gzip壓縮等&lt;/li>
+&lt;/ol>
+&lt;h3 id="vue性能優化---seo優化">Vue性能優化 - SEO優化&lt;/h3>
+&lt;ol>
+&lt;li>預渲染&lt;/li>
+&lt;li>服務端渲染SSR&lt;/li>
+&lt;/ol>
+&lt;h3 id="vue性能優化---打包優化">Vue性能優化 - 打包優化&lt;/h3>
+&lt;ol>
+&lt;li>壓縮代碼&lt;/li>
+&lt;li>Tree Shaking/Scope Hoisting&lt;/li>
+&lt;li>使用cdn加載第三方模塊&lt;/li>
+&lt;li>多線程打包happypack&lt;/li>
+&lt;li>splitChunks抽離公共文件&lt;/li>
+&lt;li>sourceMap優化&lt;/li>
+&lt;/ol>
+&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
