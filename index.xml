@@ -904,7 +904,555 @@ loading="lazy"
 &lt;hr>
 &lt;h2 id="小結">小結&lt;/h2>
 &lt;p>坦白說只要你一但熟悉了 async 和 await，就真的回不去了，雖然說 callback 仍然是程式開發裡必備的功能，但對於同步和非同步之間的轉換，以後就交給 async 和 await 來處理吧！&lt;/p>
-&lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
+&lt;hr></description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://pjchender.dev/javascript/js-regex/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="建立正規式">建立正規式&lt;/h2>
+&lt;p>正則表達式的規則稱作 &lt;strong>pattern&lt;/strong>。在 JavaScript 中可以透過 Regular expression literals 的方式或建構式的方式來建立 regular expressions pattern：&lt;/p>
+&lt;h3 id="方法一regular-expression-literals">方法一：Regular expression literals&lt;/h3>
+&lt;ul>
+&lt;li>script 載入時即編譯，當 pattern 不會改變時，使用此方式定義 pattern 效能較好。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">re&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/ab+c/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="方法二function-constructor">方法二：Function Constructor&lt;/h3>
+&lt;ul>
+&lt;li>程式執行過程才會被編譯，效能較差，適合用在 regular expression pattern 可能會改變時使用。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">re&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">RegExp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;ab+c&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">myRe&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">RegExp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;d(b+)d&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;g&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>&lt;code>Regular expression literals&lt;/code> 效能較好，適合 pattern 不會改變的情況；&lt;br>
+&lt;code>Function Constructor&lt;/code> 效能較差，適合用在 pattern 可能動態改變的情況。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="使用正規式">使用正規式&lt;/h2>
+&lt;p>在 JavaScript 中可以使用正規式的函式包含：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>RegExp.prototype.test()&lt;/code>：搜尋字串中是否有符合的部分，回傳 true/false。&lt;/li>
+&lt;li>&lt;code>RegExp.prototype.exec()&lt;/code>：以陣列回傳字串中匹配到的部分，否則回傳 null。&lt;/li>
+&lt;li>&lt;code>String.prototype.match()&lt;/code>：以陣列回傳字串中匹配到的部分，否則回傳 null。&lt;/li>
+&lt;li>&lt;code>String.prototype.replace()&lt;/code>：尋找字串中匹配的部分，並取代之。&lt;/li>
+&lt;li>&lt;code>String.prototype.search()&lt;/code>：尋找字串中是否有符合的部分，有的話回傳 index，否則回傳 -1。&lt;/li>
+&lt;li>&lt;code>String.prototype.split()&lt;/code>：在字串根據匹配到的項目拆成陣列。&lt;/li>
+&lt;/ul>
+&lt;blockquote>
+&lt;p>簡單來說，當你想要看字串是否包含某 &lt;strong>pattern&lt;/strong> 時，使用 &lt;code>test&lt;/code> 或 &lt;code>search&lt;/code>；&lt;br>
+想要更多的資訊（花較多耗效能），則使用 exec 或 match。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="特殊字元-character">特殊字元 (character)&lt;/h2>
+&lt;h3 id="標籤flag">標籤（flag）&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/hello/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 區分大小寫，匹配 &amp;#34;hello&amp;#34;, &amp;#34;hello123&amp;#34;, &amp;#34;123hello123&amp;#34;, &amp;#34;123hello&amp;#34;，但不匹配 &amp;#34;hell0&amp;#34;, &amp;#34;Hello&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/hello/i&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 不區分大小寫，匹配 &amp;#34;hello&amp;#34;, &amp;#34;HelLo&amp;#34;, &amp;#34;123HelLO&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/hello/g&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 全域搜尋
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>ES 2019 新增 &lt;code>/s&lt;/code> 的標籤，過去 &lt;code>.&lt;/code> 可以用來匹配除了換行符號以外（&lt;code>\n&lt;/code>, &lt;code>\r&lt;/code>）的所有字元：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 過去 . 可以匹配到除了「換行符號」以外的所有字元
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/./&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;\n&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// → false
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/./&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;\r&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// → false
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>過去雖然可以使用 &lt;code>[\w\W]&lt;/code> 來匹配到換行符號，但這不是最好的做法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[\w\W]/&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;\n&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// → true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/[\w\W]/&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;\r&amp;#39;&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// → true
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在 ES 2019 中，只要最後有標記 &lt;code>/s&lt;/code> 的標籤，如此 &lt;code>.&lt;/code> 將也能夠匹配到換行符號：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">/./s.test(&amp;#39;\n&amp;#39;)); // → true&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">/./s.test(&amp;#39;\r&amp;#39;)); // → true&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="普通字元-">普通字元 &lt;code>//&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/a/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/is/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="反斜線-">反斜線 &lt;code>\&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 在「非」特殊字元前面使用反斜線時，表示要把反斜線後的字當作是特殊字元 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/\b/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// b 原本不是特殊字元，這個 b 要當成特殊字元
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 在特殊字元前面使用反斜線時，表示要把反斜線後的字當作是「非」特殊字元 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/if\(true/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// ( 原本是特殊字元，但這裡要當成非特殊字元
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/1\+2=3/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// + 原本是特殊字元，但這裡要當成非特殊字元
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="任意一個字元-">任意一個字元 &lt;code>.&lt;/code>&lt;/h3>
+&lt;ul>
+&lt;li>可以用來匹配除了換行符號（&lt;code>\n&lt;/code>）以外的所有字元：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/a.man/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// a*man 都會 match，例如 &amp;#34;acman&amp;#34;, &amp;#34;awman&amp;#34;, 但 &amp;#34;a\nman&amp;#34; 無法匹配。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/.a/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 任何一個字元後加上 a
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="多個字元-">多個字元 &lt;code>[]&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 小寫 a 或大寫 A
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[aA]/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 匹配所有不是 a 或 A 的字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[^aA]/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// a, e, i, o, u 都會 match
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[aeiou]/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 英文字母
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[a-z]/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 所有小寫的字母，從小寫 a 到小寫 z
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[A-Z]/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 所有大寫的字母，從大寫 A 到大寫 Z
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[a-zA-Z]/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 所有英文字母
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 數字 5 ~ 8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[5-8]/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="括號-">括號 &lt;code>()&lt;/code>&lt;/h3>
+&lt;ul>
+&lt;li>套用到所有&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^a|^the|^an/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 套用到裡面所有的
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^(a|the|an)/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 等同於
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="不是除了-">不是（除了） &lt;code>^&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 不是 a 都會 match */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[^a]/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 不是數字都會 match */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/[^0-9]/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="多個字元縮寫">多個字元縮寫&lt;/h3>
+&lt;h4 id="keywordsdwsbdws">keywords：&lt;strong>\d&lt;/strong>、&lt;strong>\w&lt;/strong>、&lt;strong>\s&lt;/strong>、&lt;strong>\b&lt;/strong>、&lt;strong>\D&lt;/strong>、&lt;strong>\W&lt;/strong>、&lt;strong>\S&lt;/strong>&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>\d&lt;/strong> : digit，&lt;code>[0-9]&lt;/code>&lt;/li>
+&lt;li>&lt;strong>\w&lt;/strong> : word，包含英文大小寫、數字、底線，&lt;code>[A-Za-z0-9_]&lt;/code>&lt;/li>
+&lt;li>&lt;strong>\s&lt;/strong> : space，包含 space, tab, form feed, line feed，&lt;code>[\f\n\r\t\v\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]&lt;/code>&lt;/li>
+&lt;li>&lt;strong>\D&lt;/strong> : 不是 digit，等同於 &lt;code>[^\d]&lt;/code>&lt;/li>
+&lt;li>&lt;strong>\W&lt;/strong> : 不是 word，等同於 &lt;code>[^\w]&lt;/code>&lt;/li>
+&lt;li>&lt;strong>\S&lt;/strong> : 不是 space，等同於 &lt;code>[^\s]&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 所有 word + e */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/\we/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 連續兩個任意的數值 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/\d\d/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 句子中結尾為 s 的單字 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/s\b/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/\b[a-z]/g&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 句子中各個單字的第一個字母
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="其他特殊字元">其他特殊字元：&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>\t&lt;/strong> : tab&lt;/li>
+&lt;li>&lt;strong>\b&lt;/strong> : word boundary，用來比對單字和單字間的空白，&lt;code>/s\b/&lt;/code> 則會比對句子中最一個字母是 s 的單字&lt;/li>
+&lt;/ul>
+&lt;h4 id="word-boundary-bb">Word boundary &lt;strong>\b&lt;/strong>、&lt;strong>\B&lt;/strong>&lt;/h4>
+&lt;p>透過 &lt;code>\b&lt;/code> 可以配對 &lt;strong>word boundary&lt;/strong>，&lt;strong>word boundary&lt;/strong> 指的是一個字元的前後沒有其他任何字元。&lt;/p>
+&lt;blockquote>
+&lt;p>要注意 &lt;code>\b&lt;/code> 和 &lt;code>[\b]&lt;/code> 是不一樣的，&lt;code>[\b]&lt;/code> 是用來配對 backspace。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// is 這個單字才會被選到，Th`is` 的 is 不會
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">matchedResult&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;This is an apple.&amp;#39;&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/\bis\b/&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// [ &amp;#39;is&amp;#39;, index: 5, input: &amp;#39;This is an apple.&amp;#39; ]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>相反地，&lt;code>\B&lt;/code> 則是 &lt;strong>non-word boundary&lt;/strong>：&lt;/p>
+&lt;ul>
+&lt;li>Before the first character of the string, if the first character is not a word character.&lt;/li>
+&lt;li>After the last character of the string, if the last character is not a word character.&lt;/li>
+&lt;li>Between two word characters&lt;/li>
+&lt;li>Between two non-word characters&lt;/li>
+&lt;li>The empty string&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 使用 \B 會配對到 This 中的 is
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">matchedResult&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;This is an apple.&amp;#39;&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sr">/\Bis/&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// [ &amp;#39;is&amp;#39;, index: 2, input: &amp;#39;This is an apple.&amp;#39; ]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="出現次數------">出現次數 &lt;code>* + ? {} {, }&lt;/code>&lt;/h3>
+&lt;h4 id="keywords--次數最少次數-最多次數">keywords： &lt;strong>*&lt;/strong> 、&lt;strong>+&lt;/strong>、&lt;strong>?&lt;/strong>、&lt;strong>{次數}&lt;/strong>、&lt;strong>{最少次數, 最多次數}&lt;/strong>&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>*&lt;/strong> : 任意次數，等同於&lt;code>{0,}&lt;/code>&lt;/li>
+&lt;li>&lt;strong>+&lt;/strong> : 至少一次（後面要跟著），等同於 &lt;code>{1,}&lt;/code>&lt;/li>
+&lt;li>&lt;strong>?&lt;/strong> : 零或一次（有或沒有），等同於 &lt;code>{0,1}&lt;/code>&lt;/li>
+&lt;li>&lt;strong>{次數}&lt;/strong>&lt;/li>
+&lt;li>&lt;strong>{最少次數, 最多次數}&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/abc/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 找到符合 &amp;#34;abc&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/ab*c/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// *表示前一個單字可以是 0 個或多個，因此 ac, abc, abbbbc 都符合規則
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/n?a/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// n 可有可無
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/a{2}/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// a 要 2 次，所以會是 a
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/a{2,4}/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// a 介於 2 次到 4 次之間
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/a{2,}/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 2 次以上的 a 都可以，大括號後面不要有空格
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/(hello){4}/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 4 次的 hello，hellohellohellohello
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/\d{3}/&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 3 次的數字
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="開頭與結尾">開頭與結尾&lt;/h3>
+&lt;h4 id="keywords">keywords：&lt;strong>^&lt;/strong>、&lt;strong>$&lt;/strong>&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>^&lt;/strong> 開頭&lt;/li>
+&lt;li>&lt;strong>$&lt;/strong> 結尾&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 以 A 開頭的字才會匹配到 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sr">/^A/gm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Abc&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="sr">/^A/gm&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">test&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;bac&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 開頭有 He */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^He/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 結尾有 llo */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/llo$/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm">/* 開頭 He 結尾 llo 中間任意字元可以有任意次數 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/^He.*llo$/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="或-">或 &lt;code>|&lt;/code>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// and 或 android，match 到 `and`roid 就不 match `android`
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/and|android/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// match 到 android 還是會 match and
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">regex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/android|and/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="lookaround-assertions">LookAround Assertions&lt;/h3>
+&lt;h4 id="keywords-xyxy">keywords: &lt;strong>x(?=y)&lt;/strong>、&lt;strong>x(?!y)&lt;/strong>&lt;/h4>
+&lt;ul>
+&lt;li>Lookahead assertions: &lt;code>x(?=y)&lt;/code>、&lt;code>x(?!y)&lt;/code>&lt;/li>
+&lt;li>Lookbehind assertions: &lt;code>(?&amp;lt;=y)x&lt;/code>、&lt;code>(?&amp;lt;!y)x&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;h4 id="look-ahead">Look Ahead&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>?=&lt;/strong>：後面需要跟著&lt;/li>
+&lt;li>&lt;strong>?!&lt;/strong>：後面不能跟著&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// foo(?=bar)，foo 後面要跟著 bar 才會配對到 foo
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">regexp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/foo(?=bar)/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foo&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;bar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foobar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [ &amp;#39;foo&amp;#39;, index: 0, input: &amp;#39;foobar&amp;#39;, groups: undefined ]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// foo(?!bar)，foo 後面不能跟著 bar，如此才會配對到 foo
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">regexp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/foo(?!bar)/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foo&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [ &amp;#39;foo&amp;#39;, index: 0, input: &amp;#39;foo&amp;#39;, groups: undefined ]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foo123&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [ &amp;#39;foo&amp;#39;, index: 0, input: &amp;#39;foo123&amp;#39;, groups: undefined ]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;bar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foobar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="look-behind">Look Behind&lt;/h4>
+&lt;ul>
+&lt;li>&lt;strong>?&amp;lt;=&lt;/strong>：前面需要跟著才會匹配到&lt;/li>
+&lt;li>&lt;strong>?&amp;lt;!&lt;/strong>：前面不能跟著才會匹配到&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// (?&amp;lt;=foo)bar，當 bar 前面有 foo 時才會配對到 bar
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">regexp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/(?&amp;lt;=foo)bar/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foo&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;bar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foobar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [ &amp;#39;bar&amp;#39;, index: 3, input: &amp;#39;foobar&amp;#39;, groups: undefined ]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// (?&amp;lt;!foo)bar，當 bar 前面沒有 foo 時才會配對到 bar
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">regexp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sr">/(?&amp;lt;!foo)bar/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foo&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;bar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [ &amp;#39;bar&amp;#39;, index: 0, input: &amp;#39;bar&amp;#39;, groups: undefined ]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;123bar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [ &amp;#39;bar&amp;#39;, index: 3, input: &amp;#39;123bar&amp;#39;, groups: undefined ]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">regexp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exec&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;foobar&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// null
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>❗❗❗ &lt;strong>Lookbehind assertions&lt;/strong> 屬於 ES2018 的語法，須注意相容性。 ❗❗❗&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="貪婪模式greedy-mode">貪婪模式（Greedy Mode）&lt;/h3>
+&lt;blockquote>
+&lt;p>預設會啟用貪婪模式，如果想要關閉貪婪模式，也就是讓到一匹配到就停止，可以使用在 &lt;code>*&lt;/code> 、 &lt;code>+&lt;/code> 等後面加上 &lt;code>?&lt;/code>，例如 &lt;code>.*?&lt;/code>、&lt;code>.+?&lt;/code>。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="pattern-筆記">&lt;strong>pattern&lt;/strong> 筆記&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 允許數字、英文字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 長度4~12
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">account&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^[0-9A-Za-z]{4,12}$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 需包含數字、英文字、英文特殊符號
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 但不得包含符號 \
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 長度1~24
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">password&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&amp;amp;*()_+{}:&amp;#34;|&amp;lt;&amp;gt;?\-=\[\]&amp;#39;\;,./~`]{1,24}$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 允許數字、英文字、中文字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 長度2~8
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">nickName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^[0-9A-Za-z\u4E00-\u9FFF]{2,8}$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 允許數字、英文字、中文字、英文特殊符號、空白，但開頭不得為特殊符號或空白
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">realName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^(?!(-))(?!(\s))(?!(,))[A-Za-z\-\,\s\u4E00-\u9FFF]{0,20}[^(?=(!@#$%^&amp;amp;*()_+{}:&amp;#34;|&amp;lt;&amp;gt;?\-=\[\]&amp;#39;\;,./~\s\d`)))]$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 信箱
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">createEmail&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^([\w])([\-\._]?[\w]){0,64}\@([\w])([\-\._]?[\w]){0,64}\.([a-zA-Z]){2,6}$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 前三碼英文字、後三碼數字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">promotionCode&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^[A-Za-z]{3}[0-9]{3}$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 允許數字、英文字、中文字、英文特殊符號、中文特殊符號、空白
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// 長度0~100
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">remark&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="sr">/^[0-9A-Za-z-_\u4E00-\u9FA5+/.*!@#$%&amp;amp;?()=|&amp;#39;:;&amp;lt;&amp;gt;,~！@#￥……&amp;amp;*（）——|{}【】‘；：”“&amp;#39;。，、？%\s]{0,100}$/&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
