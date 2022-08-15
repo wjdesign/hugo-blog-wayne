@@ -534,7 +534,9 @@ padding: 0 5px;
 非同步：在「不 ( 非 ) 同步道」比賽「賽跑」，誰都不等誰，只要輪到我跑，我就開始跑。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52282241823_af79345bfe_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>在 ES7 裡頭 async 的本質是 promise 的語法糖 ( 包裝得甜甜的比較好吃下肚 )，&lt;strong>只要 function 標記為 async，就表示裡頭可以撰寫 await 的同步語法&lt;/strong>，而 await 顧名思義就是「等待」，它會確保一個 promise 物件都解決 ( resolve ) 或出錯 ( reject ) 後才會進行下一步，當 async function 的內容全都結束後，會返回一個 promise，這表示後方可以使用&lt;span class="focus">.then&lt;/span>語法來做連接，基本的程式長相就像下面這樣：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -688,7 +690,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52281246202_7cf2b63ba9_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>這時我們可以透過 &lt;span class="focus">async&lt;/span>、&lt;span class="focus">await&lt;/span> 和 &lt;span class="focus">promise&lt;/span> 進行修正，在顯示 1 之後，會「&lt;strong>等待&lt;/strong>」count function 結束後再顯示 2。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -736,7 +740,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52282241813_ded6525063_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>除了&lt;span class="focus">setTimeout&lt;/span>和&lt;span class="focus">setInterval&lt;/span>，這也可以用於像是「&lt;strong>輸入文字&lt;/strong>」的情境，過去我們要做到「&lt;strong>連續輸入&lt;/strong>」文字，可能要層層疊疊寫個好幾個 callback，現在如果使用 async 和 await，就能夠很簡單的實現連續輸入的情境，程式碼看起來也更乾淨簡潔。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -792,7 +798,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52282714720_c1853f1646_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="搭配-fetch">搭配 Fetch&lt;/h2>
@@ -833,7 +841,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52281246172_5217bf3d10_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="搭配-迴圈">搭配 迴圈&lt;/h2>
@@ -898,7 +908,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52282241753_68a9196e43_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>同樣的，上面提到的 fetch 或是輸入文字，只要做成 await 的方式，都可以放在迴圈裡面使用，例如透過迴圈不斷的 fetch 資料、透過迴圈不斷的輸入文字&amp;hellip;等，這些就不是 callback 方法能容易辦到的囉&lt;/p>
 &lt;hr>
@@ -2119,7 +2131,9 @@ padding: 0 5px;
 >Vetur&lt;/a> 就會報錯，不會影響執行，但是看起來就很煩。所以當我們轉向 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
 >Volar&lt;/a>，那麼就不會出現這個問題了。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52277578262_a65ab53574_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="功能二編輯器分隔">功能二：編輯器分隔&lt;/h3>
@@ -2127,14 +2141,20 @@ loading="lazy"
 &lt;p>安裝完 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
 >Volar&lt;/a> 以後，開啟一個 &lt;code>.vue&lt;/code> 檔案，看 &lt;code>vscode&lt;/code> 的右上角，有這麼一個圖示，點一下。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825464_ba574177cd_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825449_3943326afa_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>它就會自動給你分隔成三個頁面，分別對應 &lt;code>template&lt;/code>、&lt;code>script&lt;/code>、&lt;code>style&lt;/code>，這樣就太舒服了有沒有。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556091_2d9d2e2b05_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>還有很多新功能，可以參考下面這篇文章：&lt;br>
 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/375096539" target="_blank" rel="noopener"
@@ -2144,24 +2164,32 @@ loading="lazy"
 &lt;p>&lt;code>ref sugar&lt;/code> 是一個還在 &lt;code>rfc&lt;/code> 階段的功能，但是已經持續很久了，現在的 &lt;code>vue3&lt;/code> 版本已經可以嚐鮮使用了。具體的用法以及語法我就不展開贅述了，我主要說一下 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
 >Volar&lt;/a> 和 &lt;code>ref sugar&lt;/code> 的結合。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556081_0f4b57ceba_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>報錯先不管，是 &lt;code>eslint-plugin-vue&lt;/code> 的原因。&lt;/p>
 &lt;/blockquote>
 &lt;p>可以看到，在使用了 &lt;code>ref sugar&lt;/code> 之後，&lt;code>script&lt;/code> 上面出現了一個 &lt;code>ref sugar&lt;/code> 的小圖標，並且打了個對勾，那麼我們點一下那個對勾，看看會發生什麼。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556076_32395d3890_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>可以看到，我們點擊這個小對勾之後，它由原本的 &lt;code>ref sugar&lt;/code> 語法變為了普通的 &lt;code>script setup&lt;/code> 模式，驚不驚喜，意不意外。&lt;/p>
 &lt;hr>
 &lt;h3 id="功能四style-裡面的-class-引用">功能四：&lt;code>style&lt;/code> 裡面的 &lt;code>class&lt;/code> 引用&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52277578187_ab1c1ffd3c_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>可以看到，在 &lt;code>.foo&lt;/code> 這個類名上面，出現了一個 &lt;code>1 reference&lt;/code> 的小圖標，代表著當前 &lt;code>class&lt;/code> 有一次引用，我們點擊一下這個 &lt;code>1 reference&lt;/code>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556066_f44a23ef65_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>出現了一個彈窗，裡面是當前 &lt;code>class&lt;/code> 的具體使用位置。&lt;/p>
 &lt;hr>
@@ -2196,7 +2224,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>除了 &lt;code>style&lt;/code> 中的 &lt;code>.foo&lt;/code> 上面會出現 &lt;code>1 reference&lt;/code> 的小圖標之外，在 &lt;code>class=&amp;quot;foo&amp;quot;&lt;/code> 的 &lt;code>foo&lt;/code> 下面，會出現一道橫線。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52279040015_d06725b53d_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>對於經常使用 &lt;code>vscode&lt;/code> 的開發人員來說，這代表什麼意義就不必多說了，我們根據提示，按住 &lt;code>ctrl&lt;/code>(&lt;code>command&lt;/code>) 然後點擊，會發現光標自己移動到了 &lt;code>style&lt;/code> 中的 &lt;code>.foo&lt;/code> 之前，哇! awesome!&lt;/p>
 &lt;hr>
@@ -2226,7 +2256,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>然後將鼠標移動到 &lt;code>$style&lt;/code> 上&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556061_8a9d95187a_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>有點意思，看來 &lt;code>vscode&lt;/code> 是讓 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
 >Volar&lt;/a> 玩明白了。&lt;/p>
@@ -2238,7 +2270,9 @@ loading="lazy"
 &lt;p>但是這一切，在有了 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
 >Volar&lt;/a> 之後，都不同了。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278577133_3988734a44_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="功能八template-語法轉換">功能八：&lt;code>template&lt;/code> 語法轉換&lt;/h3>
@@ -2273,15 +2307,21 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>在我們書寫 &lt;code>template&lt;/code> 之後，&lt;code>template&lt;/code> 頂部會出現一個小小的 &lt;code>pug&lt;/code> 圖標，我們可以看到此時它是沒有被選中的。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52277578137_059aa7e0d5_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>這個時候我們點擊一下這個圖標，讓它選中，神奇的事情發生了。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278577068_bc917eabf4_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>我們寫好的 &lt;code>html&lt;/code> 模板，被自動轉化成了 &lt;code>pug&lt;/code>，再點擊一下，又回到了我們熟悉的 &lt;code>html&lt;/code>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556001_3879f3bbba_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>從功能三開始，基本都是算內測的新功能，我是機緣巧合之下，將 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
@@ -2291,11 +2331,15 @@ loading="lazy"
 &lt;p>推薦的第二個外掛叫做 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=hollowtree.vue-snippets" target="_blank" rel="noopener"
 >Vue 3 Snippets&lt;/a> ，同樣的，他也有自己的 &lt;code>Vue2&lt;/code> 版本。它是幹什麼的呢，可以看一下下面這張圖，我只輸入了 &lt;code>&amp;quot;v3&amp;quot;&lt;/code> ，它有很多提示，我們就先選擇 &lt;code>v3computed&lt;/code> ，選中 &lt;code>Enter&lt;/code> 即可。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278577048_9b6cd0221a_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>然後它就給我們自動寫了如下程式碼：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52279039925_0316ccfe51_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>是不是超級省事，摸魚的時間又增加了！還有更多有趣的使用方式，小夥伴們自行探索吧。&lt;/p>
 &lt;hr>
@@ -2433,7 +2477,9 @@ loading="lazy"
 &lt;/div>&lt;hr>
 &lt;h2 id="composition-api">Composition API&lt;/h2>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278577028_ec0e1597eb_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>接下來到了重頭戲，&lt;code>Vue3&lt;/code> 的招牌特性，&lt;code>Composition API&lt;/code>。&lt;/p>
 &lt;p>關於 &lt;code>Composition API&lt;/code> 這裡有圖解演示，極力推薦。&lt;/p>
@@ -2444,7 +2490,9 @@ loading="lazy"
 &lt;p>順便提一句，&lt;code>Vue3&lt;/code> 相容大部分 &lt;code>Vue2&lt;/code> 語法，所以在 &lt;code>Vue3&lt;/code> 中書寫 &lt;code>Vue2&lt;/code> 語法是沒有問題的（廢除的除外），但是既然我們已經升級 &lt;code>Vue3&lt;/code> 了，不建議混合使用，除非一些大型特殊專案需要相容兩個版本。&lt;/p>
 &lt;h3 id="生命週期鉤子">生命週期鉤子&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278577033_acc9e36189_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="setup">setup&lt;/h3>
@@ -3204,7 +3252,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>生命週期對比：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52279039860_760ce781e5_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>注意：&lt;code>3.0&lt;/code> 中的生命週期鉤子要比 &lt;code>2.X&lt;/code> 中相同生命週期的鉤子要快。&lt;/li>
@@ -3623,7 +3673,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>可以看到在子元件中的 &lt;code>looklook&lt;/code> 元素跑到了 &lt;code>body&lt;/code> 下面，而之前的位置默認出現了兩行註釋。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52277577997_8ba7960112_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="suspense不確定的">Suspense(不確定的)&lt;/h3>
@@ -3783,7 +3835,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>通過下圖可以看到在非同步元件加載出來之前，顯示的是 &lt;code>fallback&lt;/code> 中的內容：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278576943_379d6af224_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="響應式資料的判斷">響應式資料的判斷&lt;/h2>
@@ -3942,7 +3996,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>我們點選一下子元件：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825204_a28791d02b_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>可以看到 &lt;code>context&lt;/code> 被列印了出來，其中的 &lt;code>attrs&lt;/code>、&lt;code>emit&lt;/code>、&lt;code>slots&lt;/code>、&lt;code>expose&lt;/code> 屬性和方法依然可以使用。&lt;code>props&lt;/code> 也可以輸出在頁面上，事件也成功派發。&lt;/p>
 &lt;hr>
@@ -4032,7 +4088,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825189_5a985db5e6_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>現在把子元件換成 &lt;code>script setup&lt;/code> 語法糖再來試一試：&lt;/p>
 &lt;h5 id="childrenvue-6">children.vue&lt;/h5>
@@ -4066,7 +4124,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>可以看到現在是&lt;strong>獲取不到&lt;/strong>子元件定義的 &lt;code>msg&lt;/code> 屬性的。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825149_f0ed4e8b9f_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="emit-派發事件可以對引數進行驗證">Emit 派發事件可以對引數進行驗證&lt;/h2>
@@ -4188,7 +4248,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>我們分別點一下&lt;code>按鈕1&lt;/code>和&lt;code>按鈕2&lt;/code>，可以看到當我們點了&lt;code>按鈕2&lt;/code>的時候，控制檯會發出警告，但是程式會繼續執行，還沒想到什麼適合的應用場景，但是要知道這個知識點，小夥伴們可以在這搞事情。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825124_e17bb7a569_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="跨元件通訊-mittjs">跨元件通訊 &lt;code>mitt.js&lt;/code>&lt;/h2>
@@ -4396,7 +4458,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;h3 id="演示">演示&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52279039685_52ca5e6690_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="自定義指令">自定義指令&lt;/h2>
@@ -4481,7 +4545,9 @@ padding: 0 5px;
 &lt;p>在了解 Composition Api 之前，首先回顧下我們使用 Option Api 遇到的問題，我們在 Vue2 中常常會需要在特定的區域（data、methods、watch、computed&amp;hellip;）編寫負責相同功能的代碼。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52277525197_19c1acbbf4_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -4563,10 +4629,14 @@ loading="lazy"
 &lt;li>相信大部分同學都維護過超過200行的 .vue 組件，新增或者修改一個需求，就需要分別在 data、methods、computed 裡修改，滾動條反复上下移動，我稱之為『反复橫跳』，比如我們簡單的加個拍腦門的需求加個累加器，這種寫代碼上下反复橫條的感覺，相信大家都懂的：&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278523468_474b248a83_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278504901_8cc9387727_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -4810,7 +4880,9 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52278773824_2fb43692cf_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>兩個 mixin 裡都有 double 這個數，尷尬，看效果，lsp 的 count 被覆蓋了很尷尬，而且在 App.vue 這裡，你完全不知道這個 double 到底是哪個，調試很痛苦。&lt;/p>
 &lt;hr>
@@ -4819,10 +4891,14 @@ loading="lazy"
 &lt;p>composition 就是為了解決這個問題存在的，通過組合的方式，把零散在各個 data、methods 的代碼重新組合，一個功能的代碼都放在一起維護，並且這些代碼可以單獨拆分成函數，顯然我們可以更加優雅的組織我們的代碼，函數。讓相關功能的代碼更加有序的組織在一起。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278991260_8c8720067c_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278529193_878667eeba_o.gif"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>我們用vue3演示一下功能，具體api就不解釋了直接vue3文檔搞起就可以：&lt;/p>
 &lt;h5 id="appvue-2">App.vue&lt;/h5>
@@ -6927,7 +7003,9 @@ padding: 0 5px;
 &lt;li>設定好欲發布的分支與 root path&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834833_7d64505282_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>設定完畢後，github 會分配給你一個公開的網址：&lt;a class="link" href="https://%7byour-account%7d.github.io/%7byour-repo-name%7d/" target="_blank" rel="noopener"
@@ -6943,14 +7021,18 @@ loading="lazy"
 &lt;li>選擇 Management Tools -&amp;gt; NameServers 後，此頁面先暫時放置著，待會再回來繼續設定&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839342_99157f69b4_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="前往-cloudflare-後台">前往 Cloudflare 後台&lt;/h3>
 &lt;ul>
 &lt;li>登入 Cloudflare 後台，並選擇 &lt;code>網站&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276298045_5813148868_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>DNS 設定如圖：
@@ -6970,14 +7052,18 @@ loading="lazy"
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834773_a35593be91_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>選擇 &lt;code>Use custom nameservers (enter below)&lt;/code>&lt;/li>
 &lt;li>將剛剛從 Cloudflare 複製的兩個 NameServer，貼到 NameServer 1、NameServer 2&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839317_c0128152a0_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="cloudflare-後台設定強制使用-ssl">Cloudflare 後台設定強制使用 SSL&lt;/h3>
 &lt;ul>
@@ -6985,11 +7071,15 @@ loading="lazy"
 &lt;li>打開 &lt;code>一律使用HTTPS&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834738_19502ba0ac_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="回到-github-pages將網址填寫至-custom-domain短暫驗證完畢後即可點選-save-送出設定">回到 github pages，將網址填寫至 Custom domain，短暫驗證完畢後，即可點選 &lt;code>Save&lt;/code> 送出設定&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834708_a23fb3550c_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>自定義網址已設定完畢，可使用網址打開網站。&lt;/p>
@@ -6999,24 +7089,32 @@ loading="lazy"
 &lt;h3 id="準備材料1生成-github-personal-access-tokens">準備材料1：生成 github personal access tokens&lt;/h3>
 &lt;p>前往 github 的個人設定 &lt;code>&amp;quot;Settings&amp;quot;&lt;/code>，下方點選 Developer settings&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275816721_6470a6fa9a_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>點選 &lt;code>Generate new token&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839257_4a097835f3_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>設定備註、過期時間、權限後即可生成 token&lt;/p>
 &lt;ul>
 &lt;li>建議過期時間可以設定 &lt;code>No expiration&lt;/code> (無過期時間)、權限設定 &lt;code>repo&lt;/code> 全部勾選&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297950_4ca5ede7d5_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>生成後，token 請複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297940_5bd00127d2_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="準備材料2登入-cloudflare-後台取得-區域識別碼zone">準備材料2：登入 Cloudflare 後台，取得 區域識別碼(Zone)&lt;/h3>
 &lt;ul>
@@ -7024,7 +7122,9 @@ loading="lazy"
 &lt;li>點選 &lt;code>概觀&lt;/code>，並於圖中標示處取得 區域識別碼(Zone Id)&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297875_5b918c6ca7_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="準備材料3取得-global-api-key">準備材料3：取得 Global API Key&lt;/h3>
 &lt;ul>
@@ -7032,17 +7132,23 @@ loading="lazy"
 &lt;li>點選 &lt;code>檢視&lt;/code>，輸入密碼後取得 Global API Key&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839177_7cc0239dce_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="準備材料4生成-api-token">準備材料4：生成 API token&lt;/h3>
 &lt;ul>
 &lt;li>點選 &lt;code>建立 Token&lt;/code> -&amp;gt; &lt;code>建立自訂 Token&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297870_ed0c26f4ef_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834623_6bd1187ba3_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>設定 token 名稱、權限、TTL&lt;/li>
@@ -7050,18 +7156,24 @@ loading="lazy"
 &lt;li>設定完畢後即可建立 token&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297825_0a3df713a7_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>建立後，也請將 token 複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839127_009cf08ede_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h2 id="材料準備完畢開始設定-secret">材料準備完畢，開始設定 &lt;code>secret&lt;/code>&lt;/h2>
 &lt;h3 id="進入-source-code-的-repo點選-settings---secret---actions並將剛剛的四個準備材料設定到-actions-secrets-中">進入 source code 的 repo，點選 &lt;code>Settings&lt;/code> -&amp;gt; &lt;code>Secret&lt;/code> -&amp;gt; &lt;code>Actions&lt;/code>，並將剛剛的四個準備材料設定到 &lt;code>Actions secrets&lt;/code> 中&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834568_62dbb88ffc_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>此處 Actions secrets 的名稱如需修改，則待會的 github-actions.yml 內的名稱也需跟著修改，否則會抓不到 secrets 中設定的值哦!&lt;/p>
@@ -7229,7 +7341,9 @@ loading="lazy"
 &lt;/blockquote>
 &lt;h2 id="建立檔案後將-commit-push-後即可於-source-code-repo-的-actions-頁面查看-cicd-的過程">建立檔案後，將 commit push 後，即可於 source code repo 的 &lt;code>Actions&lt;/code> 頁面查看 CI/CD 的過程。&lt;/h2>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297790_12ed5b06ec_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr></description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" />&lt;style>
 .focus {
@@ -7548,7 +7662,9 @@ padding: 0 5px;
 &lt;h4 id="request-and-response-multiplexing-多路複用">Request and response multiplexing (多路複用)&lt;/h4>
 &lt;p>在 http/1.1 中，client 端時常會同時發起多個 request 至 server 拿取檔案(像是js, css, image等)，以此方式達到快速載入頁面。如下圖在 http/1.1 中會同時與 server 建立3個 TCP connection，但是瀏覽器通常會限制 TCP connection 同時建立的數目。因此在 http/2 協定中，允許 client 端與同一 server 建立單一 TCP connection 並以非同步方式傳輸要的檔案。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275827083_0a977870db_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h4 id="優先權設計-prioritizationhttpsnghttp2orgblog20140427how-dependency-based-prioritization-works">優先權設計 (&lt;a class="link" href="https://nghttp2.org/blog/2014/04/27/how-dependency-based-prioritization-works/" target="_blank" rel="noopener"
 >Prioritization&lt;/a>)&lt;/h4>
@@ -7560,7 +7676,9 @@ loading="lazy"
 &lt;p>在 http/1.1 中，通常 client 端 request 甚麼 server 就會回傳甚麼，例如: 當 client request html 那麼 server 將只會回傳 html。但在 http/2 中，允許 server 主動推送有相關的資料給 client，例如: 當 client 只 request html，但是 server 知道 client request 此 html 後續也會 request css, js 等，因此 server 就會在 client 沒有 request 的情況下主動推送 css, js 檔給 client。那 server 怎麼知道這些檔案是有相關性的呢? web developer 將需要 server push 的檔案加上特定的描述即可。(&lt;a class="link" href="https://www.smashingmagazine.com/2017/04/guide-http2-server-push/" target="_blank" rel="noopener"
 >描述&lt;/a>)&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274831682_c7dd69e454_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>不過，這個功能比較有爭議，一來他需要 Web 開發者額外描述有哪些檔案需要隨著 HTML 一起推送給瀏覽器，不是 Web 伺服器升級 HTTP/2 就自動會有。二來它不管瀏覽器是不是已經有快取這個資源，都會推送而造成頻寬浪費。因此實務上筆者認為可以改用瀏覽器的 &lt;a class="link" href="https://css-tricks.com/prefetching-preloading-prebrowsing/" target="_blank" rel="noopener"
@@ -7573,7 +7691,9 @@ loading="lazy"
 >四種解析訊息的方式&lt;/a>，在 HTTP/2 只需要一種。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274831672_3c70d84aab_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="總結">總結&lt;/h3>
 &lt;p>根據 &lt;a class="link" href="https://w3techs.com/technologies/details/ce-http2" target="_blank" rel="noopener"
@@ -7614,7 +7734,9 @@ padding: 0 5px;
 &lt;h4 id="陣列讀取">陣列讀取&lt;/h4>
 &lt;p>陣列是程式中儲存東西的一種容器，我們可以想像成一排已經編號好的櫃子。每一個櫃子上的編號我們稱為「索引值」（Index，在程式中這個編號通常從 0 開始），而櫃子裡的物品我們稱為「元素」。例如：假設神奇寶貝大師小明在一個名叫 Pokemons 的陣列裡依序放入他的神奇寶貝們，我們來複習一下陣列、元素、索引值的關係：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275821863_26937a0dab_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>在程式碼中我們把七隻神奇寶貝這樣表達：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -7685,17 +7807,23 @@ loading="lazy"
 &lt;p>同樣的邏輯，假設有一長串有小到大排序好的數字們，我要在其中找特定一個數字，我們一樣可以從第一個往後一個一個檢查。但假設我們想要更珍惜生命，聰明的讀者可能已經想到了我們在「終極密碼」這種遊戲中會使用的策略，也就是每次都先檢查最中間的數字，如果中間的數字比我們要找的數字大，我們要找的數量就只剩原本的一半（因為在後段的數字顯然都會比我們要找的數字大），這樣的方法，就稱作二分搜尋法。&lt;/p>
 &lt;p>舉一個實際的例子，假設今天有一排編號好的櫃子，裡面擺著八個由小到大排序好的數字。假設我們知道裡面的數字包含 55，但我們不知道在哪一個編號櫃子中。讓我們來比較簡易搜尋（從第一格往後一個一個檢查）跟二分搜尋法有什麼差別。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275821858_1ae3815cde_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>從上面的圖可以看到，一般的搜尋方法需要花五個步驟才能找到 55。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275803781_5fe0ae4bdb_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>而在二分搜尋法中，我們先打開最中間的櫃子，發現裡面的數字是 41。因為 55 比 41 大，因此我們知道從一號櫃到三號櫃都不會有 55，接下來只需要檢查五號櫃到七號櫃。&lt;/p>
 &lt;p>同樣的邏輯，我們打開剩下三個可能性中最中間的櫃子，發現六號櫃裡面的數字是 61，因為 61 比 55 大，我們可以知道七號櫃的數字一定也比 55 大，得知 55 一定就在五號櫃之中。&lt;/p>
 &lt;p>接下來，要再次來關心兩個搜尋方法的時間複雜度。簡易搜尋的情況中，我們可以輕鬆地知道最壞的情況就是剛好七個步驟（要找的數字是 80 ）。而二分搜尋法，我們可以先練習去計算各種情況需要的步驟，而最終的答案如下表：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276285185_e6aefb9097_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>從上表我們可以發現，二分搜尋法最慘最慘，也只需要三個步驟。&lt;/p>
 &lt;p>推廣到有 n 個櫃子時，我們可以發現：二分搜尋法在每進行一個步驟時，就可以排除掉一半的可能性。每次都能減少一半，因此二分搜尋法最糟最糟也只需要以 2 為底的 log n 個步驟就能完成。&lt;/p>
@@ -8020,7 +8148,9 @@ padding: 0 5px;
 >BloomRPC&lt;/a> 這套工具來模擬 Client 對 gRPC server 發送請求，功能就類似在 Restful 中使用的 Postman。&lt;/p>
 &lt;p>使用時只需要匯入 proto 檔後，即可看到對應可呼叫的方法和可帶入的參數，能這麼方便也是因為在 protocol buffer 中已經把傳輸的資料格式和能對應呼叫的方法都定好的緣故。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275797523_2aa5d2670c_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="實作-grpc-client">實作 gRPC Client&lt;/h3>
@@ -8188,7 +8318,9 @@ loading="lazy"
 &lt;p>傳統的 HTTP/1.1 在每個 TCP 連線中只允許向 server 發送單一個請求，但當網頁載入時，往往會需要向同一個伺服器發送多個請求（例如、圖檔、CSS、靜態檔、JS 等），因此為了要避開這樣的限制、加快載入的速度，瀏覽器會實作多個平行的（parallel） TPC 連線（每個瀏覽器實作不同，因此數量的上限也不同），以處理同時向伺服器發出的多個請求。&lt;/p>
 &lt;p>在 HTTP/2 中則可在同一個 TCP 連線中進行多個請求和回應，並且可以由 server 主動推送資源給 client，而並非一定要透過 client 主動請求；此外支援 HTTP Header 的壓縮，減少資料傳數量；HTTP/2 也是使用 binary 的方式在傳輸資料。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276261390_2e9a555fdf_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="grpc-的四種類型">gRPC 的四種類型&lt;/h2>
@@ -8199,7 +8331,9 @@ loading="lazy"
 &lt;li>Bi Directional Streaming：兩邊都用串流的方式傳送資料&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275779856_85cbd8a2e2_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>圖片來源：&lt;a class="link" href="https://www.udemy.com/course/grpc-golang/" target="_blank" rel="noopener"
 >gRPC Golang - Master Class: Build Modern API &amp;amp; MicroServices&lt;/a> @ Udemy&lt;/p>
@@ -8291,7 +8425,9 @@ padding: 0 5px;
 &lt;h2 id="排序演算法">排序演算法&lt;/h2>
 &lt;h3 id="氣泡排序法bubble-sort">氣泡排序法(bubble sort)&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274632592_58d95aceb7_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h4 id="概要">概要&lt;/h4>
 &lt;ul>
@@ -8303,7 +8439,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="時間複雜度">時間複雜度&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275869794_bf8e88d4d5_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>如果陣列長度是 &lt;strong>4&lt;/strong>，要比對 &lt;strong>3+2+1&lt;/strong> 總共 &lt;strong>6&lt;/strong> 次。&lt;/li>
@@ -8315,7 +8453,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="假設">假設&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275609296_bbde3c1e88_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>可以加入一個 &lt;strong>flag&lt;/strong> 來做判定，假設比較完第一輪發現沒有交換的情況發生，則代表已經排序完成，不需要再跑下一輪，即可稍微優化排序。&lt;/li>
@@ -8379,7 +8519,9 @@ loading="lazy"
 &lt;/div>&lt;hr>
 &lt;h3 id="插入排序法insertion-sort">插入排序法(insertion sort)&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275869754_6c77155c50_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h4 id="概要-1">概要&lt;/h4>
 &lt;ul>
@@ -8391,7 +8533,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="時間複雜度複雜度同氣泡排序法">時間複雜度(複雜度同氣泡排序法)&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275869734_953ef08286_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>如果陣列長度是 &lt;strong>4&lt;/strong>，要比對 &lt;strong>1+2+3&lt;/strong> 總共 &lt;strong>6&lt;/strong> 次。&lt;/li>
@@ -8403,7 +8547,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="假設-1">假設&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275626733_8db0900d4c_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>假設當前比對的值與第一個要比較的值一比較，恰好正確，則代表前面皆已經排序完成，可以進到下一輪。&lt;/li>
@@ -8561,10 +8707,14 @@ padding: 0 5px;
 &lt;li>傳統 grunt、gulp、webpack 與 vite 構建對比圖：&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275597146_0470413262_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275615043_7d6b094202_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -8597,7 +8747,9 @@ loading="lazy"
 &lt;/div>&lt;hr>
 &lt;h2 id="安裝-vue-開發者工具">安裝 Vue 開發者工具&lt;/h2>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274620362_ba92c40ba3_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://chrome.google.com/webstore/search/vue" target="_blank" rel="noopener"
 >Vue.js devtools&lt;/a>&lt;/p>
@@ -10238,8 +10390,10 @@ loading="lazy"
 &lt;h2 id="hyperlinked-image">Hyperlinked image&lt;/h2>
 &lt;p>&lt;a class="link" href="https://google.com" target="_blank" rel="noopener"
 >&lt;img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_light_color_272x92dp.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
 alt="Google"
+class="gallery-image"
 >&lt;/a>&lt;/p>
 &lt;div class="footnotes" role="doc-endnotes">
 &lt;hr>

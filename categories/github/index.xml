@@ -89,7 +89,9 @@ padding: 0 5px;
 &lt;li>設定好欲發布的分支與 root path&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834833_7d64505282_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>設定完畢後，github 會分配給你一個公開的網址：&lt;a class="link" href="https://%7byour-account%7d.github.io/%7byour-repo-name%7d/" target="_blank" rel="noopener"
@@ -105,14 +107,18 @@ loading="lazy"
 &lt;li>選擇 Management Tools -&amp;gt; NameServers 後，此頁面先暫時放置著，待會再回來繼續設定&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839342_99157f69b4_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="前往-cloudflare-後台">前往 Cloudflare 後台&lt;/h3>
 &lt;ul>
 &lt;li>登入 Cloudflare 後台，並選擇 &lt;code>網站&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276298045_5813148868_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>DNS 設定如圖：
@@ -132,14 +138,18 @@ loading="lazy"
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834773_a35593be91_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>選擇 &lt;code>Use custom nameservers (enter below)&lt;/code>&lt;/li>
 &lt;li>將剛剛從 Cloudflare 複製的兩個 NameServer，貼到 NameServer 1、NameServer 2&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839317_c0128152a0_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="cloudflare-後台設定強制使用-ssl">Cloudflare 後台設定強制使用 SSL&lt;/h3>
 &lt;ul>
@@ -147,11 +157,15 @@ loading="lazy"
 &lt;li>打開 &lt;code>一律使用HTTPS&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834738_19502ba0ac_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="回到-github-pages將網址填寫至-custom-domain短暫驗證完畢後即可點選-save-送出設定">回到 github pages，將網址填寫至 Custom domain，短暫驗證完畢後，即可點選 &lt;code>Save&lt;/code> 送出設定&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834708_a23fb3550c_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>自定義網址已設定完畢，可使用網址打開網站。&lt;/p>
@@ -161,24 +175,32 @@ loading="lazy"
 &lt;h3 id="準備材料1生成-github-personal-access-tokens">準備材料1：生成 github personal access tokens&lt;/h3>
 &lt;p>前往 github 的個人設定 &lt;code>&amp;quot;Settings&amp;quot;&lt;/code>，下方點選 Developer settings&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275816721_6470a6fa9a_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>點選 &lt;code>Generate new token&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839257_4a097835f3_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>設定備註、過期時間、權限後即可生成 token&lt;/p>
 &lt;ul>
 &lt;li>建議過期時間可以設定 &lt;code>No expiration&lt;/code> (無過期時間)、權限設定 &lt;code>repo&lt;/code> 全部勾選&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297950_4ca5ede7d5_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>生成後，token 請複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297940_5bd00127d2_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="準備材料2登入-cloudflare-後台取得-區域識別碼zone">準備材料2：登入 Cloudflare 後台，取得 區域識別碼(Zone)&lt;/h3>
 &lt;ul>
@@ -186,7 +208,9 @@ loading="lazy"
 &lt;li>點選 &lt;code>概觀&lt;/code>，並於圖中標示處取得 區域識別碼(Zone Id)&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297875_5b918c6ca7_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="準備材料3取得-global-api-key">準備材料3：取得 Global API Key&lt;/h3>
 &lt;ul>
@@ -194,17 +218,23 @@ loading="lazy"
 &lt;li>點選 &lt;code>檢視&lt;/code>，輸入密碼後取得 Global API Key&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839177_7cc0239dce_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="準備材料4生成-api-token">準備材料4：生成 API token&lt;/h3>
 &lt;ul>
 &lt;li>點選 &lt;code>建立 Token&lt;/code> -&amp;gt; &lt;code>建立自訂 Token&lt;/code>&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297870_ed0c26f4ef_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834623_6bd1187ba3_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>設定 token 名稱、權限、TTL&lt;/li>
@@ -212,18 +242,24 @@ loading="lazy"
 &lt;li>設定完畢後即可建立 token&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297825_0a3df713a7_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>建立後，也請將 token 複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839127_009cf08ede_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h2 id="材料準備完畢開始設定-secret">材料準備完畢，開始設定 &lt;code>secret&lt;/code>&lt;/h2>
 &lt;h3 id="進入-source-code-的-repo點選-settings---secret---actions並將剛剛的四個準備材料設定到-actions-secrets-中">進入 source code 的 repo，點選 &lt;code>Settings&lt;/code> -&amp;gt; &lt;code>Secret&lt;/code> -&amp;gt; &lt;code>Actions&lt;/code>，並將剛剛的四個準備材料設定到 &lt;code>Actions secrets&lt;/code> 中&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834568_62dbb88ffc_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>此處 Actions secrets 的名稱如需修改，則待會的 github-actions.yml 內的名稱也需跟著修改，否則會抓不到 secrets 中設定的值哦!&lt;/p>
@@ -391,6 +427,8 @@ loading="lazy"
 &lt;/blockquote>
 &lt;h2 id="建立檔案後將-commit-push-後即可於-source-code-repo-的-actions-頁面查看-cicd-的過程">建立檔案後，將 commit push 後，即可於 source code repo 的 &lt;code>Actions&lt;/code> 頁面查看 CI/CD 的過程。&lt;/h2>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297790_12ed5b06ec_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

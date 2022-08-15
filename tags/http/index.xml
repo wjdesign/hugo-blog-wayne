@@ -315,7 +315,9 @@ padding: 0 5px;
 &lt;h4 id="request-and-response-multiplexing-多路複用">Request and response multiplexing (多路複用)&lt;/h4>
 &lt;p>在 http/1.1 中，client 端時常會同時發起多個 request 至 server 拿取檔案(像是js, css, image等)，以此方式達到快速載入頁面。如下圖在 http/1.1 中會同時與 server 建立3個 TCP connection，但是瀏覽器通常會限制 TCP connection 同時建立的數目。因此在 http/2 協定中，允許 client 端與同一 server 建立單一 TCP connection 並以非同步方式傳輸要的檔案。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275827083_0a977870db_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h4 id="優先權設計-prioritizationhttpsnghttp2orgblog20140427how-dependency-based-prioritization-works">優先權設計 (&lt;a class="link" href="https://nghttp2.org/blog/2014/04/27/how-dependency-based-prioritization-works/" target="_blank" rel="noopener"
 >Prioritization&lt;/a>)&lt;/h4>
@@ -327,7 +329,9 @@ loading="lazy"
 &lt;p>在 http/1.1 中，通常 client 端 request 甚麼 server 就會回傳甚麼，例如: 當 client request html 那麼 server 將只會回傳 html。但在 http/2 中，允許 server 主動推送有相關的資料給 client，例如: 當 client 只 request html，但是 server 知道 client request 此 html 後續也會 request css, js 等，因此 server 就會在 client 沒有 request 的情況下主動推送 css, js 檔給 client。那 server 怎麼知道這些檔案是有相關性的呢? web developer 將需要 server push 的檔案加上特定的描述即可。(&lt;a class="link" href="https://www.smashingmagazine.com/2017/04/guide-http2-server-push/" target="_blank" rel="noopener"
 >描述&lt;/a>)&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274831682_c7dd69e454_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>不過，這個功能比較有爭議，一來他需要 Web 開發者額外描述有哪些檔案需要隨著 HTML 一起推送給瀏覽器，不是 Web 伺服器升級 HTTP/2 就自動會有。二來它不管瀏覽器是不是已經有快取這個資源，都會推送而造成頻寬浪費。因此實務上筆者認為可以改用瀏覽器的 &lt;a class="link" href="https://css-tricks.com/prefetching-preloading-prebrowsing/" target="_blank" rel="noopener"
@@ -340,7 +344,9 @@ loading="lazy"
 >四種解析訊息的方式&lt;/a>，在 HTTP/2 只需要一種。&lt;/p>
 &lt;/blockquote>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274831672_3c70d84aab_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h3 id="總結">總結&lt;/h3>
 &lt;p>根據 &lt;a class="link" href="https://w3techs.com/technologies/details/ce-http2" target="_blank" rel="noopener"

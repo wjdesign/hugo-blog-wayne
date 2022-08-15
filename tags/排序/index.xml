@@ -11,7 +11,9 @@ padding: 0 5px;
 &lt;h2 id="排序演算法">排序演算法&lt;/h2>
 &lt;h3 id="氣泡排序法bubble-sort">氣泡排序法(bubble sort)&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274632592_58d95aceb7_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h4 id="概要">概要&lt;/h4>
 &lt;ul>
@@ -23,7 +25,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="時間複雜度">時間複雜度&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275869794_bf8e88d4d5_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>如果陣列長度是 &lt;strong>4&lt;/strong>，要比對 &lt;strong>3+2+1&lt;/strong> 總共 &lt;strong>6&lt;/strong> 次。&lt;/li>
@@ -35,7 +39,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="假設">假設&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275609296_bbde3c1e88_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>可以加入一個 &lt;strong>flag&lt;/strong> 來做判定，假設比較完第一輪發現沒有交換的情況發生，則代表已經排序完成，不需要再跑下一輪，即可稍微優化排序。&lt;/li>
@@ -99,7 +105,9 @@ loading="lazy"
 &lt;/div>&lt;hr>
 &lt;h3 id="插入排序法insertion-sort">插入排序法(insertion sort)&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275869754_6c77155c50_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;h4 id="概要-1">概要&lt;/h4>
 &lt;ul>
@@ -111,7 +119,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="時間複雜度複雜度同氣泡排序法">時間複雜度(複雜度同氣泡排序法)&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275869734_953ef08286_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>如果陣列長度是 &lt;strong>4&lt;/strong>，要比對 &lt;strong>1+2+3&lt;/strong> 總共 &lt;strong>6&lt;/strong> 次。&lt;/li>
@@ -123,7 +133,9 @@ loading="lazy"
 &lt;/ul>
 &lt;h4 id="假設-1">假設&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275626733_8db0900d4c_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;ul>
 &lt;li>假設當前比對的值與第一個要比較的值一比較，恰好正確，則代表前面皆已經排序完成，可以進到下一輪。&lt;/li>

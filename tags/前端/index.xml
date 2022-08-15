@@ -61,10 +61,14 @@ padding: 0 5px;
 &lt;li>傳統 grunt、gulp、webpack 與 vite 構建對比圖：&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275597146_0470413262_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275615043_7d6b094202_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -97,7 +101,9 @@ loading="lazy"
 &lt;/div>&lt;hr>
 &lt;h2 id="安裝-vue-開發者工具">安裝 Vue 開發者工具&lt;/h2>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274620362_ba92c40ba3_o.jpg"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://chrome.google.com/webstore/search/vue" target="_blank" rel="noopener"
 >Vue.js devtools&lt;/a>&lt;/p>

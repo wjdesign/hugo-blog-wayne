@@ -260,7 +260,9 @@ padding: 0 5px;
 >BloomRPC&lt;/a> 這套工具來模擬 Client 對 gRPC server 發送請求，功能就類似在 Restful 中使用的 Postman。&lt;/p>
 &lt;p>使用時只需要匯入 proto 檔後，即可看到對應可呼叫的方法和可帶入的參數，能這麼方便也是因為在 protocol buffer 中已經把傳輸的資料格式和能對應呼叫的方法都定好的緣故。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275797523_2aa5d2670c_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="實作-grpc-client">實作 gRPC Client&lt;/h3>
@@ -428,7 +430,9 @@ loading="lazy"
 &lt;p>傳統的 HTTP/1.1 在每個 TCP 連線中只允許向 server 發送單一個請求，但當網頁載入時，往往會需要向同一個伺服器發送多個請求（例如、圖檔、CSS、靜態檔、JS 等），因此為了要避開這樣的限制、加快載入的速度，瀏覽器會實作多個平行的（parallel） TPC 連線（每個瀏覽器實作不同，因此數量的上限也不同），以處理同時向伺服器發出的多個請求。&lt;/p>
 &lt;p>在 HTTP/2 中則可在同一個 TCP 連線中進行多個請求和回應，並且可以由 server 主動推送資源給 client，而並非一定要透過 client 主動請求；此外支援 HTTP Header 的壓縮，減少資料傳數量；HTTP/2 也是使用 binary 的方式在傳輸資料。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52276261390_2e9a555fdf_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="grpc-的四種類型">gRPC 的四種類型&lt;/h2>
@@ -439,7 +443,9 @@ loading="lazy"
 &lt;li>Bi Directional Streaming：兩邊都用串流的方式傳送資料&lt;/li>
 &lt;/ul>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275779856_85cbd8a2e2_o.png"
-loading="lazy"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
 >&lt;/p>
 &lt;p>圖片來源：&lt;a class="link" href="https://www.udemy.com/course/grpc-golang/" target="_blank" rel="noopener"
 >gRPC Golang - Master Class: Build Modern API &amp;amp; MicroServices&lt;/a> @ Udemy&lt;/p>
