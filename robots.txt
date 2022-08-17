@@ -1,8 +1,20 @@
 User-agent: *
 
-Disallow: /2022-08-13/js-async-programs/
-
 Disallow: /categories/
+
+Disallow: /post/
+
+Disallow: /tags/seo/
+
+Disallow: /categories/seo/
+
+Disallow: /2022-08-17/seo-backlinks-building-guide/
+
+Disallow: /tags/
+
+Disallow: /
+
+Disallow: /2022-08-13/js-async-programs/
 
 Disallow: /tags/javascript/
 
@@ -11,12 +23,6 @@ Disallow: /categories/javascript/
 Disallow: /2022-08-13/js-async-await/
 
 Disallow: /2022-08-13/js-regex/
-
-Disallow: /post/
-
-Disallow: /tags/
-
-Disallow: /
 
 Disallow: /tags/vue/
 
