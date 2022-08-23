@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>reverse proxy on Wayne(偉恩)的部落格</title><link>/tags/reverse-proxy/</link><description>Recent content in reverse proxy on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 23 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/reverse-proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>nginx CORS 跨域與反向代理</title><link>/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h2 id="參考文章">參考文章&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.itread01.com/content/1541910442.html" target="_blank" rel="noopener"
+>CORS跨域與Nginx反向代理&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://enable-cors.org/server_nginx.html" target="_blank" rel="noopener"
+>CORS on Nginx&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://my.oschina.net/liuyuantao/blog/1931256" target="_blank" rel="noopener"
+>Nginx解决CORS跨域解决方案&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.boatswain.io/zh/post/setup-cors-in-nginx-with-proxypass-upstream/" target="_blank" rel="noopener"
+>在 Nginx 的 ProxyPass Upstream 設定 CORS （跨來源資源共享）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52304007692_ea5c515c1f_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h2 id="cors跨域">CORS跨域&lt;/h2>
+&lt;h3 id="跨域資源共享---cors">跨域資源共享 - CORS&lt;/h3>
+&lt;p>&lt;code>跨域資源共享(CORS)&lt;/code>是一種機制，它使用額外的 HTTP 頭來告訴瀏覽器，讓運行在一個 origin (domain) 上的Web應用被准許訪問來自不同源服務器上的指定的資源。當一個資源從與該資源本身所在的服務器不同的域、協議或端口請求一個資源時，資源會發起一個跨域 HTTP 請求。&lt;/p>
+&lt;p>比如，站點 &lt;code>http://domain-a.com&lt;/code> 的某 HTML 頁面通過 &lt;code>&amp;lt;img&amp;gt;&lt;/code> 的 src 請求 &lt;code>http://domain-b.com/image.jpg&lt;/code>。網絡上的許多頁面都會加載來自不同域的CSS樣式表，圖像和腳本等資源。&lt;/p>
+&lt;p>出於安全原因，瀏覽器限制從腳本內發起的跨源HTTP請求。例如，&lt;code>XMLHttpRequest&lt;/code>和&lt;code>Fetch API&lt;/code>遵循&lt;a class="link" href="#%e3%80%8c%e5%90%8c%e6%ba%90%e3%80%8d%e5%ae%9a%e7%be%a9" >同源策略&lt;/a>。這意味著使用這些API的Web應用程序只能從加載應用程序的同一個域請求HTTP資源，除非響應報文包含了正確CORS響應頭。&lt;/p>
+&lt;h5 id="跨域時部分瀏覽器預設不攜帶cookie因此為了攜帶cookie需要在前端設定xmlhttprequest的font-classfocuswithcrendetallsfont屬性">跨域時部分瀏覽器預設不攜帶cookie，因此為了攜帶cookie需要在前端設定xmlhttprequest的&lt;font class="focus">withCrendetalls&lt;/font>屬性。&lt;/h5>
+&lt;hr>
+&lt;h2 id="同源定義">「同源」定義&lt;/h2>
+&lt;p>「同源」定義很簡單，以下三個參數都相同：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>protocol&lt;span class="o">]&lt;/span>://&lt;span class="o">[&lt;/span>domain&lt;span class="o">]&lt;/span>:&lt;span class="o">[&lt;/span>port&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>白話說，當你在 &lt;code>https://www.example.com/product.html&lt;/code> 頁面&lt;/p>
+&lt;p>嘗試對以下路徑發出請求，都違反同源：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>http://www.example.com/api/products/40.json&lt;/code>&lt;/li>
+&lt;li>&lt;code>https://www.example2.com/api/products/40.json&lt;/code>&lt;/li>
+&lt;li>&lt;code>https://www.example.com:8080/api/products/40.json&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>乖孩子遵守同源，不會被打：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://www.example.com/api/products/40.json&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="簡單請求和複雜請求">簡單請求和複雜請求&lt;/h3>
+&lt;p>簡單請求與複雜請求的差別是複雜請求會自動發出一個 &lt;code>OPTIONS&lt;/code> 的預檢請求，當請求得到確認後，才開始真正發送請求。&lt;br>
+綜上，我們要解決兩個問題：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>OPTIONS&lt;/code> 請求的正確響應&lt;/li>
+&lt;li>跨域請求正確響應&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="options-請求的正確響應">&lt;code>OPTIONS&lt;/code> 請求的正確響應&lt;/h3>
+&lt;p>&lt;a class="link" href="https://my.oschina.net/liuyuantao/blog/1931256" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;/p>
+&lt;h5 id="解決的方式有多種既可以在web-server解決也可以在源碼層解決因為問題比較普遍故我們選擇在web-server解決下面我們以-nginx-為例說明解決方案">解決的方式有多種，既可以在Web Server解決，也可以在源碼層解決。因為問題比較普遍，故我們選擇在Web Server解決，下面我們以 Nginx 為例，說明解決方案。&lt;/h5>
+&lt;h4 id="假設訪問的地址為-example--nginx-配置如下">假設訪問的地址為 &lt;code>/example&lt;/code> , Nginx 配置如下:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="s">/example&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_redirect&lt;/span> &lt;span class="no">off&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:8080/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="為了解決跨域問題添加如下內容">為了解決跨域問題，添加如下內容:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">location /example {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ if ($request_method = &amp;#39;OPTIONS&amp;#39;) {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Origin *;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Max-Age 1728000;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Headers &amp;#39;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&amp;#39;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Content-Type&amp;#39; &amp;#39;text/plain; charset=utf-8&amp;#39;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Content-Length 0 ;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ return 204;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_redirect off;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://127.0.0.1:8080/;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="說明">說明：&lt;/h4>
+&lt;p>&lt;code>if ($request_method = 'OPTIONS') {...}&lt;/code> 當請求方法為 &lt;code>OPTIONS&lt;/code> 時:&lt;/p>
+&lt;ul>
+&lt;li>添加允許源 &lt;code>Access-Control-Allow-Origin&lt;/code> 為 &lt;code>*&lt;/code> (可根據業務需要更改)&lt;/li>
+&lt;li>添加緩存時長 &lt;code>Access-Control-Max-Age&lt;/code>，當下次請求時，無需再發送 &lt;code>OPTIONS&lt;/code> 請求&lt;/li>
+&lt;li>添加允許的方法，允許的首部&lt;/li>
+&lt;li>添加一個內容長度為&lt;code>0&lt;/code>，類型為 &lt;code>text/plain; charset=utf-8&lt;/code> , 返回狀態碼為 &lt;code>204&lt;/code> 的首部&lt;/li>
+&lt;/ul>
+&lt;p>至此，完成 &lt;code>OPTIONS&lt;/code> 請求的正確響應。&lt;/p>
+&lt;h3 id="跨域請求正確響應">跨域請求正確響應&lt;/h3>
+&lt;p>添加如下內容:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">location /example {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> if ($request_method = &amp;#39;OPTIONS&amp;#39;) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Allow-Origin *;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Max-Age 1728000;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Allow-Headers &amp;#39;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Content-Type&amp;#39; &amp;#39;text/plain; charset=utf-8&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Content-Length 0 ;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> return 204;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ if ($http_origin ~* (https?://(.+\.)?(example\.com$))) {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Origin $http_origin;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Credentials true;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Expose-Headers Content-Length,Content-Range;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_redirect off;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://127.0.0.1:8080/;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="說明-1">說明：&lt;/h4>
+&lt;p>&lt;code>if ($http_origin ~* (https?://(.+\.)?(example\.com$))) {...}&lt;/code>，當 origin 為合法域名(可根據業務調整或去除合法域名驗證)時:&lt;/p>
+&lt;ul>
+&lt;li>添加允許源 &lt;code>Access-Control-Allow-Origin&lt;/code> 為 &lt;code>$http_origin&lt;/code> (可根據業務需要更改)&lt;/li>
+&lt;li>添加允許認證 &lt;code>Access-Control-Allow-Credentials&lt;/code> 為 &lt;code>true&lt;/code> ，允許接收客戶端 &lt;code>Cookie&lt;/code>(可根據業務需要更改。 但要注意，當設置為&lt;code>true&lt;/code>時，&lt;code>Access-Control-Allow-Origin&lt;/code> 不允許設置為 &lt;code>*&lt;/code>)&lt;/li>
+&lt;li>添加允許的方法，暴露的首部&lt;/li>
+&lt;/ul>
+&lt;p>至此，完成跨域請求正確響應。&lt;/p>
+&lt;p>以上，是對跨域請求在Web Server的解決方案，主要是通過響應 &lt;code>OPTIONS&lt;/code> 方法和添加允許源來解決。&lt;/p>
+&lt;hr>
+&lt;p>當然，如果本地開發中，可以在利用 &lt;code>webpack-dev-server&lt;/code> 的 &lt;a class="link" href="https://webpack.js.org/configuration/dev-server/#devserver-proxy" target="_blank" rel="noopener"
+>proxy&lt;/a> 選項來快速解決跨域問題：&lt;/p>
+&lt;p>示例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// webpack.congf.js
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">module&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exports&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">devServer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;/api&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;http://localhost:3000&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">pathRewrite&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;^/api&amp;#39;&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;font class="focus">當訪問地址如 &lt;code>/api/foo?q=bar&lt;/code> 時，則通過代理訪問的實際地址是: &lt;code>http://localhost:3000/foo?q=bar&lt;/code>。&lt;/font>&lt;/p>
+&lt;hr>
+&lt;h2 id="nginx反向代理">Nginx反向代理&lt;/h2>
+&lt;p>nginx反向代理，通過修改nginx配置檔案實現反向代理，請求統一通過nginx分發請求&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52304747256_1d98e2fc68_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="nginx配置19216875139">Nginx配置（192.168.75.139）&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 負載均衡
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">upstream&lt;/span> &lt;span class="s">my_site&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server&lt;/span> &lt;span class="n">192.168.75.138&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server&lt;/span> &lt;span class="n">192.168.75.137&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server&lt;/span> &lt;span class="n">192.168.75.136&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">8081&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">localhost&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">^~&lt;/span> &lt;span class="s">/api/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-ip&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site/nginx/indexNginxCrossQuest.jsp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/nginx/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site/nginx/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-ip&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">\.(html|htm|ico|png|jpg|jpeg|js|css|bmp)$&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">error_page&lt;/span> &lt;span class="mi">500&lt;/span> &lt;span class="mi">502&lt;/span> &lt;span class="mi">503&lt;/span> &lt;span class="mi">504&lt;/span> &lt;span class="s">/50x.html&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/50x.html&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">root&lt;/span> &lt;span class="s">html&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="瀏覽器請求192168751">瀏覽器請求（192.168.75.1）&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52305211798_37f5434bf4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="綜合對比">綜合對比&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">CORS&lt;/th>
+&lt;th style="text-align:left">Nginx反向代理&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">前端程式碼配置&lt;/td>
+&lt;td style="text-align:left">credentials=true&lt;/td>
+&lt;td style="text-align:left">無&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">後端程式碼配置&lt;/td>
+&lt;td style="text-align:left">setHeader：Allow-Origin、Allow-Methods等&lt;/td>
+&lt;td style="text-align:left">無&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">服務端配置&lt;/td>
+&lt;td style="text-align:left">無&lt;/td>
+&lt;td style="text-align:left">Nginx配置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">移植靈活性&lt;/td>
+&lt;td style="text-align:left">高、無額外配置&lt;/td>
+&lt;td style="text-align:left">低、每增加一個環境都需要增加配置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">安全性&lt;/td>
+&lt;td style="text-align:left">高、來源可控、直接追溯&lt;/td>
+&lt;td style="text-align:left">X-Forwarded-For追溯多級來源&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">安全控制&lt;/td>
+&lt;td style="text-align:left">黑白名單&lt;/td>
+&lt;td style="text-align:left">更新配置&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr></description></item></channel></rss>
