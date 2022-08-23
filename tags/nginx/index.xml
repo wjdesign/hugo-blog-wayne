@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nginx on Wayne(偉恩)的部落格</title><link>/tags/nginx/</link><description>Recent content in nginx on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 23 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/tags/nginx/index.xml" rel="self" type="application/rss+xml"/><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h2 id="參考文章">參考文章&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.itnotetk.com/2018/04/28/nginx%E8%A8%AD%E5%AE%9Assl%E5%85%8D%E8%B2%BB%E5%9F%9F%E5%90%8D%E8%AD%89%E6%9B%B8/" target="_blank" rel="noopener"
+>IT Note&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.kimotour.com.tw/modules/tad_book3/html.php?tbdsn=31" target="_blank" rel="noopener"
+>SSL憑證教學 - xoops&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.sslforfree.com/" target="_blank" rel="noopener"
+>免費SSL憑證申請&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://ssl-config.mozilla.org/#server=nginx&amp;amp;version=1.17.7&amp;amp;config=intermediate&amp;amp;openssl=1.1.1d&amp;amp;guideline=5.6" target="_blank" rel="noopener"
+>nginx config產生器&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.ssllabs.com/ssltest/analyze.html" target="_blank" rel="noopener"
+>Qualys 的 SSL 伺服器測試工具&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="版本一">版本一&lt;/h2>
+&lt;h3 id="步驟-1---下載安裝及執行的腳本">步驟 1 - 下載安裝及執行的腳本&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://dl.eff.org/certbot-auto --no-check-certificate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x ./certbot-auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./certbot-auto -n
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="生成證書只需要輸入郵件地址和網站根目錄提示以下內容說明安裝完成">生成證書，只需要輸入郵件地址和網站根目錄，提示以下內容，說明安裝完成&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Saving debug log to /var/log/letsencrypt/letsencrypt.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Missing &lt;span class="nb">command&lt;/span> line flags. For non-interactive execution, you will need to specify a plugin on the &lt;span class="nb">command&lt;/span> line. Run with &lt;span class="s1">&amp;#39;--help plugins&amp;#39;&lt;/span> to see a list of options, and see https://eff.org/letsencrypt-plugins &lt;span class="k">for&lt;/span> more detail on what the plugins &lt;span class="k">do&lt;/span> and how to use them.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-2---nginx設定隱藏目錄訪問">步驟 2 - nginx設定隱藏目錄訪問&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">/.well-known&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">allow&lt;/span> &lt;span class="s">all&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-3---生成域名證書">步驟 3 - 生成域名證書&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./certbot-auto certonly --email tony@hack.idv.tw --agree-tos --no-eff-email --webroot -w /var/www/ -d hack.idv.tw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="到目錄內查看">到目錄內查看&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/letsencrypt/live/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52304697266_7e58e85906_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h5 id="萬用字元的申請指令-需要驗證dns">萬用字元的申請指令 (需要驗證dns)&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">certbot-auto certonly -d *.manpc.tk --manual --preferred-challenges dns
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52305209689_c0d76ecdbe_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="步驟-4---設定nginx">步驟 4 - 設定nginx&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1"># IPv4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">hack.idv.tw&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#rewrite ^(.*) https://$host$1 permanent;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">return&lt;/span> &lt;span class="mi">301&lt;/span> &lt;span class="s">https://www.itnotetk.com&lt;/span>&lt;span class="nv">$request_uri&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">#跳轉到Https
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">ssl&lt;/span> &lt;span class="s">http2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">hack.idv.tw&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/letsencrypt/live/hack.idv.tw/fullchain.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/letsencrypt/live/hack.idv.tw/privkey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">client_max_body_size&lt;/span> &lt;span class="mi">256m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_dhparam&lt;/span> &lt;span class="s">/etc/nginx/certs/dhparam.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_session_cache&lt;/span> &lt;span class="s">shared:SSL:10m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_session_timeout&lt;/span> &lt;span class="mi">10m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_protocols&lt;/span> &lt;span class="s">TLSv1&lt;/span> &lt;span class="s">TLSv1.1&lt;/span> &lt;span class="s">TLSv1.2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_stapling&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_ciphers&lt;/span> &lt;span class="s">&amp;#34;ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_prefer_server_ciphers&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#add_header Strict-Transport-Security &amp;#34;max-age=63072000; includeSubdomains; preload&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">Strict-Transport-Security&lt;/span> &lt;span class="s">&amp;#34;max-age=31536000&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="kn">includeSubDomains&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="kn">preload&amp;#34;&lt;/span> &lt;span class="s">always&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ...
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="lets-encrypt憑證只有90天-需要手動續約">Let&amp;rsquo;s Encrypt憑證只有90天 需要手動續約&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> &lt;span class="m">1&lt;/span> * * * /root/certbot-auto renew --disable-hook-validation --renew-hook &lt;span class="s2">&amp;#34;/etc/init.d/nginx reload&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="版本二">版本二&lt;/h2>
+&lt;p>&lt;a class="link" href="https://blog.gtwang.org/linux/secure-nginx-with-lets-encrypt-ssl-certificate-on-ubuntu-and-debian/" target="_blank" rel="noopener"
+>網路出處&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://letsencrypt.org/" target="_blank" rel="noopener"
+>Let’s Encrypt&lt;/a> 是一家新的證書頒發機構（Certificate Authority，簡稱 CA），其提供免費的 TLS/SSL 憑證再配合 &lt;a class="link" href="https://certbot.eff.org/" target="_blank" rel="noopener"
+>Certbot&lt;/a> 這個自動化工具，讓一般的網站可以很容易地使用 HTTPS 的安全加密網頁，設定很簡單，憑證的更新也可以自動處理。&lt;/li>
+&lt;li>以下我以 Ubuntu Linux 14.04 的系統為例，示範 nginx 伺服器使用 Let’s Encrypt 憑證設定 HTTPS 安全加密網頁的方法。&lt;/li>
+&lt;/ul>
+&lt;h3 id="步驟-1---從-certbot-官方網站下載-certbot-auto-指令稿並設定其執行權限">步驟 1 - 從 &lt;code>Certbot&lt;/code> 官方網站下載 &lt;code>certbot-auto&lt;/code> 指令稿，並設定其執行權限&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://dl.eff.org/certbot-auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod a+x certbot-auto
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="certbot-auto-要放在哪裡都可以建議一開始就找一個適合的地方放好例如建立一個-optletsencrypt-目錄把-certbot-auto-放在這裡">&lt;code>certbot-auto&lt;/code> 要放在哪裡都可以，建議一開始就找一個適合的地方放好，例如建立一個 &lt;code>/opt/letsencrypt&lt;/code> 目錄，把 &lt;code>certbot-auto&lt;/code> 放在這裡&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /opt/letsencrypt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv certbot-auto /opt/letsencrypt/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-2---執行-certbot-auto-讓它自動安裝所有相依套件">步驟 2 - 執行 &lt;code>certbot-auto&lt;/code> ，讓它自動安裝所有相依套件&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="執行-certbot-auto-時會需要輸入密碼取得-root-權限">執行 &lt;code>certbot-auto&lt;/code> 時，會需要輸入密碼取得 root 權限&lt;/h5>
+&lt;h3 id="步驟-3">步驟 3：&lt;/h3>
+&lt;ul>
+&lt;li>安裝完成所有需要的系統套件後，接著我們要透過 &lt;code>webroot&lt;/code> 的方式，使用既有的 &lt;code>nginx&lt;/code> 網頁伺服器來向 &lt;code>Let’s Encrypt&lt;/code> 取得憑證，而在認證的過程會需要在網頁根目錄中建立一個 &lt;code>.well-known/acme-challenge/&lt;/code> 目錄，讓 &lt;code>Let’s Encrypt&lt;/code> 的伺服器來讀取其中的內容。&lt;/li>
+&lt;li>一般的 &lt;code>nginx&lt;/code> 伺服器通常會設定把句點開頭的隱藏檔案都擋掉，遇到這樣的狀況就會無法進行認證，這時候可以再加一小段設定，讓 &lt;code>.well-known/acme-challenge/&lt;/code> 目錄可以被正常讀取。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="s">^~&lt;/span> &lt;span class="s">/.well-known/acme-challenge/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># the usual settings
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">/\.&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">deny&lt;/span> &lt;span class="s">all&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-4---使用-certonly-功能下載憑證">步驟 4 - 使用 &lt;code>certonly&lt;/code> 功能下載憑證&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto certonly --webroot -w /var/www/blog.gtwang.org/ -d blog.gtwang.org -d gtwang.org
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-5---輸入自己的-email-信箱">步驟 5 - 輸入自己的 Email 信箱&lt;/h3>
+&lt;h3 id="步驟-6---閱讀使用條款選擇agree繼續">步驟 6 - 閱讀使用條款，選擇「Agree」繼續&lt;/h3>
+&lt;h3 id="步驟-7---下載完成後會出現類似這樣的成功訊息">步驟 7 - 下載完成後，會出現類似這樣的成功訊息&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">IMPORTANT NOTES:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- Congratulations! Your certificate and chain have been saved at
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/etc/letsencrypt/live/blog.gtwang.org/fullchain.pem. Your cert will
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">expire on 2016-08-13. To obtain a new version of the certificate in
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">the future, simply run Certbot again.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- If you like Certbot, please consider supporting our work by:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Donating to ISRG / Let&lt;span class="err">&amp;#39;&lt;/span>s Encrypt: https://letsencrypt.org/donate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Donating to EFF: https://eff.org/donate-le
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>這樣就成功取得 &lt;code>Let’s Encrypt&lt;/code> 的憑證了，而 &lt;code>nginx&lt;/code> 用的憑證就儲存在 &lt;code>/etc/letsencrypt/live/blog.gtwang.org/&lt;/code> 目錄之下，其中 &lt;code>fullchain.pem&lt;/code> 就是 &lt;code>nginx&lt;/code> 需要憑證，而 &lt;code>privkey.pem&lt;/code> 則是需要保護好的私鑰，關於憑證檔案的詳細說明，請參考 &lt;a class="link" href="https://certbot.eff.org/docs/using.html#where-are-my-certificates" target="_blank" rel="noopener"
+>Certbot&lt;/a> 的說明文件。&lt;/li>
+&lt;li>&lt;code>Certbot&lt;/code> 還有提供另外一個 &lt;code>standalone&lt;/code> 的方式來向 &lt;code>Let’s Encrypt&lt;/code> 取得憑證，這種方式是由 &lt;code>Certbot&lt;/code> 建立一個獨立的網頁伺服器，提供 &lt;code>Let’s Encrypt&lt;/code> 讀取驗證用的資料，不過這樣的做法需要綁定 &lt;code>80&lt;/code> 或 &lt;code>443&lt;/code> 連接埠，所以通常還會需要暫停既有的網頁伺服器，對於一般的網站而言，會造成網站有幾秒鐘的斷線現象，所以我個人不喜歡這樣的方式。&lt;/li>
+&lt;li>接下來要設定 &lt;code>nginx&lt;/code> 伺服器，使用這個新憑證來提供 &lt;code>HTTPS&lt;/code> 的安全加密網頁。&lt;/li>
+&lt;/ul>
+&lt;h3 id="步驟-8---要讓-nginx-啟用-https-安全加密網頁只要加上-ssl-相關的幾行設定即可其餘的設定保持不變以下是我個人使用的-nginx-伺服器設定">步驟 8 - 要讓 &lt;code>nginx&lt;/code> 啟用 &lt;code>HTTPS&lt;/code> 安全加密網頁，只要加上 &lt;code>SSL&lt;/code> 相關的幾行設定即可，其餘的設定保持不變，以下是我個人使用的 &lt;code>nginx&lt;/code> 伺服器設定&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 傾聽 HTTPS 標準埠號 443
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 同時啟用 IPv6 的 HTTPS 安全加密網頁
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:443&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">blog.gtwang.org&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">root&lt;/span> &lt;span class="s">/var/www/blog.gtwang.org/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">index&lt;/span> &lt;span class="s">index.php&lt;/span> &lt;span class="s">index.html&lt;/span> &lt;span class="s">index.htm&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 啟用 SSL
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 設定 SSL 憑證
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/letsencrypt/live/blog.gtwang.org/fullchain.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/letsencrypt/live/blog.gtwang.org/privkey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 其他 SSL 選項
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_session_timeout&lt;/span> &lt;span class="mi">5m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_protocols&lt;/span> &lt;span class="s">TLSv1&lt;/span> &lt;span class="s">TLSv1.1&lt;/span> &lt;span class="s">TLSv1.2&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1"># omit SSLv3 because of POODLE (CVE-2014-3566)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_ciphers&lt;/span> &lt;span class="s">&amp;#39;ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_prefer_server_ciphers&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="ssl_protocols-的部分記得要-把sslv3拿掉httpswwwnginxcomblognginx-poodle-ssl-避免-poodle-攻擊cve-2014-3566">&lt;code>ssl_protocols&lt;/code> 的部分記得要 &lt;a class="link" href="https://www.nginx.com/blog/nginx-poodle-ssl/" target="_blank" rel="noopener"
+>把SSLv3拿掉&lt;/a> ，避免 &lt;code>POODLE&lt;/code> 攻擊（CVE-2014-3566）。&lt;/h5>
+&lt;h3 id="步驟-9---設定好之後檢查一下設定檔是否正確">步驟 9 - 設定好之後，檢查一下設定檔是否正確&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">service nginx configtest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-10---確認無誤之後重新載入設定檔">步驟 10 - 確認無誤之後，重新載入設定檔&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">service nginx reload
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>這樣就完成 nginx 伺服器的設定了，接著就可以開啟 HTTPS 加密的網址來測試了，正常來說，使用 Google Chrome 瀏覽器開啟自己主機的 HTTPS 加密網址，應該就會顯示一個綠色的鎖頭，這樣就代表我們安裝的 SSL 憑證是有效的。&lt;/li>
+&lt;/ul>
+&lt;h5 id="lets-encrypt-的憑證使用期限只有三個月在憑證到期前的一個月可以使用-certbot-auto-來更新憑證在實際更新之前我們可以加入---dry-run-參數先進行測試">&lt;code>Let’s Encrypt&lt;/code> 的憑證使用期限只有三個月，在憑證到期前的一個月可以使用 &lt;code>certbot-auto&lt;/code> 來更新憑證，在實際更新之前我們可以加入 &lt;code>--dry-run&lt;/code> 參數，先進行測試。&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto renew --dry-run
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>若測試沒問題，就可以使用正式指令來更新&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto renew --quiet --no-self-upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>而為了方便起見，可以將這個更新指令寫在 &lt;code>/opt/letsencrypt/renew.sh&lt;/code> 指令稿中&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/sh
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>/opt/letsencrypt/certbot-auto renew --quiet --no-self-upgrade --post-hook &lt;span class="s2">&amp;#34;service nginx reload&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>這裡我又加上一個 &lt;code>--post-hook&lt;/code> 的設定，讓憑證更新完後，可以自動重新載入 &lt;code>nginx&lt;/code> 伺服器的設定，讓憑證生效。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>接著把這個 &lt;code>/opt/letsencrypt/renew.sh&lt;/code> 指令稿寫進 &lt;code>crontab&lt;/code> 中&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># m h dom mon dow command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">30&lt;/span> &lt;span class="m">2&lt;/span> * * &lt;span class="m">0&lt;/span> /opt/letsencrypt/renew.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="官方的建議是這個指令可以一天執行兩次讓伺服器的憑證隨時保持在最新的狀態這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新certbot-只有在憑證到期前一個月才會進行更新如果憑證尚未到期就不會更新">官方的建議是這個指令可以一天執行兩次，讓伺服器的憑證隨時保持在最新的狀態，這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新，&lt;code>Certbot&lt;/code> 只有在憑證到期前一個月才會進行更新，如果憑證尚未到期，就不會更新&lt;/h5>
+&lt;hr></description></item></channel></rss>

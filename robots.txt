@@ -2,17 +2,29 @@ User-agent: *
 
 Disallow: /categories/
 
+Disallow: /tags/free/
+
+Disallow: /tags/lets-encrypt/
+
+Disallow: /tags/nginx/
+
+Disallow: /categories/nginx/
+
+Disallow: /2022-08-23/nginx-ssl-with-lets-encrypt/
+
 Disallow: /post/
+
+Disallow: /tags/ssl/
+
+Disallow: /tags/
+
+Disallow: /
 
 Disallow: /tags/seo/
 
 Disallow: /categories/seo/
 
 Disallow: /2022-08-17/seo-backlinks-building-guide/
-
-Disallow: /tags/
-
-Disallow: /
 
 Disallow: /2022-08-13/js-async-programs/
 
