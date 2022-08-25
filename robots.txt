@@ -2,6 +2,22 @@ User-agent: *
 
 Disallow: /categories/
 
+Disallow: /tags/drone/
+
+Disallow: /categories/drone/
+
+Disallow: /post/
+
+Disallow: /tags/
+
+Disallow: /tags/telegram-bot/
+
+Disallow: /categories/telegram-bot/
+
+Disallow: /2022-08-25/drone-cicd-with-telegram-bot/
+
+Disallow: /
+
 Disallow: /tags/cors/
 
 Disallow: /tags/free/
@@ -16,15 +32,9 @@ Disallow: /2022-08-23/nginx-cors-and-reverse-proxy/
 
 Disallow: /2022-08-23/nginx-ssl-with-lets-encrypt/
 
-Disallow: /post/
-
 Disallow: /tags/reverse-proxy/
 
 Disallow: /tags/ssl/
-
-Disallow: /tags/
-
-Disallow: /
 
 Disallow: /tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/
 

@@ -1,0 +1,1226 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>drone on Wayne(偉恩)的部落格</title><link>/categories/drone/</link><description>Recent content in drone on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/drone/index.xml" rel="self" type="application/rss+xml"/><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10262450" target="_blank" rel="noopener"
+>參考網站 - Telegram 聊天機器人原理&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10262881" target="_blank" rel="noopener"
+>參考網站 - 向 @BotFather 申請一隻機器人吧！&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10263493" target="_blank" rel="noopener"
+>參考網站 - Telegram 機器人的設定&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10235182" target="_blank" rel="noopener"
+>參考網站 - CI/CD trigger WebHook to Telegram Bot&lt;/a>&lt;br>
+&lt;a class="link" href="https://stanislas.blog/2018/08/setup-telegram-bot-for-drone-ci-cd-builds/" target="_blank" rel="noopener"
+>參考網站 - How to setup a Telegram bot for your Drone CI/CD builds&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="telegram-聊天機器人原理">Telegram 聊天機器人原理&lt;/h2>
+&lt;h3 id="機器人的運作原理">機器人的運作原理&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308348357_cda336fda4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>現在你發了一段訊息給&lt;a class="link" href="https://t.me/userinfobot" target="_blank" rel="noopener"
+>機器人&lt;/a>&lt;br>
+但是並不是機器人直接回你訊息&lt;/p>
+&lt;p>詳細情況如下圖：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309597950_44f7f3008a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ul>
+&lt;li>一開始你的訊息會被傳送到 TG 伺服器&lt;/li>
+&lt;li>TG 伺服器會通知機器人：欸！有一則新訊息&lt;/li>
+&lt;li>機器人會發一個指令給 TG 伺服器&lt;/li>
+&lt;li>TG 伺服器照著指令的需求，回應訊息給你&lt;/li>
+&lt;/ul>
+&lt;h3 id="機器人接收訊息的兩種模式">機器人接收訊息的兩種模式&lt;/h3>
+&lt;p>機器人可以放在伺服器，也可以用客戶端的方式運作&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309540513_9e586505c1_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ol>
+&lt;li>Webhook&lt;br>
+以 &lt;code>伺服器&lt;/code> 方式被動接收訊息，需要有 IP 位置，通常會放在 &lt;code>網站伺服器(Web Hosting)&lt;/code> 上，要自己架設網站伺服器不是件容易的事，所以官方還提供了另一種做法&lt;/li>
+&lt;li>Long Polling。&lt;br>
+以 &lt;code>客戶端&lt;/code> 方式主動跟 TG 伺服器要訊息，可以直接 &lt;code>在自己電腦上運作&lt;/code>，不需要架(租)伺服器也能讓機器人順利運作，缺點就是電腦要一直開著，當然你也可以使用 &lt;code>雲端服務(IaaS、PaaS、SaaS)&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;h3 id="機器人發送訊息的三種方式">機器人發送訊息的三種方式&lt;/h3>
+&lt;ol>
+&lt;li>HTTP GET&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://api.telegram.org/bot&lt;span class="o">{&lt;/span>Token&lt;span class="o">}&lt;/span>/&lt;span class="o">{&lt;/span>Method&lt;span class="o">}&lt;/span>?&lt;span class="o">{&lt;/span>Parameter1&lt;span class="o">}={&lt;/span>Value1&lt;span class="o">}&lt;/span>&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="o">{&lt;/span>Parameter2&lt;span class="o">}={&lt;/span>Value2&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>直接以 &lt;code>網址參數&lt;/code> 的方式傳送指令，GET 沒有 Body，只傳送 Headers (你可以當作不會傳送檔案過去)，通常是用來取資料用，優點是可以直接用瀏覽器執行，缺點是有 2KB 的限制，雖然不太可能用到這長的指令，但還是比較建議使用 POST。&lt;/p>
+&lt;ol start="2">
+&lt;li>HTTP POST&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309597850_9719e972e0_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;method&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Method&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;Parameter1&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Value1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;Parameter2&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Value2&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>POST 是 &lt;code>以 Body 傳送資料(檔案)&lt;/code>，程式通常都是以這種方式溝通，網頁裡的表單也經常是以這種方式傳送，資料不會顯示在網址列，可以傳送的資料大小比 GET 大得多：1MB ~ 2GB。&lt;/p>
+&lt;ol start="3">
+&lt;li>直接 Print&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309073396_6f5910c191_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>這個方式 &lt;code>只有在 webhook 模式&lt;/code> 下才能使用，因為只有伺服器可以直接回應訊息。&lt;/p>
+&lt;hr>
+&lt;h2 id="向-botfather-申請一隻機器人吧">向 &lt;code>@BotFather&lt;/code> 申請一隻機器人吧！&lt;/h2>
+&lt;h3 id="the-botfather">The BotFather&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309629134_eaae2bcbda_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;strong>The Botfather&lt;/strong> 這個名字是致敬 1972 年的&lt;strong>美國電影《教父》&lt;/strong>&lt;/p>
+&lt;p>它是機器人，也是機器人的管理者&lt;br>
+幾乎所有機器人的設定、建立都要透過他&lt;br>
+用機器人設定機器人聽起來就很有趣，對吧？&lt;/p>
+&lt;h3 id="botfather-的功能">@BotFather 的功能&lt;/h3>
+&lt;p>私訊 &lt;a class="link" href="https://t.me/BotFather" target="_blank" rel="noopener"
+>@BotFather&lt;/a> ，按「開始」後就會顯示出一大堆指令，真是令人眼花撩亂&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309644450_7cf03fb163_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://core.telegram.org/bots#botfather-commands" target="_blank" rel="noopener"
+>官方網頁版說明&lt;/a>&lt;/p>
+&lt;p>簡單介紹幾個比較常用的功能：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>指令&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;span class="focus">/newbot&lt;/span>&lt;/td>
+&lt;td>建立一個新的機器人&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/mybots&lt;/span>&lt;/td>
+&lt;td>列出所有機器人，用按鈕的方式設定機器人，而非指令（這樣可以讓聊天紀錄變得很乾淨，我比較喜歡用這個）&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>修改相關&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setname&lt;/span>&lt;/td>
+&lt;td>修改顯示名稱&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setdescription&lt;/span>&lt;/td>
+&lt;td>修改說明&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setabouttext&lt;/span>&lt;/td>
+&lt;td>修改簡介&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setuserpic&lt;/span>&lt;/td>
+&lt;td>修改大頭貼&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setcommands&lt;/span>&lt;/td>
+&lt;td>修改指令選單&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/deletebot&lt;/span>&lt;/td>
+&lt;td>刪除機器人&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>設定相關&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/token&lt;/span>&lt;/td>
+&lt;td>顯示機器人的 token&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/revoke&lt;/span>&lt;/td>
+&lt;td>產生新的 token，舊的會失效&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setjoingroups&lt;/span>&lt;/td>
+&lt;td>設定是否能被加入群組&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;span class="focus">/setprivacy&lt;/span>&lt;/td>
+&lt;td>設定是否能讀取所有聊天室訊息（機器人的訊息除外，機器人不論如何都不會看到機器人的訊息）&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="建立你的機器人吧">建立你的機器人吧&lt;/h3>
+&lt;ol>
+&lt;li>輸入 &lt;span class="focus">/newbot&lt;/span> 指令&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308393647_5334dc4e07_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ol start="2">
+&lt;li>幫機器人取名字&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Alright, a new bot. How are we going to call it? Please choose a name &lt;span class="k">for&lt;/span> your bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這邊它會要你幫你的機器人取一個名字，這個以後能修改，所以隨便取沒差&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309118926_0d7b61373c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ol start="3">
+&lt;li>設定 username&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Good. Now let&lt;span class="err">&amp;#39;&lt;/span>s choose a username &lt;span class="k">for&lt;/span> your bot. It must end in &lt;span class="sb">`&lt;/span>bot&lt;span class="sb">`&lt;/span>. Like this, &lt;span class="k">for&lt;/span> example: TetrisBot or tetris_bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;span class="focus">⚠️ 注意：設定後就不能修改了，請謹慎思考之後設定，避免反悔時需要請使用者遷移&lt;/span>&lt;/p>
+&lt;p>需要幫你的機器人設定一個 username，必須符合以下規則：&lt;/p>
+&lt;ul>
+&lt;li>不需要打 @&lt;/li>
+&lt;li>以 a~z 開頭&lt;/li>
+&lt;li>以 bot 結尾&lt;/li>
+&lt;li>只能使用 a~z、0~9 和底線&lt;/li>
+&lt;li>最小長度為 5 個字元&lt;/li>
+&lt;/ul>
+&lt;p>顯示時會區分大小寫，使用時不區分大小寫（例如設定成 &lt;a class="link" href="https://t.me/TetrisBot" target="_blank" rel="noopener"
+>@TetrisBot&lt;/a>，用 &lt;a class="link" href="https://t.me/tETrISbOt" target="_blank" rel="noopener"
+>@tETrISbOt&lt;/a> 一樣會指到同一個機器人）&lt;/p>
+&lt;hr>
+&lt;p>常見問題：&lt;/p>
+&lt;ul>
+&lt;li>不能以數字開頭&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309644425_f3dc618b46_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Sorry, this username is invalid.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>不能用 bot 以外的字結尾&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308393612_b52bb8c813_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Sorry, the username must end in &lt;span class="s1">&amp;#39;bot&amp;#39;&lt;/span>. E.g. &lt;span class="s1">&amp;#39;Tetris_bot&amp;#39;&lt;/span> or &lt;span class="s1">&amp;#39;Tetrisbot&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>username 已經被別人先用走了&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309644420_005c3656e4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Sorry, this username is already taken. Please try something different.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;p>出現 Done 表示你設定成功了&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309644405_82eedcfbe9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="使用你的機器人吧">使用你的機器人吧&lt;/h3>
+&lt;blockquote>
+&lt;p>現在你已經可以使用機器人了&lt;/p>
+&lt;/blockquote>
+&lt;p>按下說明裡的連結(&lt;code>t.me/ironman2021_by_miku3920_bot&lt;/code> 點你自己的)，並且點擊「開始」&lt;/p>
+&lt;p>然後你就會發現什麼事情都沒發生，因為我們還沒寫機器人的程式嘛&lt;/p>
+&lt;p>不過就算不寫程式也可以讓它說話，利用 &lt;code>HTTP GET&lt;/code> 方法，與 &lt;a class="link" href="https://core.telegram.org/bots/api#sendmessage" target="_blank" rel="noopener"
+>sendMessage&lt;/a> 這個 API&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309584823_4ab6611c03_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://api.telegram.org/bot&lt;span class="o">{&lt;/span>Token&lt;span class="o">}&lt;/span>/&lt;span class="o">{&lt;/span>Method&lt;span class="o">}&lt;/span>?&lt;span class="o">{&lt;/span>Parameter1&lt;span class="o">}={&lt;/span>Value1&lt;span class="o">}&lt;/span>&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="o">{&lt;/span>Parameter2&lt;span class="o">}={&lt;/span>Value2&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Token：&lt;span class="focus">1985044907:AAEdySrbzTc8tVdBjfymlfyaBUJGeu7r-v4&lt;/span>（你的 bot token）&lt;/li>
+&lt;li>Method：sendMessage&lt;/li>
+&lt;li>Parameter1：chat_id&lt;/li>
+&lt;li>Value1：127355800（你的 uid，可以透過 &lt;a class="link" href="https://t.me/userinfobot" target="_blank" rel="noopener"
+>@userinfobot&lt;/a> 取得）&lt;/li>
+&lt;li>Parameter2：text&lt;/li>
+&lt;li>Value2：Hello,+World!+你好，世界！（空白要用「+」替換）&lt;/li>
+&lt;/ul>
+&lt;p>組合完會像這個樣子，直接貼到瀏覽器的網址列就能使用囉：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://api.telegram.org/bot1985044907:AAEdySrbzTc8tVdBjfymlfyaBUJGeu7r-v4/sendMessage?chat_id&lt;span class="o">=&lt;/span>127355800&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">text&lt;/span>&lt;span class="o">=&lt;/span>Hello,+World!+你好，世界！
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>PS：聊天室的 chat_id，先將你的機器人邀請進入聊天室，再使用此網址取得：&lt;code>https://api.telegram.org/bot${your_bot_token}/getUpdates&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;p>常見問題：&lt;/p>
+&lt;ul>
+&lt;li>Token 打錯&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;error_code&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">401&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Unauthorized&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>Method 打錯&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;error_code&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">404&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Not Found&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>chat_id 的值不能為空&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;error_code&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">400&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Bad Request: chat_id is empty&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>chat_id 的值打錯&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;error_code&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">400&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Bad Request: chat not found&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>沒私訊過機器人&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;error_code&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">403&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Forbidden: bot can&amp;#39;t initiate conversation with a user&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>text 的值不能為空&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;error_code&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">400&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;description&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Bad Request: message text is empty&amp;#34;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;p>成功的話會返回機器人發送的訊息（json 格式）到網頁上：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>&lt;span class="nt">&amp;#34;ok&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;result&amp;#34;&lt;/span>&lt;span class="p">:{&lt;/span>&lt;span class="nt">&amp;#34;message_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;from&amp;#34;&lt;/span>&lt;span class="p">:{&lt;/span>&lt;span class="nt">&amp;#34;id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">1985044907&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;is_bot&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;first_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;2021 iThome\u9435\u4eba\u8cfd&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;username&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;ironman2021_by_miku3920_bot&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>&lt;span class="nt">&amp;#34;chat&amp;#34;&lt;/span>&lt;span class="p">:{&lt;/span>&lt;span class="nt">&amp;#34;id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">127355800&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;first_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;\u521d\u97f3&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;last_name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;\u30df\u30af&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;username&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;miku3920&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;type&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;private&amp;#34;&lt;/span>&lt;span class="p">},&lt;/span>&lt;span class="nt">&amp;#34;date&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">1631440402&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nt">&amp;#34;text&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="s2">&amp;#34;Hello, World! \u4f60\u597d\uff0c\u4e16\u754c\uff01&amp;#34;&lt;/span>&lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308393572_c333ed191d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="telegram-機器人的設定">Telegram 機器人的設定&lt;/h2>
+&lt;p>輸入 &lt;span class="focus">/mybots&lt;/span> 指令後就會出現&lt;strong>機器人列表&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309668155_7942a178ee_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Choose a bot from the list below:
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>選擇一個你要查看或設定的機器人&lt;br>
+我之前就有建立過機器人，所以會顯示兩個&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652519_56d6f78185_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Here it is: &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">What &lt;span class="k">do&lt;/span> you want to &lt;span class="k">do&lt;/span> with the bot?
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>點下去後就會出現六個選項，我一個個來講解：&lt;/p>
+&lt;h3 id="api-token---查看-token">API Token - 查看 token&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652514_98dd7a3dd6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Here is the token &lt;span class="k">for&lt;/span> bot &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1985044907:AAH1kZaEZFHoA6YqB6IFtvbkyOjvcpPOfbQ
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>忘記 token 時可以來這裡查看，或是你想要重置 token&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Revoke current token - 重置 token&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416667_233f4fe50a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Token &lt;span class="k">for&lt;/span> the bot &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot has been revoked. New token is:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1985044907:AAG3E05XowN2sqy286aplwr6oBc17q0CByg
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>按下重置按鈕後，它就會給你一個新的 token，舊的會立即失效&lt;/p>
+&lt;h3 id="edit-bot---修改機器人">Edit Bot - 修改機器人&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309607608_61e0f4f0d8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Edit @ironman2021_by_miku3920_bot info.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Name: &lt;span class="m">2021&lt;/span> iThome鐵人賽
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Description: ?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">About: ?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Botpic: ? no botpic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Commands: no commands yet
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="edit-name---修改名字">Edit Name - 修改名字&lt;/h4>
+&lt;p>按下按鈕後會出現以下訊息&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309668120_2ee88d5703_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">OK. Send me the new name &lt;span class="k">for&lt;/span> your bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>直接傳送新的名稱給它就行了&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309607598_0300347a88_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Success! Name updated. /help
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>看到這個就是修改成功了&lt;/p>
+&lt;h4 id="edit-description---修改說明">Edit Description - 修改說明&lt;/h4>
+&lt;p>這個會顯示在聊天室的最上方，用來說明機器人有能些功能，或是如何使用&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416582_b18009d3e7_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">OK. Send me the new description &lt;span class="k">for&lt;/span> the bot. People will see this description when they open a chat with your bot, in a block titled &lt;span class="s1">&amp;#39;What can this bot do?&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>傳送一段訊息給它，可以是&lt;strong>多行&lt;/strong>的文字&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141676_d0f83633af_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Success! Description updated. /help
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>看到這個就是修改成功了&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309668070_2475f69d68_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>原本在聊天室上方啥都沒有，現在多了一個訊息框&lt;/p>
+&lt;h4 id="edit-about---修改簡介">Edit About - 修改簡介&lt;/h4>
+&lt;p>這個會顯示在機器人的個人資訊頁面上&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416567_70010be2b0_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">OK. Send me the new &lt;span class="s1">&amp;#39;About&amp;#39;&lt;/span> text. People will see this text on the bot&lt;span class="err">&amp;#39;&lt;/span>s profile page and it will be sent together with a link to your bot when they share it with someone.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>傳送一段訊息給它，可以是&lt;strong>多行&lt;/strong>的文字&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309668055_c460ac12f8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Success! About section updated. /help
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>看到這個就是修改成功了&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652359_c26ac0e951_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>原本是只有顯示 &lt;strong>username&lt;/strong>，現在多了 &lt;strong>簡介&lt;/strong>&lt;/p>
+&lt;h4 id="edit-botpic---修改大頭貼">Edit Botpic - 修改大頭貼&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309668010_321b4295c2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">OK. Send me the new profile photo &lt;span class="k">for&lt;/span> the bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>建議先裁切成正方形（1：1）&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309607433_9fc765ac03_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Please send me the picture as a &lt;span class="s1">&amp;#39;Photo&amp;#39;&lt;/span>, not as a &lt;span class="s1">&amp;#39;File&amp;#39;&lt;/span>.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這邊要傳送照片，不能傳檔案&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652224_7d0f0f6675_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Success! Profile photo updated. /help
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>成功的話，機器人的大頭貼就會更新成剛剛上傳的圖片&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309667935_3833800a9f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="edit-commands---修改指令選單">Edit Commands - 修改指令選單&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141546_2e7bf6f4fe_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">OK. Send me a list of commands &lt;span class="k">for&lt;/span> your bot. Please use this format:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">command1 - Description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">command2 - Another description
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Send /empty to keep the list empty.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>要按照它給的格式輸入，不需要打 &lt;span class="focus">/&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416417_0cb668469d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Success! Command list updated. /help
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>成功的話，選單中就會出現剛剛設定的指令&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141536_fb659e4633_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>如果機器人是在群組使用，建議改成&lt;strong>空的&lt;/strong>，避免誤觸&lt;br>
+群組裡較常使用 &lt;span class="focus">!&lt;/span> 開頭的指令，這樣才不會變成藍藍的容易按到&lt;br>
+在剛剛那邊，按 &lt;span class="focus">/empty&lt;/span> 就行了&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309667915_7418c5e63a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>修改完會變成這樣：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652144_ee7d18aea2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Edit @ironman2021_by_miku3920_bot info.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Name: &lt;span class="m">2021&lt;/span> iThome鐵人賽
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Description: 一些說明文字，功能如下：
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1. AAA
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2. BBB
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">3. CCC
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">About: 鐵人賽展示用機器人 by @miku3920
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">鐵人賽展示用機器人 by @miku3920
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">鐵人賽展示用機器人 by @miku3920
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Botpic: ? has a botpic
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Commands: no commands yet
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="bot-settings---設定機器人">Bot Settings - 設定機器人&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141511_93a591c7b4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Settings &lt;span class="k">for&lt;/span> @ironman2021_by_miku3920_bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="inline-mode---內聯模式內嵌模式">Inline Mode - 內聯模式（內嵌模式）&lt;/h4>
+&lt;p>可以讓機器人直接在訊息輸入框使用，不需要將機器人加入群組&lt;br>
+這個功能夠講一整天了，目前還用不到，我們以後專門找一天來講&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309607343_e9a1d2a9f8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="allow-group---是否能被加入群組">Allow Group? - 是否能被加入群組?&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416352_a2ff6614cf_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Groups are currently enabled &lt;span class="k">for&lt;/span> bot &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Disabling groups will forbid users to add &lt;span class="m">2021&lt;/span> iThome鐵人賽 to groups.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>enabled(預設)&lt;/strong> - 表示機器人&lt;span class="focus">能&lt;/span>被別人拉進群組&lt;br>
+如果你不想讓別人拉你的機器人，可以按 &lt;span class="focus">Turn groups off&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141491_6af0b5bd5a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Groups are currently disabled &lt;span class="k">for&lt;/span> bot &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Enabling groups will allow users to add &lt;span class="m">2021&lt;/span> iThome鐵人賽 to groups.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>disabled&lt;/strong> - 表示機器人&lt;span class="focus">不能&lt;/span>被別人拉進群組&lt;br>
+如果你想讓別人的群組也能使用你的機器人，就按 &lt;span class="focus">Turn groups on&lt;/span>&lt;/p>
+&lt;h4 id="group-privacy---是否能讀取所有聊天室訊息">Group Privacy - 是否能讀取所有聊天室訊息&lt;/h4>
+&lt;p>&lt;a class="link" href="https://core.telegram.org/bots#privacy-mode" target="_blank" rel="noopener"
+>官方說明&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309651989_610f8406ea_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Privacy mode is enabled &lt;span class="k">for&lt;/span> &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>enabled(預設)&lt;/strong> - 表示機器人是成員時&lt;span class="focus">不能&lt;/span>讀取群組裡的所有訊息&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416267_3ce1c64a42_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>機器人只看的到它的指令和回覆它的訊息&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309607238_9233ba33c4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>但是如果升級成管理員就沒這限制&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141421_4d2c39a6de_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Privacy mode is disabled &lt;span class="k">for&lt;/span> &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>disabled&lt;/strong> - 表示機器人就算不是管理員也&lt;span class="focus">能&lt;/span>讀取群組裡的所有訊息&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309667795_265c8ee4c5_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>機器人是成員時就能讀取所有訊息&lt;/p>
+&lt;h4 id="payments---付款相關設定">Payments - 付款相關設定&lt;/h4>
+&lt;p>台灣不能用，有生之年系列，跳過&lt;/p>
+&lt;h4 id="domain---網站登入用">Domain - 網站登入用&lt;/h4>
+&lt;p>與機器人較無關，暫時不提&lt;/p>
+&lt;h3 id="payments---付款相關設定-1">Payments - 付款相關設定&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416247_b72c5ba288_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>歐付寶、綠界、台灣 pay、街口、悠遊付，不考慮&lt;a class="link" href="https://core.telegram.org/bots/payments#supported-payment-providers" target="_blank" rel="noopener"
+>進駐&lt;/a>一下嗎&lt;/p>
+&lt;h3 id="transfer-ownership---轉移機器人">Transfer Ownership - 轉移機器人&lt;/h3>
+&lt;p>&lt;span class="focus">⚠️ 注意：非必要請勿使用！&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141291_415b0afb19_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="choose-recipient---選擇使用者">Choose recipient - 選擇使用者&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141281_4be9d0e0d4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Please share the new owner&lt;span class="err">&amp;#39;&lt;/span>s contact or their username.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>按下按鈕後，它會請你把對方以聯絡人的方式分享給它，或是輸入對方的 username&lt;/p>
+&lt;p>常見問題：&lt;/p>
+&lt;ul>
+&lt;li>要輸入 @username，不能只輸入 username&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416047_00c484eb7f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Incorrect format. Please make sure to send either a contact or username.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>不能轉移給頻道、機器人、或是自己&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309606988_01f07f88bc_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Bot ownership can&lt;span class="err">&amp;#39;&lt;/span>t be transferred to channel, another bot or yourself.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>對方要私訊過機器人，而且不能封鎖機器人&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141241_c4fc2c3489_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Oops! Please make sure the new owner has sent at least one message to the bot and didn&lt;span class="err">&amp;#39;&lt;/span>t block it.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>輸入正確的話，就會出現以下訊息：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141191_fa031bc1a6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">You are about to transfer ownership of the bot @ironman2021_by_miku3920_bot to 初音 ミク.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">After this you won&lt;span class="s1">&amp;#39;t be able to control the bot anymore. The new owner will get access to the bot messages and other data – and can even delete the bot completely.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s1">Please make sure you don&amp;#39;&lt;/span>t violate your users&lt;span class="err">&amp;#39;&lt;/span> privacy &lt;span class="o">(&lt;/span>consider GDPR and other laws&lt;span class="o">)&lt;/span>. If you are sure please press the button below.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>看到這則訊息代表離成功轉移不遠了&lt;/p>
+&lt;h4 id="yes-i-am-sure-proceed---確認轉移">Yes, I am sure, proceed. - 確認轉移&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416002_e3811c9949_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>如果你有設定兩步驟驗證的話，這邊會跳出來要你輸入&lt;/p>
+&lt;p>常見問題：&lt;/p>
+&lt;ul>
+&lt;li>對方擁有的機器人數量已達上限&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308415987_04ff40e3e6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Oops! has reached the maximum allowed number of bots. Please ask them to delete &lt;span class="o">(&lt;/span>or pass to another account&lt;span class="o">)&lt;/span> one of their unused bots first.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果對方已經有 20 隻機器人（達到上限），就會出現這個對話框，他請你先叫對方轉移或刪除一些沒在用的機器人，這樣你才可以轉移給對方。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308415977_b15b3c5ae6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">It worked! We hope @ironman2021_by_miku3920_bot will enjoy its new home.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果轉移成功就會出現這則訊息&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309606933_0e80988d42_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Ownership of the bot @ironman2021_by_miku3920_bot has been transferred to you by 初音 ミク. You can now control the bot using /mybots.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">If you did not request this, you can delete the bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="delete-bot---刪除機器人">Delete Bot - 刪除機器人&lt;/h3>
+&lt;p>&lt;span class="focus">⚠️ 注意：非必要請勿使用！&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308415872_35feabd1eb_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">You are about to delete your bot &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot. Is that correct?
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這邊的按鈕順序是隨機的，避免你頭腦不清楚把機器人刪了&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52308415877_babfb07868_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Are you TOTALLY sure you want to delete &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot ?
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>要連續按兩次 Yes 機器人才會被刪掉&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309140951_866ae715cc_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">You have deleted &lt;span class="m">2021&lt;/span> iThome鐵人賽 @ironman2021_by_miku3920_bot.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>看到這則訊息表示機器人已經刪除，無法復原&lt;br>
+所有群組裡的這隻機器人都會顯示成 &lt;span class="focus">Deleted Account&lt;/span>&lt;/p>
+&lt;hr>
+&lt;h2 id="bonusdrone-cicd-流程失敗時叫你的-telegram-機器人通知你">Bonus：Drone CI/CD 流程失敗時，叫你的 Telegram 機器人通知你！&lt;/h2>
+&lt;h3 id="建立群組並取得群組的-chat_id">建立群組，並取得群組的 chat_id&lt;/h3>
+&lt;ol>
+&lt;li>Telegram 建立群組，並將你的 Telegram 機器人拉進群組內(&lt;code>@{your bot username}&lt;/code>)。&lt;/li>
+&lt;li>透過此 API 取得群組的 &lt;span class="focus">chat_id&lt;/span>：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://api.telegram.org/bot&lt;span class="si">${&lt;/span>&lt;span class="nv">your&lt;/span>&lt;span class="p"> bot token&lt;/span>&lt;span class="si">}&lt;/span>/getUpdates
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>getUpdates API 會取得 json，找到你剛剛開的群組的 &lt;span class="focus">chat_id&lt;/span>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309248836_52f78bd265_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="透過-drone-pluginhttppluginsdroneio">透過 &lt;a class="link" href="http://plugins.drone.io/" target="_blank" rel="noopener"
+>Drone Plugin&lt;/a>&lt;/h3>
+&lt;p>從 &lt;a class="link" href="http://plugins.drone.io/" target="_blank" rel="noopener"
+>Drone Plugin&lt;/a> 可以找到很多套件，可以搭配 CI/CD 使用，而我從這找到 &lt;a class="link" href="http://plugins.drone.io/appleboy/drone-telegram/" target="_blank" rel="noopener"
+>Telegram by appleboy&lt;/a> 的套件。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52309719978_3254d45d05_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="drone-cicd-補上告警的-step">Drone CI/CD 補上告警的 step。&lt;/h3>
+&lt;p>你的 Drone CI/CD step 加上使用 &lt;a class="link" href="http://plugins.drone.io/appleboy/drone-telegram/" target="_blank" rel="noopener"
+>Telegram by appleboy&lt;/a> 叫你的機器人於 pipeline 失敗時於群組內發出告警。&lt;/p>
+&lt;blockquote>
+&lt;p>PS：記得將你的 telegram bot token 與群組的 chat_id 加到 Drone Secrets。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">kind: pipeline
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">type: docker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">name: install and deploy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">steps:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - name: build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> image: node:15
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> commands:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - node --version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - yarn --version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> # - yarn cache clean -f
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - yarn install --ignore-engines
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - yarn run build
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - ls -al dist/static/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> when:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> branch:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - master
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> event:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - push
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - name: deploy
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> image: thegeeklab/drone-s3-sync
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> settings:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> bucket: xxxxxxxxx(你的aws s3 bucket)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> access_key:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> from_secret: aws_access_key_id
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> secret_key:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> from_secret: aws_secret_access_key
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> source: ./dist/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> target: /admin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> acl:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &amp;#34;*&amp;#34;: public-read
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> region: xxxxxxxxx(你的aws s3 region)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> delete: true
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> cloudfront_distribution: xxxxxxxxx(你的aws cloudfront distribution)
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> when:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> branch:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - master
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> event:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> - push
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ - name: send telegram notification
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ image: appleboy/drone-telegram
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ settings:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ token:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ from_secret: telegram_bot_token
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ to:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ from_secret: telegram_chat_id
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ format: markdown
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ message: &amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ `{{repo.name}}` 於 `{{commit.branch}}` 編譯失敗：#`{{build.number}}`
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ when:
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ status: [failure]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>token： 你的 Telegram 機器人的 token。&lt;/li>
+&lt;li>to： chat_id。&lt;/li>
+&lt;li>format： 使用 markdown 格式。&lt;/li>
+&lt;li>message： 機器人傳的訊息。&lt;/li>
+&lt;li>when.status [failure]： 當此 pipeline 失敗時觸發此 step(send telegram notification)，亦可於成功或失敗皆告警：[success, failure]。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://plugins.drone.io/plugins/telegram" target="_blank" rel="noopener"
+>詳細參數可參考 Drone Plugin - appleboy/drone-telegram&lt;/a>&lt;/p>
+&lt;hr></description></item></channel></rss>
