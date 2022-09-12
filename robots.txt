@@ -2,6 +2,8 @@ User-agent: *
 
 Disallow: /categories/
 
+Disallow: /tags/indexeddb/
+
 Disallow: /tags/mis/
 
 Disallow: /categories/mis/
@@ -11,6 +13,12 @@ Disallow: /post/
 Disallow: /tags/
 
 Disallow: /
+
+Disallow: /tags/web-browser/
+
+Disallow: /categories/web-browser/
+
+Disallow: /2022-09-12/use-indexeddb/
 
 Disallow: /tags/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86/
 
