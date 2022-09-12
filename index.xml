@@ -1,4 +1,362 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne(偉恩)的部落格</title><link>/</link><description>Recent content on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 25 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne(偉恩)的部落格</title><link>/</link><description>Recent content on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>網路管理技術應用實務班筆記</title><link>/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h6 id="指導教師黃威誌">指導教師：&lt;code>黃威誌&lt;/code>&lt;/h6>
+&lt;hr>
+&lt;h2 id="使用軟體">使用軟體&lt;/h2>
+&lt;h3 id="cisco-packet-tracer">Cisco Packet Tracer&lt;/h3>
+&lt;ul>
+&lt;li>Cisco官方網路模擬器&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://actionpc.pixnet.net/blog/post/119258428" target="_blank" rel="noopener"
+>CPT下載教學&lt;/a>&lt;/p>
+&lt;h3 id="wireshark360">wireshark(3.6.0)&lt;/h3>
+&lt;ul>
+&lt;li>封包擷取工具&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://www.wireshark.org/download.html" target="_blank" rel="noopener"
+>下載wireshark&lt;/a>&lt;/p>
+&lt;h3 id="vmware">Vmware&lt;/h3>
+&lt;ul>
+&lt;li>虛擬機軟體&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a class="link" href="https://www.vmware.com/go/getplayer-win" target="_blank" rel="noopener"
+>下載Vmware&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="指令筆記">指令筆記&lt;/h2>
+&lt;h3 id="ping">ping&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 常用來測試的ip&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 中華電信DNS&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 168.95.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### Google&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 8.8.8.8
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">時間: 若連續超過100ms，代表網路有問題
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TTL: Time to live
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="ipconfig">ipconfig&lt;/h3>
+&lt;ul>
+&lt;li>查詢電腦網卡設定&lt;/li>
+&lt;li>ipconfig(Windows) / ifconfig(Linux/UNIX)&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 基本使用&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 更詳細版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /all
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 查詢參數&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 釋放IP位址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /release &lt;span class="c1"># IPv4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /release6 &lt;span class="c1"># IPv6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 重新取得IP位址 (會造成瞬間斷線)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /renew &lt;span class="c1"># IPv4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /renew6 &lt;span class="c1"># IPv6&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 清除DNS快取&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /flushdns
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tracert">tracert&lt;/h3>
+&lt;ul>
+&lt;li>追蹤連線出去的節點&lt;/li>
+&lt;li>最多30個節點&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">tracert 168.95.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 也可輸入網址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tracert www.pchome.com.tw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="nslookup">nslookup&lt;/h3>
+&lt;ul>
+&lt;li>判斷DNS名稱解析伺服器是否正常&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">nslookup 168.95.1.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 也可輸入網址&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nslookup www.pchome.com.tw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="netstat">netstat&lt;/h3>
+&lt;ul>
+&lt;li>查詢電腦連線服務的狀態&lt;/li>
+&lt;li>使用port：7&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">netstat
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 列出目前所有的網路狀態(包含IPv6)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">netstat -an
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="cisco-packet-tracer-1">Cisco Packet Tracer&lt;/h2>
+&lt;h3 id="設定router">設定Router&lt;/h3>
+&lt;p>範例使用的設備&lt;/p>
+&lt;ul>
+&lt;li>Routers: &lt;code>1841 router&lt;/code>&lt;/li>
+&lt;li>Connections: &lt;code>RS 232&lt;/code>&lt;/li>
+&lt;li>Devices: &lt;code>PC&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 進入router&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router&amp;gt; &lt;span class="nb">enable&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 進入privey config&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router# configure terminal
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 設定 hostname (範例設定為&amp;#34;ISP_1&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># hostname ISP_1&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 設定網卡介面 (範例設定為&amp;#34;fastEthernet 0/0&amp;#34;)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># interface fastEthernet 0/0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1"># &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 設定IP&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1"># ip address 192.168.0.5 255.255.255.0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1">#&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 離開並查看IP設定&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1"># exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># exit&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1#
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1# show running-config
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Building configuration...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Current configuration : &lt;span class="m">575&lt;/span> bytes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">version 12.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no service timestamps log datetime msec
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no service timestamps debug datetime msec
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no service password-encryption
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hostname ISP_1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ip cef
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no ipv6 cef
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --More--
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="wireshark">Wireshark&lt;/h2>
+&lt;hr>
+&lt;h2 id="防火牆概念">防火牆概念&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52351628073_ee20e935c3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="ftp">FTP&lt;/h2>
+&lt;ul>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>使用port：21(命令傳輸)、20(檔案傳輸)&lt;/li>
+&lt;li>近期已較不常使用，因安全性問題&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="sshsecure-shell">SSH(secure shell)&lt;/h2>
+&lt;ul>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>用於登入系統、傳輸指令&lt;/li>
+&lt;li>加密傳輸&lt;/li>
+&lt;li>使用port：22&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="telnet">telnet&lt;/h2>
+&lt;ul>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>用於文字命令&lt;/li>
+&lt;li>無加密&lt;/li>
+&lt;li>使用port：23&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="smtpsimple-mail-transfer-protocal">SMTP(simple mail transfer protocal)&lt;/h2>
+&lt;ul>
+&lt;li>使用DNS Server的MX Record&lt;/li>
+&lt;li>用於寄出mail&lt;/li>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>使用port：25&lt;/li>
+&lt;li>對寄件者身分不做驗證，只會驗證收件者&lt;/li>
+&lt;li>現今已較少使用，通常已改使用網頁式的mail，較於安全且減省資源&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="pop3">POP3&lt;/h2>
+&lt;ul>
+&lt;li>用來接收mail、遠端管理郵件，可以單純下載，伺服器端不需刪除&lt;/li>
+&lt;li>採用不加密通訊&lt;/li>
+&lt;li>新版(POP3S)採取加密通訊&lt;/li>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>使用port：110&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="whois">WHOIS&lt;/h2>
+&lt;ul>
+&lt;li>用於查詢網際網路中網域名稱IP與所有者的資訊&lt;/li>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>使用port：43&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="dnsdomain-name-system">DNS(domain name system)&lt;/h2>
+&lt;ul>
+&lt;li>用於網域名稱與IP的對應查詢&lt;/li>
+&lt;li>同時使用TCP/UDP通訊協定&lt;/li>
+&lt;li>使用port：53&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="httphypertext-transfer-protocol">HTTP(hypertext transfer protocol)&lt;/h2>
+&lt;ul>
+&lt;li>網頁的發布和接收&lt;/li>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>使用port：80 (8080為替代port)&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="imap">IMAP&lt;/h2>
+&lt;ul>
+&lt;li>用於線上和離線狀態的瀏覽模式&lt;/li>
+&lt;li>使用TCP通訊協定&lt;/li>
+&lt;li>使用port：143 (8080為替代port)&lt;/li>
+&lt;/ul>
+&lt;hr></description></item><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

@@ -2,21 +2,29 @@ User-agent: *
 
 Disallow: /categories/
 
-Disallow: /tags/drone/
+Disallow: /tags/mis/
 
-Disallow: /categories/drone/
+Disallow: /categories/mis/
 
 Disallow: /post/
 
 Disallow: /tags/
+
+Disallow: /
+
+Disallow: /tags/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86/
+
+Disallow: /2022-09-12/network-management-lesson/
+
+Disallow: /tags/drone/
+
+Disallow: /categories/drone/
 
 Disallow: /tags/telegram-bot/
 
 Disallow: /categories/telegram-bot/
 
 Disallow: /2022-08-25/drone-cicd-with-telegram-bot/
-
-Disallow: /
 
 Disallow: /tags/cors/
 
