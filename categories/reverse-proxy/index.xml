@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>reverse proxy on Wayne(偉恩)的部落格</title><link>/categories/reverse-proxy/</link><description>Recent content in reverse proxy on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 26 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/reverse-proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h3 id="參考文章">參考文章&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://blog.alantsai.net/posts/2018/04/devtooltips-5-ngrok-allow-public-to-access-localhost-website-and-sql-server" target="_blank" rel="noopener"
+>Alan Tsai 的學習筆記&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://noob.tw/ngrok/" target="_blank" rel="noopener"
+>Ngrok：讓本機測試時也能有 HTTPS 憑證&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="前言">前言&lt;/h3>
+&lt;ul>
+&lt;li>在開發的過程中，有時候會需要從另外一臺機器測試在local的網站及服務。最常見的情況就是當要測試網站在手機上看起來長什麽樣子的時候，或者有時候要讓別人連到自己local的sql serer的時候。&lt;/li>
+&lt;li>&lt;code>ngrok&lt;/code> 就是讓這一切變得容易的工具，而且很佛心的是，免費版就夠一般使用。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="運作模式">運作模式&lt;/h3>
+&lt;ul>
+&lt;li>ngrok 就是一個 reverse proxy 的工具，透過把 local 的 port map 到一個 public 的地址，讓外部能夠透過這個 public 地址連到，然後工具用 reverse proxy 和 local 實際的 port 取得資料。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384739964_99fa54041d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ul>
+&lt;li>因此有個缺點，就是&lt;span class="focus">速度相對較慢&lt;/span>，尤其是 &lt;code>ngrok&lt;/code> 的伺服器在美國因此也會減少一些速度。不過如果是爲了開發測試用，這個就不算缺點。&lt;/li>
+&lt;li>&lt;code>ngrok&lt;/code> 免費版本提供了一個動態的地址，需要進階功能或者同時map多個服務就需要付費。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="安裝與使用">安裝與使用&lt;/h3>
+&lt;h4 id="需先安裝-unzip-解壓縮用">需先安裝 &lt;code>unzip&lt;/code> (解壓縮用)&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">yum install zip unzip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="步驟-1---到官網httpsngrokcomdownload下載相對應系統的-ngrok-安裝包">步驟 1 - 到&lt;a class="link" href="https://ngrok.com/download" target="_blank" rel="noopener"
+>官網&lt;/a>下載相對應系統的 &lt;code>ngrok&lt;/code> 安裝包&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 以 linux 64 為例&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="步驟-2---解壓縮安裝包並搬移到-usrbin-中">步驟 2 - 解壓縮安裝包並搬移到 &lt;code>/usr/bin/&lt;/code> 中&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">unzip ngrok-stable-linux-amd64.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">mv ngrok /usr/bin/.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="步驟-3---到-ngrok-官網httpsdashboardngrokcomusersignup註冊一個免費帳號">步驟 3 - 到 &lt;code>ngrok&lt;/code> &lt;a class="link" href="https://dashboard.ngrok.com/user/signup" target="_blank" rel="noopener"
+>官網&lt;/a>註冊一個免費帳號&lt;/h4>
+&lt;h4 id="步驟-4---將-dashboard-上顯示的-token-設定至本機">步驟 4 - 將 dashboard 上顯示的 token 設定至本機&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok authtoken XXXXXXXXXXXXXXXX
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="顯示此畫面代表已設定完成">顯示此畫面代表已設定完成。&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52383495942_17e45479cd_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="步驟-5---假設服務跑在本機的-port-3000則執行以下指令">步驟 5 - 假設服務跑在本機的 port 3000，則執行以下指令&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok http &lt;span class="m">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="顯示此畫面代表已成功跑起服務打開網址即可">顯示此畫面代表已成功跑起服務，打開網址即可。&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384429616_0d22e434e9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h5 id="直到-ngrok-關掉或-ngrok-session-過期之前這兩個-url-都可以被公開存取">直到 ngrok 關掉或 ngrok session 過期之前，這兩個 URL 都可以被公開存取。&lt;/h5>
+&lt;hr>
+&lt;h3 id="進階使用">進階使用&lt;/h3>
+&lt;h4 id="外連的-web-服務加密">外連的 web 服務加密&lt;/h4>
+&lt;ul>
+&lt;li>有時候給別人測試的鏈接不希望任意的人都能夠開啓，ngrok非常貼心的提供了這個服務。&lt;/li>
+&lt;li>只需要在 mapping 的時候加上 &lt;code>auth&lt;/code> 這個參數就可以設定密碼保護。例如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok http --auth&lt;span class="o">=&lt;/span>admin:12345 &lt;span class="m">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="意思是賬號要是admin而密碼是12345-map-到-3000-port">意思是，賬號要是admin，而密碼是12345 map 到 3000 port。&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384739909_886160c4ac_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="重寫-hostname">重寫 hostname&lt;/h4>
+&lt;ul>
+&lt;li>有些服務會使用到 &lt;code>hostname&lt;/code> 的值，這個時候重寫 &lt;code>hostname&lt;/code> 的功能就變得很重要。可以使用 &lt;code>host-header&lt;/code> 做設定。&lt;/li>
+&lt;/ul>
+&lt;h5 id="這邊的例子用的是在-iis-裏面設定只有-testcom-才會-binding-到-80-port使用的指令就是">這邊的例子用的是在 IIS 裏面設定只有 test.com 才會 binding 到 80 port，使用的指令就是：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok http --host-header&lt;span class="o">=&lt;/span>test.com &lt;span class="m">80&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384739894_fcf84e8513_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr></description></item><item><title>nginx CORS 跨域與反向代理</title><link>/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h2 id="參考文章">參考文章&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.itread01.com/content/1541910442.html" target="_blank" rel="noopener"
+>CORS跨域與Nginx反向代理&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://enable-cors.org/server_nginx.html" target="_blank" rel="noopener"
+>CORS on Nginx&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://my.oschina.net/liuyuantao/blog/1931256" target="_blank" rel="noopener"
+>Nginx解决CORS跨域解决方案&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.boatswain.io/zh/post/setup-cors-in-nginx-with-proxypass-upstream/" target="_blank" rel="noopener"
+>在 Nginx 的 ProxyPass Upstream 設定 CORS （跨來源資源共享）&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52304007692_ea5c515c1f_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h2 id="cors跨域">CORS跨域&lt;/h2>
+&lt;h3 id="跨域資源共享---cors">跨域資源共享 - CORS&lt;/h3>
+&lt;p>&lt;code>跨域資源共享(CORS)&lt;/code>是一種機制，它使用額外的 HTTP 頭來告訴瀏覽器，讓運行在一個 origin (domain) 上的Web應用被准許訪問來自不同源服務器上的指定的資源。當一個資源從與該資源本身所在的服務器不同的域、協議或端口請求一個資源時，資源會發起一個跨域 HTTP 請求。&lt;/p>
+&lt;p>比如，站點 &lt;code>http://domain-a.com&lt;/code> 的某 HTML 頁面通過 &lt;code>&amp;lt;img&amp;gt;&lt;/code> 的 src 請求 &lt;code>http://domain-b.com/image.jpg&lt;/code>。網絡上的許多頁面都會加載來自不同域的CSS樣式表，圖像和腳本等資源。&lt;/p>
+&lt;p>出於安全原因，瀏覽器限制從腳本內發起的跨源HTTP請求。例如，&lt;code>XMLHttpRequest&lt;/code>和&lt;code>Fetch API&lt;/code>遵循&lt;a class="link" href="#%e3%80%8c%e5%90%8c%e6%ba%90%e3%80%8d%e5%ae%9a%e7%be%a9" >同源策略&lt;/a>。這意味著使用這些API的Web應用程序只能從加載應用程序的同一個域請求HTTP資源，除非響應報文包含了正確CORS響應頭。&lt;/p>
+&lt;h5 id="跨域時部分瀏覽器預設不攜帶cookie因此為了攜帶cookie需要在前端設定xmlhttprequest的font-classfocuswithcrendetallsfont屬性">跨域時部分瀏覽器預設不攜帶cookie，因此為了攜帶cookie需要在前端設定xmlhttprequest的&lt;font class="focus">withCrendetalls&lt;/font>屬性。&lt;/h5>
+&lt;hr>
+&lt;h2 id="同源定義">「同源」定義&lt;/h2>
+&lt;p>「同源」定義很簡單，以下三個參數都相同：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>protocol&lt;span class="o">]&lt;/span>://&lt;span class="o">[&lt;/span>domain&lt;span class="o">]&lt;/span>:&lt;span class="o">[&lt;/span>port&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>白話說，當你在 &lt;code>https://www.example.com/product.html&lt;/code> 頁面&lt;/p>
+&lt;p>嘗試對以下路徑發出請求，都違反同源：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>http://www.example.com/api/products/40.json&lt;/code>&lt;/li>
+&lt;li>&lt;code>https://www.example2.com/api/products/40.json&lt;/code>&lt;/li>
+&lt;li>&lt;code>https://www.example.com:8080/api/products/40.json&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>乖孩子遵守同源，不會被打：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>https://www.example.com/api/products/40.json&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="簡單請求和複雜請求">簡單請求和複雜請求&lt;/h3>
+&lt;p>簡單請求與複雜請求的差別是複雜請求會自動發出一個 &lt;code>OPTIONS&lt;/code> 的預檢請求，當請求得到確認後，才開始真正發送請求。&lt;br>
+綜上，我們要解決兩個問題：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>OPTIONS&lt;/code> 請求的正確響應&lt;/li>
+&lt;li>跨域請求正確響應&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="options-請求的正確響應">&lt;code>OPTIONS&lt;/code> 請求的正確響應&lt;/h3>
+&lt;p>&lt;a class="link" href="https://my.oschina.net/liuyuantao/blog/1931256" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;/p>
+&lt;h5 id="解決的方式有多種既可以在web-server解決也可以在源碼層解決因為問題比較普遍故我們選擇在web-server解決下面我們以-nginx-為例說明解決方案">解決的方式有多種，既可以在Web Server解決，也可以在源碼層解決。因為問題比較普遍，故我們選擇在Web Server解決，下面我們以 Nginx 為例，說明解決方案。&lt;/h5>
+&lt;h4 id="假設訪問的地址為-example--nginx-配置如下">假設訪問的地址為 &lt;code>/example&lt;/code> , Nginx 配置如下:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="s">/example&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_redirect&lt;/span> &lt;span class="no">off&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://127.0.0.1:8080/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="為了解決跨域問題添加如下內容">為了解決跨域問題，添加如下內容:&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">location /example {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ if ($request_method = &amp;#39;OPTIONS&amp;#39;) {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Origin *;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Max-Age 1728000;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Headers &amp;#39;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&amp;#39;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Content-Type&amp;#39; &amp;#39;text/plain; charset=utf-8&amp;#39;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Content-Length 0 ;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ return 204;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_redirect off;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://127.0.0.1:8080/;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="說明">說明：&lt;/h4>
+&lt;p>&lt;code>if ($request_method = 'OPTIONS') {...}&lt;/code> 當請求方法為 &lt;code>OPTIONS&lt;/code> 時:&lt;/p>
+&lt;ul>
+&lt;li>添加允許源 &lt;code>Access-Control-Allow-Origin&lt;/code> 為 &lt;code>*&lt;/code> (可根據業務需要更改)&lt;/li>
+&lt;li>添加緩存時長 &lt;code>Access-Control-Max-Age&lt;/code>，當下次請求時，無需再發送 &lt;code>OPTIONS&lt;/code> 請求&lt;/li>
+&lt;li>添加允許的方法，允許的首部&lt;/li>
+&lt;li>添加一個內容長度為&lt;code>0&lt;/code>，類型為 &lt;code>text/plain; charset=utf-8&lt;/code> , 返回狀態碼為 &lt;code>204&lt;/code> 的首部&lt;/li>
+&lt;/ul>
+&lt;p>至此，完成 &lt;code>OPTIONS&lt;/code> 請求的正確響應。&lt;/p>
+&lt;h3 id="跨域請求正確響應">跨域請求正確響應&lt;/h3>
+&lt;p>添加如下內容:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-diff" data-lang="diff">&lt;span class="line">&lt;span class="cl">location /example {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> if ($request_method = &amp;#39;OPTIONS&amp;#39;) {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Allow-Origin *;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Max-Age 1728000;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Access-Control-Allow-Headers &amp;#39;DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Content-Type&amp;#39; &amp;#39;text/plain; charset=utf-8&amp;#39;;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> add_header Content-Length 0 ;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> return 204;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ if ($http_origin ~* (https?://(.+\.)?(example\.com$))) {
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Origin $http_origin;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Credentials true;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Allow-Methods GET,POST,OPTIONS;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ add_header Access-Control-Expose-Headers Content-Length,Content-Range;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">+ }
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gi">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_redirect off;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Real-IP $remote_addr;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://127.0.0.1:8080/;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="說明-1">說明：&lt;/h4>
+&lt;p>&lt;code>if ($http_origin ~* (https?://(.+\.)?(example\.com$))) {...}&lt;/code>，當 origin 為合法域名(可根據業務調整或去除合法域名驗證)時:&lt;/p>
+&lt;ul>
+&lt;li>添加允許源 &lt;code>Access-Control-Allow-Origin&lt;/code> 為 &lt;code>$http_origin&lt;/code> (可根據業務需要更改)&lt;/li>
+&lt;li>添加允許認證 &lt;code>Access-Control-Allow-Credentials&lt;/code> 為 &lt;code>true&lt;/code> ，允許接收客戶端 &lt;code>Cookie&lt;/code>(可根據業務需要更改。 但要注意，當設置為&lt;code>true&lt;/code>時，&lt;code>Access-Control-Allow-Origin&lt;/code> 不允許設置為 &lt;code>*&lt;/code>)&lt;/li>
+&lt;li>添加允許的方法，暴露的首部&lt;/li>
+&lt;/ul>
+&lt;p>至此，完成跨域請求正確響應。&lt;/p>
+&lt;p>以上，是對跨域請求在Web Server的解決方案，主要是通過響應 &lt;code>OPTIONS&lt;/code> 方法和添加允許源來解決。&lt;/p>
+&lt;hr>
+&lt;p>當然，如果本地開發中，可以在利用 &lt;code>webpack-dev-server&lt;/code> 的 &lt;a class="link" href="https://webpack.js.org/configuration/dev-server/#devserver-proxy" target="_blank" rel="noopener"
+>proxy&lt;/a> 選項來快速解決跨域問題：&lt;/p>
+&lt;p>示例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// webpack.congf.js
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">module&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exports&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">devServer&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">proxy&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;/api&amp;#39;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">target&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;http://localhost:3000&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">pathRewrite&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="s1">&amp;#39;^/api&amp;#39;&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;font class="focus">當訪問地址如 &lt;code>/api/foo?q=bar&lt;/code> 時，則通過代理訪問的實際地址是: &lt;code>http://localhost:3000/foo?q=bar&lt;/code>。&lt;/font>&lt;/p>
+&lt;hr>
+&lt;h2 id="nginx反向代理">Nginx反向代理&lt;/h2>
+&lt;p>nginx反向代理，通過修改nginx配置檔案實現反向代理，請求統一通過nginx分發請求&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52304747256_1d98e2fc68_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="nginx配置19216875139">Nginx配置（192.168.75.139）&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 負載均衡
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">upstream&lt;/span> &lt;span class="s">my_site&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server&lt;/span> &lt;span class="n">192.168.75.138&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server&lt;/span> &lt;span class="n">192.168.75.137&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server&lt;/span> &lt;span class="n">192.168.75.136&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="mi">8080&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">8081&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">localhost&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">^~&lt;/span> &lt;span class="s">/api/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-ip&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site/nginx/indexNginxCrossQuest.jsp&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/nginx/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site/nginx/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-ip&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">\.(html|htm|ico|png|jpg|jpeg|js|css|bmp)$&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://my_site&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">error_page&lt;/span> &lt;span class="mi">500&lt;/span> &lt;span class="mi">502&lt;/span> &lt;span class="mi">503&lt;/span> &lt;span class="mi">504&lt;/span> &lt;span class="s">/50x.html&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">/50x.html&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">root&lt;/span> &lt;span class="s">html&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="瀏覽器請求192168751">瀏覽器請求（192.168.75.1）&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52305211798_37f5434bf4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="綜合對比">綜合對比&lt;/h4>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th style="text-align:left">&lt;/th>
+&lt;th style="text-align:left">CORS&lt;/th>
+&lt;th style="text-align:left">Nginx反向代理&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td style="text-align:left">前端程式碼配置&lt;/td>
+&lt;td style="text-align:left">credentials=true&lt;/td>
+&lt;td style="text-align:left">無&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">後端程式碼配置&lt;/td>
+&lt;td style="text-align:left">setHeader：Allow-Origin、Allow-Methods等&lt;/td>
+&lt;td style="text-align:left">無&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">服務端配置&lt;/td>
+&lt;td style="text-align:left">無&lt;/td>
+&lt;td style="text-align:left">Nginx配置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">移植靈活性&lt;/td>
+&lt;td style="text-align:left">高、無額外配置&lt;/td>
+&lt;td style="text-align:left">低、每增加一個環境都需要增加配置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">安全性&lt;/td>
+&lt;td style="text-align:left">高、來源可控、直接追溯&lt;/td>
+&lt;td style="text-align:left">X-Forwarded-For追溯多級來源&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td style="text-align:left">安全控制&lt;/td>
+&lt;td style="text-align:left">黑白名單&lt;/td>
+&lt;td style="text-align:left">更新配置&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr></description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h2 id="參考文章">參考文章&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.itnotetk.com/2018/04/28/nginx%E8%A8%AD%E5%AE%9Assl%E5%85%8D%E8%B2%BB%E5%9F%9F%E5%90%8D%E8%AD%89%E6%9B%B8/" target="_blank" rel="noopener"
+>IT Note&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.kimotour.com.tw/modules/tad_book3/html.php?tbdsn=31" target="_blank" rel="noopener"
+>SSL憑證教學 - xoops&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.sslforfree.com/" target="_blank" rel="noopener"
+>免費SSL憑證申請&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://ssl-config.mozilla.org/#server=nginx&amp;amp;version=1.17.7&amp;amp;config=intermediate&amp;amp;openssl=1.1.1d&amp;amp;guideline=5.6" target="_blank" rel="noopener"
+>nginx config產生器&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.ssllabs.com/ssltest/analyze.html" target="_blank" rel="noopener"
+>Qualys 的 SSL 伺服器測試工具&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;h2 id="版本一">版本一&lt;/h2>
+&lt;h3 id="步驟-1---下載安裝及執行的腳本">步驟 1 - 下載安裝及執行的腳本&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://dl.eff.org/certbot-auto --no-check-certificate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod +x ./certbot-auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">./certbot-auto -n
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="生成證書只需要輸入郵件地址和網站根目錄提示以下內容說明安裝完成">生成證書，只需要輸入郵件地址和網站根目錄，提示以下內容，說明安裝完成&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Saving debug log to /var/log/letsencrypt/letsencrypt.log
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Missing &lt;span class="nb">command&lt;/span> line flags. For non-interactive execution, you will need to specify a plugin on the &lt;span class="nb">command&lt;/span> line. Run with &lt;span class="s1">&amp;#39;--help plugins&amp;#39;&lt;/span> to see a list of options, and see https://eff.org/letsencrypt-plugins &lt;span class="k">for&lt;/span> more detail on what the plugins &lt;span class="k">do&lt;/span> and how to use them.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-2---nginx設定隱藏目錄訪問">步驟 2 - nginx設定隱藏目錄訪問&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">/.well-known&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">allow&lt;/span> &lt;span class="s">all&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-3---生成域名證書">步驟 3 - 生成域名證書&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">./certbot-auto certonly --email tony@hack.idv.tw --agree-tos --no-eff-email --webroot -w /var/www/ -d hack.idv.tw
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="到目錄內查看">到目錄內查看&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> /etc/letsencrypt/live/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52304697266_7e58e85906_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h5 id="萬用字元的申請指令-需要驗證dns">萬用字元的申請指令 (需要驗證dns)&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">certbot-auto certonly -d *.manpc.tk --manual --preferred-challenges dns
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52305209689_c0d76ecdbe_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="步驟-4---設定nginx">步驟 4 - 設定nginx&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1"># IPv4
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">hack.idv.tw&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Real-IP&lt;/span> &lt;span class="nv">$remote_addr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#rewrite ^(.*) https://$host$1 permanent;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">return&lt;/span> &lt;span class="mi">301&lt;/span> &lt;span class="s">https://www.itnotetk.com&lt;/span>&lt;span class="nv">$request_uri&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">#跳轉到Https
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">ssl&lt;/span> &lt;span class="s">http2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">hack.idv.tw&lt;/span> &lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/letsencrypt/live/hack.idv.tw/fullchain.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/letsencrypt/live/hack.idv.tw/privkey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">client_max_body_size&lt;/span> &lt;span class="mi">256m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_dhparam&lt;/span> &lt;span class="s">/etc/nginx/certs/dhparam.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_session_cache&lt;/span> &lt;span class="s">shared:SSL:10m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_session_timeout&lt;/span> &lt;span class="mi">10m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_protocols&lt;/span> &lt;span class="s">TLSv1&lt;/span> &lt;span class="s">TLSv1.1&lt;/span> &lt;span class="s">TLSv1.2&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_stapling&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_ciphers&lt;/span> &lt;span class="s">&amp;#34;ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_prefer_server_ciphers&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#add_header Strict-Transport-Security &amp;#34;max-age=63072000; includeSubdomains; preload&amp;#34;;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">add_header&lt;/span> &lt;span class="s">Strict-Transport-Security&lt;/span> &lt;span class="s">&amp;#34;max-age=31536000&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="kn">includeSubDomains&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="kn">preload&amp;#34;&lt;/span> &lt;span class="s">always&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ...
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="lets-encrypt憑證只有90天-需要手動續約">Let&amp;rsquo;s Encrypt憑證只有90天 需要手動續約&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="m">0&lt;/span> &lt;span class="m">1&lt;/span> * * * /root/certbot-auto renew --disable-hook-validation --renew-hook &lt;span class="s2">&amp;#34;/etc/init.d/nginx reload&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="版本二">版本二&lt;/h2>
+&lt;p>&lt;a class="link" href="https://blog.gtwang.org/linux/secure-nginx-with-lets-encrypt-ssl-certificate-on-ubuntu-and-debian/" target="_blank" rel="noopener"
+>網路出處&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://letsencrypt.org/" target="_blank" rel="noopener"
+>Let’s Encrypt&lt;/a> 是一家新的證書頒發機構（Certificate Authority，簡稱 CA），其提供免費的 TLS/SSL 憑證再配合 &lt;a class="link" href="https://certbot.eff.org/" target="_blank" rel="noopener"
+>Certbot&lt;/a> 這個自動化工具，讓一般的網站可以很容易地使用 HTTPS 的安全加密網頁，設定很簡單，憑證的更新也可以自動處理。&lt;/li>
+&lt;li>以下我以 Ubuntu Linux 14.04 的系統為例，示範 nginx 伺服器使用 Let’s Encrypt 憑證設定 HTTPS 安全加密網頁的方法。&lt;/li>
+&lt;/ul>
+&lt;h3 id="步驟-1---從-certbot-官方網站下載-certbot-auto-指令稿並設定其執行權限">步驟 1 - 從 &lt;code>Certbot&lt;/code> 官方網站下載 &lt;code>certbot-auto&lt;/code> 指令稿，並設定其執行權限&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">wget https://dl.eff.org/certbot-auto
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">chmod a+x certbot-auto
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="certbot-auto-要放在哪裡都可以建議一開始就找一個適合的地方放好例如建立一個-optletsencrypt-目錄把-certbot-auto-放在這裡">&lt;code>certbot-auto&lt;/code> 要放在哪裡都可以，建議一開始就找一個適合的地方放好，例如建立一個 &lt;code>/opt/letsencrypt&lt;/code> 目錄，把 &lt;code>certbot-auto&lt;/code> 放在這裡&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mkdir /opt/letsencrypt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mv certbot-auto /opt/letsencrypt/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-2---執行-certbot-auto-讓它自動安裝所有相依套件">步驟 2 - 執行 &lt;code>certbot-auto&lt;/code> ，讓它自動安裝所有相依套件&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="執行-certbot-auto-時會需要輸入密碼取得-root-權限">執行 &lt;code>certbot-auto&lt;/code> 時，會需要輸入密碼取得 root 權限&lt;/h5>
+&lt;h3 id="步驟-3">步驟 3：&lt;/h3>
+&lt;ul>
+&lt;li>安裝完成所有需要的系統套件後，接著我們要透過 &lt;code>webroot&lt;/code> 的方式，使用既有的 &lt;code>nginx&lt;/code> 網頁伺服器來向 &lt;code>Let’s Encrypt&lt;/code> 取得憑證，而在認證的過程會需要在網頁根目錄中建立一個 &lt;code>.well-known/acme-challenge/&lt;/code> 目錄，讓 &lt;code>Let’s Encrypt&lt;/code> 的伺服器來讀取其中的內容。&lt;/li>
+&lt;li>一般的 &lt;code>nginx&lt;/code> 伺服器通常會設定把句點開頭的隱藏檔案都擋掉，遇到這樣的狀況就會無法進行認證，這時候可以再加一小段設定，讓 &lt;code>.well-known/acme-challenge/&lt;/code> 目錄可以被正常讀取。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="s">^~&lt;/span> &lt;span class="s">/.well-known/acme-challenge/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># the usual settings
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">location&lt;/span> &lt;span class="p">~&lt;/span> &lt;span class="sr">/\.&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">deny&lt;/span> &lt;span class="s">all&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-4---使用-certonly-功能下載憑證">步驟 4 - 使用 &lt;code>certonly&lt;/code> 功能下載憑證&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto certonly --webroot -w /var/www/blog.gtwang.org/ -d blog.gtwang.org -d gtwang.org
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-5---輸入自己的-email-信箱">步驟 5 - 輸入自己的 Email 信箱&lt;/h3>
+&lt;h3 id="步驟-6---閱讀使用條款選擇agree繼續">步驟 6 - 閱讀使用條款，選擇「Agree」繼續&lt;/h3>
+&lt;h3 id="步驟-7---下載完成後會出現類似這樣的成功訊息">步驟 7 - 下載完成後，會出現類似這樣的成功訊息&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">IMPORTANT NOTES:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- Congratulations! Your certificate and chain have been saved at
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/etc/letsencrypt/live/blog.gtwang.org/fullchain.pem. Your cert will
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">expire on 2016-08-13. To obtain a new version of the certificate in
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">the future, simply run Certbot again.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">- If you like Certbot, please consider supporting our work by:
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Donating to ISRG / Let&lt;span class="err">&amp;#39;&lt;/span>s Encrypt: https://letsencrypt.org/donate
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Donating to EFF: https://eff.org/donate-le
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>這樣就成功取得 &lt;code>Let’s Encrypt&lt;/code> 的憑證了，而 &lt;code>nginx&lt;/code> 用的憑證就儲存在 &lt;code>/etc/letsencrypt/live/blog.gtwang.org/&lt;/code> 目錄之下，其中 &lt;code>fullchain.pem&lt;/code> 就是 &lt;code>nginx&lt;/code> 需要憑證，而 &lt;code>privkey.pem&lt;/code> 則是需要保護好的私鑰，關於憑證檔案的詳細說明，請參考 &lt;a class="link" href="https://certbot.eff.org/docs/using.html#where-are-my-certificates" target="_blank" rel="noopener"
+>Certbot&lt;/a> 的說明文件。&lt;/li>
+&lt;li>&lt;code>Certbot&lt;/code> 還有提供另外一個 &lt;code>standalone&lt;/code> 的方式來向 &lt;code>Let’s Encrypt&lt;/code> 取得憑證，這種方式是由 &lt;code>Certbot&lt;/code> 建立一個獨立的網頁伺服器，提供 &lt;code>Let’s Encrypt&lt;/code> 讀取驗證用的資料，不過這樣的做法需要綁定 &lt;code>80&lt;/code> 或 &lt;code>443&lt;/code> 連接埠，所以通常還會需要暫停既有的網頁伺服器，對於一般的網站而言，會造成網站有幾秒鐘的斷線現象，所以我個人不喜歡這樣的方式。&lt;/li>
+&lt;li>接下來要設定 &lt;code>nginx&lt;/code> 伺服器，使用這個新憑證來提供 &lt;code>HTTPS&lt;/code> 的安全加密網頁。&lt;/li>
+&lt;/ul>
+&lt;h3 id="步驟-8---要讓-nginx-啟用-https-安全加密網頁只要加上-ssl-相關的幾行設定即可其餘的設定保持不變以下是我個人使用的-nginx-伺服器設定">步驟 8 - 要讓 &lt;code>nginx&lt;/code> 啟用 &lt;code>HTTPS&lt;/code> 安全加密網頁，只要加上 &lt;code>SSL&lt;/code> 相關的幾行設定即可，其餘的設定保持不變，以下是我個人使用的 &lt;code>nginx&lt;/code> 伺服器設定&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 傾聽 HTTPS 標準埠號 443
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 同時啟用 IPv6 的 HTTPS 安全加密網頁
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:443&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">blog.gtwang.org&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">root&lt;/span> &lt;span class="s">/var/www/blog.gtwang.org/&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">index&lt;/span> &lt;span class="s">index.php&lt;/span> &lt;span class="s">index.html&lt;/span> &lt;span class="s">index.htm&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 啟用 SSL
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 設定 SSL 憑證
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/letsencrypt/live/blog.gtwang.org/fullchain.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/letsencrypt/live/blog.gtwang.org/privkey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 其他 SSL 選項
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_session_timeout&lt;/span> &lt;span class="mi">5m&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_protocols&lt;/span> &lt;span class="s">TLSv1&lt;/span> &lt;span class="s">TLSv1.1&lt;/span> &lt;span class="s">TLSv1.2&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1"># omit SSLv3 because of POODLE (CVE-2014-3566)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">ssl_ciphers&lt;/span> &lt;span class="s">&amp;#39;ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:ECDHE-ECDSA-DES-CBC3-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:DES-CBC3-SHA:!DSS&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_prefer_server_ciphers&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="ssl_protocols-的部分記得要-把sslv3拿掉httpswwwnginxcomblognginx-poodle-ssl-避免-poodle-攻擊cve-2014-3566">&lt;code>ssl_protocols&lt;/code> 的部分記得要 &lt;a class="link" href="https://www.nginx.com/blog/nginx-poodle-ssl/" target="_blank" rel="noopener"
+>把SSLv3拿掉&lt;/a> ，避免 &lt;code>POODLE&lt;/code> 攻擊（CVE-2014-3566）。&lt;/h5>
+&lt;h3 id="步驟-9---設定好之後檢查一下設定檔是否正確">步驟 9 - 設定好之後，檢查一下設定檔是否正確&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">service nginx configtest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="步驟-10---確認無誤之後重新載入設定檔">步驟 10 - 確認無誤之後，重新載入設定檔&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">service nginx reload
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>這樣就完成 nginx 伺服器的設定了，接著就可以開啟 HTTPS 加密的網址來測試了，正常來說，使用 Google Chrome 瀏覽器開啟自己主機的 HTTPS 加密網址，應該就會顯示一個綠色的鎖頭，這樣就代表我們安裝的 SSL 憑證是有效的。&lt;/li>
+&lt;/ul>
+&lt;h5 id="lets-encrypt-的憑證使用期限只有三個月在憑證到期前的一個月可以使用-certbot-auto-來更新憑證在實際更新之前我們可以加入---dry-run-參數先進行測試">&lt;code>Let’s Encrypt&lt;/code> 的憑證使用期限只有三個月，在憑證到期前的一個月可以使用 &lt;code>certbot-auto&lt;/code> 來更新憑證，在實際更新之前我們可以加入 &lt;code>--dry-run&lt;/code> 參數，先進行測試。&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto renew --dry-run
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>若測試沒問題，就可以使用正式指令來更新&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">/opt/letsencrypt/certbot-auto renew --quiet --no-self-upgrade
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>而為了方便起見，可以將這個更新指令寫在 &lt;code>/opt/letsencrypt/renew.sh&lt;/code> 指令稿中&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#!/bin/sh
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>/opt/letsencrypt/certbot-auto renew --quiet --no-self-upgrade --post-hook &lt;span class="s2">&amp;#34;service nginx reload&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>
+&lt;p>這裡我又加上一個 &lt;code>--post-hook&lt;/code> 的設定，讓憑證更新完後，可以自動重新載入 &lt;code>nginx&lt;/code> 伺服器的設定，讓憑證生效。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>接著把這個 &lt;code>/opt/letsencrypt/renew.sh&lt;/code> 指令稿寫進 &lt;code>crontab&lt;/code> 中&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># m h dom mon dow command&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="m">30&lt;/span> &lt;span class="m">2&lt;/span> * * &lt;span class="m">0&lt;/span> /opt/letsencrypt/renew.sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="官方的建議是這個指令可以一天執行兩次讓伺服器的憑證隨時保持在最新的狀態這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新certbot-只有在憑證到期前一個月才會進行更新如果憑證尚未到期就不會更新">官方的建議是這個指令可以一天執行兩次，讓伺服器的憑證隨時保持在最新的狀態，這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新，&lt;code>Certbot&lt;/code> 只有在憑證到期前一個月才會進行更新，如果憑證尚未到期，就不會更新&lt;/h5>
+&lt;hr></description></item></channel></rss>

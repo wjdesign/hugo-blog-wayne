@@ -1,4 +1,150 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne(偉恩)的部落格</title><link>/post/</link><description>Recent content in Posts on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne(偉恩)的部落格</title><link>/post/</link><description>Recent content in Posts on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 26 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="/post/index.xml" rel="self" type="application/rss+xml"/><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;h3 id="參考文章">參考文章&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://blog.alantsai.net/posts/2018/04/devtooltips-5-ngrok-allow-public-to-access-localhost-website-and-sql-server" target="_blank" rel="noopener"
+>Alan Tsai 的學習筆記&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://noob.tw/ngrok/" target="_blank" rel="noopener"
+>Ngrok：讓本機測試時也能有 HTTPS 憑證&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="前言">前言&lt;/h3>
+&lt;ul>
+&lt;li>在開發的過程中，有時候會需要從另外一臺機器測試在local的網站及服務。最常見的情況就是當要測試網站在手機上看起來長什麽樣子的時候，或者有時候要讓別人連到自己local的sql serer的時候。&lt;/li>
+&lt;li>&lt;code>ngrok&lt;/code> 就是讓這一切變得容易的工具，而且很佛心的是，免費版就夠一般使用。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="運作模式">運作模式&lt;/h3>
+&lt;ul>
+&lt;li>ngrok 就是一個 reverse proxy 的工具，透過把 local 的 port map 到一個 public 的地址，讓外部能夠透過這個 public 地址連到，然後工具用 reverse proxy 和 local 實際的 port 取得資料。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384739964_99fa54041d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ul>
+&lt;li>因此有個缺點，就是&lt;span class="focus">速度相對較慢&lt;/span>，尤其是 &lt;code>ngrok&lt;/code> 的伺服器在美國因此也會減少一些速度。不過如果是爲了開發測試用，這個就不算缺點。&lt;/li>
+&lt;li>&lt;code>ngrok&lt;/code> 免費版本提供了一個動態的地址，需要進階功能或者同時map多個服務就需要付費。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h3 id="安裝與使用">安裝與使用&lt;/h3>
+&lt;h4 id="需先安裝-unzip-解壓縮用">需先安裝 &lt;code>unzip&lt;/code> (解壓縮用)&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">yum install zip unzip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="步驟-1---到官網httpsngrokcomdownload下載相對應系統的-ngrok-安裝包">步驟 1 - 到&lt;a class="link" href="https://ngrok.com/download" target="_blank" rel="noopener"
+>官網&lt;/a>下載相對應系統的 &lt;code>ngrok&lt;/code> 安裝包&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 以 linux 64 為例&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="步驟-2---解壓縮安裝包並搬移到-usrbin-中">步驟 2 - 解壓縮安裝包並搬移到 &lt;code>/usr/bin/&lt;/code> 中&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">unzip ngrok-stable-linux-amd64.zip
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">mv ngrok /usr/bin/.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="步驟-3---到-ngrok-官網httpsdashboardngrokcomusersignup註冊一個免費帳號">步驟 3 - 到 &lt;code>ngrok&lt;/code> &lt;a class="link" href="https://dashboard.ngrok.com/user/signup" target="_blank" rel="noopener"
+>官網&lt;/a>註冊一個免費帳號&lt;/h4>
+&lt;h4 id="步驟-4---將-dashboard-上顯示的-token-設定至本機">步驟 4 - 將 dashboard 上顯示的 token 設定至本機&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok authtoken XXXXXXXXXXXXXXXX
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="顯示此畫面代表已設定完成">顯示此畫面代表已設定完成。&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52383495942_17e45479cd_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="步驟-5---假設服務跑在本機的-port-3000則執行以下指令">步驟 5 - 假設服務跑在本機的 port 3000，則執行以下指令&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok http &lt;span class="m">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="顯示此畫面代表已成功跑起服務打開網址即可">顯示此畫面代表已成功跑起服務，打開網址即可。&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384429616_0d22e434e9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h5 id="直到-ngrok-關掉或-ngrok-session-過期之前這兩個-url-都可以被公開存取">直到 ngrok 關掉或 ngrok session 過期之前，這兩個 URL 都可以被公開存取。&lt;/h5>
+&lt;hr>
+&lt;h3 id="進階使用">進階使用&lt;/h3>
+&lt;h4 id="外連的-web-服務加密">外連的 web 服務加密&lt;/h4>
+&lt;ul>
+&lt;li>有時候給別人測試的鏈接不希望任意的人都能夠開啓，ngrok非常貼心的提供了這個服務。&lt;/li>
+&lt;li>只需要在 mapping 的時候加上 &lt;code>auth&lt;/code> 這個參數就可以設定密碼保護。例如：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok http --auth&lt;span class="o">=&lt;/span>admin:12345 &lt;span class="m">3000&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="意思是賬號要是admin而密碼是12345-map-到-3000-port">意思是，賬號要是admin，而密碼是12345 map 到 3000 port。&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384739909_886160c4ac_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="重寫-hostname">重寫 hostname&lt;/h4>
+&lt;ul>
+&lt;li>有些服務會使用到 &lt;code>hostname&lt;/code> 的值，這個時候重寫 &lt;code>hostname&lt;/code> 的功能就變得很重要。可以使用 &lt;code>host-header&lt;/code> 做設定。&lt;/li>
+&lt;/ul>
+&lt;h5 id="這邊的例子用的是在-iis-裏面設定只有-testcom-才會-binding-到-80-port使用的指令就是">這邊的例子用的是在 IIS 裏面設定只有 test.com 才會 binding 到 80 port，使用的指令就是：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">ngrok http --host-header&lt;span class="o">=&lt;/span>test.com &lt;span class="m">80&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52384739894_fcf84e8513_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr></description></item><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

@@ -2,17 +2,23 @@ User-agent: *
 
 Disallow: /categories/
 
+Disallow: /tags/ngrok/
+
+Disallow: /post/
+
+Disallow: /categories/reverse-proxy/
+
+Disallow: /tags/
+
+Disallow: /
+
+Disallow: /2022-09-26/ngrok-basic/
+
 Disallow: /tags/indexeddb/
 
 Disallow: /tags/mis/
 
 Disallow: /categories/mis/
-
-Disallow: /post/
-
-Disallow: /tags/
-
-Disallow: /
 
 Disallow: /tags/web-browser/
 
