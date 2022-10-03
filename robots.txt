@@ -2,15 +2,21 @@ User-agent: *
 
 Disallow: /categories/
 
-Disallow: /tags/ngrok/
+Disallow: /tags/css/
+
+Disallow: /categories/css/
 
 Disallow: /post/
-
-Disallow: /categories/reverse-proxy/
 
 Disallow: /tags/
 
 Disallow: /
+
+Disallow: /2022-10-03/css-injection/
+
+Disallow: /tags/ngrok/
+
+Disallow: /categories/reverse-proxy/
 
 Disallow: /2022-09-26/ngrok-basic/
 
@@ -153,8 +159,6 @@ Disallow: /%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/
 Disallow: /2022-07-17/atguigu-vue3-note/
 
 Disallow: /tags/%E5%89%8D%E7%AB%AF/
-
-Disallow: /tags/css/
 
 Disallow: /tags/html/
 
