@@ -2,15 +2,27 @@ User-agent: *
 
 Disallow: /categories/
 
-Disallow: /tags/css/
+Disallow: /tags/npm-plugins/
 
-Disallow: /categories/css/
+Disallow: /categories/npm-plugins/
 
 Disallow: /post/
 
 Disallow: /tags/
 
+Disallow: /tags/vben-admin/
+
+Disallow: /2022-10-12/vben-admin-guide/
+
+Disallow: /tags/vite/
+
+Disallow: /categories/vite/
+
 Disallow: /
+
+Disallow: /tags/css/
+
+Disallow: /categories/css/
 
 Disallow: /2022-10-03/css-injection/
 
@@ -187,6 +199,8 @@ Disallow: /2019-03-05/emoji-support/
 Disallow: /categories/test/
 
 Disallow: /tags/ci/cd/
+
+Disallow: /categories/npm-plugins/
 
 Disallow: /%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/
 
