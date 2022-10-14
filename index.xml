@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne(偉恩)的部落格</title><link>/</link><description>Recent content on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 12 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Vben Admin 指南與 Vite 配置</title><link>/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne(偉恩)的部落格</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 12 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayneblog.ga/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -8216,7 +8216,7 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>用 CSS 來偷資料 - CSS injection</title><link>/2022-10-03/css-injection/</link><pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate><guid>/2022-10-03/css-injection/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52401028978_fc63caee61_o.jpg" alt="Featured image of post 用 CSS 來偷資料 - CSS injection" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>用 CSS 來偷資料 - CSS injection</title><link>https://wayneblog.ga/2022-10-03/css-injection/</link><pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-03/css-injection/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52401028978_fc63caee61_o.jpg" alt="Featured image of post 用 CSS 來偷資料 - CSS injection" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -9495,7 +9495,7 @@ class="gallery-image"
 &lt;h3 id="總結-1">總結&lt;/h3>
 &lt;p>CSS 果真博大精深，真的很佩服這些前輩們可以把 CSS 玩出這麼多花樣，發展出這麼多令人眼界大開的攻擊手法。當初在研究的時候，利用屬性選擇器去 leak 這個我可以理解，用 unicode-range 我也能理解，但是那個用文字高度加上 CSS animation 去變化的，我花了不少時間才搞懂那在幹嘛，連字那個雖然概念好懂，但真的要實作還是會碰到不少問題。&lt;/p>
 &lt;p>最後，這兩篇文章主要算是介紹一下 CSS injection 這個攻擊手法，因此實際的程式碼並不多，而這些攻擊手法都參考自前人們的文章，列表我會附在下面，有興趣的話可以閱讀原文，會講得更詳細一點，如果對哪項攻擊想要深入了解，也可以留言跟我交流。&lt;/p>
-&lt;hr></description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
+&lt;hr></description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://wayneblog.ga/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -9641,7 +9641,7 @@ max-width="100%"
 max-height="100%"
 class="gallery-image"
 >&lt;/p>
-&lt;hr></description></item><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" />&lt;style>
+&lt;hr></description></item><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>https://wayneblog.ga/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -10431,7 +10431,7 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>網路管理技術應用實務班筆記</title><link>/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" />&lt;style>
+&lt;/div></description></item><item><title>網路管理技術應用實務班筆記</title><link>https://wayneblog.ga/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -10789,7 +10789,7 @@ class="gallery-image"
 &lt;li>使用TCP通訊協定&lt;/li>
 &lt;li>使用port：143 (8080為替代port)&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" />&lt;style>
+&lt;hr></description></item><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>https://wayneblog.ga/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -12014,7 +12014,7 @@ class="gallery-image"
 &lt;/ul>
 &lt;p>&lt;a class="link" href="https://plugins.drone.io/plugins/telegram" target="_blank" rel="noopener"
 >詳細參數可參考 Drone Plugin - appleboy/drone-telegram&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>nginx CORS 跨域與反向代理</title><link>/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
+&lt;hr></description></item><item><title>nginx CORS 跨域與反向代理</title><link>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -12383,7 +12383,7 @@ class="gallery-image"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" />&lt;style>
+&lt;hr></description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>https://wayneblog.ga/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -12793,7 +12793,7 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h5 id="官方的建議是這個指令可以一天執行兩次讓伺服器的憑證隨時保持在最新的狀態這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新certbot-只有在憑證到期前一個月才會進行更新如果憑證尚未到期就不會更新">官方的建議是這個指令可以一天執行兩次，讓伺服器的憑證隨時保持在最新的狀態，這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新，&lt;code>Certbot&lt;/code> 只有在憑證到期前一個月才會進行更新，如果憑證尚未到期，就不會更新&lt;/h5>
-&lt;hr></description></item><item><title>SEO 反向連結建立：終極指南(2022)</title><link>/2022-08-17/seo-backlinks-building-guide/</link><pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-17/seo-backlinks-building-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52290179402_693c7086dc_o.jpg" alt="Featured image of post SEO 反向連結建立：終極指南(2022)" />&lt;style>
+&lt;hr></description></item><item><title>SEO 反向連結建立：終極指南(2022)</title><link>https://wayneblog.ga/2022-08-17/seo-backlinks-building-guide/</link><pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-17/seo-backlinks-building-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52290179402_693c7086dc_o.jpg" alt="Featured image of post SEO 反向連結建立：終極指南(2022)" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -13570,7 +13570,7 @@ class="gallery-image"
 &lt;p>以上這就是我的 2022 連結優化指南。&lt;/p>
 &lt;p>從今天的指南中，你最想要優先嘗試哪個策略呢？或你對於某件事有疑問。&lt;/p>
 &lt;p>不論如何，在底下留言讓我知道。&lt;/p>
-&lt;hr></description></item><item><title>【Callback、Promise、Async/Await】處理非同步事件</title><link>/2022-08-13/js-async-programs/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-async-programs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282531224_1f57c841ee_o.jpg" alt="Featured image of post 【Callback、Promise、Async/Await】處理非同步事件" />&lt;style>
+&lt;hr></description></item><item><title>【Callback、Promise、Async/Await】處理非同步事件</title><link>https://wayneblog.ga/2022-08-13/js-async-programs/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-13/js-async-programs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282531224_1f57c841ee_o.jpg" alt="Featured image of post 【Callback、Promise、Async/Await】處理非同步事件" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -14089,7 +14089,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&amp;gt; &lt;span class="m">35&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>Javascript 的 Async/Await</title><link>/2022-08-13/js-async-await/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-async-await/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52281246237_dd06bc8ef9_o.png" alt="Featured image of post Javascript 的 Async/Await" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>Javascript 的 Async/Await</title><link>https://wayneblog.ga/2022-08-13/js-async-await/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-13/js-async-await/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52281246237_dd06bc8ef9_o.png" alt="Featured image of post Javascript 的 Async/Await" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -14488,7 +14488,7 @@ class="gallery-image"
 &lt;hr>
 &lt;h2 id="小結">小結&lt;/h2>
 &lt;p>坦白說只要你一但熟悉了 async 和 await，就真的回不去了，雖然說 callback 仍然是程式開發裡必備的功能，但對於同步和非同步之間的轉換，以後就交給 async 和 await 來處理吧！&lt;/p>
-&lt;hr></description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" />&lt;style>
+&lt;hr></description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>https://wayneblog.ga/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -15036,7 +15036,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>https://wayneblog.ga/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -15679,7 +15679,7 @@ vue多次更新數據，最終會進行批處理更新。內部調用的就是ne
 &lt;li>splitChunks抽離公共文件&lt;/li>
 &lt;li>sourceMap優化&lt;/li>
 &lt;/ol>
-&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
+&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>https://wayneblog.ga/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -16055,7 +16055,7 @@ class="gallery-image"
 >&lt;/p>
 &lt;p>接下來到了重頭戲，&lt;code>Vue3&lt;/code> 的招牌特性，&lt;code>Composition API&lt;/code>。&lt;/p>
 &lt;p>關於 &lt;code>Composition API&lt;/code> 這裡有圖解演示，極力推薦。&lt;/p>
-&lt;p>&lt;a class="link" href="/@wayne-lin/vue3-option-vs-composition" >圖解 Option API vs Composition API&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://wayneblog.ga/@wayne-lin/vue3-option-vs-composition" >圖解 Option API vs Composition API&lt;/a>&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>Composition API&lt;/code> 可以更方便的抽取共通邏輯，但是不要過於在意邏輯程式碼複用，以功能提取程式碼也是一種思路。&lt;/li>
 &lt;/ul>
@@ -18100,7 +18100,7 @@ class="gallery-image"
 &lt;li>&lt;a class="link" href="https://juejin.cn/post/6891640356543627278" target="_blank" rel="noopener"
 >那個忙了一夜的Vue3動畫很好，就是太短了&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>圖解 Option API vs Composition API</title><link>/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" />&lt;style>
+&lt;hr></description></item><item><title>圖解 Option API vs Composition API</title><link>https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -18750,7 +18750,7 @@ class="gallery-image"
 &lt;/div>
 &lt;/div>&lt;p>&lt;a class="link" href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fvuejs%2Frfcs%2Fblob%2Fsfc-improvements%2Factive-rfcs%2F0000-sfc-script-setup.md" target="_blank" rel="noopener"
 >具體看這裡&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>Javascript ES6 特性</title><link>/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" />&lt;style>
+&lt;hr></description></item><item><title>Javascript ES6 特性</title><link>https://wayneblog.ga/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -19898,7 +19898,7 @@ padding: 0 5px;
 >yield&lt;/a>表達式生成的值。&lt;/li>
 &lt;li>Generator.prototype.throw()：向生成器拋出錯誤。&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>Vue-cli plugin：使用套件將圖片自動轉檔為webp格式</title><link>/2022-08-10/vue-cli-use-webp/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-10/vue-cli-use-webp/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282467469_7cf86509a9_o.jpg" alt="Featured image of post Vue-cli plugin：使用套件將圖片自動轉檔為webp格式" />&lt;style>
+&lt;hr></description></item><item><title>Vue-cli plugin：使用套件將圖片自動轉檔為webp格式</title><link>https://wayneblog.ga/2022-08-10/vue-cli-use-webp/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-10/vue-cli-use-webp/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282467469_7cf86509a9_o.jpg" alt="Featured image of post Vue-cli plugin：使用套件將圖片自動轉檔為webp格式" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -20155,7 +20155,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>JavaScript的記憶體空間、賦值和深淺拷貝</title><link>/2022-08-09/js-deep-copy-vs-shallow-copy/</link><pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-09/js-deep-copy-vs-shallow-copy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277851687_14d13f49a6_o.jpg" alt="Featured image of post JavaScript的記憶體空間、賦值和深淺拷貝" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>JavaScript的記憶體空間、賦值和深淺拷貝</title><link>https://wayneblog.ga/2022-08-09/js-deep-copy-vs-shallow-copy/</link><pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-09/js-deep-copy-vs-shallow-copy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277851687_14d13f49a6_o.jpg" alt="Featured image of post JavaScript的記憶體空間、賦值和深淺拷貝" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -20484,7 +20484,7 @@ padding: 0 5px;
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" />&lt;style>
+&lt;hr></description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>https://wayneblog.ga/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -20917,7 +20917,7 @@ max-width="100%"
 max-height="100%"
 class="gallery-image"
 >&lt;/p>
-&lt;hr></description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" />&lt;style>
+&lt;hr></description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>https://wayneblog.ga/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -21270,7 +21270,7 @@ class="gallery-image"
 &lt;h3 id="總結">總結&lt;/h3>
 &lt;p>根據 &lt;a class="link" href="https://w3techs.com/technologies/details/ce-http2" target="_blank" rel="noopener"
 >w3Techs&lt;/a> 網站，目前使用http/2的網站有45.7%，未來確實會變成主流，身為軟體工程師，還是多少理解來的好。此篇文章僅記錄筆者蒐集資料彙整結果，若有任何錯誤資訊還請直接點出，萬分感謝。&lt;/p>
-&lt;hr></description></item><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276285230_7f886f0bca_o.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
+&lt;hr></description></item><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>https://wayneblog.ga/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276285230_7f886f0bca_o.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -21441,7 +21441,7 @@ class="gallery-image"
 &lt;/div>&lt;hr>
 &lt;h3 id="小結">小結&lt;/h3>
 &lt;p>在這篇文章中，我們分別了解了 O(1)、O(n)、O(logn) 的時間複雜度，以及對應到的三個常見演算法。而在接下來的文章中，我們會開始認識新朋友，在演算法中佔有重要地位的「排序法」，以及在更進階的例子。&lt;/p>
-&lt;hr></description></item><item><title>從找衣服了解時間複雜度</title><link>/2022-07-23/learn-time-complexity-by-clothes/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-23/learn-time-complexity-by-clothes/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276282210_c2a38fae3c_o.jpg" alt="Featured image of post 從找衣服了解時間複雜度" />&lt;style>
+&lt;hr></description></item><item><title>從找衣服了解時間複雜度</title><link>https://wayneblog.ga/2022-07-23/learn-time-complexity-by-clothes/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-23/learn-time-complexity-by-clothes/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276282210_c2a38fae3c_o.jpg" alt="Featured image of post 從找衣服了解時間複雜度" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -21458,7 +21458,7 @@ padding: 0 5px;
 &lt;p>右圖的方式它的時間複雜度是 O(1)，在你沒有忘記其實衣服已經被丟到洗衣籃的前提下，你看一眼，翻都不用翻就可以把紅衣服直接取出（請先忽略掉人腦內建的視覺搜尋系統，那是另一個有趣的故事 XD）。這種不用一個一個找，就直接取出的，時間複雜度就是 O(1)。&lt;/p>
 &lt;p>有了這個時間複雜度的概念後，是不是覺得左邊的那個商品實用性沒這麼高啦～ XDD&lt;/p>
 &lt;p>真的是沒想到學演算法還可以用在購物吧！&lt;/p>
-&lt;hr></description></item><item><title>gRPC 基本介紹</title><link>/2022-07-22/grpc-basic-introduction/</link><pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-22/grpc-basic-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276040314_2afa0e7026_o.png" alt="Featured image of post gRPC 基本介紹" />&lt;style>
+&lt;hr></description></item><item><title>gRPC 基本介紹</title><link>https://wayneblog.ga/2022-07-22/grpc-basic-introduction/</link><pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-22/grpc-basic-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276040314_2afa0e7026_o.png" alt="Featured image of post gRPC 基本介紹" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -21984,7 +21984,7 @@ class="gallery-image"
 &lt;li>&lt;a class="link" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0" target="_blank" rel="noopener"
 >比較 gRPC 服務與 HTTP API&lt;/a> @ Microsoft Docs&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title><link>/2022-07-21/bubble-sort-and-insertion-sort/</link><pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-21/bubble-sort-and-insertion-sort/</guid><description>&lt;img src="/2022-07-21/bubble-sort-and-insertion-sort/hqdefault.jpg" alt="Featured image of post 彭彭的課程 - 氣泡排序、插入排序的實作與分析" />&lt;style>
+&lt;hr></description></item><item><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title><link>https://wayneblog.ga/2022-07-21/bubble-sort-and-insertion-sort/</link><pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-21/bubble-sort-and-insertion-sort/</guid><description>&lt;img src="https://wayneblog.ga/2022-07-21/bubble-sort-and-insertion-sort/hqdefault.jpg" alt="Featured image of post 彭彭的課程 - 氣泡排序、插入排序的實作與分析" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -22216,7 +22216,7 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timeEnd&lt;/span>&lt;span class="p">();&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>關於本站</title><link>/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate><guid>/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</guid><description>&lt;h2 id="介紹">介紹&lt;/h2>
+&lt;/div>&lt;hr></description></item><item><title>關於本站</title><link>https://wayneblog.ga/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</guid><description>&lt;h2 id="介紹">介紹&lt;/h2>
 &lt;p>本站僅為技術性分享網站，資料來源多為網路收集、課程學習、自行領悟而來，經由本站做為個人紀錄筆記使用，以便需要時查詢，若文章內容有誤或有不當引用敬請告知本人，感謝。&lt;/p>
 &lt;hr>
 &lt;h2 id="免責聲明">免責聲明&lt;/h2>
@@ -22226,7 +22226,7 @@ class="gallery-image"
 &lt;li>經由本網站取得訊息或進行交易。&lt;/li>
 &lt;li>第三人在本網站上之陳述或作為。&lt;/li>
 &lt;li>其他與本網站服務有關之事項。&lt;/li>
-&lt;/ol></description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>/2022-07-17/atguigu-vue3-note/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-17/atguigu-vue3-note/</guid><description>&lt;img src="/2022-07-17/atguigu-vue3-note/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />&lt;style>
+&lt;/ol></description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://wayneblog.ga/2022-07-17/atguigu-vue3-note/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-17/atguigu-vue3-note/</guid><description>&lt;img src="https://wayneblog.ga/2022-07-17/atguigu-vue3-note/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -23753,7 +23753,7 @@ class="gallery-image"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>Markdown 語法指南</title><link>/2022-07-16/markdown-syntax/</link><pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate><guid>/2022-07-16/markdown-syntax/</guid><description>&lt;img src="/2022-07-16/markdown-syntax/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown 語法指南" />&lt;p>Markdown 是讓你快速撰寫筆記，流暢管理知識，支援多種衍生功能的生產力工具&lt;/p>
+&lt;hr></description></item><item><title>Markdown 語法指南</title><link>https://wayneblog.ga/2022-07-16/markdown-syntax/</link><pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-16/markdown-syntax/</guid><description>&lt;img src="https://wayneblog.ga/2022-07-16/markdown-syntax/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown 語法指南" />&lt;p>Markdown 是讓你快速撰寫筆記，流暢管理知識，支援多種衍生功能的生產力工具&lt;/p>
 &lt;h2 id="標題">標題&lt;/h2>
 &lt;p>當您想要將一段文字標示為標題的時候，請使用這個語法。&lt;br>
 請在行首輸入 &lt;code>#&lt;/code> 符號，並在後面加上一個空白後，再輸入標題文字。&lt;br>
@@ -23985,7 +23985,7 @@ class="gallery-image"
 >talk&lt;/a> during Gopherfest, November 18, 2015.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink">&amp;#x21a9;&amp;#xfe0e;&lt;/a>&lt;/p>
 &lt;/li>
 &lt;/ol>
-&lt;/div></description></item><item><title>智慧商業Python數據分析與應用班(版本3.*)</title><link>/2020-03-15/python-beginner-tutorial/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>/2020-03-15/python-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52283398446_ed21ce37f2_o.png" alt="Featured image of post 智慧商業Python數據分析與應用班(版本3.*)" />&lt;style>
+&lt;/div></description></item><item><title>智慧商業Python數據分析與應用班(版本3.*)</title><link>https://wayneblog.ga/2020-03-15/python-beginner-tutorial/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2020-03-15/python-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52283398446_ed21ce37f2_o.png" alt="Featured image of post 智慧商業Python數據分析與應用班(版本3.*)" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -28272,7 +28272,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">UPDATE student SET Name = &amp;#34;Amanda&amp;#34; WHERE ID = 1001;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>文章卷宗</title><link>/archives/</link><pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate><guid>/archives/</guid><description/></item><item><title>Math Typesetting</title><link>/2019-03-08/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>/2019-03-08/math-typesetting/</guid><description>&lt;p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p>
+&lt;/div>&lt;hr></description></item><item><title>文章卷宗</title><link>https://wayneblog.ga/archives/</link><pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/archives/</guid><description/></item><item><title>Math Typesetting</title><link>https://wayneblog.ga/2019-03-08/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2019-03-08/math-typesetting/</guid><description>&lt;p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p>
 &lt;p>In this example we will be using &lt;a class="link" href="https://katex.org/" target="_blank" rel="noopener"
 >KaTeX&lt;/a>&lt;/p>
 &lt;ul>
@@ -28303,7 +28303,7 @@ padding: 0 5px;
 &lt;p>Block math:
 $$
 \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
-$$&lt;/p></description></item><item><title>Emoji Support</title><link>/2019-03-05/emoji-support/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>/2019-03-05/emoji-support/</guid><description>&lt;img src="/2019-03-05/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" />&lt;p>Emoji can be enabled in a Hugo project in a number of ways.&lt;/p>
+$$&lt;/p></description></item><item><title>Emoji Support</title><link>https://wayneblog.ga/2019-03-05/emoji-support/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2019-03-05/emoji-support/</guid><description>&lt;img src="https://wayneblog.ga/2019-03-05/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" />&lt;p>Emoji can be enabled in a Hugo project in a number of ways.&lt;/p>
 &lt;p>The &lt;a class="link" href="https://gohugo.io/functions/emojify/" target="_blank" rel="noopener"
 >&lt;code>emojify&lt;/code>&lt;/a> function can be called directly in templates or &lt;a class="link" href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank" rel="noopener"
 >Inline Shortcodes&lt;/a>.&lt;/p>
@@ -28326,7 +28326,7 @@ $$&lt;/p></description></item><item><title>Emoji Support</title><link>/2019-03-0
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>相關連結</title><link>/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
+&lt;/div></description></item><item><title>相關連結</title><link>https://wayneblog.ga/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
 &lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -28352,4 +28352,4 @@ $$&lt;/p></description></item><item><title>Emoji Support</title><link>/2019-03-0
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ts-logo-128.jpg&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>搜尋檢索</title><link>/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/search/</guid><description/></item></channel></rss>
+&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>搜尋檢索</title><link>https://wayneblog.ga/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/search/</guid><description/></item></channel></rss>

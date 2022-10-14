@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>javascript on Wayne(偉恩)的部落格</title><link>/categories/javascript/</link><description>Recent content in javascript on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 13 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Callback、Promise、Async/Await】處理非同步事件</title><link>/2022-08-13/js-async-programs/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-async-programs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282531224_1f57c841ee_o.jpg" alt="Featured image of post 【Callback、Promise、Async/Await】處理非同步事件" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>javascript on Wayne(偉恩)的部落格</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in javascript on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 13 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Callback、Promise、Async/Await】處理非同步事件</title><link>https://wayneblog.ga/2022-08-13/js-async-programs/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-13/js-async-programs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282531224_1f57c841ee_o.jpg" alt="Featured image of post 【Callback、Promise、Async/Await】處理非同步事件" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -517,7 +517,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&amp;gt; &lt;span class="m">35&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>Javascript 的 Async/Await</title><link>/2022-08-13/js-async-await/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-async-await/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52281246237_dd06bc8ef9_o.png" alt="Featured image of post Javascript 的 Async/Await" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>Javascript 的 Async/Await</title><link>https://wayneblog.ga/2022-08-13/js-async-await/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-13/js-async-await/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52281246237_dd06bc8ef9_o.png" alt="Featured image of post Javascript 的 Async/Await" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -916,7 +916,7 @@ class="gallery-image"
 &lt;hr>
 &lt;h2 id="小結">小結&lt;/h2>
 &lt;p>坦白說只要你一但熟悉了 async 和 await，就真的回不去了，雖然說 callback 仍然是程式開發裡必備的功能，但對於同步和非同步之間的轉換，以後就交給 async 和 await 來處理吧！&lt;/p>
-&lt;hr></description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" />&lt;style>
+&lt;hr></description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>https://wayneblog.ga/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -1464,7 +1464,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>https://wayneblog.ga/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -1840,7 +1840,7 @@ class="gallery-image"
 >&lt;/p>
 &lt;p>接下來到了重頭戲，&lt;code>Vue3&lt;/code> 的招牌特性，&lt;code>Composition API&lt;/code>。&lt;/p>
 &lt;p>關於 &lt;code>Composition API&lt;/code> 這裡有圖解演示，極力推薦。&lt;/p>
-&lt;p>&lt;a class="link" href="/@wayne-lin/vue3-option-vs-composition" >圖解 Option API vs Composition API&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://wayneblog.ga/@wayne-lin/vue3-option-vs-composition" >圖解 Option API vs Composition API&lt;/a>&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>Composition API&lt;/code> 可以更方便的抽取共通邏輯，但是不要過於在意邏輯程式碼複用，以功能提取程式碼也是一種思路。&lt;/li>
 &lt;/ul>
@@ -3885,7 +3885,7 @@ class="gallery-image"
 &lt;li>&lt;a class="link" href="https://juejin.cn/post/6891640356543627278" target="_blank" rel="noopener"
 >那個忙了一夜的Vue3動畫很好，就是太短了&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>圖解 Option API vs Composition API</title><link>/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" />&lt;style>
+&lt;hr></description></item><item><title>圖解 Option API vs Composition API</title><link>https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -4535,7 +4535,7 @@ class="gallery-image"
 &lt;/div>
 &lt;/div>&lt;p>&lt;a class="link" href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fvuejs%2Frfcs%2Fblob%2Fsfc-improvements%2Factive-rfcs%2F0000-sfc-script-setup.md" target="_blank" rel="noopener"
 >具體看這裡&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>Javascript ES6 特性</title><link>/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" />&lt;style>
+&lt;hr></description></item><item><title>Javascript ES6 特性</title><link>https://wayneblog.ga/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -5683,7 +5683,7 @@ padding: 0 5px;
 >yield&lt;/a>表達式生成的值。&lt;/li>
 &lt;li>Generator.prototype.throw()：向生成器拋出錯誤。&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>JavaScript的記憶體空間、賦值和深淺拷貝</title><link>/2022-08-09/js-deep-copy-vs-shallow-copy/</link><pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate><guid>/2022-08-09/js-deep-copy-vs-shallow-copy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277851687_14d13f49a6_o.jpg" alt="Featured image of post JavaScript的記憶體空間、賦值和深淺拷貝" />&lt;style>
+&lt;hr></description></item><item><title>JavaScript的記憶體空間、賦值和深淺拷貝</title><link>https://wayneblog.ga/2022-08-09/js-deep-copy-vs-shallow-copy/</link><pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-09/js-deep-copy-vs-shallow-copy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277851687_14d13f49a6_o.jpg" alt="Featured image of post JavaScript的記憶體空間、賦值和深淺拷貝" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
