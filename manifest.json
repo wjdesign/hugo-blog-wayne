@@ -1,0 +1,39 @@
+{
+    "short_name": "Wayne's blog",
+    "name": "Wayne's blog",
+    "description": "偉恩的部落格，用於紀錄coding life查找的資料、筆記與文章，統整起來除了自己使用，也希望對各位有幫助。",
+    "icons": [
+        {
+            "src":"./apple-touch-icon-57x57.webp",
+            "sizes": "57x57",
+            "type": "image/webp"
+        },
+        {
+            "src":"./apple-touch-icon-114x114.webp",
+            "sizes": "114x114",
+            "type": "image/webp"
+        },
+        {
+            "src":"./apple-touch-icon-120x120.webp",
+            "sizes": "120x120",
+            "type": "image/webp"
+        },
+        {
+            "src":"./apple-touch-icon-180x180.webp",
+            "sizes": "180x180",
+            "type": "image/webp"
+        },
+        {
+            "src":"./apple-touch-icon-192x192.webp",
+            "sizes": "192x192",
+            "type": "image/webp"
+        }
+    ],
+    "lang": "zh-Hant-TW",
+    "start_url": "./?utm_source=web_app_manifest",
+    "background_color": "#f5f5fa",
+    "theme_color": "#000000",
+    "display": "standalone",
+    "orientation": "landscape",
+    "prefer_related_applications": false
+}
