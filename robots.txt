@@ -2,13 +2,25 @@ User-agent: *
 
 Disallow: /categories/
 
+Disallow: /post/
+
+Disallow: /tags/pwa/
+
+Disallow: /categories/pwa/
+
+Disallow: /tags/seo/
+
+Disallow: /categories/seo/
+
+Disallow: /tags/
+
+Disallow: /
+
+Disallow: /2022-10-19/web-pwa/
+
 Disallow: /tags/npm-plugins/
 
 Disallow: /categories/npm-plugins/
-
-Disallow: /post/
-
-Disallow: /tags/
 
 Disallow: /tags/vben-admin/
 
@@ -17,8 +29,6 @@ Disallow: /2022-10-12/vben-admin-guide/
 Disallow: /tags/vite/
 
 Disallow: /categories/vite/
-
-Disallow: /
 
 Disallow: /tags/css/
 
@@ -77,10 +87,6 @@ Disallow: /tags/reverse-proxy/
 Disallow: /tags/ssl/
 
 Disallow: /tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/
-
-Disallow: /tags/seo/
-
-Disallow: /categories/seo/
 
 Disallow: /2022-08-17/seo-backlinks-building-guide/
 
