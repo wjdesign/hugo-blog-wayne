@@ -2,6 +2,14 @@ User-agent: *
 
 Allow: /categories/
 
+Allow: /tags/db/
+
+Allow: /tags/mysql/
+
+Allow: /categories/mysql/
+
+Allow: /2022-10-21/nodejs-express-mysql/
+
 Allow: /tags/nodejs/
 
 Allow: /categories/nodejs/
