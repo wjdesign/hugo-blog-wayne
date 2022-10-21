@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nodejs on Wayne(偉恩)的部落格</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in nodejs on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 21 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>NodeJS 防止 xss 攻擊</title><link>https://wayneblog.ga/2022-10-21/nodejs-prevent-xss/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/nodejs-prevent-xss/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52442821071_35fc2e7087_o.png" alt="Featured image of post NodeJS 防止 xss 攻擊" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://juejin.cn/post/7112204639029690381" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="簡介">簡介&lt;/h2>
+&lt;p>&lt;code>xss&lt;/code> 是常見的攻擊方式之一，不管是前端還是後端都要對此有所防範才行。&lt;br>
+本文主要講解使用 &lt;code>NodeJS&lt;/code> 開發的後端程序應該如何防範 &lt;code>xss&lt;/code> 攻擊。&lt;/p>
+&lt;hr>
+&lt;h2 id="xss演示">xss演示&lt;/h2>
+&lt;p>&lt;code>xss&lt;/code> 攻擊方式主要是在在頁面展示內容中摻雜 &lt;code>js代碼&lt;/code>，以獲取網頁信息。&lt;/p>
+&lt;p>常見的攻擊地方有：&lt;/p>
+&lt;ul>
+&lt;li>電商產品評價區：某用戶提交的評價帶有&lt;code>可執行的js代碼&lt;/code>，其他用戶查看該評論時就會執行那段&lt;code>js代碼&lt;/code>。&lt;/li>
+&lt;li>博客網站：某用戶在博客的標題或者內容中帶有&lt;code>可執行的js代碼&lt;/code>，其他用戶查看該博客時那段 &lt;code>js代碼&lt;/code> 就會被執行。&lt;/li>
+&lt;/ul>
+&lt;p>比如在輸入框輸入&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1234&lt;/span>&lt;span class="p">)&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>別的用戶在自己頁面要展示上面這段內容個，頁面有可能會彈出一個彈窗。&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>這個例子只是彈出一個對話框，如果人家有惡意，獲取cookie 等信息，然後傳給自己的服務器，那後果真的很嚴重。&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="xss防禦">xss防禦&lt;/h2>
+&lt;p>&lt;strong>預防措施：轉義特殊字符&lt;/strong>&lt;/p>
+&lt;p>特殊符號轉換&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">&amp;amp; -&amp;gt; &amp;amp;amp;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;lt; -&amp;gt; &amp;amp;lt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; -&amp;gt; &amp;amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#34; -&amp;gt; &amp;amp;quot;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;#39; -&amp;gt; &amp;amp;#x27;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/ -&amp;gt; &amp;amp;#x2F;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上面我羅列了幾個常見的特殊字符。從上面的例子可以看出，輸入了 &lt;code>&amp;lt;script&amp;gt;&lt;/code> 標籤後，裡面的內容有可能會被執行。&lt;br>
+如果我們把 &lt;code>&amp;lt;script&amp;gt;&lt;/code> 改成 &lt;code>&amp;amp;lt;script&amp;amp;gt;&lt;/code> 那麼瀏覽器就不把這段內容看成是可執行代碼。&lt;/p>
+&lt;p>在日常開發中，我們不需要自己編寫轉義功能的代碼，只需要下載 &lt;code>xss&lt;/code> 的依賴包就行。&lt;/p>
+&lt;p>安裝 &lt;code>xss&lt;/code> 依賴包&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install xss --save
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用 &lt;code>xss&lt;/code>。 &lt;code>xss&lt;/code> 其實是一個方法，只需要把要轉義的內容傳入 &lt;code>xss&lt;/code> 方法即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">xss&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;xss&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">content&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">xss&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;lt;script&amp;gt;alert(1234)&amp;lt;/script&amp;gt;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">content&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>最後輸出&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-perl" data-lang="perl">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="ow">lt&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="ow">gt&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="n">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1234&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="ow">lt&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="o">&amp;amp;&lt;/span>&lt;span class="ow">gt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上就是 &lt;code>xss攻擊&lt;/code> 在後端的防禦方法。&lt;/p>
+&lt;p>如果嚴謹一點的話，在前端也可以把文本域的內容裡的特殊字符轉義一遍再傳給後端。&lt;/p>
+&lt;p>後端傳給前端的內容有可能會在頁面展示成 &lt;code>&amp;amp;lt;script&amp;amp;gt;alert(1234)&amp;amp;lt;/script&amp;amp;gt;&lt;/code>，這部分需要前端自己去處理。&lt;/p>
+&lt;p>插則花邊新聞&lt;/p>
+&lt;p>之前看到有則新聞說 &lt;code>Vue&lt;/code> 不安全，某些ZF項目中使用 &lt;code>Vue&lt;/code> 受到了 &lt;code>xss&lt;/code> 攻擊。後端甩鍋給前端，前端甩鍋給了 &lt;code>Vue&lt;/code>。&lt;/p>
+&lt;p>後來聽說是前端胡亂使用 &lt;code>v-html&lt;/code> 渲染內容導致的，而 &lt;code>v-html&lt;/code> 這東西官方文檔也提示了有可能受到 &lt;code>xss&lt;/code> 攻擊。&lt;/p>
+&lt;p>&lt;strong>尤雨溪：很多人就是不看文檔&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52443102169_2094784350_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr></description></item></channel></rss>

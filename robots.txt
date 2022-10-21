@@ -2,6 +2,12 @@ User-agent: *
 
 Allow: /categories/
 
+Allow: /tags/nodejs/
+
+Allow: /categories/nodejs/
+
+Allow: /2022-10-21/nodejs-prevent-xss/
+
 Allow: /post/
 
 Allow: /tags/svelte/
@@ -11,6 +17,8 @@ Allow: /categories/svelte/
 Allow: /tags/
 
 Allow: /
+
+Allow: /tags/xss/
 
 Allow: /2022-10-21/svelte-quick-start/
 

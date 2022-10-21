@@ -719,8 +719,7 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>但此方法有可能遭受 &lt;code>XSS&lt;/code> 攻擊。&lt;br>
-我在&lt;a class="link" href="https://juejin.cn/post/7112204639029690381" target="_blank" rel="noopener"
->《NodeJS 防止xss攻擊》&lt;/a>中簡單演示過 &lt;code>XSS&lt;/code> 攻擊，有興趣的可以看看。&lt;/p>
+我在 「&lt;a style="text-decoration: underline;" href="https://wayneblog.ga/2022-10-21/nodejs-prevent-xss/" target="_blank">NodeJS 防止 xss 攻擊&lt;/a>」 中簡單演示過 &lt;code>XSS&lt;/code> 攻擊，有興趣的可以看看。&lt;/p>
 &lt;hr>
 &lt;h2 id="樣式綁定">樣式綁定&lt;/h2>
 &lt;p>在日常開發中，給 &lt;code>HTML&lt;/code> 標籤設置樣式主要通過 &lt;code>行内 style&lt;/code> 和 &lt;code>class&lt;/code> 屬性。&lt;br>
