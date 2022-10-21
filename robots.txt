@@ -4,6 +4,16 @@ Allow: /categories/
 
 Allow: /post/
 
+Allow: /tags/svelte/
+
+Allow: /categories/svelte/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2022-10-21/svelte-quick-start/
+
 Allow: /tags/pwa/
 
 Allow: /categories/pwa/
@@ -11,10 +21,6 @@ Allow: /categories/pwa/
 Allow: /tags/seo/
 
 Allow: /categories/seo/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /2022-10-19/web-pwa/
 
