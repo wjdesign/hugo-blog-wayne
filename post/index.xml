@@ -253,18 +253,16 @@ max-width="100%"
 max-height="100%"
 class="gallery-image"
 >&lt;/p>
-&lt;h3 id="bonus使用-navicat-數據庫管理工具連線時出現錯誤">Bonus：使用 &lt;code>Navicat&lt;/code> 數據庫管理工具連線時，出現錯誤&lt;/h3>
+&lt;h3 id="使用-navicat-數據庫管理工具連線時出現錯誤">使用 &lt;code>Navicat&lt;/code> 數據庫管理工具連線時，出現錯誤&lt;/h3>
 &lt;p>若出現 &lt;code>1251 - Client does not support authentication protocol requested by server; consider upgrading MySQL client&lt;/code> 錯誤，原因為：&lt;br>
 mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code>，而 mysql8 之後的版本，加密規則是 &lt;code>caching_sha2_password&lt;/code>&lt;/p>
-&lt;h4 id="解決方法">解決方法：&lt;/h4>
+&lt;h3 id="解決方法">解決方法：&lt;/h3>
 &lt;ol>
 &lt;li>升級 navicat 驅動。&lt;/li>
 &lt;li>進到容器內，把 mysql 用戶登入密碼加密規則還原成 &lt;code>mysql_native_password&lt;/code>&lt;/li>
 &lt;/ol>
 &lt;p>以下採用&lt;code>方法2&lt;/code>解決，操作如下：&lt;/p>
-&lt;ol>
-&lt;li>打開 cmd，輸入以下指令以 bash 進入容器：&lt;/li>
-&lt;/ol>
+&lt;h4 id="1-打開-cmd輸入以下指令以-bash-進入容器">1. 打開 cmd，輸入以下指令以 bash 進入容器：&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -275,9 +273,7 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it mysql-test bash
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;ol start="2">
-&lt;li>使用 &lt;code>mysql&lt;/code> 指令連線資料庫：&lt;/li>
-&lt;/ol>
+&lt;/div>&lt;h4 id="2-使用-mysql-指令連線資料庫">2. 使用 &lt;code>mysql&lt;/code> 指令連線資料庫：&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -286,9 +282,7 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql -u root -p
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;ol start="3">
-&lt;li>使用 &lt;code>mysql&lt;/code> 指令查詢用戶訊息：&lt;/li>
-&lt;/ol>
+&lt;/div>&lt;h4 id="3-使用-mysql-指令查詢用戶訊息">3. 使用 &lt;code>mysql&lt;/code> 指令查詢用戶訊息：&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -301,9 +295,7 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 &lt;p>&lt;code>host&lt;/code> 為 &lt;code>%&lt;/code> 表示不限制 ip、&lt;code>localhost&lt;/code> 表示本機使用&lt;br>
 &lt;code>plugin&lt;/code> 非 &lt;code>mysql_native_password&lt;/code> 則&lt;code>需要修改密碼&lt;/code>&lt;/p>
 &lt;/blockquote>
-&lt;ol start="4">
-&lt;li>使用 &lt;code>mysql&lt;/code> 指令修改密碼：&lt;/li>
-&lt;/ol>
+&lt;h4 id="4-使用-mysql-指令修改密碼">4. 使用 &lt;code>mysql&lt;/code> 指令修改密碼：&lt;/h4>
 &lt;ul>
 &lt;li>更新 user 為 root， &lt;code>host&lt;/code> 為 &lt;code>%&lt;/code> 的密碼為 &lt;code>123456&lt;/code>&lt;/li>
 &lt;/ul>
@@ -326,9 +318,7 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-sql" data-lang="sql">&lt;span class="line">&lt;span class="cl">&lt;span class="k">ALTER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">USER&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;root&amp;#39;&lt;/span>&lt;span class="o">@&lt;/span>&lt;span class="s1">&amp;#39;localhost&amp;#39;&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">IDENTIFIED&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">WITH&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="n">mysql_native_password&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="k">BY&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;123456&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>&lt;span class="w">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;ol start="5">
-&lt;li>再次在 &lt;code>Navicat&lt;/code> 中連接 mysql，連接成功&lt;/li>
-&lt;/ol>
+&lt;/div>&lt;h4 id="5-再次在-navicat-中連接-mysql連接成功">5. 再次在 &lt;code>Navicat&lt;/code> 中連接 mysql，連接成功&lt;/h4>
 &lt;h3 id="創建數據庫">創建數據庫&lt;/h3>
 &lt;p>使用數據庫管理工具新建數據庫 database 名稱為：&lt;code>expressFrame&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52442456862_fe672b339d_o.png"
