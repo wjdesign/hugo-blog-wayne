@@ -2,6 +2,20 @@ User-agent: *
 
 Allow: /categories/
 
+Allow: /2022-10-24/nodejs-v19-release/
+
+Allow: /tags/nodejs/
+
+Allow: /categories/nodejs/
+
+Allow: /post/
+
+Allow: /tags/release/
+
+Allow: /tags/
+
+Allow: /
+
 Allow: /tags/db/
 
 Allow: /tags/mysql/
@@ -10,21 +24,11 @@ Allow: /categories/mysql/
 
 Allow: /2022-10-21/nodejs-express-mysql/
 
-Allow: /tags/nodejs/
-
-Allow: /categories/nodejs/
-
 Allow: /2022-10-21/nodejs-prevent-xss/
-
-Allow: /post/
 
 Allow: /tags/svelte/
 
 Allow: /categories/svelte/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /tags/xss/
 

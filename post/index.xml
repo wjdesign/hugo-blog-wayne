@@ -1,4 +1,233 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne(偉恩)的部落格</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 21 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne(偉恩)的部落格</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne(偉恩)的部落格</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Node v19 正式發布</title><link>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://nodejs.org/en/blog/announcements/v19-release-announce/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://juejin.cn/post/6953783749653823502#heading-0" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>Node.js 19 在 2022-10-18 正式發布了，此次更新包括將 &lt;code>V8 JavaScript&lt;/code> 引擎更新到 &lt;code>10.7&lt;/code>，以及默認啟用 &lt;code>HTTP (s)/1.1 KeepAlive&lt;/code>。&lt;br>
+Node.js 18 在本月晚些時候將進入長期支持（&lt;code>LTS&lt;/code>），Node.js 19 將取代 Node.js 18 成為 &amp;ldquo;&lt;code>Current&lt;/code>&amp;rdquo; 版本。&lt;/p>
+&lt;hr>
+&lt;h2 id="官方文檔">官方文檔&lt;/h2>
+&lt;h3 id="node---watch-實驗性">node &amp;ndash;watch (實驗性)&lt;/h3>
+&lt;p>運行時，增加了一個令人興奮的功能，支持使用 &lt;code>node --watch&lt;/code>，選項在 &amp;ldquo;&lt;code>watch&lt;/code>&amp;rdquo; 模式下運行。在 &amp;ldquo;&lt;code>watch&lt;/code>&amp;rdquo; 模式下運行，當導入的文件被改變時，會重新啟動進程。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node --watch index.js
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>此功能在 &lt;code>v19.0.0&lt;/code> 和 &lt;code>v18.11.0+&lt;/code> 中可用。&lt;/p>
+&lt;h3 id="默認啟用-https11-keepalive">默認啟用 HTTP(S)/1.1 KeepAlive&lt;/h3>
+&lt;p>從這個版本開始，Node.js 默認將 &lt;code>keepAlive&lt;/code> 設置為 &lt;code>true&lt;/code>，這意味著任何出站的 &lt;code>HTTP (s)&lt;/code> 連線將自動使用 &lt;code>HTTP 1.1 Keep-Alive&lt;/code>。默認的 keep-alive 時間是 &lt;code>5&lt;/code> 秒。&lt;br>
+啟用 &lt;code>keep-alive&lt;/code> 將提供更好的吞吐量，因為連接在默認情況下被重複使用。&lt;/p>
+&lt;h3 id="穩定的-webcrypto">穩定的 WebCrypto&lt;/h3>
+&lt;p>WebCrypto API 現在已經穩定（以下算法除外：Ed25519、Ed448、X25519 和X448)&lt;br>
+使用 &lt;code>globalThis.crypto&lt;/code> 或 &lt;code>require('node:crypto').webcrypto&lt;/code> 來訪問這個模塊。&lt;/p>
+&lt;h3 id="自定義-esm-resolution-調整">自定義 ESM Resolution 調整&lt;/h3>
+&lt;p>Node.js 已經刪除了 &lt;code>--experimental-specifier-resolution&lt;/code> 標誌，其功能現在可以通過自定義加載器實現。&lt;/p>
+&lt;h3 id="移除-dtracesystemtapetw-支持">移除 DTrace/SystemTap/ETW 支持&lt;/h3>
+&lt;p>對 DTrace/SystemTap/ETW 的支持在 v19.0.0 中被移除，主要原因是資源的優先級問題。&lt;/p>
+&lt;p>如果你有興趣幫助恢復 DTrace，可以查看該 issue：&lt;a class="link" href="https://github.com/nodejs/node/issues/44550" target="_blank" rel="noopener"
+>https://github.com/nodejs/node/issues/44550&lt;/a>。&lt;/p>
+&lt;h3 id="依賴">依賴&lt;/h3>
+&lt;h4 id="v8-107">V8 10.7&lt;/h4>
+&lt;p>V8 引擎已經更新到 10.7 版本，這是 Chromium 107 的一部分。這個版本包括了 JavaScript API 的一個新特性：&lt;code>Intl.NumberFormat&lt;/code>。&lt;/p>
+&lt;p>Intl.NumberFormatv3 API 是一個新的 TC39 ECMA402 第三階段提案，擴展了先前存在的 &lt;code>Intl.NumberFormat&lt;/code>。&lt;/p>
+&lt;h4 id="llhttp">llhttp&lt;/h4>
+&lt;p>Node.js 19 搭載了 &lt;code>llhttp@8.1.0&lt;/code>&lt;/p>
+&lt;h4 id="npm">npm&lt;/h4>
+&lt;p>Node.js 19 搭載了 &lt;code>npm@8.19.2&lt;/code>&lt;/p>
+&lt;h3 id="nodejs-18-將進入-lts">Node.js 18 將進入 LTS&lt;/h3>
+&lt;p>Node.js 18 系列將在下週過渡到長期支持版本。&lt;/p>
+&lt;h3 id="生命週期">生命週期&lt;/h3>
+&lt;p>Node.js 14 將在 2023 年 4 月達到生命週期結束，因此建議用戶開始計劃升級到 Node.js 16（LTS）或 Node.js 18（LTS）。&lt;br>
+Node.js 16 (LTS) 將在 2023 年 9 月達到生命週期結束，比原計劃 2024 年 4 月提前了。&lt;/p>
+&lt;p>更多詳情可查看：&lt;a class="link" href="https://nodejs.org/en/blog/announcements/v19-release-announce/" target="_blank" rel="noopener"
+>https://nodejs.org/en/blog/announcements/v19-release-announce/&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="補充-nodejs-16-的新特性">補充： Nodejs 16 的新特性&lt;/h2>
+&lt;blockquote>
+&lt;p>原文網址：&lt;a class="link" href="https://weekly.shanyue.tech/release/node-16/" target="_blank" rel="noopener"
+>https://weekly.shanyue.tech/release/node-16/&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52450161670_6d06251c75_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>Node 16 於四月二十日發布，山月在第一時間下載了Node16 體驗了以下新特性。偶數號的版本為LTS 版本，這將是既Node14 之後的下一個長期支持版本，Node14 在2020-10-27 已進入 &lt;code>Active LTS&lt;/code> 階段，還沒有升級的同學要盡量更新呀。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52449191852_9b1c9c83d2_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>從 &lt;a class="link" href="https://github.com/nodejs/node/releases/tag/v16.0.0" target="_blank" rel="noopener"
+>Node 16 Release 官方文檔&lt;/a> 列出了此次它所有的新特性以及非常詳細的提交記錄。那它到底更新了哪些新特性，先讓我們一睹為快吧！&lt;/p>
+&lt;h3 id="timers-promise-api">Timers Promise API&lt;/h3>
+&lt;p>&lt;code>Timers Promise API&lt;/code> 其實在 Node 15 就已存在，那時候是一個實驗特性，目前已進入了穩定階段，是一項令人興奮的特性。那它到底是幹什麼用的呢？&lt;/p>
+&lt;p>先別急，在此之前，先看一個問題：&lt;a class="link" href="https://q.shanyue.tech/fe/js/442.html" target="_blank" rel="noopener"
+>如何實現一個sleep/delay 函數？&lt;/a>&lt;/p>
+&lt;p>答案也很簡單，使用 Promise 封裝一個 &lt;code>setTimeout&lt;/code> 即可&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">sleep&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">t&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">resolve&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">t&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>那有了 &lt;code>Timers Promise&lt;/code> 之後呢，使用 &lt;code>setTimeout&lt;/code> 直接可替代 &lt;code>sleep&lt;/code> 功能，驚不驚喜。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">setTimeout&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;timers/promises&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">await&lt;/span> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>setTimeout&lt;/code> 的第二個參數接收一個值，作為 Promise 成功後的返回值&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">r&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;hello, world&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//=&amp;gt; hello, world
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">r&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>而當 &lt;code>setInterval&lt;/code> 也變為 Promise 形式後，對於每間隔一分鐘便執行操作的定時任務而言，具有更大的可讀性&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">setInterval&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;timers/promises&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">startTime&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="nx">setInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">100&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">now&lt;/span>&lt;span class="p">()))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">now&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">now&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">((&lt;/span>&lt;span class="nx">now&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="nx">startTime&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">break&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="底層依賴升級">底層依賴升級&lt;/h3>
+&lt;p>我們知道，Node 基於 v8、libuv、llhttp 等諸多依賴，這次它對諸多依賴進行了升級。如同我們的業務項目依賴於諸多軟件包，每一次依賴的升級也會對性能造成不少提升&lt;/p>
+&lt;ul>
+&lt;li>v8 升級到 &lt;code>9.0&lt;/code>，主要是 ECMAScript RegExp Match Indices&lt;/li>
+&lt;li>llhttp 升級到 &lt;code>6.0.0&lt;/code>，用以解析 HTTP 報文&lt;/li>
+&lt;li>icu 升級到 &lt;code>69.1&lt;/code>&lt;/li>
+&lt;li>npm 升級到 &lt;code>7.10.0&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>使用 &lt;code>process.versions&lt;/code> 可看到相關依賴的版本號&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">versions&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="export">export&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;node&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;16.0.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;v8&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;9.0.257.17-node.10&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;uv&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.41.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;zlib&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.2.11&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;brotli&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.0.9&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ares&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.17.1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;modules&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;93&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;nghttp2&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.42.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;napi&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;8&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;llhttp&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;6.0.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;openssl&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;1.1.1k+quic&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;cldr&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;39.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;icu&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;69.1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;tz&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;2021a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;unicode&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;13.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;ngtcp2&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;0.1.0-DEV&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;nghttp3&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;0.1.0-DEV&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="btoa-與-atob">btoa 與 atob&lt;/h3>
+&lt;p>關於 Base64 的轉化，Node 在以前使用了 &lt;code>Buffer.from&lt;/code>，而現在支持 btoa/atob 與瀏覽器環境保持了一致。&lt;br>
+而對於一個 SSR 項目而言，執行環境的區分將無關緊要，統一使用 &lt;code>btoa/atob&lt;/code> 就好了&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">base64&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">encode&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">isBrowser&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nx">btoa&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nx">Buffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">from&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;base64&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">decode&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">isBrowser&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nx">atob&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="nx">Buffer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">from&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;base64&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="更多">更多&lt;/h3>
+&lt;p>關於 Node16 升級的諸多小細節，可參閱&lt;a class="link" href="https://github.com/nodejs/node/releases/tag/v16.0.0" target="_blank" rel="noopener"
+>版本發布&lt;/a>獲取更多信息，可持續 &lt;a class="link" href="https://wayneblog.ga/" target="_blank" rel="noopener"
+>Wayne&amp;rsquo;s Blog&lt;/a> 對各軟件每一次重大版本升級的說明講解。&lt;/p>
+&lt;hr></description></item><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
