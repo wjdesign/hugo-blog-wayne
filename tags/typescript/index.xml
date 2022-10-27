@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>typescript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/typescript/</link><description>Recent content in typescript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 27 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/typescript/index.xml" rel="self" type="application/rss+xml"/><item><title>推薦 12 個值得學習的 TypeScript 寶庫！</title><link>https://wayneblog.ga/2022-10-27/ts-learning-12-website/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-27/ts-learning-12-website/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52458187213_d3e26e7c48_o.png" alt="Featured image of post 推薦 12 個值得學習的 TypeScript 寶庫！" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.readfog.com/a/1681420759367520256" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>&lt;code>TypeScript&lt;/code> 是微軟開發的一個開源的編程語言，通過在 JavaScript 的基礎上添加靜態類型定義構建而成。TypeScript 通過 TypeScript 編譯器或 Babel 轉譯爲 JavaScript 代碼，可運行在任何瀏覽器和操作系統。下面來分享 10 個值得學習的 TypeScript 寶庫！&lt;/p>
+&lt;hr>
+&lt;h2 id="typescript-官方文檔">TypeScript 官方文檔&lt;/h2>
+&lt;p>&lt;a class="link" href="https://www.typescriptlang.org/" target="_blank" rel="noopener"
+>TypeScript 官方文檔&lt;/a>，提供了&lt;a class="link" href="https://www.typescriptlang.org/zh/" target="_blank" rel="noopener"
+>中文版本&lt;/a>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458174938_524ca02f4f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/microsoft/TypeScript" target="_blank" rel="noopener"
+>https://github.com/microsoft/TypeScript&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="學習-typescript">學習 TypeScript&lt;/h2>
+&lt;p>&lt;a class="link" href="https://ts.yayujs.com/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>可能是中國最好的 TypeScript 入門到進階系統教程。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457646516_9f6d4de698_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/mqyqingfeng/learn-typescript" target="_blank" rel="noopener"
+>https://github.com/mqyqingfeng/learn-typescript&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="typescript-使用指南手冊">TypeScript 使用指南手冊&lt;/h2>
+&lt;p>&lt;a class="link" href="http://www.typescriptlang.org/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>TypeScript 使用手冊（中文版）翻譯。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458095980_e9f48057d8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/zhongsp/TypeScript" target="_blank" rel="noopener"
+>https://github.com/zhongsp/TypeScript&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="深入理解-typescript">深入理解 TypeScript&lt;/h2>
+&lt;p>&lt;a class="link" href="https://jkchao.github.io/typescript-book-chinese/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>TypeScript Deep Dive 中文版。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458174858_659710d8e1_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/jkchao/typescript-book-chinese" target="_blank" rel="noopener"
+>https://github.com/jkchao/typescript-book-chinese&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="typescript-入門教程">TypeScript 入門教程&lt;/h2>
+&lt;p>&lt;a class="link" href="https://ts.xcatliu.com/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>從 JavaScript 程序員的角度總結思考，循序漸進地理解 TypeScript。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458174863_965a4778a6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/xcatliu/typescript-tutorial" target="_blank" rel="noopener"
+>https://github.com/xcatliu/typescript-tutorial&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="typescript-類型挑戰">TypeScript 類型挑戰&lt;/h2>
+&lt;p>&lt;a class="link" href="https://tsch.js.org/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>高質量的類型可以提高項目的可維護性並避免一些潛在的漏洞。本項目意在於讓你更好地瞭解 TS 的類型系統，編寫你自己的類型工具，或者只是單純的享受挑戰的樂趣！&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458095925_96804a83ef_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/type-challenges/type-challenges" target="_blank" rel="noopener"
+>https://github.com/type-challenges/type-challenges&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="definitelytyped">DefinitelyTyped&lt;/h2>
+&lt;p>DefinitelyTyped 包含大量的高質量的 TypeScript 類型定義。通過使用 DefinitelyTyped 及其包含的聲明文件，我們可以使用大多數流行的 JavaScript 庫，就像它們是 TypeScript 庫一樣，將通過編譯器進行類型驗證。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458095900_3791347c63_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/DefinitelyTyped/DefinitelyTyped" target="_blank" rel="noopener"
+>https://github.com/DefinitelyTyped/DefinitelyTyped&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="react-redux-typescript-guide">react-redux-typescript-guide&lt;/h2>
+&lt;p>&lt;a class="link" href="https://piotrwitek.github.io/react-redux-typescript-guide/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>本指南記錄了有關在 React（及其生態系統）中以函數式風格使用 TypeScript 的模式和祕訣。它將使代碼類型安全，同時專注於從實現中推斷類型，從長遠來看更容易編寫和維護正確的類型。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457911614_f48b0054e6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/piotrwitek/react-redux-typescript-guide" target="_blank" rel="noopener"
+>https://github.com/piotrwitek/react-redux-typescript-guide&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="reacttypescript-備忘錄">React+TypeScript 備忘錄&lt;/h2>
+&lt;p>&lt;a class="link" href="https://react-typescript-cheatsheet.netlify.app/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>專注於幫助 React 開發人員在 React 應用中使用 TypeScript。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457646406_46ee32fbf4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/typescript-cheatsheets/react" target="_blank" rel="noopener"
+>https://github.com/typescript-cheatsheets/react&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="clean-code-typescript">clean-code-typescript&lt;/h2>
+&lt;p>&lt;a class="link" href="https://labs42io.github.io/clean-code-typescript/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>將 Clean Code 的概念適用到 TypeScript，引導讀者使用 TypeScript 編寫易讀、可擴展的應用。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458095865_03b03a9db2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/labs42io/clean-code-typescript" target="_blank" rel="noopener"
+>https://github.com/labs42io/clean-code-typescript&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="谷歌-typescript-風格指南">谷歌 TypeScript 風格指南&lt;/h2>
+&lt;p>&lt;a class="link" href="https://google.github.io/styleguide/tsguide.html" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>Google TypeScript 風格指南。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458174818_41c5d3c75b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://google.github.io/styleguide/tsguide.html" target="_blank" rel="noopener"
+>https://google.github.io/styleguide/tsguide.html&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="awesome-typescript">Awesome TypeScript&lt;/h2>
+&lt;p>&lt;a class="link" href="https://ellerbrock.github.io/awesome-typescript/" target="_blank" rel="noopener"
+>點我前往&lt;/a>&lt;/p>
+&lt;p>很棒的 TypeScript 資源。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52458174793_9a598987ce_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>Github：&lt;a class="link" href="https://github.com/semlinker/awesome-typescript" target="_blank" rel="noopener"
+>https://github.com/semlinker/awesome-typescript&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr></description></item></channel></rss>

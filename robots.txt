@@ -20,7 +20,13 @@ Allow: /post/
 
 Allow: /tags/
 
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
 Allow: /
+
+Allow: /2022-10-27/ts-learning-12-website/
 
 Allow: /2022-10-24/nodejs-v19-release/
 
@@ -233,8 +239,6 @@ Allow: /2019-03-08/math-typesetting/
 Allow: /tags/emoji/
 
 Allow: /2019-03-05/emoji-support/
-
-Allow: /categories/test/
 
 Allow: /tags/ci/cd/
 
