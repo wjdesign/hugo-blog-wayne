@@ -14,6 +14,10 @@ padding: 0 5px;
 &lt;a class="link" href="https://titangene.github.io/article/nvm.html" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10207177" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://juejin.cn/post/7114648119807049741" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://israynotarray.com/other/20220127/999847254/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
 &lt;p>&lt;code>nvm&lt;/code> 是 Node.js 的版本管理器 (version manager)，可在同一台主機上安裝多個版本的 Node.js 環境，因為不同專案可能會使用不同的 Node.js 版本，那就需要透過一個版本管理器來切換不同的 Node.js 版本。&lt;/p>
 &lt;hr>
@@ -137,7 +141,8 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1.1.9
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="install利用-nvm-安裝-nodejs">&lt;code>install&lt;/code>：利用 NVM 安裝 Node.js&lt;/h3>
+&lt;/div>&lt;hr>
+&lt;h3 id="install利用-nvm-安裝-nodejs">&lt;code>install&lt;/code>：利用 NVM 安裝 Node.js&lt;/h3>
 &lt;h5 id="usage-1">Usage：&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -228,8 +233,19 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;hr>
-&lt;h3 id="list查看可用的安裝版本-aliasls">&lt;code>list&lt;/code>：查看可用的安裝版本 (alias：&lt;code>ls&lt;/code>)&lt;/h3>
+&lt;h3 id="uninstall利用-nvm-解除安裝指定的-nodejs-版本">&lt;code>uninstall&lt;/code>：利用 NVM 解除安裝指定的 Node.js 版本&lt;/h3>
 &lt;h5 id="usage-2">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm uninstall &amp;lt;version&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="list查看可用的安裝版本-aliasls">&lt;code>list&lt;/code>：查看可用的安裝版本 (alias：&lt;code>ls&lt;/code>)&lt;/h3>
+&lt;h5 id="usage-3">Usage：&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -318,8 +334,9 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 14.18.0
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="use切換-nodejs-版本">&lt;code>use&lt;/code>：切換 Node.js 版本&lt;/h3>
-&lt;h5 id="usage-3">Usage：&lt;/h5>
+&lt;/div>&lt;hr>
+&lt;h3 id="use切換-nodejs-版本">&lt;code>use&lt;/code>：切換 Node.js 版本&lt;/h3>
+&lt;h5 id="usage-4">Usage：&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -388,8 +405,9 @@ class="gallery-image"
 &lt;/div>&lt;blockquote>
 &lt;p>在 &lt;code>nvm&lt;/code> 的各個 Node.js 版本安裝的全域套件都會在各自版本的目錄內安裝，所以在切換至新安裝的 Node.js 版本後需要重新安裝，也因為如此，不同版本間的套件就不會有衝突問題。&lt;/p>
 &lt;/blockquote>
+&lt;hr>
 &lt;h3 id="current查看目前使用的版本">&lt;code>current&lt;/code>：查看目前使用的版本&lt;/h3>
-&lt;h5 id="usage-4">Usage：&lt;/h5>
+&lt;h5 id="usage-5">Usage：&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -409,7 +427,8 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v16.18.0
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="run直接執行-nodejs-nvm-119版已拔除">&lt;del>&lt;code>run&lt;/code>：直接執行 Node.js (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
+&lt;/div>&lt;hr>
+&lt;h3 id="run直接執行-nodejs-nvm-119版已拔除">&lt;del>&lt;code>run&lt;/code>：直接執行 Node.js (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
 &lt;h4 id="如果要直接執行-nodejs可以使用下面指令">&lt;del>如果要直接執行 Node.js，可以使用下面指令&lt;/del>&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -427,7 +446,8 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="exec指定要執行的-nodejs-版本-nvm-119版已拔除">&lt;del>&lt;code>exec&lt;/code>：指定要執行的 Node.js 版本 (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
+&lt;/div>&lt;hr>
+&lt;h3 id="exec指定要執行的-nodejs-版本-nvm-119版已拔除">&lt;del>&lt;code>exec&lt;/code>：指定要執行的 Node.js 版本 (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -444,7 +464,8 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="which察看-nodejs-的安裝路徑-nvm-119版已拔除">&lt;del>&lt;code>which&lt;/code>：察看 Node.js 的安裝路徑 (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
+&lt;/div>&lt;hr>
+&lt;h3 id="which察看-nodejs-的安裝路徑-nvm-119版已拔除">&lt;del>&lt;code>which&lt;/code>：察看 Node.js 的安裝路徑 (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
 &lt;h4 id="執行下面指令可以查看特定版本的-nodejs-的安裝路徑">&lt;del>執行下面指令可以查看特定版本的 Node.js 的安裝路徑&lt;/del>&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -456,8 +477,9 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/home/titan/.nvm/versions/node/v12.8.1/bin/node
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h3 id="alias查看別名設定別名">alias：查看別名、設定別名&lt;/h3>
-&lt;h5 id="usage-5">Usage：&lt;/h5>
+&lt;/div>&lt;hr>
+&lt;h3 id="alias查看別名設定別名">alias：查看別名、設定別名&lt;/h3>
+&lt;h5 id="usage-6">Usage：&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -555,6 +577,32 @@ class="gallery-image"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;hr>
+&lt;h2 id="常見錯誤原因">常見錯誤原因&lt;/h2>
+&lt;h3 id="報錯-exit-status-1或-exit-status-5-問題">報錯 exit status 1(或 exit status 5) 問題&lt;/h3>
+&lt;p>出現 &lt;code>exit status 1 存取被拒&lt;/code> 或 &lt;code>exit status 5 存取被拒&lt;/code>，需要用管理員身分打開 cmd 命令列工具，再執行 &lt;code>nvm use &amp;lt;version&amp;gt;&lt;/code> 即可。&lt;/p>
+&lt;h3 id="報錯-exit-status-145-問題">報錯 exit status 145 問題&lt;/h3>
+&lt;p>這個問題可以在 github nvm-windows 下找到答案，&lt;code>nvm&lt;/code> 安裝的時候有兩個安裝目錄，一個是 &lt;code>nvm&lt;/code> 安裝目錄，一個是 &lt;code>nodejs&lt;/code> 安裝目錄，這兩個安裝目錄名&lt;strong>不能出現空格或中文&lt;/strong>，但是 &lt;code>nodejs&lt;/code> 默認安裝目錄是 &lt;strong>C:\Program Files\nodejs&lt;/strong>，這個目錄中間有空格，需要我們自定義一個安裝目錄，即可解決這個問題。&lt;/p>
+&lt;h4 id="bonus永遠以系統管理者身份執行">BONUS：永遠以系統管理者身份執行&lt;/h4>
+&lt;p>每次都要使用「以系統管理者身份執行」來開啟終端機是真的滿麻煩的，所以你其實可以針對應用程式永遠「以系統管理者身份執行」，首先點你要永遠執行的程式右鍵選內容&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457748999_03c546aaba_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>點選下方進階&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457748984_fe07a2b50b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>將「以系統管理員身份執行」打勾&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457931905_56227dda4c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>搞定，之後使用捷徑打開 &lt;code>cmd&lt;/code> 時，皆為「以系統管理員身份執行」&lt;/p>
+&lt;hr>
 &lt;h2 id="總結">總結&lt;/h2>
 &lt;p>&lt;code>nvm&lt;/code> 指令整理&lt;/p>
 &lt;table>
