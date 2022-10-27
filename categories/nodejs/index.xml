@@ -1,4 +1,597 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 24 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>Node v19 正式發布</title><link>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 27 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>nvm - Nodejs 版本隨你切換</title><link>https://wayneblog.ga/2022-10-27/nodejs-nvm/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-27/nodejs-nvm/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457342886_5035af0537_o.png" alt="Featured image of post nvm - Nodejs 版本隨你切換" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.casper.tw/development/2022/01/10/install-nvm/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://titangene.github.io/article/nvm.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10207177" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>&lt;code>nvm&lt;/code> 是 Node.js 的版本管理器 (version manager)，可在同一台主機上安裝多個版本的 Node.js 環境，因為不同專案可能會使用不同的 Node.js 版本，那就需要透過一個版本管理器來切換不同的 Node.js 版本。&lt;/p>
+&lt;hr>
+&lt;h2 id="安裝-nvm">安裝 NVM&lt;/h2>
+&lt;p>接下來到 NVM 的 &lt;a class="link" href="https://github.com/nvm-sh/nvm" target="_blank" rel="noopener"
+>GitHub 儲存庫&lt;/a>下載，無論你是 Windows、MacOS、Unix 系統都有對應的安裝方式。&lt;/p>
+&lt;h3 id="windows">Windows&lt;/h3>
+&lt;p>&lt;a class="link" href="https://github.com/coreybutler/nvm-windows" target="_blank" rel="noopener"
+>NVM for Windows&lt;/a> 有提供安裝工具，下載後照著安裝精靈依序完成即可運作，&lt;a class="link" href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener"
+>下載連結&lt;/a>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52456820192_202e0a9934_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>請選擇 &lt;code>nvm-setup&lt;/code> 下載並安裝&lt;/p>
+&lt;/blockquote>
+&lt;p>下載後依循著安裝精靈即可完成。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457873753_af7dc7aa3f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>完成後，打開「命令提示字元」可以試著輸入 &lt;code>nvm&lt;/code>，如果看到類似以下畫面就算是完成了。&lt;/p>
+&lt;h3 id="macos">MacOS&lt;/h3>
+&lt;p>MacOS 則是使用指令進行安裝，打開「&lt;code>終端機&lt;/code>」或自行安裝的「&lt;code>iTerm&lt;/code>」等工具，輸入以下指令即可開始安裝，（&lt;a class="link" href="https://github.com/nvm-sh/nvm#installing-and-updating" target="_blank" rel="noopener"
+>更多版本連結&lt;/a>）。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh &lt;span class="p">|&lt;/span> bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安裝後預期會顯示以下片段及算安裝完成，而此時如果你有安裝其它指令工具，有可能會發生輸入 &lt;code>nvm&lt;/code> 無法呼叫的狀況（例如：&lt;code>zsh: command not found: nvm&lt;/code>）。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457793235_7cd79d2c74_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接下來可以在你所使用的命令設定檔案加入以下片段程式碼，以下提供 &lt;code>bash&lt;/code>、&lt;code>zsh&lt;/code> 的說明，兩者依據環境選擇其一即可：&lt;/p>
+&lt;ul>
+&lt;li>bash(預設)&lt;/li>
+&lt;li>zsh&lt;/li>
+&lt;/ul>
+&lt;h4 id="bash">bash&lt;/h4>
+&lt;p>預設的情況下，MacOS 中可能沒有任何一個指令設定檔案，此時可以使用 &lt;code>touch ~/.bash_profile&lt;/code> 新增一個文字檔案在根目錄上，接下來回到資料根目錄可以找到 &lt;code>.bash_profile&lt;/code>，沒看到的話代表未開啟隱藏檔案顯示，可以按下 &lt;code>Command + Shift+ .&lt;/code> 顯示。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457342821_661ea0b5ec_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接下來使用任何文字編輯器打開該檔案，並加入以下程式碼存檔即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">NVM_DIR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$HOME&lt;/span>&lt;span class="s2">/.nvm&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span> -s &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/nvm.sh&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\.&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/nvm.sh&amp;#34;&lt;/span> &lt;span class="c1"># This loads nvm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span> -s &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/bash_completion&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\.&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/bash_completion&amp;#34;&lt;/span> &lt;span class="c1"># This loads nvm bash_completion&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="zsh">zsh&lt;/h4>
+&lt;p>可以打開 &lt;code>.zshrc&lt;/code> 加入以下片段後重啟（注意：&lt;code>.zshrc&lt;/code> 通常在使用者&lt;code>根目錄&lt;/code>下並且為隱藏檔，找到後使用任何文字編輯器打開編輯）。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="nb">export&lt;/span> &lt;span class="nv">NVM_DIR&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$HOME&lt;/span>&lt;span class="s2">/.nvm&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span> -s &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/nvm.sh&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\.&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/nvm.sh&amp;#34;&lt;/span> &lt;span class="c1"># This loads nvm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span> -s &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/bash_completion&amp;#34;&lt;/span> &lt;span class="o">]&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="se">\.&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="nv">$NVM_DIR&lt;/span>&lt;span class="s2">/bash_completion&amp;#34;&lt;/span> &lt;span class="c1"># This loads nvm bash_completion&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定完成以後，按下 &lt;code>nvm&lt;/code> 就會跳出如下圖就算完成了。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457342806_57a0eb7a0b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>注意：&lt;/p>
+&lt;ul>
+&lt;li>使用 &lt;code>nvm&lt;/code> 時，不需要 &lt;code>sudo&lt;/code> 即可使用 &lt;code>npm -g&lt;/code> 全域安裝模組，所以與其執行 &lt;code>sudo npm i -g&lt;/code>，不如執行 &lt;code>npm i -g&lt;/code>&lt;/li>
+&lt;li>若你有 &lt;code>~/.npmrc&lt;/code>，請確保裡面不包含任何 &lt;code>prefix&lt;/code> 的設定 (因為與 &lt;code>nvm&lt;/code> 不相容)&lt;/li>
+&lt;li>你可以 (但不應該) 保留以前在 &amp;ldquo;系統&amp;rdquo; 安裝的 Node.js，但 &lt;code>nvm&lt;/code> 只對你的使用者帳戶 (用於安裝 &lt;code>nvm&lt;/code> 的使用者帳戶) 可用。可能會導致版本不 match，因為其他使用者會使用 &lt;code>/usr/local/lib/node_modules/*&lt;/code>，而使用者帳戶會使用 &lt;code>~/.nvm/versions/node/vX.X.X/lib/node_modules/*&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="常用的-nvm-指令">常用的 NVM 指令&lt;/h2>
+&lt;p>直接輸入 &lt;code>nvm&lt;/code> 及可以看到所有的指令列表，在此僅列出最常見的幾個指令（基本上常用的只有兩三個，剩下幾個只要認識即可）&lt;/p>
+&lt;h3 id="version確認-nvm-是否安裝成功-aliasv">&lt;code>version&lt;/code>：確認 NVM 是否安裝成功 (alias：&lt;code>v&lt;/code>)&lt;/h3>
+&lt;h5 id="usage">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm version
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvm v
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="查看-nvm-的版本">查看 NVM 的版本&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm v
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">1.1.9
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="install利用-nvm-安裝-nodejs">&lt;code>install&lt;/code>：利用 NVM 安裝 Node.js&lt;/h3>
+&lt;h5 id="usage-1">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm install
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># {version} 欲安裝的 Node.js 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># {arch} 欲安裝的 system arch：32、64、&amp;#34;all&amp;#34; (預設為當前系統)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvm install &amp;lt;version&amp;gt; &lt;span class="o">[&lt;/span>arch&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安裝 NVM 後，其實還沒安裝 Node 環境：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">zsh: &lt;span class="nb">command&lt;/span> not found: node
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果執行下面指令，會提醒你需要執行 &lt;code>install&lt;/code> 指令才能安裝 Node.js：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm use node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">N/A: version &lt;span class="s2">&amp;#34;node -&amp;gt; N/A&amp;#34;&lt;/span> is not yet installed.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">You need to run &lt;span class="s2">&amp;#34;nvm install node&amp;#34;&lt;/span> to install it before using it.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安裝最新版的 Node.js：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm install node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Downloading and installing node v12.8.1...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Downloading https://nodejs.org/dist/v12.8.1/node-v12.8.1-linux-x64.tar.xz...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#################################################################################################### 100.0%&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Computing checksum with sha256sum
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Checksums matched!
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Now using node v12.8.1 &lt;span class="o">(&lt;/span>npm v6.10.2&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Creating default alias: default -&amp;gt; node &lt;span class="o">(&lt;/span>-&amp;gt; v12.8.1&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="如果要指定安裝版本可以直接指定版本號">如果要指定安裝版本，可以直接指定版本號&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm install 16.18.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安裝的第一個版本的 Node.js 會成為 &lt;code>nvm&lt;/code> 的&lt;code>預設版本&lt;/code>，新的 shell 就會以預設版本的 Node.js 來使用 (例如：&lt;code>nvm alias default&lt;/code>)。&lt;/p>
+&lt;p>查看目前安裝 Node.js 的版本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ node -v
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v16.18.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="list查看可用的安裝版本-aliasls">&lt;code>list&lt;/code>：查看可用的安裝版本 (alias：&lt;code>ls&lt;/code>)&lt;/h3>
+&lt;h5 id="usage-2">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm list
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvm ls
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;code>nvm list&lt;/code>：查看已安裝的版本&lt;/li>
+&lt;li>&lt;code>nvm list installed&lt;/code>：查看已安裝的版本&lt;/li>
+&lt;li>&lt;code>nvm list available&lt;/code>：查看遠端可安裝的版本&lt;/li>
+&lt;/ul>
+&lt;h4 id="查看目前-nodejs-有哪些可用版本可安裝">查看目前 Node.js 有哪些可用版本可安裝&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm ls available
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> CURRENT &lt;span class="p">|&lt;/span> LTS &lt;span class="p">|&lt;/span> OLD STABLE &lt;span class="p">|&lt;/span> OLD UNSTABLE &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span>--------------&lt;span class="p">|&lt;/span>--------------&lt;span class="p">|&lt;/span>--------------&lt;span class="p">|&lt;/span>--------------&lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 19.0.0 &lt;span class="p">|&lt;/span> 18.12.0 &lt;span class="p">|&lt;/span> 0.12.18 &lt;span class="p">|&lt;/span> 0.11.16 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.11.0 &lt;span class="p">|&lt;/span> 16.18.0 &lt;span class="p">|&lt;/span> 0.12.17 &lt;span class="p">|&lt;/span> 0.11.15 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.10.0 &lt;span class="p">|&lt;/span> 16.17.1 &lt;span class="p">|&lt;/span> 0.12.16 &lt;span class="p">|&lt;/span> 0.11.14 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.9.1 &lt;span class="p">|&lt;/span> 16.17.0 &lt;span class="p">|&lt;/span> 0.12.15 &lt;span class="p">|&lt;/span> 0.11.13 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.9.0 &lt;span class="p">|&lt;/span> 16.16.0 &lt;span class="p">|&lt;/span> 0.12.14 &lt;span class="p">|&lt;/span> 0.11.12 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.8.0 &lt;span class="p">|&lt;/span> 16.15.1 &lt;span class="p">|&lt;/span> 0.12.13 &lt;span class="p">|&lt;/span> 0.11.11 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.7.0 &lt;span class="p">|&lt;/span> 16.15.0 &lt;span class="p">|&lt;/span> 0.12.12 &lt;span class="p">|&lt;/span> 0.11.10 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.6.0 &lt;span class="p">|&lt;/span> 16.14.2 &lt;span class="p">|&lt;/span> 0.12.11 &lt;span class="p">|&lt;/span> 0.11.9 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.5.0 &lt;span class="p">|&lt;/span> 16.14.1 &lt;span class="p">|&lt;/span> 0.12.10 &lt;span class="p">|&lt;/span> 0.11.8 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.4.0 &lt;span class="p">|&lt;/span> 16.14.0 &lt;span class="p">|&lt;/span> 0.12.9 &lt;span class="p">|&lt;/span> 0.11.7 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.3.0 &lt;span class="p">|&lt;/span> 16.13.2 &lt;span class="p">|&lt;/span> 0.12.8 &lt;span class="p">|&lt;/span> 0.11.6 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.2.0 &lt;span class="p">|&lt;/span> 16.13.1 &lt;span class="p">|&lt;/span> 0.12.7 &lt;span class="p">|&lt;/span> 0.11.5 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.1.0 &lt;span class="p">|&lt;/span> 16.13.0 &lt;span class="p">|&lt;/span> 0.12.6 &lt;span class="p">|&lt;/span> 0.11.4 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 18.0.0 &lt;span class="p">|&lt;/span> 14.20.1 &lt;span class="p">|&lt;/span> 0.12.5 &lt;span class="p">|&lt;/span> 0.11.3 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 17.9.1 &lt;span class="p">|&lt;/span> 14.20.0 &lt;span class="p">|&lt;/span> 0.12.4 &lt;span class="p">|&lt;/span> 0.11.2 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 17.9.0 &lt;span class="p">|&lt;/span> 14.19.3 &lt;span class="p">|&lt;/span> 0.12.3 &lt;span class="p">|&lt;/span> 0.11.1 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 17.8.0 &lt;span class="p">|&lt;/span> 14.19.2 &lt;span class="p">|&lt;/span> 0.12.2 &lt;span class="p">|&lt;/span> 0.11.0 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 17.7.2 &lt;span class="p">|&lt;/span> 14.19.1 &lt;span class="p">|&lt;/span> 0.12.1 &lt;span class="p">|&lt;/span> 0.9.12 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 17.7.1 &lt;span class="p">|&lt;/span> 14.19.0 &lt;span class="p">|&lt;/span> 0.12.0 &lt;span class="p">|&lt;/span> 0.9.11 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">|&lt;/span> 17.7.0 &lt;span class="p">|&lt;/span> 14.18.3 &lt;span class="p">|&lt;/span> 0.10.48 &lt;span class="p">|&lt;/span> 0.9.10 &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>通常會選擇安裝 &lt;code>LTS&lt;/code> (&lt;code>Long-term support&lt;/code>，長期支援) 版&lt;/p>
+&lt;/blockquote>
+&lt;h4 id="查看目前已安裝的版本">查看目前已安裝的版本&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> * 16.18.0 &lt;span class="o">(&lt;/span>Currently using 64-bit executable&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 14.18.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="use切換-nodejs-版本">&lt;code>use&lt;/code>：切換 Node.js 版本&lt;/h3>
+&lt;h5 id="usage-3">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm use
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># {version} 欲切換的 Node.js 版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># {arch} 欲切換的 system arch：32、64、&amp;#34;all&amp;#34; (預設為當前系統)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nvm use &amp;lt;version&amp;gt; &lt;span class="o">[&lt;/span>arch&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="如果要使用-nvm-切換正在使用的-nodejs-版本可用-use-指令">如果要使用 &lt;code>nvm&lt;/code> 切換正在使用的 Node.js 版本，可用 &lt;code>use&lt;/code> 指令&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm use v16.18.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果切換的目標版本還沒安裝，&lt;code>nvm&lt;/code> 會提醒你要安裝：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm use v14.18.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">node v14.18.0 &lt;span class="o">(&lt;/span>64-bit&lt;span class="o">)&lt;/span> is not installed.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>透過 &lt;code>nvm&lt;/code> 安裝 Node.js 時，&lt;code>nvm&lt;/code> 會將不同的 Node.js 版本儲存在 &lt;code>~/.nvm/versions/node/vX.X.X&lt;/code>，然後再修改 &lt;code>$PATH&lt;/code>，將指定版本的 Node.js 路徑加入：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm current
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v10.16.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/home/titan/.nvm/versions/node/v10.16.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ use v12.13.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ nvm current
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v12.13.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">echo&lt;/span> &lt;span class="nv">$PATH&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/home/titan/.nvm/versions/node/v12.13.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>在 &lt;code>nvm&lt;/code> 的各個 Node.js 版本安裝的全域套件都會在各自版本的目錄內安裝，所以在切換至新安裝的 Node.js 版本後需要重新安裝，也因為如此，不同版本間的套件就不會有衝突問題。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="current查看目前使用的版本">&lt;code>current&lt;/code>：查看目前使用的版本&lt;/h3>
+&lt;h5 id="usage-4">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">nvm current
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="如果忘記自己切換到哪個版本可以用-current-指令">如果忘記自己切換到哪個版本，可以用 &lt;code>current&lt;/code> 指令&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm current
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v16.18.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="run直接執行-nodejs-nvm-119版已拔除">&lt;del>&lt;code>run&lt;/code>：直接執行 Node.js (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
+&lt;h4 id="如果要直接執行-nodejs可以使用下面指令">&lt;del>如果要直接執行 Node.js，可以使用下面指令&lt;/del>&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm run node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Running node v16.18.0 &lt;span class="o">(&lt;/span>npm v8.19.2&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Welcome to Node.js v16.18.0.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Type &lt;span class="s2">&amp;#34;.help&amp;#34;&lt;/span> &lt;span class="k">for&lt;/span> more information.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="exec指定要執行的-nodejs-版本-nvm-119版已拔除">&lt;del>&lt;code>exec&lt;/code>：指定要執行的 Node.js 版本 (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm &lt;span class="nb">exec&lt;/span> 12.8.1 node
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Running node v12.8.1 &lt;span class="o">(&lt;/span>npm v6.10.2&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Welcome to Node.js v12.8.1.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Type &lt;span class="s2">&amp;#34;.help&amp;#34;&lt;/span> &lt;span class="k">for&lt;/span> more information.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="which察看-nodejs-的安裝路徑-nvm-119版已拔除">&lt;del>&lt;code>which&lt;/code>：察看 Node.js 的安裝路徑 (NVM 1.1.9版已拔除)&lt;/del>&lt;/h3>
+&lt;h4 id="執行下面指令可以查看特定版本的-nodejs-的安裝路徑">&lt;del>執行下面指令可以查看特定版本的 Node.js 的安裝路徑&lt;/del>&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm which 12.8.1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">/home/titan/.nvm/versions/node/v12.8.1/bin/node
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="alias查看別名設定別名">alias：查看別名、設定別名&lt;/h3>
+&lt;h5 id="usage-5">Usage：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm &lt;span class="nb">alias&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">default -&amp;gt; v10.16.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">node -&amp;gt; stable &lt;span class="o">(&lt;/span>-&amp;gt; v12.8.1&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stable -&amp;gt; 12.8 &lt;span class="o">(&lt;/span>-&amp;gt; v12.8.1&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">iojs -&amp;gt; N/A &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unstable -&amp;gt; N/A &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/* -&amp;gt; lts/erbium &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/argon -&amp;gt; v4.9.1 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/boron -&amp;gt; v6.17.1 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/carbon -&amp;gt; v8.16.2 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/dubnium -&amp;gt; v10.17.0 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/erbium -&amp;gt; v12.13.0 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="如下圖有些版本的文字是紅色或是顯示-na就代表該版本未在電腦安裝">如下圖有些版本的文字是紅色或是顯示 &lt;code>N/A&lt;/code>，就代表該版本未在電腦安裝&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52457611454_28089255f3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="預設-alias-可以取代版本號">預設 alias 可以取代版本號&lt;/h4>
+&lt;ul>
+&lt;li>&lt;code>node&lt;/code>：安裝最新版的 Node.js&lt;/li>
+&lt;li>&lt;code>iojs&lt;/code>：安裝最新版的 io.js&lt;/li>
+&lt;li>&lt;code>stable&lt;/code>：此 alias 已棄用，僅適用於 v0.12 以及更舊版，目前改為 node alias&lt;/li>
+&lt;li>&lt;code>unstable&lt;/code>：此 alias 為 v0.11，最後一個 “unstable” (不穩定) Node release，在 v1.0 之後的版本都是穩定版 (in SemVer, versions communicate breakage, not stability)&lt;/li>
+&lt;/ul>
+&lt;p>可在下面這些指令使用以上預設別名：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>nvm install&lt;/code>&lt;/li>
+&lt;li>&lt;code>nvm use&lt;/code>&lt;/li>
+&lt;li>&lt;code>nvm run&lt;/code>&lt;/li>
+&lt;li>&lt;code>nvm exec&lt;/code>&lt;/li>
+&lt;li>&lt;code>nvm which&lt;/code>&lt;/li>
+&lt;li>… 等&lt;/li>
+&lt;/ul>
+&lt;h4 id="設定別名">設定別名&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm &lt;span class="nb">alias&lt;/span> v16-test v16.18.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v16-test -&amp;gt; v16.18.0
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="接著用-nvm-alias-指令就會看到剛剛新增的別名所對應的-nodejs-版本">接著用 &lt;code>nvm alias&lt;/code> 指令就會看到剛剛新增的別名所對應的 Node.js 版本&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ nvm &lt;span class="nb">alias&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">v16-test -&amp;gt; v10.15.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">default -&amp;gt; v10.16.3
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">node -&amp;gt; stable &lt;span class="o">(&lt;/span>-&amp;gt; v12.8.1&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">stable -&amp;gt; 12.8 &lt;span class="o">(&lt;/span>-&amp;gt; v12.8.1&lt;span class="o">)&lt;/span> &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">iojs -&amp;gt; N/A &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">unstable -&amp;gt; N/A &lt;span class="o">(&lt;/span>default&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/* -&amp;gt; lts/erbium &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/argon -&amp;gt; v4.9.1 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/boron -&amp;gt; v6.17.1 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/carbon -&amp;gt; v8.16.2 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/dubnium -&amp;gt; v10.17.0 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">lts/erbium -&amp;gt; v12.13.0 &lt;span class="o">(&lt;/span>-&amp;gt; N/A&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="總結">總結&lt;/h2>
+&lt;p>&lt;code>nvm&lt;/code> 指令整理&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>指令&lt;/th>
+&lt;th>功能&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;code>nvm version&lt;/code>&lt;br/>&lt;code>nvm v&lt;/code>&lt;/td>
+&lt;td>查看 &lt;code>nvm&lt;/code> 版本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>nvm install &amp;lt;version&amp;gt;&lt;/code>&lt;/td>
+&lt;td>安裝指定 &lt;code>&amp;lt;version&amp;gt;&lt;/code> 版本的 Node.js&lt;br/>(建議安裝 &lt;code>LTS&lt;/code> 版本)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>nvm ls&lt;/code>&lt;br/>&lt;code>nvm ls installed&lt;/code>&lt;/td>
+&lt;td>查看目前已安裝的 Node.js 版本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>nvm ls available&lt;/code>&lt;/td>
+&lt;td>查看目前可安裝的 Node.js 版本&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>nvm use &amp;lt;version&amp;gt;&lt;/code>&lt;/td>
+&lt;td>切換指定 &lt;code>&amp;lt;version&amp;gt;&lt;/code> 版本的 Node.js&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;code>nvm current&lt;/code>&lt;/td>
+&lt;td>查看當前使用的 Node.js 版本&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr></description></item><item><title>Node v19 正式發布</title><link>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

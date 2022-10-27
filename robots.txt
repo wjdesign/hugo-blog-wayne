@@ -2,19 +2,23 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /2022-10-24/nodejs-v19-release/
-
 Allow: /tags/nodejs/
 
 Allow: /categories/nodejs/
 
-Allow: /post/
+Allow: /tags/nvm/
 
-Allow: /tags/release/
+Allow: /2022-10-27/nodejs-nvm/
+
+Allow: /post/
 
 Allow: /tags/
 
 Allow: /
+
+Allow: /2022-10-24/nodejs-v19-release/
+
+Allow: /tags/release/
 
 Allow: /tags/db/
 
