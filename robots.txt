@@ -1,6 +1,12 @@
 User-agent: *
 
+Allow: /2022-10-27/js-30-keypoints/
+
 Allow: /categories/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
 
 Allow: /tags/nodejs/
 
@@ -121,10 +127,6 @@ Allow: /tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/
 Allow: /2022-08-17/seo-backlinks-building-guide/
 
 Allow: /2022-08-13/js-async-programs/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /2022-08-13/js-async-await/
 
