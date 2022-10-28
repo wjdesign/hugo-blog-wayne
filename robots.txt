@@ -1,8 +1,20 @@
 User-agent: *
 
-Allow: /2022-10-27/js-30-keypoints/
-
 Allow: /categories/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
+Allow: /2022-10-28/ts-useful-tricks/
+
+Allow: /
+
+Allow: /2022-10-27/js-30-keypoints/
 
 Allow: /tags/javascript/
 
@@ -15,16 +27,6 @@ Allow: /categories/nodejs/
 Allow: /tags/nvm/
 
 Allow: /2022-10-27/nodejs-nvm/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
-
-Allow: /
 
 Allow: /2022-10-27/ts-learning-12-website/
 
