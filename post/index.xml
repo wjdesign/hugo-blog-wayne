@@ -1,4 +1,355 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 28 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>TypeScript 的實用方法！大家一定要學會啊！</title><link>https://wayneblog.ga/2022-10-28/ts-useful-tricks/</link><pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-28/ts-useful-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52459954880_4228a13922_o.png" alt="Featured image of post TypeScript 的實用方法！大家一定要學會啊！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 03 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>8 招 JavaScript Console 運用技巧，讓你除錯更高效</title><link>https://wayneblog.ga/2022-11-03/js-8-console-tricks/</link><pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-03/js-8-console-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52473860621_0ede00e99a_o.jpg" alt="Featured image of post 8 招 JavaScript Console 運用技巧，讓你除錯更高效" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.casper.tw/development/2021/09/14/js-console/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>寫 JavaScript 需要檢視運作是否正確時候，都會使用 &lt;code>console.log&lt;/code> 來檢視輸出或運算的值，而 &lt;code>console&lt;/code> 的運用技巧不僅僅只有將值呈現在開發的 &lt;code>Console 介面&lt;/code>中。本篇就來介紹許多 &lt;code>console&lt;/code> 語法的實戰運用方法吧！&lt;/p>
+&lt;hr>
+&lt;p>首先，在此先準備一份等等會用到的物件及陣列作為以下範例使用：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">Ming&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;小明&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">15&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">favorite&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;鍋燒意麵&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">Jay&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;杰倫&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">16&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">favorite&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;炒麵&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">Auntie&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;漂亮阿姨&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">21&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">favorite&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;蘿蔔糕&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">people&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">Ming&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Jay&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Auntie&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="為-consolelog-的程式碼上色">為 console.log 的程式碼上色&lt;/h2>
+&lt;p>有在 Facebook 頁面中開啟過開發者工具嗎？如果有，相信你對於以下這張圖並不陌生。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52474405673_77d2312f81_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>Console 中的文字並非只有固定的色彩，它與網頁中的文字一樣，都可以透過 CSS 的語法來調整其色彩，只要在 &lt;code>log&lt;/code> 的文字前方先加入 &lt;code>%c&lt;/code> 後，在 , 後方的參數就能夠傳入 CSS 語法做為參數，並且調整 Console 中呈現的文字樣式。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`%c &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">Ming&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> 有瑟瑟的顏色`&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;color: orange; font-size: 24px&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473860556_0c3cbc749d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="consoletable使用表格的方式陳列陣列的資訊">console.table()：使用表格的方式陳列陣列的資訊&lt;/h2>
+&lt;p>當要呈現資料於 Console 介面中，做常見的方式就是使用 &lt;code>log&lt;/code> 的方法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 基本用法
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Ming&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Jay&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Auntie&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">people&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>當然，這樣的用法絕對沒有問題，透過此方法可以將值一一陳列出來，不過當這些數值是 &lt;code>具有關聯性&lt;/code> 時，一般的 &lt;code>log&lt;/code> 就無法比較兩者之間的關係。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473361772_d4457e0674_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;code>console.table()&lt;/code> 針對物件之間有相同的屬性名稱時，就能夠輕易的比較相同屬性之間的關係。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">table&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="nx">Ming&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Jay&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Auntie&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">table&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">people&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52474405618_0534bf4a54_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>除此之外，表格上方的標頭還可以點選作為排序使用，如果拿到一個 JSON 想比對其中的值，還要轉貼到 Excel 或是 &lt;code>sort()&lt;/code> 語法安排，不如直接改用 &lt;code>table()&lt;/code> 進行比較吧。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473377947_62186d5eab_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="consolegroup群組化大量的-log-資訊">console.group()：群組化大量的 log 資訊&lt;/h2>
+&lt;p>使用 &lt;code>log()&lt;/code> 觀看迴圈值是合情合理的，不過當陣列的長度有上百筆時，Console 介面中的資料還真會滾到令人厭世。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">people&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">element&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">people&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">element&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473361732_f9a99f8f40_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>在迴圈中使用 &lt;code>console.log()&lt;/code> 會一一呈現資料，數量一多看起來就會顯的很吃力&lt;/p>
+&lt;/blockquote>
+&lt;p>使用 &lt;code>console.group()&lt;/code>、&lt;code>console.groupEnd()&lt;/code> 設置群組的起訖，在 Console 的介面中就能方便的收合群組內容。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">group&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;迴圈群組&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">people&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">element&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">people&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">element&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">groupEnd&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>console.group(/* 群組名稱 */)&lt;/code> 可以傳入 &lt;strong>&lt;code>群組名稱&lt;/code>&lt;/strong> 做為參數，作為在 Console 介面中辨識群組的顯示名稱，在介面中的群組名稱也會以粗體名稱，並且可以點擊箭頭符號收合群組內容。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52474142054_74ccb31919_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="consoletime開發者最愛斤斤計較那-1ms-的效能了">console.time()：開發者最愛斤斤計較那 1ms 的效能了&lt;/h2>
+&lt;p>每當寫出神邏輯的時候，都會擔心電腦效能跟不上自己的思維，這時候就可以使用 &lt;code>time()&lt;/code> 追蹤片段程式碼所處理的時間差，得知自己是不是該換台電腦解決問題。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 時間追蹤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">time&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;迴圈處理時間&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">index&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">people&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">index&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">element&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">people&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">index&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">element&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">timeEnd&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;迴圈處理時間&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在起訖中分別加入 &lt;code>time()&lt;/code> 以及 &lt;code>timeEnd()&lt;/code>，執行程式碼後就可以獲得處理的結果。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473361712_efa32726e1_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="consoledir以物件的形式呈現資料">console.dir()：以物件的形式呈現資料&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// HTML &amp;lt;p&amp;gt;推薦的 Console 語法&amp;lt;/p&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;p&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">p&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>當使用 &lt;code>console.log()&lt;/code> 查看 DOM 元素，並想了解其中可用的方法或屬性時…，它可能會出現如下帶點失望的標籤，並且心裡默罵：&lt;/p>
+&lt;ul>
+&lt;li>要這個幹嘛啦&lt;/li>
+&lt;li>要知道的是物件屬性、屬性&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473361702_f3efa4c4c9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>這時候需要的是 &lt;code>console.dir()&lt;/code>，你會發現另一個新世界，原本的 DOM 元素被改為物件的形式呈現，你可以輕鬆展開此物件，並檢視裡面有哪些可用屬性。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">p&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;p&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">dir&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">p&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473361677_66dc6be1f6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>展開的 P 元素，包含其中所有的屬性（這在操作 DOM 時極為好用）&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="consoleerror">console.error()&lt;/h2>
+&lt;p>寫程式有錯誤是難免的，但是如果是錯誤，卻沒有明確的提示導致沒有被發現問題，就失去提示的意義了，如果想讓 Console 的內容更加醒目，可以使用 &lt;code>console.error()&lt;/code> 使訊息在 Console 介面中以錯誤的形式呈現。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">Ming&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> 你完蛋了`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>當運用在一般文字訊息上時，也可以展開訊息並說明錯誤來源自哪一段程式碼。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473860411_86fa6efbe3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>在 AJAX 的未確認狀態中，也會使用 &lt;code>console.error&lt;/code> 來呈現錯誤的回饋訊息，以下範例刻意將 API 路徑調整成錯誤的，並透過 &lt;code>console.error()&lt;/code> 來將錯誤的資訊呈現在 Console 介面中&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">axios&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://randomuser.me/apis&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="k">catch&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;待誌大條啦: &amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">error&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52474142014_1023c7b7d7_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="consolewarn">console.warn()&lt;/h2>
+&lt;p>錯誤太突兀了嗎？如果是自行開發的函式庫，已經透過各種形式避免程式碼出錯，但還是想把有錯誤的訊息給予開發者知道，那麼則可以使用 &lt;code>console.warn()&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Warning
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="cm">/***
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * 超精美函式庫 💖
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param {number} num 純數值
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> * @param {string} text 請傳入字串
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cm"> */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">superMagicLibrary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">num&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">num&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;number&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">warn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;尊重一下好嗎，請傳入純數值&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">superMagicLibrary&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;字串&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>函式庫中大多會避免已知的錯誤，如果要友善的給予回饋，可以使用 &lt;code>warn()&lt;/code> 代替 &lt;code>error()&lt;/code> 提醒開發者更好的做法。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52473361632_0194537b7c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="consoleclear">console.clear()&lt;/h2>
+&lt;p>如果覺得 Console 介面已經充滿了許多不必要的資訊，想要專注於當前開發的程式碼，那麼可以加入 &lt;code>console.clear()&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52474405453_0497411dc5_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>畫面中會出現 Console was cleared 的字眼&lt;/p>
+&lt;/blockquote>
+&lt;p>此語法亦可在 Console 介面中直接輸入，會直接清除當下的所有資訊內容。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52474422398_9a728ec190_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>不過請慎用此方法，如果隨意插入 &lt;code>console.clear()&lt;/code> 在不同的檔案中，不知情的夥伴一定會在開發中卡很久，可能發生的情境有…：&lt;/p>
+&lt;ul>
+&lt;li>奇怪，我寫的 Code 怎麼都沒顯示在 Console&lt;/li>
+&lt;li>編譯器壞了嗎？怎麼好像沒有運作&lt;/li>
+&lt;li>我的 Chrome 怪怪的&lt;/li>
+&lt;/ul>
+&lt;p>還有哪些方法你也常用，但沒有介紹到的呢？歡迎在底下留言區留言喔&lt;/p>
+&lt;hr></description></item><item><title>TypeScript 的實用方法！大家一定要學會啊！</title><link>https://wayneblog.ga/2022-10-28/ts-useful-tricks/</link><pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-28/ts-useful-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52459954880_4228a13922_o.png" alt="Featured image of post TypeScript 的實用方法！大家一定要學會啊！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

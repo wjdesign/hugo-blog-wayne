@@ -1,10 +1,18 @@
 User-agent: *
 
+Allow: /2022-11-03/js-8-console-tricks/
+
 Allow: /categories/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
 
 Allow: /post/
 
 Allow: /tags/
+
+Allow: /
 
 Allow: /tags/typescript/
 
@@ -12,13 +20,7 @@ Allow: /categories/typescript/
 
 Allow: /2022-10-28/ts-useful-tricks/
 
-Allow: /
-
 Allow: /2022-10-27/js-30-keypoints/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/nodejs/
 
