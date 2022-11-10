@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 10 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>Entity Framework Core 6.0 字串屬性對映欄位 NOT NULL 問題</title><link>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對映欄位 NOT NULL 問題" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 10 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -14,13 +14,13 @@ padding: 0 5px;
 &lt;p>升級 .NET 6 踩到的小問題筆記。&lt;/p>
 &lt;hr>
 &lt;h2 id="前情提要">前情提要&lt;/h2>
-&lt;p>依之前學到的 EF Core Model 設計，&lt;strong>string&lt;/strong> 屬性預設對映的欄位預設為 &lt;strong>Nullable&lt;/strong>，標註 &lt;strong>[Required]&lt;/strong> 才會宣告為 &lt;strong>NOT NULL&lt;/strong>。 不過，這條規則到 &lt;strong>.NET 6&lt;/strong> 已有所改變。某段 EF Core 寫入資料庫時冒出欄位&lt;strong>不允許 NULL&lt;/strong>，但 Model 中該屬性並未宣告為 &lt;strong>[Required]&lt;/strong>。&lt;/p>
+&lt;p>依之前學到的 EF Core Model 設計，&lt;strong>string&lt;/strong> 屬性預設對應的欄位預設為 &lt;strong>Nullable&lt;/strong>，標註 &lt;strong>[Required]&lt;/strong> 才會宣告為 &lt;strong>NOT NULL&lt;/strong>。 不過，這條規則到 &lt;strong>.NET 6&lt;/strong> 已有所改變。某段 EF Core 寫入資料庫時冒出欄位&lt;strong>不允許 NULL&lt;/strong>，但 Model 中該屬性並未宣告為 &lt;strong>[Required]&lt;/strong>。&lt;/p>
 &lt;p>研究發現這與 &lt;strong>.NET 6&lt;/strong> 啟用 &lt;strong>Nullable Context&lt;/strong> 有關，csproj 多了 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code> 設定以支援 &lt;strong>C# 8&lt;/strong> 推出的 &lt;strong>Nullable Reference Type&lt;/strong> 概念。 設為 &lt;code>enable&lt;/code> 時，Compiler 啟用 &lt;strong>Null Reference Analysis&lt;/strong> 及相關語言特性，以字串為例，若 string 沒宣告成 string? 卻可能為 null 時會&lt;strong>得到警告&lt;/strong>；若要明確標示此處就是要設成 null，可在後方加上 &lt;code>Null-Forgiving Operator&lt;/code>， 例如 &lt;code>string x = null!;&lt;/code>。&lt;/p>
 &lt;p>若不想啟用此特性，設成 &lt;code>disable&lt;/code>，Compiler 即會恢復 &lt;strong>C# 7.3&lt;/strong> 以前的行為。&lt;/p>
-&lt;p>&lt;strong>EF Core&lt;/strong> 產生資料庫對映 SQL Schema 時，也會受 &lt;strong>Nullable Context&lt;/strong> 影響，當 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code>，即使未加 &lt;strong>[Required]&lt;/strong>，Model 的字串屬性仍會被視為&lt;strong>不可為 null&lt;/strong>，在 &lt;strong>CREATE TABLE&lt;/strong> 時會加上 &lt;strong>NOT NULL&lt;/strong>。&lt;/p>
+&lt;p>&lt;strong>EF Core&lt;/strong> 產生資料庫對應 SQL Schema 時，也會受 &lt;strong>Nullable Context&lt;/strong> 影響，當 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code>，即使未加 &lt;strong>[Required]&lt;/strong>，Model 的字串屬性仍會被視為&lt;strong>不可為 null&lt;/strong>，在 &lt;strong>CREATE TABLE&lt;/strong> 時會加上 &lt;strong>NOT NULL&lt;/strong>。&lt;/p>
 &lt;hr>
 &lt;h2 id="問題重現">問題重現&lt;/h2>
-&lt;p>用以下程式重現問題。簡單宣告了 Entity 型別、DbContext，其中 &lt;strong>RequiredText&lt;/strong> 有加註 &lt;strong>[Required]&lt;/strong>，另一個 OptionalText 則沒有，呼叫 &lt;strong>DbContext.DataBase.GenerateCreateScript()&lt;/strong> 檢視其對映的 SQL Schema：&lt;/p>
+&lt;p>用以下程式重現問題。簡單宣告了 Entity 型別、DbContext，其中 &lt;strong>RequiredText&lt;/strong> 有加註 &lt;strong>[Required]&lt;/strong>，另一個 OptionalText 則沒有，呼叫 &lt;strong>DbContext.DataBase.GenerateCreateScript()&lt;/strong> 檢視其對應的 SQL Schema：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -85,7 +85,7 @@ max-width="100%"
 max-height="100%"
 class="gallery-image"
 >&lt;/p>
-&lt;p>所以，&lt;strong>.NET 6&lt;/strong> 啟用 &lt;strong>Nullable Context&lt;/strong> 時，Model 字串屬性要&lt;strong>允許&lt;/strong> null，型別也需改成 &lt;strong>string?&lt;/strong>，這樣才會對映成 &lt;strong>Nullable&lt;/strong> 資料庫欄位。(註：&lt;strong>RequiredText&lt;/strong> 故意拿掉 &lt;strong>= null!&lt;/strong> 觸發 CS8618 警告，證明有設 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code>)&lt;/p>
+&lt;p>所以，&lt;strong>.NET 6&lt;/strong> 啟用 &lt;strong>Nullable Context&lt;/strong> 時，Model 字串屬性要&lt;strong>允許&lt;/strong> null，型別也需改成 &lt;strong>string?&lt;/strong>，這樣才會對應成 &lt;strong>Nullable&lt;/strong> 資料庫欄位。(註：&lt;strong>RequiredText&lt;/strong> 故意拿掉 &lt;strong>= null!&lt;/strong> 觸發 CS8618 警告，證明有設 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code>)&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52490349030_170f87c2be_o.png"
 max-width="100%"
 max-height="100%"
