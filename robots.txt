@@ -1,6 +1,20 @@
 User-agent: *
 
+Allow: /categories/dotnet-core/
+
+Allow: /categories/csharp/
+
 Allow: /categories/
+
+Allow: /tags/csharp/
+
+Allow: /tags/dotnet-core/
+
+Allow: /categories/entity-framework-core/
+
+Allow: /2022-11-10/efcore-6-string-not-null/
+
+Allow: /tags/entity-framework-core/
 
 Allow: /tags/javascript/
 
