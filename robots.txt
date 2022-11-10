@@ -10,6 +10,12 @@ Allow: /post/
 
 Allow: /tags/
 
+Allow: /tags/vue/
+
+Allow: /categories/vue/
+
+Allow: /2022-11-10/vue-2to3-global-component/
+
 Allow: /
 
 Allow: /2022-11-09/js-call-apply-bind/
@@ -143,10 +149,6 @@ Allow: /2022-08-13/js-async-programs/
 Allow: /2022-08-13/js-async-await/
 
 Allow: /2022-08-13/js-regex/
-
-Allow: /tags/vue/
-
-Allow: /categories/vue/
 
 Allow: /2022-08-12/vue-interview-note/
 
