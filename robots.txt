@@ -2,6 +2,8 @@ User-agent: *
 
 Allow: /categories/dotnet-core/
 
+Allow: /2022-11-11/dotnet-cve-2022-41064/
+
 Allow: /categories/csharp/
 
 Allow: /categories/
@@ -9,6 +11,12 @@ Allow: /categories/
 Allow: /tags/csharp/
 
 Allow: /tags/dotnet-core/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
 
 Allow: /categories/entity-framework-core/
 
@@ -20,17 +28,11 @@ Allow: /tags/javascript/
 
 Allow: /categories/javascript/
 
-Allow: /post/
-
-Allow: /tags/
-
 Allow: /tags/vue/
 
 Allow: /categories/vue/
 
 Allow: /2022-11-10/vue-2to3-global-component/
-
-Allow: /
 
 Allow: /2022-11-09/js-call-apply-bind/
 

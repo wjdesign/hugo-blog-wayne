@@ -1,4 +1,112 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 10 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 11 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>.NET SqlClient 安全漏洞 CVE-2022-41064 解讀</title><link>https://wayneblog.ga/2022-11-11/dotnet-cve-2022-41064/</link><pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-11/dotnet-cve-2022-41064/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52491745274_95b2fa11ec_o.jpg" alt="Featured image of post .NET SqlClient 安全漏洞 CVE-2022-41064 解讀" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.darkthread.net/blog/cve-2022-41064/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>微軟在 2022-11-08 公佈了 &lt;strong>System.Data.SqlClient&lt;/strong>、&lt;strong>Microsoft.Data.SqlClient&lt;/strong> 的安全漏洞，由於涵蓋大量 .NET 版本 (.NET Framework 到 .NET 6 都可能使用到)，範圍不小，身為 .NET 開發人員，應該關注其影響及修補方式。&lt;/p>
+&lt;p>參考了以下文件，試著整理資訊如後。&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/dotnet/announcements/issues/239" target="_blank" rel="noopener"
+>Microsoft Security Advisory CVE 2022-41064 | .NET Information Disclosure Vulnerability #239&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/advisories/GHSA-8g2p-5pqh-5jmc" target="_blank" rel="noopener"
+>.NET Information Disclosure Vulnerability GHSA-8g2p-5pqh by GitHub&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2022-41064?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>.NET Framework Information Disclosure Vulnerability CVE-2022-41064&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://devblogs.microsoft.com/dotnet/dotnet-framework-november-2022-security-and-quality-rollup-updates/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>.NET Framework November 2022 Security and Quality Rollup Updates&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="漏洞來源及攻擊方式">漏洞來源及攻擊方式&lt;/h2>
+&lt;p>漏洞發生原因是現有 SQL Client 程式庫有個 Bug，在高負載狀況下「&lt;strong>非同步查詢(Asynchronously Executed Query)&lt;/strong>」有可能發生錯接查詢結果的狀況，亦即查詢 A 拿到查詢 B 的結果。&lt;/p>
+&lt;blockquote>
+&lt;p>註：資訊有限，但 Asynchronously Executed Query 應指 &lt;strong>ExecuteReaderAsync&lt;/strong>、&lt;strong>ExecuteScalarAsync&lt;/strong>、&lt;strong>ExecuteXmlReaderAsync&lt;/strong> 等非同步方法參考，同步式查詢(&lt;strong>ExecuteReader()&amp;hellip;&lt;/strong>)在一些狀態下也有可能受影響。(在 Github 找到相關單元測試，透過 &lt;strong>ExecuteReader()&lt;/strong> 但不讀取內容就拋棄 Transaction Scope 方式重現)&lt;/p>
+&lt;/blockquote>
+&lt;p>攻擊成功條件：&lt;a class="link" href="https://msrc.microsoft.com/update-guide/en-US/vulnerability/CVE-2022-41064?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>參考&lt;/a>&lt;/p>
+&lt;ol>
+&lt;li>Exploiting this vulnerability requires an attacker to be within the SQL Connection Pool.&lt;br>
+攻擊者須位於同一 SQL Connection Pool 內 (換言之，在同一 Process 內執行)&lt;/li>
+&lt;li>Successful exploitation of this vulnerability requires an attacker to exhaust all the threads in the thread pool.&lt;br>
+攻擊者需耗盡所有 Thread Pool 所有 Thread&lt;/li>
+&lt;li>In this case, a successful attack could cause the attacker access queries from other users in the SQL Connection Pool.&lt;br>
+在此狀況下，攻擊者有機會存取到同 SQL Connetion Pool 其他使用者的查詢結果(撿到什麼內容屬隨機性質)&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="漏洞範圍">漏洞範圍&lt;/h2>
+&lt;p>漏洞存在 &lt;strong>Microsoft.Data.SqlClient&lt;/strong> 及 &lt;strong>System.Data.SqlClient&lt;/strong> 眾多版本：&lt;/p>
+&lt;ul>
+&lt;li>Microsoft.Data.SqlClient 1.1.3 (含)之前及 2.0.0 ~ 2.1.1&lt;/li>
+&lt;li>System.Data.SqlClient 4.8.4 (含)之前版本&lt;/li>
+&lt;/ul>
+&lt;p>而微軟也已釋出 1.1.4、2.1.2、4.8.5 修補漏洞&lt;/p>
+&lt;hr>
+&lt;h2 id="修補方式">修補方式&lt;/h2>
+&lt;p>.NET Core / .NET 5/6 使用以下方式更新版本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">Microsoft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">2.1.2&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="nx">或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">Microsoft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">1.1.4&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="nx">或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">4.8.5&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>或者直接修改 &lt;strong>.csproj&lt;/strong>：(若專案先參照其他程式庫再間接參照 SqlClient，也需要加入 &lt;strong>PackageReference&lt;/strong> 強制使用新版)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">Project&lt;/span> &lt;span class="na">Sdk&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Microsoft.NET.Sdk.Web&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">PropertyGroup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">TargetFramework&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>net6.0&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">TargetFramework&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">Nullable&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>enable&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">Nullable&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ImplicitUsings&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>enable&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ImplicitUsings&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">PropertyGroup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ItemGroup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">PackageReference&lt;/span> &lt;span class="na">Include&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;Microsoft.Data.SqlClient&amp;#34;&lt;/span> &lt;span class="na">Version&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;2.1.2&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ItemGroup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">Project&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>.NET Framework 請安裝 &lt;a class="link" href="https://devblogs.microsoft.com/dotnet/dotnet-framework-november-2022-security-and-quality-rollup-updates/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>November 2022 Security and Quality Rollup Updates for .NET Framework&lt;/a>。&lt;/p>
+&lt;hr></description></item><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
