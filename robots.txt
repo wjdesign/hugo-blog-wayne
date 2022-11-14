@@ -1,16 +1,18 @@
 User-agent: *
 
-Allow: /categories/dotnet-core/
-
-Allow: /2022-11-11/dotnet-cve-2022-41064/
-
-Allow: /categories/csharp/
-
 Allow: /categories/
 
-Allow: /tags/csharp/
+Allow: /tags/javascript/
 
-Allow: /tags/dotnet-core/
+Allow: /categories/javascript/
+
+Allow: /tags/nodejs/
+
+Allow: /categories/nodejs/
+
+Allow: /categories/npm-plugins/
+
+Allow: /tags/npm-plugins/
 
 Allow: /post/
 
@@ -18,15 +20,23 @@ Allow: /tags/
 
 Allow: /
 
+Allow: /2022-11-14/try-runkit/
+
+Allow: /categories/dotnet-core/
+
+Allow: /2022-11-11/dotnet-cve-2022-41064/
+
+Allow: /categories/csharp/
+
+Allow: /tags/csharp/
+
+Allow: /tags/dotnet-core/
+
 Allow: /categories/entity-framework-core/
 
 Allow: /2022-11-10/efcore-6-string-not-null/
 
 Allow: /tags/entity-framework-core/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/vue/
 
@@ -45,10 +55,6 @@ Allow: /categories/typescript/
 Allow: /2022-10-28/ts-useful-tricks/
 
 Allow: /2022-10-27/js-30-keypoints/
-
-Allow: /tags/nodejs/
-
-Allow: /categories/nodejs/
 
 Allow: /tags/nvm/
 
@@ -87,10 +93,6 @@ Allow: /tags/seo/
 Allow: /categories/seo/
 
 Allow: /2022-10-19/web-pwa/
-
-Allow: /tags/npm-plugins/
-
-Allow: /categories/npm-plugins/
 
 Allow: /tags/vben-admin/
 

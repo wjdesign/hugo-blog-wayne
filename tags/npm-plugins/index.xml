@@ -1,4 +1,101 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>npm plugins on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/npm-plugins/</link><description>Recent content in npm plugins on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 12 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/npm-plugins/index.xml" rel="self" type="application/rss+xml"/><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayneblog.ga/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>npm-plugins on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/npm-plugins/</link><description>Recent content in npm-plugins on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 14 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/npm-plugins/index.xml" rel="self" type="application/rss+xml"/><item><title>試用 RunKit</title><link>https://wayneblog.ga/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://medium.com/@aafenguk/%e8%af%95%e7%94%a8runkit-1a175869b588" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="試用runkit">試用RunKit&lt;/h2>
+&lt;p>先來說說 RunKit 是什麼。&lt;/p>
+&lt;p>首先，Runkit 可以讓你在瀏覽器中運行 Node.js 的代碼。在 Runkit 中，可以很方便的調用眾多的 &lt;strong>npm 模塊&lt;/strong>。這就有點像 Node.js 版的 Jupyter Notebook。同時，Runkit 還可以提供一個&lt;strong>免費的 HTTP 服務器&lt;/strong>而無需任何的服務器安裝和配置。這在開發手機 APP 的服務器端，以及微服務的時候尤其有用。當然，實現無服務器的選擇很多，比如 AWS 的 Lambda + API Gateway，但 RunKit 的最大優勢就是&lt;strong>完全免費&lt;/strong>的，這在開發軟件原型的時候就更為方便了。&lt;/p>
+&lt;p>下面分別來看看這兩項功能。&lt;/p>
+&lt;p>打開頁面： &lt;a class="link" href="https://runkit.com/home" target="_blank" rel="noopener"
+>https://runkit.com/home&lt;/a>&lt;/p>
+&lt;p>可以通過 Github 授權登錄：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52499339005_5846e4c91c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>登錄成功後可以看到：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52499417688_b22fc7e975_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>點擊運行按鈕後就可以在頁面中看到執行結果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52499338965_f2e405dd7a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>在 Runkit 的頁面中可以像正常的 Node.js 環境一樣運行各種 JS 語句。比如，運行如下的簡單代碼獲取 Hive 中文區的最新文章：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">hive&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;@hiveio/hive-js&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Read posts from Hive
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">hive&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">api&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getDiscussionsByCreated&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">tag&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;hive-105017&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">limit&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">10&lt;/span> &lt;span class="p">},&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">discussions&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">discussions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">post&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">discussions&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">post&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">title&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以看到返回的结果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52499143664_3c8b028d58_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="api-endpoint">API Endpoint&lt;/h2>
+&lt;p>再來看看我最喜歡的 Runkit 功能：提供簡單的 API endpoint。&lt;/p>
+&lt;p>非常簡單的源碼：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">exports&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">endpoint&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">request&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">end&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;API endpoint test&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>單擊 &lt;code>publish&lt;/code> 進行發布：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52499143649_3418c86d23_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>發布後單擊 &lt;code>endpoint&lt;/code> 就會打開對應的 API URL：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52498856886_942c86a5ed_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>比如說，我這裡的就是：&lt;/p>
+&lt;p>&lt;a class="link" href="https://api-jdcmj9qsmxmb.runkit.sh/" target="_blank" rel="noopener"
+>https://api-jdcmj9qsmxmb.runkit.sh/&lt;/a>&lt;/p>
+&lt;p>可以看到，無需配置/運行服務器，就可以有自己的 API 可用，又是 serverless，同時還免費，是不是很爽？&lt;/p>
+&lt;hr></description></item><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayneblog.ga/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
