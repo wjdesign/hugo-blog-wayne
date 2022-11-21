@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 15 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>localStorage 容量太小？試試 localforage、idb-keyval</title><link>https://wayneblog.ga/2022-11-15/localforage-and-idb-keyval/</link><pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-15/localforage-and-idb-keyval/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52501465120_8e19a1cda3_o.png" alt="Featured image of post localStorage 容量太小？試試 localforage、idb-keyval" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 21 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>避免無效 favicon.ico 存取動作</title><link>https://wayneblog.ga/2022-11-21/prevent-invalid-favicon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-21/prevent-invalid-favicon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52513251827_7a73de7710_o.png" alt="Featured image of post 避免無效 favicon.ico 存取動作" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.darkthread.net/blog/prevent-favicon-request/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="問題原因">問題原因&lt;/h2>
+&lt;p>瀏覽器初到新網站時，會試著下載名為 &lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Glossary/Favicon" target="_blank" rel="noopener"
+>Favicon (Favorite Icon)&lt;/a> 的網站代表圖示，用在地址列、頁籤、書籤(我的最愛)上。&lt;/p>
+&lt;p>若網頁沒特別指定，瀏覽器預設會抓取網站根路徑的 &lt;code>/favicon.ico&lt;/code> 檔案，找不到就算了不會觸發錯誤。&lt;/p>
+&lt;p>一般我們不為會為測試、開發用網站設計圖示，但瀏覽器仍會在&lt;strong>第一次&lt;/strong>存取時嘗試下載 &lt;code>/favicon.ico&lt;/code>，不意外地以 &lt;strong>HTTP 404&lt;/strong> 收場：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52513251837_136ef4cc1f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>嚴格來說，瀏覽器會記住結果，404 失敗只會&lt;strong>發生一次&lt;/strong>(&lt;strong>直到瀏覽器重啟&lt;/strong>)，大小 5KB 說來無傷大雅。但它最困擾我的地方是使用 F12 網路工具或 Fidder 抓封包時，觀察結果天下飛來一筆 &lt;strong>/favicon.ico 404&lt;/strong>，說明時還要額外解釋，蠻煩人的。&lt;/p>
+&lt;hr>
+&lt;h2 id="解決方式">解決方式&lt;/h2>
+&lt;p>爬文查了避免瀏覽器抓 &lt;strong>/favicon.ico&lt;/strong> 的方法，有以下幾種：&lt;/p>
+&lt;ol>
+&lt;li>Firefox 25+ 不支援&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;shortcut icon&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;data:image/x-icon;,&amp;#34;&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image/x-icon&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>有些舊瀏覽器不支援 (Android Lollipop)&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;icon&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;data:,&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>註：若有設定 &lt;a class="link" href="https://blog.darkthread.net/blog/csp-script-src/" target="_blank" rel="noopener"
+>Content-Security-Policy default-src &amp;lsquo;self&amp;rsquo;&lt;/a> 會封限 &lt;strong>data:image/png &amp;hellip;&lt;/strong> 來源，需調整為 &lt;code>default-src 'self' data:&lt;/code> &lt;a class="link" href="https://stackoverflow.com/a/40360666/288936" target="_blank" rel="noopener"
+>參考&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">link&lt;/span> &lt;span class="na">rel&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;icon&amp;#34;&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;image/png&amp;#34;&lt;/span> &lt;span class="na">href&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;data:image/png;base64,iVBORw0KGgo=&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="結論">結論&lt;/h2>
+&lt;p>結論：若只考慮 Chrome，三種做法均可避免瀏覽器嘗試存取 favicon.ico，&lt;strong>第三種做法&lt;/strong>涵蓋瀏覽器最廣。&lt;/p>
+&lt;hr></description></item><item><title>localStorage 容量太小？試試 localforage、idb-keyval</title><link>https://wayneblog.ga/2022-11-15/localforage-and-idb-keyval/</link><pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-15/localforage-and-idb-keyval/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52501465120_8e19a1cda3_o.png" alt="Featured image of post localStorage 容量太小？試試 localforage、idb-keyval" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

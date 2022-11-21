@@ -2,6 +2,18 @@ User-agent: *
 
 Allow: /categories/
 
+Allow: /tags/html/
+
+Allow: /categories/html/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2022-11-21/prevent-invalid-favicon/
+
 Allow: /tags/javascript/
 
 Allow: /categories/javascript/
@@ -11,12 +23,6 @@ Allow: /2022-11-15/localforage-and-idb-keyval/
 Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /tags/nodejs/
 
@@ -176,9 +182,9 @@ Allow: /2022-08-11/vue3-quick-start/
 
 Allow: /2022-08-11/option-api-vs-composition-api/
 
-Allow: /tags/ecmascript/
-
 Allow: /categories/ecmascript/
+
+Allow: /tags/ecmascript/
 
 Allow: /tags/es6/
 
@@ -243,8 +249,6 @@ Allow: /%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/
 Allow: /2022-07-17/atguigu-vue3-note/
 
 Allow: /tags/%E5%89%8D%E7%AB%AF/
-
-Allow: /tags/html/
 
 Allow: /tags/markdown/
 
