@@ -1,4 +1,890 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 21 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10240741" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://juejin.cn/post/7076649162653040647" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://wowissu.medium.com/%E4%BE%86%E9%BB%9E-vscode-extension-ac57d67514d" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>VScode 使用者一定會安裝各種 Extension 來建立一個適合自己的開發環境，而這些強大的 Extension 大部分都由世界各地的愛用者開發並發布(publish) ，一切都是為了要讓 VSCode 更加實用上手甚至美觀。&lt;/p>
+&lt;p>這篇就是要分享如何建立並發佈一個 Extension，英文程度不錯的建議直接閱讀&lt;a class="link" href="https://code.visualstudio.com/api/get-started/your-first-extension" target="_blank" rel="noopener"
+>官方文件&lt;/a>，會有更加詳細的解說&lt;/p>
+&lt;hr>
+&lt;h2 id="開發環境配置">開發環境配置&lt;/h2>
+&lt;p>在開始前，請照下方指示正確設置自己的環境。&lt;/p>
+&lt;h3 id="確認已安裝-nodejs-與-npm">確認已安裝 nodejs 與 npm&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node -v &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> npm -v
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如未安裝兩者，請先至 &lt;a class="link" href="https://yeoman.io/codelab/setup.html" target="_blank" rel="noopener"
+>Nodejs 官方網站&lt;/a> 下載。npm 會隨著 nodejs 下載一併被安裝，有時候您可能使用過舊的 npm，這時您可以使用以下指令更新它到最新版。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install -g npm@latest
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果正確安裝了以上兩者，會跳出兩行版本號資訊。&lt;/p>
+&lt;h5 id="export">export：&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">v16.15.0
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">8.15.1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="安裝-yoman">安裝 yoman&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668268_b231312990_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;a class="link" href="https://yeoman.io/" target="_blank" rel="noopener"
+>Yoman&lt;/a> 是一款流行已久的code generator，可以允許我們使用yoman設置專案的樣板，
+並讓我們使用 &lt;code>yo&lt;/code> 指令快速產生樣板專案。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52515645617_10a85c7f0f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>VSCode 官方已經發布了 &lt;strong>VSCode Yoman&lt;/strong> 專案，並且定期更新，因此我們可以直接使用 &lt;code>yo&lt;/code> 指令產生 VSCode Extension，無需手動開發 yoman 樣板。&lt;/p>
+&lt;p>請使用以下指令安裝yoman與VSCode Extension Generator：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install -g yo generator-code
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安裝 yoman 後，再次使用版本號指令確認有無正確安裝：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yo --version
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="使用-yo-快速產生第一個-extension-專案">使用 yo 快速產生第一個 Extension 專案&lt;/h2>
+&lt;p>首先，於 terminal 進入一個要&lt;strong>放置專案&lt;/strong>的資料夾後，使用指令：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">yo code
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>generator 會跳出提示，讓我們選擇要產生的 extension 種類：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668248_1f28068fe5_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>這些 Extension 選項的描述與說明如下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Extension 選項&lt;/th>
+&lt;th>描述&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>New Extension(Typescript)&lt;/td>
+&lt;td>產生使用typescript開發的extension專案&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Extension(Javascript)&lt;/td>
+&lt;td>產生使用javascript開發的extension專案&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Color Theme&lt;/td>
+&lt;td>配置VSCode介面顏色的擴充套件專案(詳見: Color Theme)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Language Support&lt;/td>
+&lt;td>程式語言(Programming Languages)擴充套件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Code Snippets&lt;/td>
+&lt;td>程式碼片段擴充套件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Keymap&lt;/td>
+&lt;td>快捷鍵擴充套件，keymap讓使用者得以在vscode中使用vim、sublime等等不同編輯器的快捷鍵開發。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Extension Pack&lt;/td>
+&lt;td>打包多個已發佈的extension，讓使用者一鍵快速安裝。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>New Language Pack (Localization)&lt;/td>
+&lt;td>配置VSCode編輯器多國語氣的擴充套件。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>我們依序輸入如下：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>What type of extension do you want to create?&lt;br>
+選擇你要建立的專案類型&lt;br>
+這邊我選擇第一個 &lt;code>New Extension(Typescript)&lt;/code> 選項&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>What’s the name of your extension?&lt;br>
+Extension 名稱: 對應到 package.json &amp;ldquo;displayName&amp;rdquo;&lt;br>
+這裡我輸入： &lt;code>wconvert&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>What’s the identifier of your extension?&lt;br>
+識別碼：對應到 package.json &amp;ldquo;name&amp;rdquo;&lt;br>
+這裡我輸入： &lt;code>wconvert&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>What’s the description of your extension?&lt;br>
+描述: 對應到 package.json &amp;ldquo;description&amp;rdquo;&lt;br>
+這裡我輸入： &lt;code>my first vscode extension practice.&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Initialize a git repository?&lt;br>
+是否要使用 git&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Bundle the source code with webpack?&lt;br>
+是否要使用 webpack 做原始碼的 bundle&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Which package manager to use?&lt;br>
+要使用哪個套件管理工具&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516598905_e15e8f8c7d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>讓子彈飛一會兒，最後 generator 會詢問是否使用 vscode 打開，這邊選擇打開。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516388099_78c5b73838_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="extension-專案重點相關檔案介紹">Extension 專案重點相關檔案介紹&lt;/h2>
+&lt;p>打開後，我們會看到一個 nodejs 的 typescript 專案，結構如下：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668243_abf1262288_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl"> ├── .vscode
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ ├── extensions.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ ├── launch.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ ├── settings.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ └── tasks.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── node_modules
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── src
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ ├── extension.ts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ └── &lt;span class="nb">test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ ├── runTest.ts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ └── suite
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ ├── extension.test.ts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> │ └── index.ts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── .eslintrc.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── .gitignore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── .vscodeignore
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── CHANGELOG.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── README.md
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── package-lock.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── package.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ├── tsconfig.json
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> └── vsc-extension-quickstart.md
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>.vscode/*： &lt;strong>workspace&lt;/strong> 設定&lt;/li>
+&lt;/ul>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>檔案名稱&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>task.json&lt;/td>
+&lt;td>設定 defaultBuild Task，用於 compile extension 專案的 typescript 程式。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>launch.json&lt;/td>
+&lt;td>配置 debug mode 的兩個選項：&lt;strong>Run extension&lt;/strong> 與 &lt;strong>Test extension&lt;/strong>，用於執行 extension 主程式與相關測試程式，程式執行前，會先執行 &lt;strong>defulat buildTask&lt;/strong>。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>settings.json&lt;/td>
+&lt;td>extension 專案的設定檔，此處的設定會覆蓋 &lt;strong>user settings&lt;/strong> 跟 &lt;strong>default settings&lt;/strong>。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>extensions.json&lt;/td>
+&lt;td>設定用於輔助 extension 專案安裝的 &lt;strong>extension recommendations list&lt;/strong>，此處推薦安裝 &lt;strong>eslint extension&lt;/strong>。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>src/extensions.ts： &lt;strong>主程式&lt;/strong>檔案&lt;/li>
+&lt;li>src/test.ts： &lt;strong>測試程式&lt;/strong>檔案&lt;/li>
+&lt;li>.eslintrc.json： 用於 extension 專案的 &lt;strong>eslint 設置&lt;/strong>&lt;/li>
+&lt;li>.vscodeignore： 用於忽略&lt;strong>不打包&lt;/strong>進發布套件的專案檔案&lt;/li>
+&lt;li>tsconfig.json： 用於專案 &lt;strong>ts compiler&lt;/strong> 的設定選項&lt;/li>
+&lt;li>package.json： 用於配置 node 相關依賴與相關 npm script，在 extension 專案裡，package.json 亦用於配置 extension 重要相關設定 (詳見: &lt;a class="link" href="https://code.visualstudio.com/api/references/extension-manifest" target="_blank" rel="noopener"
+>Extension Manifest&lt;/a>)&lt;/li>
+&lt;li>vsc-extension-quickstart.md： 產生的 extension 專案的 &lt;strong>markdown 說明文件&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="extension-專案程式簡介">Extension 專案程式簡介&lt;/h2>
+&lt;p>讓我們打開 &lt;code>extension.ts&lt;/code> 吧，打開後可以看見 &lt;code>extension.ts&lt;/code> 裡面有個 &lt;code>active function&lt;/code> 跟 &lt;code>deactive function&lt;/code>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668223_68bd8009b0_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;code>active function&lt;/code> 為 extension 程式的&lt;code>進入點&lt;/code>。當 extension 被 active 事件啟動時，即會執行 extension 程式。&lt;/p>
+&lt;p>因此我們可以查看 &lt;code>pakcage.json&lt;/code>，package.json 配置了 &lt;code>activeEvents&lt;/code> 清單，可以看到清單裡列出跟active 有關的設定 &lt;code>activationEvents&lt;/code>。&lt;/p>
+&lt;h5 id="packagejson">package.json&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;activationEvents&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;onCommand:wconvert.helloWorld&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>activationEvents&lt;/code> 指定了一個 &lt;code>hello world&lt;/code> command，此即是說，當使用者執行 &lt;code>hello world&lt;/code> command 時，extension 即會活躍並執行 &lt;code>active function&lt;/code>。&lt;/p>
+&lt;p>此處的 &lt;code>onCommand&lt;/code> 語法為：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">onCommand: &lt;span class="si">${&lt;/span>&lt;span class="nv">commandId&lt;/span>&lt;span class="si">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>那麼，command 的 id 是在哪裡配置的呢？&lt;/p>
+&lt;p>一樣是在 &lt;code>package.json&lt;/code> 裡，我們可以到 &lt;code>contributes&lt;/code> 屬性 (&lt;code>Contribution Point&lt;/code>: 詳見 &lt;a class="link" href="https://code.visualstudio.com/api/references/contribution-points#contributes.configurationDefaults" target="_blank" rel="noopener"
+>Contribution Point&lt;/a>) 下面查看：&lt;/p>
+&lt;h5 id="packagejson-1">package.json&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;contributes&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;commands&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;command&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;wconvert.helloWorld&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;title&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以看到在 &lt;code>contrubutes&lt;/code> 屬性下面已經配置了 &lt;code>commands&lt;/code> 清單，裡面條列著一個 &lt;code>command&lt;/code> 設定，此處 &lt;code>command&lt;/code> 設定的語法為：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/**&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">*&lt;/span> &lt;span class="err">被產生的Command會預設使用extension的id作為namespace，亦可自訂其他Namespace名稱&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;command&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">自定義的command-id&lt;/span>&lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;title&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="err">$&lt;/span>&lt;span class="p">{&lt;/span>&lt;span class="err">Command的標題內容&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>當我們使用 Command Palette (&lt;strong>Cmd/Ctrl + Shift + P&lt;/strong>) 搜尋 Command 並執行時，是使用 Command 的 &lt;strong>Title&lt;/strong> 搜尋。&lt;/p>
+&lt;/blockquote>
+&lt;p>好，現在我們已經了解如何在 &lt;code>Contribution Point&lt;/code> 設定簡單的 Command id 跟 title，以及設定它為活躍 extension 的 event。現在回到 &lt;code>extension.ts&lt;/code> 的 active function 吧！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">activate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">context&lt;/span>: &lt;span class="kt">vscode.ExtensionContext&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Use the console to output diagnostic information (console.log) and errors (console.error)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// This line of code will only be executed once when your extension is activated
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Congratulations, your extension &amp;#34;wconvert&amp;#34; is now active!&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// The command has been defined in the package.json file
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// Now provide the implementation of the command with registerCommand
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// The commandId parameter must match the command field in package.json
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">disposable&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">commands&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">registerCommand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;wconvert.helloWorld&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// The code you place here will be executed every time your command is executed
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// Display a message box to the user
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showInformationMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello World from wconvert!&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">subscriptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">disposable&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我們可以看到，&lt;code>active function&lt;/code> 裡面在 extenions 活躍後將註冊我們在 &lt;code>Contribution Point&lt;/code> 那邊設定的 command id，並且有一個 callback 函式，當我們配置的 command 執行之後，即會在 vscode 裡跳出顯示「&lt;strong>Hello World from day05-first-command!&lt;/strong>」的訊息。&lt;/p>
+&lt;p>這個註冊過後的 command 函式 (disposable) 會再 push 進 extension context 裡面，如此當 extension 被關閉後，VSCode 就可以自動釋放 listen 這個 command 的相關資源。&lt;/p>
+&lt;hr>
+&lt;h2 id="執行-extension-專案應用程式">執行 extension 專案應用程式&lt;/h2>
+&lt;p>讓我們來執行 extension 吧，vscode 專案已經幫我們配置好了 &lt;code>lanunch.json&lt;/code>，因此我們可以在 &lt;strong>debug mode&lt;/strong> 裡執行 extension。讓我們點開「&lt;strong>Run and Debug&lt;/strong>」，再點擊 sidebar 上方的 &lt;code>Run Extension&lt;/code> 旁的&lt;strong>執行按鈕&lt;/strong>開始 extension 吧！(此處的快捷鍵為 &lt;code>F5&lt;/code>)&lt;/p>
+&lt;p>執行後，vscode 會開啟一個&lt;strong>新的 vscode 的 window 視窗&lt;/strong>，window 視窗上的 title 會註明這個視窗為 &lt;code>[Extension Development Host]&lt;/code> 並預設載入 extension 了，我們可以在這個視窗操作我們開發中的 extension，並且使用中斷點偵錯。&lt;/p>
+&lt;h3 id="檢查已被註冊的-command">檢查已被註冊的 command&lt;/h3>
+&lt;p>先來檢查一下剛才註冊的 command，在 &lt;code>Contribution Point&lt;/code> 裡宣告的 Command，一樣在 &lt;code>Keyboard Shortcuts&lt;/code> 下方可以搜尋的到。從 &lt;strong>Manager &amp;gt; Keyboard Shortcuts&lt;/strong> 進入 &lt;code>Keyboard Shortcuts&lt;/code> 頁中，並在搜尋條上輸入 &lt;strong>wconvert&lt;/strong>，使用 extension id 來列出剛才註冊的 command。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668213_5061107e60_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52515645567_5d83d2fff0_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>輸入後我們可以看到，Command 已正確被註冊。&lt;/p>
+&lt;h3 id="執行註冊後的-command">執行註冊後的 Command&lt;/h3>
+&lt;p>現在，我們打開 &lt;strong>Command Palette (快捷鍵：Cmd/Ctrl + Shift + P)&lt;/strong>，輸入 &lt;code>hello world&lt;/code>，使用註冊的 &lt;strong>Command Title&lt;/strong> 查找到 command。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516598845_15b1b64528_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>然後，點擊下去，我們可以看到 vscode 的 window 正確跳出「&lt;strong>Hello World from day05-first-command!&lt;/strong>」訊息。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668188_bc100ba36a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>然後，我們回到&lt;strong>原本專案&lt;/strong>的 Vscode Window，我們可以在專案的 &lt;strong>debug console&lt;/strong> 檢視 active function 下面的 console.log 訊息。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516388004_f7b61f5236_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="加入套件邏輯">加入套件邏輯&lt;/h2>
+&lt;blockquote>
+&lt;p>這邊可以依照你的需求進行套件邏輯的開發，我只是寫來玩而已，此處參考即可！&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="註冊自己想要使用的-command">註冊自己想要使用的 Command&lt;/h3>
+&lt;p>我打算製作以下幾個功能：&lt;/p>
+&lt;ol>
+&lt;li>輸入指定的時間格式，會在&lt;strong>當前檔案指標位置插入產生的時間戳&lt;/strong>&lt;/li>
+&lt;li>輸入指定的時間格式，僅會在&lt;strong>vscode 的 window 顯示&lt;/strong>&lt;/li>
+&lt;li>將選取起來的時間戳，轉換為指定時區的時間格式(這邊以 &lt;strong>YYYY-MM-DD hh:mm:ss.milsecond&lt;/strong> 格式為主)&lt;/li>
+&lt;/ol>
+&lt;p>附上完成後的程式碼：&lt;/p>
+&lt;h5 id="extensionts">extension.ts&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;span class="lnt">80
+&lt;/span>&lt;span class="lnt">81
+&lt;/span>&lt;span class="lnt">82
+&lt;/span>&lt;span class="lnt">83
+&lt;/span>&lt;span class="lnt">84
+&lt;/span>&lt;span class="lnt">85
+&lt;/span>&lt;span class="lnt">86
+&lt;/span>&lt;span class="lnt">87
+&lt;/span>&lt;span class="lnt">88
+&lt;/span>&lt;span class="lnt">89
+&lt;/span>&lt;span class="lnt">90
+&lt;/span>&lt;span class="lnt">91
+&lt;/span>&lt;span class="lnt">92
+&lt;/span>&lt;span class="lnt">93
+&lt;/span>&lt;span class="lnt">94
+&lt;/span>&lt;span class="lnt">95
+&lt;/span>&lt;span class="lnt">96
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="kr">as&lt;/span> &lt;span class="nx">vscode&lt;/span> &lt;span class="kr">from&lt;/span> &lt;span class="s1">&amp;#39;vscode&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">activate&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">context&lt;/span>: &lt;span class="kt">vscode.ExtensionContext&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">input&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">placeHolder&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showInputBox&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">placeHolder&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">function&lt;/span> &lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">num&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">number&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">size&lt;/span>: &lt;span class="kt">number&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">num&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">while&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">num&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">size&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">num&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;0&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">num&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">num&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// show timestamp at vscode Information Window
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">showTimestamp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">datetime&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">timestamp&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kc">undefined&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">NaN&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">timestamp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">datetime&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">getTime&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">timestamp&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s2">&amp;#34;number&amp;#34;&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nb">isNaN&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">timestamp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;NaN&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">askDateTime&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showInformationMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">catch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showErrorMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Invalid Date.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">askDateTime&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// create input with asking DateTime
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">askDateTime() {&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fullDateTime&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;DateTime (format: YYYY-MM-DD hh:mm:ss.ms) (example: 2022-12-31 23:59:59.999)：&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">fullDateTime&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">showTimestamp&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fullDateTime&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Insert timestamp at cursor position
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">commands&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">registerTextEditorCommand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;wconvert.genTimestamp&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">editor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">edit&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fullDateTime&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;DateTime (format: YYYY-MM-DD hh:mm:ss.ms) (example: 2022-12-31 23:59:59.999)：&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nx">fullDateTime&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">timestamp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fullDateTime&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">getTime&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">!&lt;/span>&lt;span class="nb">isNaN&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">timestamp&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="k">typeof&lt;/span> &lt;span class="nx">timestamp&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;number&amp;#34;&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">timestamp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s2">&amp;#34;NaN&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">editor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">edit&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">editBuilder&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">editor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">selections&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">forEach&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">selectionItem&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">editBuilder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">insert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">selectionItem&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">active&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">timestamp&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showErrorMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Datetime convert failed.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">catch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showErrorMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Invalid Date.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// only show generated timestamp
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">generateTimestamp&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">commands&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">registerCommand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;wconvert.genTimestampJustShow&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">askDateTime&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// format timestamp to YYYY-MM-DD HH:mm:ss that selections
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kd">let&lt;/span> &lt;span class="nx">timestamp2DateTime&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">commands&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">registerTextEditorCommand&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;wconvert.timestamp2dateTime&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kr">async&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">editor&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">edit&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">offsetStr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="nx">input&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Time zone (example: +8)：&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">offset&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Number&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">offsetStr&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">editor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">edit&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">editBuilder&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">editor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">selections&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">forEach&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">selectionItem&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">try&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">selection&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">editor&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">selectionItem&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">dateArr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">parseInt&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">selection&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="o">-&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">offset&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">)).&lt;/span>&lt;span class="nx">toISOString&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;T&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">YYYYMMDD&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">hhmmss&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">dateArr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">year&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">month&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">day&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">YYYYMMDD&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;-&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">hour&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">minute&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fullSecond&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">hhmmss&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;:&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">second&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">millionSecondZ&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">fullSecond&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">split&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">millionSecond&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">millionSecondZ&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Z&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kd">let&lt;/span> &lt;span class="nx">fullDateTime&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="sb">`&amp;#34;&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">year&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">-&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">month&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">-&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">day&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">hour&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">minute&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">:&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">second&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">.&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">pad&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">millionSecond&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">&amp;#34;`&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">editBuilder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">selectionItem&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">fullDateTime&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">catch&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">e&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">vscode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nb">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">showErrorMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Invalid Date.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">subscriptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">timestamp2DateTime&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">generateTimestamp&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">deactivate() {&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://github.com/wjdesign/vscode-extension-wconvert.git" target="_blank" rel="noopener"
+>範例 repo&lt;/a>&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="vsce">vsce&lt;/h2>
+&lt;p>打包並發布 Extension，&lt;a class="link" href="https://code.visualstudio.com/api/working-with-extensions/publishing-extension" target="_blank" rel="noopener"
+>官方文件&lt;/a>&lt;/p>
+&lt;p>使用 &lt;strong>vsce&lt;/strong> 來&lt;strong>打包&lt;/strong>與&lt;strong>發布&lt;/strong>我的 Extension&lt;/p>
+&lt;p>首先全局安裝 vsce：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm i -g vsce
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="打包">打包&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vsce package
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下完指令後，會因為沒有 LICENSE 檔案而詢問是否繼續，這邊選擇 &lt;strong>Y&lt;/strong> 直接下一步即可。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516387984_83999b3838_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>完成後會在指定位置產生一個 &lt;strong>.vsix&lt;/strong> 檔案，此即為我的 &lt;strong>Extensions&lt;/strong>。&lt;/p>
+&lt;h3 id="本地安裝我的-extension">本地安裝我的 Extension&lt;/h3>
+&lt;p>若只是要製作一個自己用的 extension，沒有打算發布到網上，到此步驟即可。&lt;/p>
+&lt;p>於 VScode 的 Extensions 頁籤，選擇 &lt;code>Install from VSIX&lt;/code>，選擇剛剛產生的 &lt;strong>.vsix&lt;/strong> 檔，即可完成安裝，在 Extensions 的 &lt;strong>INSTALLED&lt;/strong> 內即可看到自己的 extension。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120346_6d5ba5a634_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668143_944d432b0b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="發布到-marketplace-前的準備">發布到 Marketplace 前的準備&lt;/h2>
+&lt;blockquote>
+&lt;p>記住！每次發佈都要幫版本號加一下！&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="packagejson-2">package.json&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;version&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;0.0.1&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>vsce 要求 &lt;strong>Personal Access Token&lt;/strong> 個人訪問金鑰，以下的步驟圖片來源為&lt;a class="link" href="https://code.visualstudio.com/api/working-with-extensions/publishing-extension#get-a-personal-access-token" target="_blank" rel="noopener"
+>官方說明文件&lt;/a>&lt;/p>
+&lt;p>首先請到 &lt;a class="link" href="https://dev.azure.com/" target="_blank" rel="noopener"
+>https://dev.azure.com/&lt;/a> 申請帳號並登入，在右上角打開 &lt;strong>Personal access tokens&lt;/strong> 頁面。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120321_319034d250_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>點選 &lt;strong>New Token&lt;/strong> 按鈕。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120311_3b05a19de2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>給這個新 Token一個名字、過期時間，重點是 Organization 請選擇 &lt;code>All accessiable organization&lt;/code>，點選 &lt;code>Custom defined&lt;/code> 並點選 &lt;code>Show all scopes&lt;/code> 打開所有選項。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516598710_1a7bbd760b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>找到 &lt;code>Marketplace&lt;/code> 項目勾選 &lt;code>Acquire&lt;/code> 與 &lt;code>Manage&lt;/code> 後點選 &lt;strong>Create&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120281_7c0a59106d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>然後你會得到一個 &lt;strong>Token&lt;/strong> 請複製下來。&lt;/p>
+&lt;h3 id="建立發佈器---publisher">建立發佈器 - Publisher&lt;/h3>
+&lt;p>建立一個 &lt;strong>Publisher&lt;/strong> 用來儲存發佈的 Token ，請在 &lt;code>package.json&lt;/code> 中指定要使用的發佈器&amp;quot;publisher&amp;quot;: (publisher name)&lt;/p>
+&lt;h5 id="packagejson-3">package.json&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;publisher&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;{your publisher name}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="使用-marketplace-後台建立-publisher">使用 Marketplace 後台建立 Publisher&lt;/h4>
+&lt;p>請到 &lt;a class="link" href="https://marketplace.visualstudio.com/manage/publishers/" target="_blank" rel="noopener"
+>https://marketplace.visualstudio.com/manage/publishers/&lt;/a> 建立一個 Publisher。&lt;/p>
+&lt;h4 id="使用-vsce-指令建立-publisher">使用 vsce 指令建立 Publisher&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vsce create-publisher &lt;span class="o">(&lt;/span>publisher name&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>輸入剛剛的 &lt;strong>Personal access token&lt;/strong>，vsce 將會記得這個 publisher 與 token 以方便快速發佈。&lt;/p>
+&lt;h4 id="token-更新">Token 更新&lt;/h4>
+&lt;p>在我們建立 token 時，token 是有效期的，當 token 過期時我們就需要以下這個指來更新 token：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vsce login &lt;span class="o">(&lt;/span>publisher name&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="發布方式一使用-vsce-發布-extension">發布方式(一)：使用 vsce 發布 extension&lt;/h3>
+&lt;p>下指令發布到 Marketplace：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vsce publish
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用 vsce show 確認 extension 的資訊：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># vsce show {publisher name}.{extension id}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">vsce show 4006wayne.wconvert
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516598715_eb7f3669d6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>也可以在 vsce publish 時&lt;strong>直接指定&lt;/strong> token：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">vsce publish -p &amp;lt;token&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="發布方式二使用-marketplace-後台上傳發布-extension">發布方式(二)：使用 Marketplace 後台上傳，發布 extension&lt;/h3>
+&lt;p>前往網址 &lt;a class="link" href="https://marketplace.visualstudio.com/manage/publishers/" target="_blank" rel="noopener"
+>https://marketplace.visualstudio.com/manage/publishers/&lt;/a>，選擇剛剛創建的 Publisher。&lt;/p>
+&lt;p>點選 &lt;code>New extension&lt;/code> &amp;gt; &lt;code>Visual Studio Code&lt;/code>，選擇剛剛 package 出來的 &lt;strong>.vsix&lt;/strong> 檔案後上傳。&lt;/p>
+&lt;p>上傳後等待驗證，驗證完畢後即可看到我的 extension：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120256_c2c653269d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="結語">結語&lt;/h2>
+&lt;p>到這裡我已經成功發佈我的第一個 Extension 了！&lt;/p>
+&lt;p>這是我寫的第一個 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=4006wayne.wconvert" target="_blank" rel="noopener"
+>Extension&lt;/a>，功能很陽春，用途是產生指定時間的時間戳與時間戳轉回指定時區的時間格式。&lt;/p>
+&lt;p>非常推薦使用 &lt;strong>Typescript&lt;/strong> 會比較容易開發，不然要查&lt;a class="link" href="https://code.visualstudio.com/api/references/vscode-api" target="_blank" rel="noopener"
+>官方API&lt;/a>會看得很痛苦，畢竟範例不多或者都要下載才能看。&lt;/p>
+&lt;p>實際撰寫時會遇到 VScode API 到底有哪些功能可以使用的問題，甚至要去了解 VScode 的設計結構！&lt;/p>
+&lt;hr>
+&lt;h2 id="常見問題">常見問題&lt;/h2>
+&lt;h3 id="extension-validation-error">Extension validation error&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52515645457_6ccdbc151e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>出現如圖的問題，自行排查 extension 程式碼後發現非程式碼邏輯的問題，可以上 &lt;a class="link" href="https://github.com/microsoft/vsmarketplace/issues" target="_blank" rel="noopener"
+>issues&lt;/a> 將資訊反應給 vsmarketplace，此可能為 marketplace 驗證 extension 時偵測到特定字元組合而阻擋掉，會專人協助處理。&lt;/p>
+&lt;p>附上本人遇到此問題的 &lt;a class="link" href="https://github.com/microsoft/vsmarketplace/issues/522" target="_blank" rel="noopener"
+>Issues&lt;/a>&lt;/p>
+&lt;hr></description></item><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

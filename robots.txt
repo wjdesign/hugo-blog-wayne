@@ -2,6 +2,26 @@ User-agent: *
 
 Allow: /categories/
 
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
+Allow: /tags/vscode/
+
+Allow: /categories/vscode/
+
+Allow: /
+
+Allow: /2022-11-22/create-own-vscode-extension/
+
 Allow: /tags/css/
 
 Allow: /categories/css/
@@ -10,19 +30,9 @@ Allow: /tags/html/
 
 Allow: /categories/html/
 
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
-
 Allow: /2022-11-21/pure-css-toggle-menu-icon/
 
 Allow: /2022-11-21/prevent-invalid-favicon/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /2022-11-15/localforage-and-idb-keyval/
 
@@ -61,10 +71,6 @@ Allow: /2022-11-10/vue-2to3-global-component/
 Allow: /2022-11-09/js-call-apply-bind/
 
 Allow: /2022-11-03/js-8-console-tricks/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
 
 Allow: /2022-10-28/ts-useful-tricks/
 
