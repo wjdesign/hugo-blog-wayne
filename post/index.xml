@@ -1,4 +1,365 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 22 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 28 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！</title><link>https://wayneblog.ga/2022-11-28/ts-string-type-vs-class/</link><pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-28/ts-string-type-vs-class/</guid><description>&lt;img src="https://res.cloudinary.com/practicaldev/image/fetch/s--4XjlfGX1--/c_imagga_scale,f_auto,fl_progressive,h_900,q_auto,w_1600/https://dev-to-uploads.s3.amazonaws.com/i/cldfn4vtf8hxuj8ecigs.png" alt="Featured image of post TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.geeksforgeeks.org/what-is-the-difference-between-string-and-string-in-typescript/?ref=lbp" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.geeksforgeeks.org/variables-datatypes-javascript/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.tutorialspoint.com/typescript/typescript_strings.htm" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.gushiciku.cn/pl/aSb4/zh-tw" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="背景">背景&lt;/h2>
+&lt;p>與 JavaScript 語言不同的是，TypeScript 使用的是&lt;strong>靜態型別&lt;/strong>(&lt;strong>強型別&lt;/strong>)，比如說它指定了變數可以儲存的資料型別。&lt;/p>
+&lt;p>如下圖所示，如果在 JS 中，指定變數可以儲存的資料型別，會報錯：“&lt;strong>型別註釋只可以在TS檔案中被使用&lt;/strong>”：&lt;/p>
+&lt;p>&lt;img src="https://wayneblog.ga/"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>TypeScript 是 JavaScript 的超集(superset)，TypeScript 需要編譯(語法轉換)生成 JavaScript 才能被瀏覽器執行，它也區分了 string 和 String 這兩個資料型別。通常來說，string 表示原生型別，而 String 表示物件。&lt;/p>
+&lt;hr>
+&lt;h2 id="原生-string">原生 string&lt;/h2>
+&lt;p>JavaScript 在 ES6 標準裡支援&lt;code>6種&lt;/code>原生型別，&lt;code>string&lt;/code> 是其中之一。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testVar1&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">19&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testVar2&lt;/span>: &lt;span class="kt">boolean&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testVar3&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;Hi Wayne!&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testVar4&lt;/span>: &lt;span class="kt">null&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testVar5&lt;/span>: &lt;span class="kt">undefined&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">undefined&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">testVar6&lt;/span>: &lt;span class="kt">object&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Wayne Cloud!&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>原生的 string 是&lt;strong>不包含屬性&lt;/strong>的值(即沒有properties)，包括字面上沒有定義型別、字面上定義了 string、字面上定義了 String和一些從 string 函式呼叫返回的 strings 也都可以被歸為原生型別：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg1&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello world!&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg2&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello world!&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg22&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">returnStr&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上三個變數的型別(&lt;code>typeof()&lt;/code>)是 &lt;code>string&lt;/code>。&lt;/p>
+&lt;hr>
+&lt;h2 id="物件-string">物件 String&lt;/h2>
+&lt;p>物件是不同屬性的累積，一個物件可以呼叫許多相應的方法。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg3&lt;/span>: &lt;span class="kt">String&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello world!&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這個變數 msg3 的型別就是 &lt;code>object&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg3&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// object
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>String&lt;/code> 物件支援的方法：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>No.&lt;/th>
+&lt;th>Method&lt;/th>
+&lt;th>Description&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/charAt" target="_blank" rel="noopener"
+>charAt()&lt;/a>&lt;/td>
+&lt;td>charAt() 方法從一個字符串中返回指定的字符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/charCodeAt" target="_blank" rel="noopener"
+>charCodeAt()&lt;/a>&lt;/td>
+&lt;td>charCodeAt() 方法返回 0 到 65535 之間的整數，表示給定索引處的 UTF-16 代碼單元&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/concat" target="_blank" rel="noopener"
+>concat()&lt;/a>&lt;/td>
+&lt;td>concat() 方法將一個或多個字符串與原字符串連接合併，形成一個新的字符串並返回&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>4.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/indexOf" target="_blank" rel="noopener"
+>indexOf()&lt;/a>&lt;/td>
+&lt;td>indexOf() 方法，給定一個參數：要搜索的子字符串，搜索整個調用字符串，並返回指定子字符串第一次出現的索引。給定第二個參數：一個數字，該方法將返回指定子字符串在大於或等於指定數字的索引處的第一次出現&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>5.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/lastIndexOf" target="_blank" rel="noopener"
+>lastIndexOf()&lt;/a>&lt;/td>
+&lt;td>lastIndexOf() 方法返回調用 String 對象的指定值最後一次出現的索引，在一個字符串中的指定位置 fromIndex 處從後向前搜索。如果沒找到這個特定值則返回 -1。&lt;br/>&lt;br/>該方法將從尾到頭地檢索字符串 str，看它是否含有子串 searchValue。開始檢索的位置在字符串的 fromIndex 處或字符串的結尾(沒有指定 fromIndex 時)。如果找到一個 searchValue，則返回 searchValue 的第一個字符在 str 中的位置。 str 中的字符位置是從 0 開始的&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>6.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare" target="_blank" rel="noopener"
+>localeCompare()&lt;/a>&lt;/td>
+&lt;td>localeCompare() 方法返回一個數字來指示一個參考字符串是否在排序順序前面或之後或與給定字符串相同。&lt;br/>&lt;br/>新的 locales 和 options 參數能讓應用程序定制函數的行為，即指定用來排序的語言。 locales 和 options 參數完全取決於實現，在舊的實現中忽略這兩個參數&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>7.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match" target="_blank" rel="noopener"
+>match()&lt;/a>&lt;/td>
+&lt;td>match() 方法檢索返回一個字符串匹配正則表達式的結果&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>8.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace" target="_blank" rel="noopener"
+>replace()&lt;/a>&lt;/td>
+&lt;td>replace() 方法返回一個由替換值(replacement)替換部分或所有的模式(pattern)匹配項後的新字符串。模式可以是一個字符串或者一個&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp" target="_blank" rel="noopener"
+>正則表達式&lt;/a>，替換值可以是一個字符串或者一個每次匹配都要調用的回調函數。如果 pattern 是字符串，則僅替換第一個匹配項&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>9.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search" target="_blank" rel="noopener"
+>search()&lt;/a>&lt;/td>
+&lt;td>search() 方法執行正則表達式和 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="noopener"
+>String&lt;/a> 對象之間的一個搜索匹配&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>10.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/slice" target="_blank" rel="noopener"
+>slice()&lt;/a>&lt;/td>
+&lt;td>slice() 方法提取某個字符串的一部分，並返回一個新的字符串，且不會改動原字符串&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>11.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="noopener"
+>split()&lt;/a>&lt;/td>
+&lt;td>split() 方法使用指定的分隔符字符串將一個 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="noopener"
+>String&lt;/a> 對象分割成子字符串數組，以一個指定的分割字串來決定每個拆分的位置&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>12.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/substr" target="_blank" rel="noopener"
+>substr()&lt;/a>&lt;/td>
+&lt;td>substr() 方法返回一個字符串中從指定位置開始到指定字符數的字符&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>13.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/substring" target="_blank" rel="noopener"
+>substring()&lt;/a>&lt;/td>
+&lt;td>substring() 方法返回一個字符串在開始索引到結束索引之間的一個子集，或從開始索引直到字符串的末尾的一個子集&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>14.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleLowerCase" target="_blank" rel="noopener"
+>toLocaleLowerCase()&lt;/a>&lt;/td>
+&lt;td>toLocaleLowerCase() 方法根據任何指定區域語言環境設置的大小寫映射，返回調用字符串被轉換為小寫的格式&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>15.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/toLocaleUpperCase" target="_blank" rel="noopener"
+>toLocaleUpperCase()&lt;/a>&lt;/td>
+&lt;td>toLocaleUpperCase() 方法根據本地主機語言環境把字符串轉換為大寫格式，並返迴轉換後的字符串&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>16.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/toLowerCase" target="_blank" rel="noopener"
+>toLowerCase()&lt;/a>&lt;/td>
+&lt;td>toLowerCase() 會將調用該方法的字符串值轉為小寫形式，並返回&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>17.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/toString" target="_blank" rel="noopener"
+>toString()&lt;/a>&lt;/td>
+&lt;td>字符串對象的 toString() 方法返回一個字符串，表示指定的字符串&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>18.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/toUpperCase" target="_blank" rel="noopener"
+>toUpperCase()&lt;/a>&lt;/td>
+&lt;td>toUpperCase() 方法將調用該方法的字符串轉為大寫形式並返回(如果調用該方法的值不是字符串類型會被強制轉換)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>19.&lt;/td>
+&lt;td>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/valueOf" target="_blank" rel="noopener"
+>valueOf()&lt;/a>&lt;/td>
+&lt;td>valueOf() 方法返回 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String" target="_blank" rel="noopener"
+>String&lt;/a> 對象的原始值&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr>
+&lt;h2 id="程式碼對比">程式碼對比&lt;/h2>
+&lt;p>我們對下面4個變數進行型別的探索與比較：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;Hello world!&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg2&lt;/span>: &lt;span class="kt">String&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;Hello world!&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg22&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;Hello world!&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 字面上沒有定義型別
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">msg3&lt;/span>: &lt;span class="kt">String&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Hello world!&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// string
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg2&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// string
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg22&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// string
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg3&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// object
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">msg2&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">msg3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">msg2&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">msg3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="為什麼需要-string-物件">為什麼需要 String 物件&lt;/h2>
+&lt;p>首先，當我們使用關鍵字 &lt;code>new&lt;/code> 新建一個 &lt;code>String&lt;/code> 物件的時候，Typescript 會建立一個&lt;strong>新的物件&lt;/strong>；&lt;/p>
+&lt;p>即我們用 &lt;code>new&lt;/code> 新建了兩個 &lt;code>String&lt;/code> 物件，即使內容相同，它們也是指向&lt;code>不同&lt;/code>的記憶體。&lt;/p>
+&lt;p>舉下面兩個例子：&lt;/p>
+&lt;ol>
+&lt;li>當用 a1、b1 代表相同值的兩個變數的時候，它們是相同的；而當用 &lt;strong>new&lt;/strong> 新建兩個物件的時候，即使值相同，它們也是不同的：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">a1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">b2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a1&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">b1&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">a2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">b2&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a2&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">b2&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>&lt;strong>eval()&lt;/strong> 函式的作用：用來計算表示式的值。如果我們把 &lt;strong>eval()&lt;/strong> 直接賦給 string，而 string 裡面是計算式的字串，那麼它會返回計算後的值；而如果我們把 &lt;strong>eval()&lt;/strong> 賦給 String，因為它&lt;strong>不是&lt;/strong>原生型別，它只會返回 &lt;strong>String&lt;/strong> 這個物件：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">a3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;3 * 9&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a3&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// 27
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">b3&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;8 + 20&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b3&lt;/span>&lt;span class="p">));&lt;/span> &lt;span class="c1">// Warning：Argument of type &amp;#39;String&amp;#39; is not assignable to parameter of type &amp;#39;string&amp;#39;. &amp;#39;string&amp;#39; is a primitive, but &amp;#39;String&amp;#39; is a wrapper object. Prefer using &amp;#39;string&amp;#39; when possible.ts(2345)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nb">eval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b3&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toSTring&lt;/span>&lt;span class="p">()));&lt;/span> &lt;span class="c1">// 28
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>其次，因為 String 物件&lt;strong>可以有屬性&lt;/strong>。我們可以用 String 物件在屬性裡保留一個額外的值。即使這個用法並不常見，但是仍然是 TS 的一個特性：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">prim&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;hello Wayne&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">obj&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hello Wayne Cloud&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">prim&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">property&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;PaaS&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Invalid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">obj&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">property&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;PaaS&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Valid
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">obj&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">property&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 輸出為 PaaS
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="兩者區別總結">兩者區別總結&lt;/h2>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>string 原生型別&lt;/th>
+&lt;th>String 物件&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>廣泛被使用&lt;/td>
+&lt;td>幾乎很少被使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>只會保留值&lt;/td>
+&lt;td>有能力除了值之外，還可以保留屬性&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>值是不可變的，因此執行緒安全&lt;/td>
+&lt;td>String物件是可變的&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>沒有任何方法&lt;/td>
+&lt;td>String物件有各種方法&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>不能建立兩個獨立的字面上值相同的 string&lt;/td>
+&lt;td>可以用 &lt;strong>new&lt;/strong> 建立兩個物件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>是原生的資料型別&lt;/td>
+&lt;td>包裝原生資料型別來建立一個物件&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>傳遞的值是原生資料本身的拷貝&lt;/td>
+&lt;td>傳遞的值是實際資料的引用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>當使用 eval() 函式時，將&lt;strong>直接作為原始碼&lt;/strong>進行處理&lt;/td>
+&lt;td>當使用 eval() 函式時，將被&lt;strong>轉換為字串&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;hr></description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2067,10 +2428,10 @@ padding: 0 5px;
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">Microsoft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">2.1.2&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="nx">或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="err">或&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">Microsoft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">1.1.4&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="nx">或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="err">或&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">4.8.5&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
@@ -20548,10 +20909,10 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### Google&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 8.8.8.8
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: 位元組&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> 時間&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: 位元組&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> 時間&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: 位元組&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> 時間&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: 位元組&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> 時間&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">時間: 若連續超過100ms，代表網路有問題
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TTL: Time to live
