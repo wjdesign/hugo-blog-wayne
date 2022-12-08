@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Google Cloud Platform on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/gcp/</link><description>Recent content in Google Cloud Platform on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 08 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/gcp/index.xml" rel="self" type="application/rss+xml"/><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://wayneblog.ga/2022-12-08/use-google-sheet-as-db/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://wjdesign.github.io/google-sheet-db/dist/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>Google 試算表名稱是 Google Sheets，但為了讓大家好理解，以下也會稱 Google Excel。&lt;/p>
+&lt;p>這一篇說明如何把 Google Excel 當作資料庫，並實作出一個簡單的會員列表頁出來。&lt;/p>
+&lt;hr>
+&lt;h2 id="建立-google-excel">建立 Google Excel&lt;/h2>
+&lt;p>在 Google Drive 上，按&lt;strong>新增&lt;/strong>，選擇「&lt;strong>Google 試算表&lt;/strong>」，就會進到一張新的 Google Excel。&lt;/p>
+&lt;p>這邊設定的假資料欄位，總共有以下 5 個：&lt;/p>
+&lt;ul>
+&lt;li>id：流水號&lt;/li>
+&lt;li>name：姓名&lt;/li>
+&lt;li>image：圖片&lt;/li>
+&lt;li>email：信箱&lt;/li>
+&lt;li>phone：電話&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>要注意，欄位名稱的部份要用英文，在下面接資料那段會解釋原因。&lt;/strong>&lt;/p>
+&lt;p>Demo 的資料如下：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332746_69623d6a40_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="發佈-google-excel-到網路">發佈 Google Excel 到網路&lt;/h2>
+&lt;p>這步最簡單也最重要，只有選擇&lt;strong>發佈到網路&lt;/strong>上的 Google Excel，才能 GET 到資料。&lt;/p>
+&lt;p>首先，點擊左上角的「檔案」&amp;gt;「共用」，會看到展開的選項裡有「發佈到網路」：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52549877517_7035af1b3b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>點擊後，會出現詢問框，問說發佈的範圍：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804960_d56c660192_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>這篇 Demo 因為只有一張表，所以直接用「&lt;strong>整份文件&lt;/strong>」，如果是有很多張表，但限制其中幾張是可以抓的，就選擇可以公開的表即可。&lt;/p>
+&lt;p>按下「&lt;strong>發佈&lt;/strong>」後，就會看見結果的詢問框：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550627694_39f3048c41_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>就可以按下叉叉關掉這框了。&lt;/p>
+&lt;p>接著記得將表單的「檢視」權限開放給知道連結的任何人，以免後面步驟因權限不足而被阻擋。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876658_a2a7571895_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="取得-google-api-key">取得 Google API Key&lt;/h2>
+&lt;h3 id="1-gcp-新增新專案">1. GCP 新增新專案&lt;/h3>
+&lt;p>&lt;strong>沒有專案的才需要這步&lt;/strong>，進到 &lt;a class="link" href="https://console.cloud.google.com/?hl=zh-TW" target="_blank" rel="noopener"
+>Google Cloud Platform&lt;/a> 的頁面按下新增專案，取好專案名稱後即可新增。&lt;/p>
+&lt;h3 id="2-開通-google-sheets-api-功能">2. 開通 Google Sheets API 功能&lt;/h3>
+&lt;p>有了 GCP 的專案後，進到 API 程式庫：&lt;a class="link" href="https://console.cloud.google.com/apis/library?hl=zh-TW" target="_blank" rel="noopener"
+>https://console.cloud.google.com/apis/library?hl=zh-TW&lt;/a>&lt;/p>
+&lt;p>搜尋欄中搜尋「&lt;strong>sheet&lt;/strong>」，會看到一項「&lt;strong>Google Sheets API&lt;/strong>」：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804915_a8e928380e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>點擊後按下「啟用」，專案就會開通 &lt;strong>Google Sheets API&lt;/strong> 的功能：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332711_79a2bbc937_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>啟用完成，頁面會回到 GCP 的頁面，可以看到上面一條訊息提醒要有憑證才能使用 API：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804875_033c1b47e2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>直接點擊「&lt;strong>建立憑證&lt;/strong>」，或是打開網址：&lt;a class="link" href="https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW" target="_blank" rel="noopener"
+>https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW&lt;/a>&lt;/p>
+&lt;h3 id="3-建立憑證">3. 建立憑證&lt;/h3>
+&lt;p>建立憑證的第一步要先做一些選擇：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876703_969c87a5d9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>「&lt;strong>選取 API&lt;/strong>」，選擇「&lt;strong>Google Sheets API&lt;/strong>」。&lt;/p>
+&lt;p>「您需要存取什麼資料？」，這段看了 &lt;a class="link" href="https://cloud.google.com/docs/authentication?hl=zh-TW" target="_blank" rel="noopener"
+>說明文件&lt;/a> 也看不太懂使用的情境，選擇「&lt;strong>應用程式資料&lt;/strong>」就可以。&lt;/p>
+&lt;p>「您打算將這個 API 與 Compute Engine、Kubernetes Engine、App Engine 或 Cloud Functions 搭配使用嗎？」，本篇只是為了要能夠取得 Google Sheets 中的資料，並不會用到上述的功能，選擇「&lt;strong>不，我不會使用任何一項憑證&lt;/strong>」。&lt;/p>
+&lt;p>接著按「&lt;strong>下一步&lt;/strong>」。&lt;/p>
+&lt;p>下一步是填寫我們建立這個帳戶的資料，填寫成我們之後回頭來看時，看得懂要做什麼的資訊就可以：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52549877427_00813119ce_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>填寫完後按下「&lt;strong>建立並繼續&lt;/strong>」。&lt;/p>
+&lt;p>後面二項是選填，不用設定也沒關係，按下「&lt;strong>完成&lt;/strong>」。&lt;/p>
+&lt;h3 id="4-建立-api-金鑰">4. 建立 API 金鑰&lt;/h3>
+&lt;p>上一步完成後，頁面會回到 &lt;a class="link" href="https://console.cloud.google.com/apis/credentials?hl=zh-TW" target="_blank" rel="noopener"
+>憑證的頁面&lt;/a>，點擊上方的「&lt;strong>建立憑證&lt;/strong>」，選擇「&lt;strong>API 金鑰&lt;/strong>」：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876678_2e409c343b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>幾秒後，就會看見跳出一個小視窗，上面寫了「&lt;strong>您的 API 金鑰&lt;/strong>」，這個金鑰也就是我們要取 Google Sheets 時後面要附上的：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876663_965c0731fb_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>視窗上面也提醒了，為了怕金鑰被外人拿到也可以用，我們必須要對這組金鑰加上限制，點擊「&lt;strong>限制金鑰&lt;/strong>」就會進入設定的頁面。&lt;/p>
+&lt;p>建議&lt;strong>一定要設定限制&lt;/strong>，本篇的 Demo 有限制只有在 Demo 頁下才有效，而且也只能用 &lt;strong>Google Sheets API&lt;/strong> 的功能。&lt;/p>
+&lt;p>有了 API 金鑰，接著就是用新的 URL 去執行 GET。&lt;/p>
+&lt;h3 id="google-sheets-url">Google Sheets URL&lt;/h3>
+&lt;p>V4 版的 URL 規則如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://sheets.googleapis.com/v4/spreadsheets/&lt;span class="o">{&lt;/span>表單id&lt;span class="o">}&lt;/span>/values/&lt;span class="o">{&lt;/span>sheet名稱&lt;span class="o">}&lt;/span>?alt&lt;span class="o">=&lt;/span>json&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">key&lt;/span>&lt;span class="o">={&lt;/span>API金鑰&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>{表單id}：表單的網址上就可以看到。&lt;/li>
+&lt;li>{sheet名稱}：就是每一張試算表的名稱，預設會是叫「工作表1」，這邊有測試過，有支援中文。&lt;/li>
+&lt;li>{API金鑰}：就是上一段我們從 GCP 上取得的金鑰。&lt;/li>
+&lt;/ul>
+&lt;p>我們用一個簡單的 &lt;strong>fetch&lt;/strong> 來取：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fetch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://sheets.googleapis.com/v4/spreadsheets/1-vTT5LVlscvExPjqJHrhmlO2ZMM-93McoP-yXT8gyOU/values/工作表1?alt=json&amp;amp;key=AIzaSyAVlwHA4EQx7AWjK1QsT87shL37vhKWrl4&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">res&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>Console&lt;/strong> 上會看到回來的資料如下：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332606_d61bfd7d60_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>回來資料的格式，所有資料都收在 &lt;strong>values&lt;/strong> 裡，Google Sheets 上的每一列會成為一個一個的陣列。&lt;/p>
+&lt;hr>
+&lt;h2 id="相關連結">相關連結&lt;/h2>
+&lt;p>附上本篇的相關連結：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://wjdesign.github.io/google-sheet-db/dist/" target="_blank" rel="noopener"
+>網站成果&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://docs.google.com/spreadsheets/d/1LX8B-H-g9qzetX6YOq_GbrXP-NIui81fV9fovUKykT8/edit?usp=sharing" target="_blank" rel="noopener"
+>Google Sheet&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/wjdesign/google-sheet-db" target="_blank" rel="noopener"
+>網站原始碼 Github 空間&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr></description></item></channel></rss>

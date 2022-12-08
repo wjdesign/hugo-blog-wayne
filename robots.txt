@@ -2,17 +2,23 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /tags/javascript/
+Allow: /tags/gcp/
 
-Allow: /categories/javascript/
-
-Allow: /2022-12-05/js-13-useful-array-tricks/
+Allow: /categories/gcp/
 
 Allow: /post/
 
 Allow: /tags/
 
 Allow: /
+
+Allow: /2022-12-08/use-google-sheet-as-db/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /2022-12-05/js-13-useful-array-tricks/
 
 Allow: /2022-12-05/js-7-killer-one-liners/
 
