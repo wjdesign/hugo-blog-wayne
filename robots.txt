@@ -2,15 +2,25 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /tags/gcp/
+Allow: /tags/nodejs/
 
-Allow: /categories/gcp/
+Allow: /categories/nodejs/
+
+Allow: /tags/open-ai/
+
+Allow: /categories/open-ai/
 
 Allow: /post/
 
 Allow: /tags/
 
 Allow: /
+
+Allow: /2022-12-12/nodejs-create-openai-line-bot/
+
+Allow: /tags/gcp/
+
+Allow: /categories/gcp/
 
 Allow: /2022-12-08/use-google-sheet-as-db/
 
@@ -51,10 +61,6 @@ Allow: /2022-11-15/localforage-and-idb-keyval/
 Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
-
-Allow: /tags/nodejs/
-
-Allow: /categories/nodejs/
 
 Allow: /2022-11-14/try-runkit/
 

@@ -1,4 +1,792 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 08 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://wayneblog.ga/2022-12-08/use-google-sheet-as-db/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/</link><description>Recent content on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/index.xml" rel="self" type="application/rss+xml"/><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://github.com/memochou1993/gpt-ai-assistant" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://israynotarray.com/nodejs/20221210/1224824056/index.html?fbclid=IwAR0xwdgH8sRttZK93s3fMgl06EX0F4jkxhunL-oe8RArR7ISHQpTuWk-7ZE" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>最近 OpenAI 的 ChatGPT 非常的火紅，剛好這個 ChatGPT 是有提供 API 可以串接的，也非常適合整合到 Line Bot 上，所以這一篇我就來介紹如何使用 Node.js 基於 OpenAI 的 ChatGPT API 來建立一個 Line 聊天機器人吧！&lt;/p>
+&lt;hr>
+&lt;h2 id="申請-openai-api">申請 OpenAI API&lt;/h2>
+&lt;p>首先，請你先進入 &lt;a class="link" href="https://openai.com/api/" target="_blank" rel="noopener"
+>OpenAI&lt;/a> 的網站&lt;a class="link" href="https://chat.openai.com/auth/login" target="_blank" rel="noopener"
+>註冊會員&lt;/a>，這邊你可以選擇第三方服務帳號(如：Google、Microsoft)或是 Email 帳號註冊。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365346_3bab9dd289_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>註冊完後，你就可以開始申請 API 了！&lt;/p>
+&lt;p>如果你本身有帳號的話，那就直接登入 OpenAI 吧。&lt;/p>
+&lt;p>登入後，你應該會看到這個畫面&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908488_a90d01d093_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著找到你的頭像點它，找到「&lt;strong>View API keys&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365326_f3562c9ffc_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>找到後你會看到「&lt;strong>API keys&lt;/strong>」的申請畫面，點一下下方的「&lt;strong>Create New Secret key&lt;/strong>」，這樣你就拿到串接 OpenAI 的 key，請先把它記下來，後面會用到。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908443_8cde78fd78_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>API key generated 是非常重要的，因此請不要隨意提供給他人，以免造成不必要的損失。&lt;/p>
+&lt;/blockquote>
+&lt;p>那麼我們申請這個是 API Key 要幹嘛呢？主要是稍後後面會串接 OpenAI 所提供的 API 來使用 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT&lt;/a>，如果你還不知道什麼是 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT&lt;/a> 的話，你可以試著玩一下 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT&lt;/a>，簡單來講 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT&lt;/a> 是一個非常聰明且厲害的聊天機器人，它可以做到的事情非常多，例如像是&amp;hellip;&lt;/p>
+&lt;ul>
+&lt;li>請它規劃日本旅遊行程&lt;/li>
+&lt;li>寫一篇行銷文案&lt;/li>
+&lt;li>幫忙找出程式碼錯誤&lt;/li>
+&lt;li>程式碼解題&lt;/li>
+&lt;/ul>
+&lt;p>&amp;hellip;等等，非常多&lt;/p>
+&lt;p>因此我們申請這個 API Key 就是用來串接 &lt;a class="link" href="https://chat.openai.com/chat" target="_blank" rel="noopener"
+>ChatGPT&lt;/a> 的！&lt;/p>
+&lt;blockquote>
+&lt;p>OpenAI 本身有提供免費的額度，三個月 18 美金，除此之外，OpenAI 的計算方式會因你使用的 &lt;code>model&lt;/code> 不同而有不同的計算方式，例如像是「Davinci」的計算方式是 $0.0200(美金) / 1K tokens，如果你想要了解更多的話，可以參考&lt;a class="link" href="https://beta.openai.com/pricing" target="_blank" rel="noopener"
+>這邊&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>&lt;strong>額外補充&lt;/strong>&lt;br>
+什麼是 tokens？&lt;br>
+tokens 是指你輸入的字數，例如：「我想要去日本旅遊」，這句話有 8 個字，因此 tokens 就是 8。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="申請-line-developer">申請 Line Developer&lt;/h2>
+&lt;p>接下來我們要來申請 Line Developer 帳號，你可以透過這個連結快速進入 &lt;a class="link" href="https://developers.line.biz/zh-hant/" target="_blank" rel="noopener"
+>Line Developer&lt;/a> 網站，登入方式，基本上就是使用 LINE 帳號登入。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911567_07129f72be_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>登入後，你可以透過&lt;a class="link" href="https://developers.line.biz/console/" target="_blank" rel="noopener"
+>這個連結&lt;/a>，進入 LINE 的開發者後台。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911572_18cd35a732_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著，你會看到畫面上什麼都沒有，所以這邊你要點一下中間的「&lt;strong>Create a new provider&lt;/strong>」，這個類似於一個公司帳號的概念，底下會有許多的專案，所以你可以把它想像成一個公司，而這個公司底下有許多的專案，例如：Line Bot、Line MUSIC 等等之類你的服務。&lt;/p>
+&lt;p>這邊的話，範例我們就叫做「&lt;strong>Wayne&amp;rsquo;s OpenAI Bot&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660294_c3a9dd40f0_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>建立的過程是非常快的，因此當你點下「&lt;strong>Create&lt;/strong>」 之後，你就可以馬上看到 Wayne&amp;rsquo;s OpenAI Bot 的畫面。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365301_94bda877c0_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著，點一下畫面上的 「&lt;strong>Create a Messaging API channel&lt;/strong>」，因為我們要來申請一個聊天機器人，所以我們要使用「&lt;strong>Messaging API&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365296_cfd8c1caab_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>進入「&lt;strong>Create a Messaging API channel&lt;/strong>」後，會有一些欄位要填寫：&lt;/p>
+&lt;ul>
+&lt;li>Channel type：
+&lt;ul>
+&lt;li>保持預設 Messages API。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Provider：
+&lt;ul>
+&lt;li>保持預設 「Wayne&amp;rsquo;s OpenAI Bot」 即可。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Company or owner’s country or region：
+&lt;ul>
+&lt;li>依據你的公司所在地選擇，這邊我選擇台灣。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Channel icon：
+&lt;ul>
+&lt;li>你可以之後再上傳，所以這邊先不用管。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Channel name：
+&lt;ul>
+&lt;li>這邊我們就叫「Wayne&amp;rsquo;s AI」吧。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Channel description：
+&lt;ul>
+&lt;li>你可以簡單描述一下，這個聊天機器人的功能，例如：「用於串接 OpenAI 的偉恩 Line 機器人」。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Category：
+&lt;ul>
+&lt;li>就選擇…「其他媒體」。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Subcategory：
+&lt;ul>
+&lt;li>接著一樣選「媒體（其他）」。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Email address：
+&lt;ul>
+&lt;li>這是當你的聊天機器人有問題時，信箱聯絡你的方式。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>Privacy policy URL 與 Terms of use URL：
+&lt;ul>
+&lt;li>這兩個就不用理它，因為我們目前用不到。。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>最後再打勾兩個條管，你就可以點下「&lt;strong>Create&lt;/strong>」建立你的聊天機器人了。&lt;/p>
+&lt;blockquote>
+&lt;p>由於這個頁面圖片太大張了，所以就不額外截圖。&lt;/p>
+&lt;/blockquote>
+&lt;p>當你按下「&lt;strong>Create&lt;/strong>」之後，它會出現一個視窗，主要是告知你一些資訊，所以你可以按下 &lt;strong>OK&lt;/strong> 關閉它。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911522_829d6787b7_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>到目前為止，我們只是申請好了一個 Line Bot，接著要來取得一些資訊，首先在「&lt;strong>Base settings&lt;/strong>」中找到以下資訊並複製起來。&lt;/p>
+&lt;ul>
+&lt;li>Channel ID&lt;/li>
+&lt;li>Channel secret&lt;/li>
+&lt;/ul>
+&lt;p>接著切換到「&lt;strong>Messaging API&lt;/strong>」，找到「&lt;strong>Channel access token&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837680_f313e45856_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著按下 「&lt;strong>issue&lt;/strong>」，你會取得一串很長的 Token，請複製起來，後面我們會使用到。&lt;/p>
+&lt;p>到目前為止，我們已經準備好了 Line Bot 的申請以及 OpenAI API 的申請，接下來就是準備進入撰寫程式碼的部分囉。&lt;/p>
+&lt;hr>
+&lt;h2 id="建立一個專案">建立一個專案&lt;/h2>
+&lt;p>建立專案方式我就不多述了，相信大家應該都很熟悉怎麼建立專案以及安裝 Node.js，而這邊我稍微會有一點特別，我會使用 &lt;code>pnpm&lt;/code> 來建立，如果你真的完全沒想法，你可以參考我以下指令來建立一個專案，當然你也可以使用 &lt;code>npm&lt;/code> 或是 &lt;code>yarn&lt;/code> 來建立。&lt;/p>
+&lt;blockquote>
+&lt;p>提示：以下指令適用於 Mac 系統，若為 Mac 建議額外 Google 一下指令。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 若尚未安裝pnpm，可使用此指令先進行安裝&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># npm install -g pnpm&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 建立一個資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mkdir line-bot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 進入資料夾&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">cd&lt;/span> line-bot
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 初始化專案&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pnpm init
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>基本上到這邊就算是初始化好一個專案了，接著就是準備要來安裝 Line Bot 的套件了。&lt;/p>
+&lt;h3 id="安裝相關套件">安裝相關套件&lt;/h3>
+&lt;p>接下來我們要安裝 &lt;code>@line/bot-sdk&lt;/code> 這個套件，請在專案終端機下輸入以下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pnpm i @line/bot-sdk express dotenv
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>安裝好之後，你可以先在專案底下建立一個 &lt;code>app.js&lt;/code> 的檔案，稍後我們就會開始撰寫 LINE Bot 的程式碼囉。&lt;/p>
+&lt;h3 id="撰寫-line-bot">撰寫 LINE Bot&lt;/h3>
+&lt;p>前面我們已經準備好了 app.js 檔案，接著就是要撰寫程式碼，不外乎前面就是引入 &lt;code>@line/bot-sdk&lt;/code>、&lt;code>express&lt;/code> 與 &lt;code>dotenv&lt;/code> 這三個套件。&lt;/p>
+&lt;h5 id="appjs">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;dotenv&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">express&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;express&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">line&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;@line/bot-sdk&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>接著呢？其實 Line 官方有提供&lt;a class="link" href="https://github.com/line/line-bot-sdk-nodejs/blob/master/examples/echo-bot/index.js" target="_blank" rel="noopener"
+>範例程式碼&lt;/a>，因此我們是可以直接嘗試挪過來測試看看。&lt;/p>
+&lt;h5 id="appjs-1">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;dotenv&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">line&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;@line/bot-sdk&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">express&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;express&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// create LINE SDK config from env variables
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">config&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">channelAccessToken&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CHANNEL_ACCESS_TOKEN&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">channelSecret&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">CHANNEL_SECRET&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// create LINE SDK client
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">client&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">line&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Client&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// create Express app
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// about Express itself: https://expressjs.com/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">app&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">express&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// register a webhook handler with middleware
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// about the middleware, please refer to doc
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">post&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/callback&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">line&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">middleware&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">config&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">res&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">Promise&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">all&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">req&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">body&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">events&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">handleEvent&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">res&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">result&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="k">catch&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">err&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">res&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">status&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">500&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="nx">end&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// event handler
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">handleEvent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">type&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;message&amp;#39;&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">type&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;text&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ignore non-text-message event
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// create a echoing text message
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">echo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;text&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// use reply API
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replyMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replyToken&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">echo&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// listen on port
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">port&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">PORT&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="mi">3000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">listen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">port&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`listening on &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">port&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>記得在專案底下建立一個 &lt;strong>.env&lt;/strong> 並填寫以下資訊跟 Key。&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-env" data-lang="env">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CHANNEL_ACCESS_TOKEN&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CHANNEL_SECRET&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>理論上來講，你目前專案應該是已經可以輸入 &lt;code>node app.js&lt;/code> 啟動了，所以你可以嘗試啟動看看，如果無法啟動的話，會建議你往前面的步驟再檢查一下。&lt;/p>
+&lt;h3 id="部屬到-render">部屬到 Render&lt;/h3>
+&lt;p>到目前為止我們要先嘗試將專案部署到 &lt;a class="link" href="https://render.com/" target="_blank" rel="noopener"
+>Render&lt;/a> 上面，否則我們並不清楚專案是否可以正常運作，因為在使用 Render 之前，我們需要先建立一個 &lt;a class="link" href="https://render.com/" target="_blank" rel="noopener"
+>Render&lt;/a> 的帳號，如果你還沒有的話，可以先到&lt;a class="link" href="https://render.com/" target="_blank" rel="noopener"
+>這邊&lt;/a>註冊一個帳號。&lt;/p>
+&lt;p>建立好後，會建議你將專案程式碼上傳到 GitHub 上，因為 Render 有提供 GitHub 的整合，這樣可以讓我們更方便的部署專案，而上傳到 GitHub 這流程就不再贅述了，因此我這邊假使你已經完成了將程式碼上傳到 GitHub 這個動作後，接著就是直接進入到 &lt;a class="link" href="https://dashboard.render.com/" target="_blank" rel="noopener"
+>Render 後台&lt;/a>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911492_c4dcdc93df_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>這邊請選擇 「&lt;strong>Web Services&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365266_3aed5a7ce7_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著你可以在這個畫面上選擇專案，如果你發現你的畫面上一個專案都沒有的話，可以點一下旁邊的「&lt;strong>Configure account&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365251_1ce40aac75_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著你可以在這邊選擇專案，懶一點的話你可以乾脆給它全部的權限，因為我們只是要部署一個簡單的專案，所以我就選擇我要的單一專案即可。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660254_17525814ca_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接下來畫面上應該就可以看到你的專案了，接著點選你要部署的專案。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660239_f49bf0cea8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>在這邊點一下「&lt;strong>Connect&lt;/strong>」。&lt;/p>
+&lt;p>這邊會要求你填一些欄位，我就不多說明了，我直接附上我的設定。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908318_5d2c49a02e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著往下滾，就選擇 「&lt;strong>Free&lt;/strong>」專案即可，然後再點一下下方的「&lt;strong>Advanced&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837630_4764ddc2d9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>因為我們要在「&lt;strong>Advanced&lt;/strong>」區塊填入&lt;strong>環境變數&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908308_fa977befa9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著點一下「&lt;strong>Add Environment Variable&lt;/strong>」，依照欄位填入。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911427_82f40e2f3a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>最後其他設定可以不用管，直接點一下最後的「&lt;strong>Create Web Service&lt;/strong>」。&lt;/p>
+&lt;blockquote>
+&lt;p>預設 Render 會去偵測 Commit 紀錄，所以如果有新的 Commit，Render 會自動重新部署，如果你不想要這個功能的話，可以在「&lt;strong>Advanced&lt;/strong>」區塊裡面，將「&lt;strong>Auto Deploy&lt;/strong>」關閉。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911417_f5af4bd94c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>那麼由於為了方便示範，因此我這邊預設會採用「&lt;strong>Yes&lt;/strong>」。&lt;/p>
+&lt;/blockquote>
+&lt;p>接著你就可以看到你的專案正在部署了。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911382_a79f040963_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>這個過程稍微會比較久一點，因為 &lt;strong>Render&lt;/strong> 會將它打包成一個 &lt;strong>Docker Image&lt;/strong>，然後再部署到它的伺服器上，所以這個過程會稍微比較久一點，但是不用擔心，因為它會自動幫你做這些事情，你只要等待它完成即可。&lt;/p>
+&lt;p>部署完畢的話，你可以在畫面看到他提示你專案已經運行起來並且開始部署。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911392_e4426a7937_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>而你的專案的網址，就會在這邊：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908228_6ba7000c14_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>不出意外的話，應該是無法開啟的，因為我們只有做一個 &lt;code>post&lt;/code> 的 API，那麼到這邊我們專案就正式部署出去了，基本上都不用理會它了。&lt;/p>
+&lt;blockquote>
+&lt;p>這邊請記住網址，因為後面我們會在使用到。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="加入-line-bot-好友">加入 Line Bot 好友&lt;/h2>
+&lt;p>接下來我們就要來實際測試一下，我們的 Line Bot 是否可以正常運作，而取得這個 LINE Bot 的 ID 方式就在 Developer Console 的「Messaging API」裡面。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908223_820c27e07b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>加入好友後，你應該就會立刻看到好友歡迎的訊息通知。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911352_e4e4bcfda5_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著你可以試著發送訊息給它，例如「&lt;code>Test&lt;/code>」，但是你會發現它沒有辦法正常回應你。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837550_8dfc4f386e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>因此接下來，我們要做一點調整，讓它可以正常回應你。&lt;/p>
+&lt;h3 id="調整-line-bot">調整 Line Bot&lt;/h3>
+&lt;p>這邊請你回到 Line Bot 的&lt;a class="link" href="https://developers.line.biz/console/" target="_blank" rel="noopener"
+>後台&lt;/a>，點一下「&lt;strong>Messaging API&lt;/strong>」，然後找到「&lt;strong>Webhook settings&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365106_c6856b16e9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著點一下「&lt;strong>Edit&lt;/strong>」，然後將「Webhook URL」填入你的專案網址，例如 &lt;a class="link" href="https://example.com/callback" target="_blank" rel="noopener"
+>https://example.com/callback&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660054_30a4088888_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>callback 是因為我們 Express 專案的路由是 &lt;strong>/callback&lt;/strong>，如果你的路由不是這個的話，請自行修改。&lt;/p>
+&lt;/blockquote>
+&lt;h5 id="appjs-2">app.js&lt;/h5>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837520_8fb6172346_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>按下儲存後，你可以點一下「&lt;strong>Verify&lt;/strong>」，來驗證你的網址是否正確以及專案是否正常，只要能看到「&lt;strong>Success&lt;/strong>」就代表你的網址以及專案是正確的。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837510_952267b7e7_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接著將下方的 「&lt;strong>Use webhook&lt;/strong>」打開。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365056_2dfa7c5ec2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>打開後，你再去試著發送訊息給你的 Line Bot，你就會發現它可以正常回應你了，而且是不論你打什麼，他都會回應你剛剛打的字。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365061_19ff4b6a1b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>恭喜你，截至為止，我們終於把 Line Bot 正式處理好了。&lt;/p>
+&lt;h3 id="關掉預設回饋">關掉預設回饋&lt;/h3>
+&lt;p>接下來你可能會想要把那段該死的提示回饋：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">感謝您的訊息！
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">很抱歉，本帳號無法個別回覆用戶的訊息。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">敬請期待我們下次發送的內容喔&lt;span class="o">(&lt;/span>moon smile&lt;span class="o">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以及加入好友通知：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">XXX您好！
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">我是Wayne&lt;span class="se">\&amp;#39;&lt;/span>s AI。
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">感謝您加入好友
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">此官方帳號將定期發放最新資訊給您
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">敬請期待
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這兩個關掉，關掉方式很簡單，一樣回到 Line Bot 的後台，點一下「&lt;strong>Messaging API&lt;/strong>」，然後找到「&lt;strong>Auto-reply messages&lt;/strong>」。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908153_23b9180b66_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>你會跳到 LINE@ 管理介面，將「&lt;strong>加入好友歡迎訊息&lt;/strong>」以及「&lt;strong>自動回覆訊息&lt;/strong>」關掉就搞定囉！&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660009_7084f14f12_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="串接-openai-api">串接 OpenAI API&lt;/h2>
+&lt;p>終於到了我們的重頭戲了，前面你可以發現 LINE Bot 的流程與申請非常的多且繁瑣，因此前面花很多時間在介紹，主要是希望你可以順利建立好你的 LINE Bot，確保你接下來的步驟不會有問題。&lt;/p>
+&lt;h3 id="安裝-openai-套件">安裝 OpenAI 套件&lt;/h3>
+&lt;p>首先我們要先安裝 OpenAI 的套件，請在專案底下輸入以下指令：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pnpm i openai
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>接著 openai 本身有提供範例程式碼：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Configuration&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">OpenAIApi&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;openai&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">configuration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Configuration&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">apiKey&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">OPENAI_API_KEY&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">openai&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">OpenAIApi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">configuration&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">completion&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">openai&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createCompletion&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">model&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;text-davinci-002&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Hello world&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">completion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">choices&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>因此基於上方這一段，我們稍候可以來修改一下，讓它可以跟我們的 LINE Bot 串接。&lt;/p>
+&lt;blockquote>
+&lt;p>openAI 有提供多個 &lt;strong>model&lt;/strong> 可以選擇，分別是：&lt;/p>
+&lt;ul>
+&lt;li>text-davinci-003&lt;/li>
+&lt;li>text-curie-001&lt;/li>
+&lt;li>text-babbage-001&lt;/li>
+&lt;li>text-ada-001&lt;/li>
+&lt;/ul>
+&lt;p>其中目前(2022年)最紅的就是 &lt;strong>text-davinci-003&lt;/strong>，因此我們這邊也會使用這個 &lt;strong>model&lt;/strong>，每一個 &lt;strong>model&lt;/strong> 都有不同的特性，你可以在&lt;a class="link" href="https://beta.openai.com/docs/models/gpt-3" target="_blank" rel="noopener"
+>這裡&lt;/a>找到它的介紹。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="調整-appjs-的程式碼">調整 app.js 的程式碼&lt;/h3>
+&lt;p>首先我們要先在 &lt;code>app.js&lt;/code> 中引入 OpenAI 的套件。&lt;/p>
+&lt;h5 id="appjs-3">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Configuration&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">OpenAIApi&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;openai&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>接下來我們要來實例化 &lt;strong>OpenAI&lt;/strong>。&lt;/p>
+&lt;h5 id="appjs-4">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">configuration&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Configuration&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">apiKey&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">process&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">env&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">OPENAI_API_KEY&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">openai&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">OpenAIApi&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">configuration&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>apiKey&lt;/code> 就是我們最早前面所申請的 &lt;strong>OpenAI API Key&lt;/strong>，而這一段一樣是放在 &lt;code>.env&lt;/code> 的。&lt;/p>
+&lt;blockquote>
+&lt;p>如果你沒申請的話你會無法往下繼續的，請務必申請 &lt;strong>OpenAI API Key&lt;/strong> 唷。&lt;/p>
+&lt;/blockquote>
+&lt;p>目前來講，你的 &lt;strong>.env&lt;/strong> 應該長這樣：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-env" data-lang="env">&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CHANNEL_ACCESS_TOKEN&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">CHANNEL_SECRET&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">OPENAI_API_KEY&lt;/span>&lt;span class="o">=&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>接下來呢？我們就要將原本 Line 官方所提供的範例程式碼稍微調整一下，主要調整的範圍是 &lt;code>handleEvent&lt;/code> 的程式碼：&lt;/p>
+&lt;h5 id="appjs-5">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">async&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">handleEvent&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">type&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;message&amp;#39;&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">type&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="s1">&amp;#39;text&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ignore non-text-message event
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nb">Promise&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">resolve&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">null&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">completion&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">openai&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createCompletion&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">model&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;text-davinci-003&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span> &lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// create a echoing text message
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">echo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;text&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">completion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">choices&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">text&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// use reply API
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="nx">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replyMessage&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">replyToken&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">echo&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這邊我們將原本的 &lt;code>prompt&lt;/code> 改成 &lt;code>event.message.text&lt;/code>，也就是使用者輸入的訊息，而 &lt;code>completion.data.choices[0].text&lt;/code> 就是 OpenAI 所回傳的訊息。&lt;/p>
+&lt;p>沒問題後就儲存檔案，並 commit push 出去到 GitHub 上，屆時 Render 就會自動幫你重新部署了。&lt;/p>
+&lt;blockquote>
+&lt;p>記得要去 &lt;strong>Render&lt;/strong> 上面增加 &lt;strong>OPENAI_API_KEY&lt;/strong> 的環境變數，否則會出現錯誤唷。&lt;/p>
+&lt;/blockquote>
+&lt;p>當部署完畢後，你再去試著跟你的 LINE Bot 聊天，你會發現它已經會講話囉！&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911242_36fc5cfb67_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>只是你會發現它好像沒辦法回你很多話，這原因是我們沒有告知它要使用多少 Tokens，因此這邊我們調整一下：&lt;/p>
+&lt;h5 id="appjs-6">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">completion&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">openai&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createCompletion&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">model&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;text-davinci-003&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">max_tokens&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這個 &lt;code>max_tokens&lt;/code> 會影響到 OpenAI 所回傳的訊息長度，因此我們這邊設定為&lt;strong>200&lt;/strong>，這樣就可以讓它回很多話了。&lt;/p>
+&lt;h3 id="調整-openai-的回傳訊息">調整 OpenAI 的回傳訊息&lt;/h3>
+&lt;p>那麼這邊也有一件很有趣的事情，也就是 OpenAI 的訊息都有一大推空白，這是因為 OpenAI 會將你的訊息分成一個個的段落，而每個段落之間都會有一個空白，因此我們也要來調整一下。&lt;/p>
+&lt;h5 id="appjs-7">app.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">completion&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kr">await&lt;/span> &lt;span class="nx">openai&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">createCompletion&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">model&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;text-davinci-003&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">prompt&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">text&lt;/span> &lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">max_tokens&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">echo&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">type&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;text&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">completion&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">choices&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">text&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">trim&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>再重新上傳程式碼後，你就可以看到機器人正常的回你了。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52558390976_611bf3a21b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>恭喜你，完成了一個可以跟你聊天的機器人！而且是串接了 OpenAI 的機器人！&lt;/p>
+&lt;hr>
+&lt;h2 id="結語">結語&lt;/h2>
+&lt;p>相信你應該發現這個 &lt;strong>Line Bot&lt;/strong> 的建立流程超級無敵的長，而且非常的多流程跟細節，但是你也可以因此認識到如何串接第三方服務，以及如何將你的程式碼部署到 &lt;strong>Render&lt;/strong> 上面，所以我覺得是一個相當不錯的小練習，所以如果你想嘗試做一個聊天機器人，是可以考慮使用這個方法的。&lt;/p>
+&lt;p>但是要注意一件事情 &lt;strong>OpenAI&lt;/strong> 的 &lt;strong>GPT&lt;/strong> 有一個重點使用，如果你要讓你聰明一點的回覆你，那麼你就要將它的上下文（包含你的回覆）一起撈出來丟給它，否則你會發現它有點笨，可是 LINE 的聊天機器人不太適合這種方式，因為過程你可能會問很多事情，這樣子訊息量會非常龐大且沒辦法刪除，因此這邊我們就不做這件事情了，而是讓它針對你每個問題去回覆即可，而不包含前一個問題的回覆。&lt;/p>
+&lt;p>最後這邊我也附上範例程式碼，如果你想直接拉回去用也是可以的，因為這一份程式碼基本上都是以官方所提供的為主，很少有大幅度調整的部分，所以你可以直接拿來用。&lt;/p>
+&lt;p>希望這一篇可以讓你快快樂樂做出一個 LINE Bot。&lt;/p>
+&lt;blockquote>
+&lt;p>如果你覺得部署到 &lt;strong>Render&lt;/strong> 很難去除錯，其實是可以考慮使用 &lt;strong>ngrok&lt;/strong> 的，&lt;strong>ngrok&lt;/strong> 的使用方法可以參考&lt;a class="link" href="https://wayneblog.ga/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
+>這裡&lt;/a>。&lt;/p>
+&lt;/blockquote>
+&lt;hr></description></item><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://wayneblog.ga/2022-12-08/use-google-sheet-as-db/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
