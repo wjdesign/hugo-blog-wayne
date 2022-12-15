@@ -400,8 +400,8 @@ padding: 0 5px;
 &lt;/ul>
 &lt;p>若為 &lt;strong>SELinux&lt;/strong> 記得要 &lt;code>chcon -Rt&lt;/code> &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 >參考&lt;/a>，另外 network_mode 指定 host 表示 Nginx 容器將直接使用 Host OS 網段，不另設 Bridge。&lt;/p>
-&lt;p>參考：&lt;a class="link" href="https://notes.doublemine.me/2017-06-12-Docker-Compose-%E9%93%BE%E6%8E%A5%E5%A4%96%E9%83%A8%E5%AE%B9%E5%99%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F.html" target="_blank" rel="noopener"
->Docker Compose：链接外部容器的几种方式&lt;/a>&lt;/p>
+&lt;p>參考：&lt;a class="link" href="https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
+>Docker Compose 鏈接外部容器的幾種方式&lt;/a>&lt;/p>
 &lt;p>就醬，Nginx Reverse Proxy 準備好了，下一篇來再來分享我將 ASP.NET Core 搬進 Docker 的經驗。&lt;/p>
 &lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
 .article-content p code {
