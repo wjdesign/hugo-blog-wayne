@@ -36,9 +36,15 @@ Allow: /2022-12-08/use-google-sheet-as-db/
 
 Allow: /categories/dotnet-core/
 
+Allow: /2022-12-06/dotnet-core-docker-note-1/
+
 Allow: /categories/csharp/
 
 Allow: /tags/csharp/
+
+Allow: /tags/docker/
+
+Allow: /categories/docker/
 
 Allow: /tags/dotnet-core/
 
@@ -307,10 +313,6 @@ Allow: /tags/emoji/
 Allow: /2019-03-05/emoji-support/
 
 Allow: /2014-10-28/docker-10-qa/
-
-Allow: /tags/docker/
-
-Allow: /categories/docker/
 
 Allow: /tags/ci/cd/
 

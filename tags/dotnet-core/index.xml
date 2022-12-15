@@ -1,4 +1,226 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/dotnet-core/</link><description>Recent content in dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml"/><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/dotnet-core/</link><description>Recent content in dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.miniasp.com/post/2018/08/25/How-to-deploy-ASPNET-Core-to-Docker-Container.aspx" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes1/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>前面研究過&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+>在 CentOS 安裝及設定 ASP.NET Core + Nginx&lt;/a>，習得徒手在 CentOS 安裝部署伺服器的技能，依循 Roadmap 來到下一階段 - 學習使用 Docker 簡化部署。&lt;/p>
+&lt;p>容器化及 Docker 這幾年熱到發燙，有些人甚至認為它已在軟體產業掀起一波革命。(我親身體驗的感想也是：Wow! 難怪會爆紅) 此刻才起步已算遲了，但也不是沒有好處，晚起鳥兒有更多蟲可以吃，Docker 相關的文章資源多如牛毛，這裡便不多花篇幅贅述觀念與基本操作，只簡單整理我對 Docker 的理解：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Container (容器)可以想成極度輕量化的虛擬機器(Virtual Machine)，用法及優點與 VM 相同，能在一台 Host OS 同時運行多個彼此隔離的應用程式環境，但差別在 Container 會共用底層 Host OS，相較 VM 需各跑一份 Guest OS 能省下可觀的記憶體、磁碟，因此 Container 多了啟動速度快，耗用資源少(與直接跑應用程式相去不遠)的優勢。一台 4GB RAM 的機器頂多跑 2 - 3 台 VM 就緊繃了，但執行數十上百個 Container 不是問題。 2 Container 跟 VM 一樣具有很好的隔離效果，每個 Container 有自己的獨立作業環境(記憶體、磁碟空間、網路)，不會彼此干擾，不必擔心 Container A 改系統設定害 Container B 跑不起來，或是兩個 Container 互相搶奪 80 Port，拿到 Image 就一定能在自己的機器跑起來。Container 在這方面的特性與 VM 完全相同，但因為不用包入作業系統，體積縮小許多，耗用記憶體也少，但便利性完全不減，取得 Container Image，靠一行指令幾秒內就能在機器把程式跑起來。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a class="link" href="https://hub.docker.com/" target="_blank" rel="noopener"
+>Docker Hub&lt;/a> 上有超過 10 萬個 Container Image，從 PHP、Node,js、Apache、MySQL、Mongo DB、Nginx、Redis、ASP.NET Core&amp;hellip; 幾乎想得到的都有，下指令自動下載 Image，幾秒鐘就裝好一台 DB、Web 伺服器，再下個指令又裝好第二台，不用擔心跟作業系統不相容、與其他軟體相衝、系統環境有誤導致安裝失敗，這就是 Docker 最迷人的所在。而我們也可將自己的專案網站做成 Image，交給測試人員測試，交付 OP 幾秒部署上線，也能將做好的 Image 上傳到 Docker Hub 與全世界分享。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Docker Container 起初是基於 Linux Container 技術，故在 Container 只能跑 Linux 平台應用程式，雖然在 Windows 也有 &lt;a class="link" href="https://blog.miniasp.com/post/2016/08/01/Docker-for-Windows-1-12-Released.aspx" target="_blank" rel="noopener"
+>Docker for Windows&lt;/a>，但背後是用 Hyper-V 跑 Linux 虛擬機執行 Docker Engine 再跑 Docker Container。後來微軟也依循相同概念發展出 Windows Container，並融入 Docker 體系，自此 Docker Container 開始有 Linux Container、Windows Container 之分，Windows Container 裡跑的就是不折不扣的 Windows 程式。參考：&lt;a class="link" href="http://www.weithenn.org/2017/02/docker-install-ws2016.html" target="_blank" rel="noopener"
+>安裝 Docker 容器環境 - Windows Server 2016&lt;/a>&lt;br>
+從此，&lt;a class="link" href="https://blog.gss.com.tw/index.php/2017/01/16/docker_for_windows_asp_net_webforms/" target="_blank" rel="noopener"
+>在 Container 裡跑 ASP.NET WebForm&lt;/a>不再是夢。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>Windows Container 問市後，ASP.NET Core 程式容器化有 Linux Container 與 Windows Container 兩種選擇。基於 Linux Container 資源數量上的優勢，加上耗用資源較少，軟硬體成本低，我選擇 Linux Container。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>雖然 Container 間共用底層作業系統，Docker Engine 為容器中的應用程式提供隔離不受干擾的空間（記憶體、檔案系統、網路 Port）。例如：容器 A 寫入 /etc/aaa/default.conf 不影響容器 B /etc/aaa/default.conf 的內容、容器 A 與容器 B 都繫結到 80 Port 也不會衝突。&lt;a class="link" href="https://wayneblog.ga/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
+>先前文章&lt;/a>提過將 Kestrel 轉為 Linux 服務、設定 www-data 執行權限&amp;hellip; 等步驟，改用 Docker 後簡單很多，生命週期由 Docker 控制，在容器內部權限一律為 root 不需額外規劃權限，直接跑 dotnet WebApp.dll 聽 5000 Port 就好。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>參考資料：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.ithome.com.tw/news/91847" target="_blank" rel="noopener"
+>10個Q&amp;amp;A快速認識Docker&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://philipzheng.gitbooks.io/docker_practice/content/introduction/what.html" target="_blank" rel="noopener"
+>《Docker —— 從入門到實踐­》正體中文版&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html" target="_blank" rel="noopener"
+>Docker 入门教程 by 阮一峰&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Docker 安裝與基本操作的參考資料很多，這裡不多介紹，直接來幾個練習暖身：在 CentOS 上用 Docker 下載現成 Conatiner Image 執行 Nginx 伺服器，再用預設專案範本建立 ASP.NET Core 網站並包進 Container 執行。最後將二者串接在一起，使用 Nginx 做為 ASP.NET Core 網站的 Reverse Proxy。&lt;/p>
+&lt;ol>
+&lt;li>執行 Nginx Container&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo docker run --name mynginx -d -p 80:80 --rm nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>不誇張，真的只要這行 Nginx 就好了。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>-d&lt;/code>：把 Container 丟到背景執行不要佔用命令列視窗&lt;/li>
+&lt;li>&lt;code>-p 80:80&lt;/code>：表示將 Container 的 80 Port 對應到 Host OS 的 80 Port&lt;/li>
+&lt;li>&lt;code>--rm&lt;/code>：表示 Container 停止時自動刪除。&lt;/li>
+&lt;/ul>
+&lt;p>開個 Chrome 連上 Host OS 的 80 Port，Nginx 已經準備就緒！&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52565024765_48a069238f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>註：docker 指令需繫結 Unix Socket，必須以 SuperUser 權限執行，將使用者加入 Docker 群組可省去每次加 sudo 的麻煩。參考：&lt;a class="link" href="https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user" target="_blank" rel="noopener"
+>Manage Docker as a non-root user&lt;/a>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo groupadd docker
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo usermod -aG docker &lt;span class="nv">$USER&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>但這招在 &lt;a class="link" href="https://www.projectatomic.io/blog/2015/08/why-we-dont-let-non-root-users-run-docker-in-centos-fedora-or-rhel/" target="_blank" rel="noopener"
+>CentOS/Fedora/RHEL 不管用!&lt;/a>，但有替代方案：在 &lt;code>/etc/sudoers&lt;/code> 加入 &lt;code>yourUserAccount ALL=(ALL) NOPASSWD: /usr/bin/docker&lt;/code> 開放 sudo docker 時不用敲密碼，再用 &lt;code>alias docker=&amp;quot;sudo /usr/bin/docker&amp;quot;&lt;/code> 建立同義詞，也可做到不必 sudo 敲密碼跑 docker 指令。&lt;/p>
+&lt;ol start="2">
+&lt;li>將 ASP.NET Core 專案包進 Container 使用 .NET Core CLI 建立 MVC 專案，修改 Startup.cs 取消 app.UseHttpsRedirection()，以 Kestrel 執行 ASP.NET Core 網站。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">dotnet new mvc
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sed -i -e &lt;span class="s1">&amp;#39;s/app.UseHttps/\/\/app.UseHttps/&amp;#39;&lt;/span> Startup.cs
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dotnet publish
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dotnet bin/Debug/netcoreapp2.1/web.dll
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>由於 5000 Port 預設不對外開放，懶得開防火牆，在本機用 &lt;code>curl httq://localhost:5000&lt;/code> 驗證網站運行中。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52565101738_65791a45d2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>驗證程式可執行後，寫個 Dockerfile 腳本將程式封裝成 Docker Image，這部分細節可參考保哥的文章：&lt;a class="link" href="https://blog.miniasp.com/post/2018/08/25/How-to-deploy-ASPNET-Core-to-Docker-Container.aspx" target="_blank" rel="noopener"
+>如何將 ASP.NET Core 2.1 網站部署到 Docker 容器中&lt;/a>。&lt;/p>
+&lt;p>在實務環境可以設計成全自動化測試流程，到版控抓原始碼放進內含 .NET Core SDK 的 Container 編譯，將結果包成只有 .NET Core Runtime 的 Container Image，用它建立 Container 進行 E2E 測試，一切自動化。這裡為求簡便，我選擇用只有 Runtime 的 Container Image 當成基底，將在 Host OS 編譯好的檔案複製到 Container /app 目錄，Dockerfile 內容如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span class="line">&lt;span class="cl">&lt;span class="k">FROM&lt;/span>&lt;span class="s"> microsoft/dotnet:2.1-aspnetcore-runtime&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">WORKDIR&lt;/span>&lt;span class="s"> /app&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">COPY&lt;/span> ./bin/Debug/netcoreapp2.1 ./&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ENTRYPOINT&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;dotnet&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;web.dll&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>做好 Dockerfile 後執行 &lt;code>docker build&lt;/code>，Docker 會從 Docker Hub 下載 &lt;strong>microsoft/dotnet:2.1-aspnetcore-runtime&lt;/strong> (microsoft/dotnet 是 Image 名稱，同一 Image 常有多種版本可選擇，:2.1-aspnetcore-runtime 是標籤可用來指定版本)，&lt;code>-t&lt;/code> 參數指定 Image 名稱為 testapp。&lt;/p>
+&lt;p>Container Image 做好後接著用 &lt;code>docker run -d --rm --name myapp -p 5000:80 testapp&lt;/code> 用剛做好的 Image 建立 Container，ASP.NET Core 專案在 Container 執行時，預設聽 80 Port，故我們用 -p 5000:80 將 Container 的 80 Port 導向 Host OS 的 5000 Port。用 curl 驗證網站運行中。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564572251_d6b523fb3e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>使用 docker images 及 docker ps 我們可以看到剛才建立的 Image testapp 及 Container myapp：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564111477_5a5d7b7acf_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ol start="3">
+&lt;li>至此，我們做了兩個 Container，myginx 聽 Host OS 80 Port，myapp 聽 Host OS 的 5000 Port，一步要將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy。&lt;/li>
+&lt;/ol>
+&lt;p>做法跟&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+>先前文章&lt;/a>介紹過的概念差不多，為求簡便我們直接修改 &lt;strong>conf.d/default.conf&lt;/strong> 將進入 80 Port 的請求導向 5000 Port。(正規做法建議一個網站開一個 conf 檔) Container 的檔案系統是隔離的，將設定檔保存在 Container 裡不是好主意 - 除非每次修改設定存檔就重新產生 Image 並要求未來一律改用新版 Image 建立 Container，否則一旦 Conatiner 被刪除，設定就會消失。同樣問題也會發生在資料庫檔、Log 檔等執行期間要動態更新的內容，這類檔案保存在 Host OS 檔案系統上比較合理，程式換版換了 Container Image 資料才不受影響。Docker 靠 Volume 解決資料保存及共用需求，docker run 有個 -v host-path:container-path 可將 Host OS 特定目錄或檔案對映到 Container，讓 Container 能讀寫 Host OS 的檔案。&lt;/p>
+&lt;p>對 Nginx Container 來說，Reverse Proxy 設定放在 &lt;strong>/etc/nginx/conf.d&lt;/strong>，我選擇在 Host OS 也建立相同路徑並將 Container 的 default.conf 複製出來(指令如下)，修改後在 docker run 加上 &lt;strong>-v /etc/nginx/conf.d:/etc/nginx/conf.d&lt;/strong> 對映回去：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo docker cp mynginx:/etc/nginx/conf.d /etc/nginx/conf.d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564111512_3656ea3919_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>修改 &lt;strong>/etc/nginx/conf.d/default.conf&lt;/strong>，目前是將進入 Nginx 80 Port 的請求導向 Host OS 5000 Port，但從 Docker Container 存取 Host OS IP 有些眉角，Mac 或 Windows Docker 18.3+ 可用 DNS 名稱 host.docker.internal 指向 Host OS IP，但 Docker for Linux 18.4+ 這招己失效。&lt;a class="link" href="https://stackoverflow.com/a/24326540/288936" target="_blank" rel="noopener"
+>參考&lt;/a>&lt;/p>
+&lt;p>省事做法是 docker run 時用 &lt;code>--network host&lt;/code> 讓 Container 直接繫結本機 IP 而非 Docker 所屬的隔離網段，如此 default.conf 的 proxy_pass 指向 localhost:5000 即可。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">localhost&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#charset koi8-r;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">#access_log /var/log/nginx/host.access.log main;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://localhost:5000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Connection&lt;/span> &lt;span class="s">keep-alive&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_cache_bypass&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>完整啟動指令如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo docker run --name mynginx -d -v /etc/nginx/conf.d:/etc/nginx/conf.d --network host nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>從遠端開啟 Chrome 連上 Host OS 的 80 Port，我們已被順利導向 ASP.NET Core 網站，顯示設定成功。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52565024725_966ab6577d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>經過以上練習，我們體驗了從 Docker Hub 下載 Image 建立 Docker Containter 跑 Nginx、用 Dockerfile 將 ASP.NET Core 網站包成 Container、用 Port 映對 Host OS TCP Port 到 Container、使用 -v(&amp;ndash;volume) 映對資料夾讓 Container 讀寫 Host OS 檔案。&lt;/p>
+&lt;p>而在實務應用上，相關的 Conatiner 需要組合在一起執行，例如一個 Container 跑網站，一個 Container 跑資料庫，此時可用 docker-compose 簡化管理；另外 Docker 也提供 Bridge 為相關 Container 建立專屬的隔離網段，防止外界接觸到不想對外公開的網路服務，也避免不相干的 Container 彼此干擾&amp;hellip; 這些議題就留待下一篇文章討論。&lt;/p>
+&lt;hr></description></item><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -93,20 +315,20 @@ class="gallery-image"
 &lt;/span>&lt;span class="lnt">14
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">server {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 80;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name linux.darkblog.net; #測試用的自訂網域名稱
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location / {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://localhost:5000;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade $http_upgrade;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection keep-alive;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_cache_bypass $http_upgrade;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-Proto $scheme;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">linux.darkblog.net&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">#測試用的自訂網域名稱
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://localhost:5000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Connection&lt;/span> &lt;span class="s">keep-alive&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_cache_bypass&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>設定完畢先用 &lt;code>sudo nginx -t&lt;/code> 測試設定檔有沒有被改壞，若 OK 就執行 &lt;code>sudo nginx -s reload&lt;/code> 重新載入。&lt;/p>
@@ -176,27 +398,27 @@ class="gallery-image"
 &lt;/span>&lt;span class="lnt">21
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">server {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 443 http2 ssl;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen [::]:443 http2 ssl;
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">http2&lt;/span> &lt;span class="s">ssl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="s">[::]:443&lt;/span> &lt;span class="s">http2&lt;/span> &lt;span class="s">ssl&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name linux.darkblog.net;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">linux.darkblog.net&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_dhparam /etc/ssl/certs/dhparam.pem;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/ssl/certs/nginx-selfsigned.crt&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/ssl/private/nginx-selfsigned.key&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_dhparam&lt;/span> &lt;span class="s">/etc/ssl/certs/dhparam.pem&lt;/span>&lt;span class="p">;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location / {
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://localhost:5000;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade $http_upgrade;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection keep-alive;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_cache_bypass $http_upgrade;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-Proto $scheme;
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://localhost:5000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Connection&lt;/span> &lt;span class="s">keep-alive&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_cache_bypass&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>參考：&lt;/p>
