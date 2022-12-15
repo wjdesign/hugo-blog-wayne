@@ -116,14 +116,14 @@ padding: 0 5px;
 &lt;p>參考：&lt;a class="link" href="https://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/" target="_blank" rel="noopener"
 >Using Volumes with Docker can Cause Problems with SELinux&lt;/a>&lt;/p>
 &lt;p>寫好 docker-compose.yml，執行 &lt;code>sudo docker-compose up -d&lt;/code>，Docker Compose 依序帶起 weknadb、wekan 兩個容器，Wekan 看板已在 Host OS 80 Port 運行成功。&lt;/p>
-&lt;p>&lt;img src="https://wayneblog.ga/"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564919984_4f7956db54_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 >&lt;/p>
 &lt;p>最後補充一點，前面提到 Docker Compose 會為整組 Container 建立專屬 Bridge，上圖一開始的 Create network &amp;ldquo;wekan_default&amp;rdquo; with the default driver 訊息就是證明。&lt;/p>
 &lt;p>執行 docker network ls，可看到 wekan_default 是個 bridge，執行 docker inspect wekan_default 則可進一步看到這個網段為 172.18.&lt;em>.&lt;/em>，而兩個 Container 的 IP 分別為 172.28.0.3 及 172.28.0.2。&lt;/p>
-&lt;p>&lt;img src="https://wayneblog.ga/"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564641066_0975c2159e_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
