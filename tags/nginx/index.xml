@@ -1,4 +1,349 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nginx on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/nginx/</link><description>Recent content in nginx on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 23 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/nginx/index.xml" rel="self" type="application/rss+xml"/><item><title>nginx CORS 跨域與反向代理</title><link>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nginx on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/nginx/</link><description>Recent content in nginx on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 06 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/nginx/index.xml" rel="self" type="application/rss+xml"/><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-with-nginx/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>ASP.NET Core 內建的 Kestrel 伺服器輕巧但功能陽春，實務上需搭配 Reverse Proxy 對外提供服務，Linux 有兩大 Reverse Proxy 選擇：Apache 及 Nginx，這邊筆記一下使用這幾年如日中天的 Nginx。&lt;/p>
+&lt;p>相較於 Apache、lighttpd，Nginx 標榜單一執行緒、記憶耗用少、穩定性高，強調效能取向，在熱門網站間獨霸一方(參考：&lt;a class="link" href="https://zh.wikipedia.org/wiki/Nginx" target="_blank" rel="noopener"
+>維基百科&lt;/a>)，與強調效能的 ASP.NET Core 搭配，相得益彰。&lt;/p>
+&lt;p>以下是我的 CentOS Nginx 安裝設定筆記：&lt;/p>
+&lt;ol>
+&lt;li>安裝 Nginx。參考：&lt;a class="link" href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-centos-7" target="_blank" rel="noopener"
+>How To Install Nginx on CentOS 7&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo yum install epel-release
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo yum install nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>發現 CentOS 預設沒裝 telnet 客戶端，檢測查修不便，安裝一下 telnet：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo yum install telnet
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>啟動 Nginx&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl start nginx
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>啟動後 telnet localhost 80 如有連上就是成功了。如從外部連不上多是防火牆緣故，需額外設定：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo firewall-cmd --permanent --zone&lt;span class="o">=&lt;/span>public --add-service&lt;span class="o">=&lt;/span>http
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo firewall-cmd --permanent --zone&lt;span class="o">=&lt;/span>public --add-service&lt;span class="o">=&lt;/span>https
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo firewall-cmd --reload
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設好防火牆，從 Windows 開 Chrome 連上 CentOS 主機 80 Port，如果看到 Nginx 歡迎網頁即代表大功告成。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564519771_a210643193_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>ASP.NET Core 文件有詳細的&lt;a class="link" href="https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.1&amp;amp;tabs=aspnetcore2x&amp;amp;WT.mc_id=DOP-MVP-37580#configure-a-reverse-proxy-server" target="_blank" rel="noopener"
+>Nginx 設定教學&lt;/a>，做法是直接修改 &lt;code>/etc/nginx/nginx.conf&lt;/code>，在 http 區塊加入 server 設定。&lt;/li>
+&lt;/ol>
+&lt;p>但較模組化的做法是為每個站台寫獨立 conf 檔放在 &lt;code>/etc/nginx/conf.d&lt;/code> 下。例如：&lt;code>/etc/nginx/conf.d/default.conf&lt;/code>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">server {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 80;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name linux.darkblog.net; #測試用的自訂網域名稱
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location / {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://localhost:5000;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection keep-alive;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_cache_bypass $http_upgrade;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>設定完畢先用 &lt;code>sudo nginx -t&lt;/code> 測試設定檔有沒有被改壞，若 OK 就執行 &lt;code>sudo nginx -s reload&lt;/code> 重新載入。&lt;/p>
+&lt;ol start="5">
+&lt;li>試連時我遇到 502 Bad Gateway 錯誤：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">2018/09/24 15:37:53 [crit] 60137#0: *7 connect() to 127.0.0.1:5000 failed (13: Permission denied) while connecting to upstream, client: 192.168.50.159, server: linux.darkblog.net, request: &amp;#34;GET / HTTP/1.1&amp;#34;, upstream: &amp;#34;http://127.0.0.1:5000/&amp;#34;, host: &amp;#34;linux.darkblog.net&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">2018/09/24 15:37:53 [error] 60137#0: *7 no live upstreams while connecting to upstream, client: 192.168.50.159, server: linux.darkblog.net, request: &amp;#34;GET /favicon.ico HTTP/1.1&amp;#34;, upstream: &amp;#34;http://localhost/favicon.ico&amp;#34;, host: &amp;#34;linux.darkblog.net&amp;#34;, referrer: &amp;#34;http://linux.darkblog.net/&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>爬文是 Security-Enhanced Linux (SELinux) 作祟，它是 RHEL 6.6+/CentOS 6.6+ 新加的安全鎖，需下指令解除封印：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo setsebool -P httpd_can_network_connect on
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>接著要設定 SSL：&lt;/li>
+&lt;/ol>
+&lt;p>有個很威的工具叫 Certbot，可以自動申請、驗證、下載、安裝並定期更新 Let&amp;rsquo;s Enrypt 憑證。但這部分要將網站正式掛上 Internet 才好測試，真實憑證留待未來再玩，我先做一張自發憑證驗證 SSL 功能。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo mkdir /etc/ssl/private
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo chmod &lt;span class="m">700&lt;/span> /etc/ssl/private
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo openssl req -x509 -nodes -days &lt;span class="m">365&lt;/span> -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo openssl dhparam -out /etc/ssl/certs/dhparam.pem &lt;span class="m">2048&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>建立一個 /var/nginx/conf.d/ssl.conf&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">server {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen 443 http2 ssl;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> listen [::]:443 http2 ssl;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> server_name linux.darkblog.net;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> ssl_dhparam /etc/ssl/certs/dhparam.pem;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> location / {
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_pass http://localhost:5000;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_http_version 1.1;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Upgrade $http_upgrade;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Connection keep-alive;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header Host $host;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_cache_bypass $http_upgrade;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> proxy_set_header X-Forwarded-Proto $scheme;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> }
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>參考：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-centos-7" target="_blank" rel="noopener"
+>How To Secure Nginx with Let&amp;rsquo;s Encrypt on CentOS 7&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.gtwang.org/linux/secure-nginx-with-lets-encrypt-ssl-certificate-on-ubuntu-and-debian/" target="_blank" rel="noopener"
+>NGINX 使用 Let’s Encrypt 免費 SSL 憑證設定 HTTPS 安全加密網頁教學 - G.T.Wang&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-on-centos-7" target="_blank" rel="noopener"
+>How To Create a Self-Signed SSL Certificate for Nginx on CentOS 7&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;ol start="7">
+&lt;li>
+&lt;p>NLog.config 路徑配合作業系統要改 &lt;code>&amp;quot;/var/log/Darkblog/$/$.log&amp;quot;&lt;/code>&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在 Reverse Proxy 模式下 HttpContext.Connection.RemoteIpAddress 會抓到 ::1，而 HttpContext.Connection.RemotePort 則是 5000，並非真實客戶端 IP 及對外 Port。在 Startup.cs 加入 app.UseForwardedHeaders() 可解決問題，但啟用 UseForwardedHeaders() 若未搭配 Reverse Proxy 會有來源 IP 偽造風險，不想冒險也不想針對 IIS / Nginx 調整設定，我想到一招讓程式自動依 OS 決定要不要啟用，一勞永逸：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IApplicationBuilder&lt;/span> &lt;span class="n">app&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IHostingEnvironment&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//運行於 Linux 時啟用 Reverse Proxy 模式 &lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">RuntimeInformation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">IsOSPlatform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">OSPlatform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Linux&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UseForwardedHeaders&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">ForwardedHeadersOptions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ForwardedHeaders&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ForwardedHeaders&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">XForwardedFor&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="n">ForwardedHeaders&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">XForwardedProto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="9">
+&lt;li>線上主機當然不好每次靠手動輸入 dotnet Blah.dll 啟動網站，&lt;a class="link" href="https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.1&amp;amp;tabs=aspnetcore2x&amp;amp;WT.mc_id=DOP-MVP-37580#monitoring-the-app" target="_blank" rel="noopener"
+>ASP.NET Core 文件&lt;/a>展示了將程式包成服務的方法。先建立 /etc/systemd/system/kestrel-darkblog.service，內容如下：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-service" data-lang="service">&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Unit]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Description&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">Darkblog.Core Server&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Service]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/var/www/Darkblog&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/bin/dotnet /var/www/Darkblog/Darkblog.Core.dll&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Restart service after 10 seconds if the dotnet service crashes:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">RestartSec&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">SyslogIdentifier&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">darkblog-core&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">User&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">www-data&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">ASPNETCORE_ENVIRONMENT=Production&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Environment&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">DOTNET_PRINT_TELEMETRY_MESSAGE=false&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">[Install]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WantedBy&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">multi-user.target&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="10">
+&lt;li>設好 kestrel-darkblog.service 後註冊並啟動服務&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo systemctl &lt;span class="nb">enable&lt;/span> kestrel-darkblog.service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl start kestrel-darkblog.service
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo systemctl status kestrel-darkblog.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>馬上遇到錯誤：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">(code=exited, status=217/USER) Process: 66571 ExecStart=/usr/bin/dotnet /var/www/Darkblog/Darkblog.Core.dll (code=exited, status=1/FAILURE)
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>原因是服務模式使用 www-data 身分執行，沒有權限存取 ASP.NET Core 網站所在目錄與檔案。這部分我不是很確定做法，找到的解法是用 chown 將 /var/www/Darkblog 目錄的擁有者及群組都設成 www-data，建立 www-data 帳號及群組，並將我的管理帳號也加入 www-data 群組，如此服務可以存取該目錄，而我也有權限部署檔案。(註：) 以下指令建立 www-data 使用者及群組，將 jeffrey 加入群組，並授與 www-data 群組可以寫入：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo groupadd www-data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo useradd -g www-data www-data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo usermod -a -G www-data jeffrey
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo chmod g+w -R /var/www/Darkblog
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="11">
+&lt;li>有一則小訣竅，以服務方式執行 ASP.NET Core 看不到主控台顯示的錯誤訊息，可改用這個指令來查看：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo journalctl -fu kestrel-darkblog.service
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上，ASP.NET Core + Nginx on CentOS 執行成功。&lt;/p>
+&lt;p>附上 CPU / Memory 使用狀況，這是在開瀏覽器狂按 F5 下的數字，總記憶體 1GB，dotnet CPU 在 5% 以下，RAM 耗用不到 10%，有個 kworker CPU 偏高，爬文與硬碟有關，推測與 Win10 Hyper-V VM 不怎麼的虛擬磁碟效能有點關係。但整體數字讓我很滿意，遷都 CentOS 計劃繼續挺進。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564971845_34b0be19ca_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr></description></item><item><title>nginx CORS 跨域與反向代理</title><link>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

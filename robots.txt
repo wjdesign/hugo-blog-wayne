@@ -34,6 +34,20 @@ Allow: /categories/gcp/
 
 Allow: /2022-12-08/use-google-sheet-as-db/
 
+Allow: /categories/dotnet-core/
+
+Allow: /categories/csharp/
+
+Allow: /tags/csharp/
+
+Allow: /tags/dotnet-core/
+
+Allow: /tags/nginx/
+
+Allow: /categories/nginx/
+
+Allow: /2022-12-06/dotnet-nginx-install-on-centos/
+
 Allow: /2022-12-05/js-13-useful-array-tricks/
 
 Allow: /2022-12-05/js-7-killer-one-liners/
@@ -70,15 +84,7 @@ Allow: /tags/npm-plugins/
 
 Allow: /2022-11-14/try-runkit/
 
-Allow: /categories/dotnet-core/
-
 Allow: /2022-11-11/dotnet-cve-2022-41064/
-
-Allow: /categories/csharp/
-
-Allow: /tags/csharp/
-
-Allow: /tags/dotnet-core/
 
 Allow: /categories/entity-framework-core/
 
@@ -185,10 +191,6 @@ Allow: /tags/cors/
 Allow: /tags/free/
 
 Allow: /tags/lets-encrypt/
-
-Allow: /tags/nginx/
-
-Allow: /categories/nginx/
 
 Allow: /2022-08-23/nginx-cors-and-reverse-proxy/
 
