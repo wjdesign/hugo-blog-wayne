@@ -1,135 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/dotnet-core/</link><description>Recent content in dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 07 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
-.article-content p code {
-background-color: #f5f5f5;
-color: #ff3860;
-}
-.focus {
-background: #f1e2e2;
-color: #d62c2c;
-padding: 0 5px;
-}
-&lt;/style>
-&lt;p>&lt;a class="link" href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
-&lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;hr>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
->上篇文章&lt;/a>體驗過在 CentOS 用 Docker Container 分別跑 Nginx 跟 ASP.NET Core 網站，並建立 Reverse Proxy 關係，接著探討在實務上當需要多個 Container 協同運作時應如何規劃整合。&lt;/p>
-&lt;p>一個系統常可再拆解成多個服務。以線上購物網站為例，就可能是由 ASP.NET Core 網站(Kestrel)、MySQL 資料庫、Reverse Proxy、金流 Gateway&amp;hellip; 等多個服務組成，若要以 Docker Container 實現，有幾種策略：&lt;/p>
-&lt;h2 id="策略">策略&lt;/h2>
-&lt;h3 id="1-全部裝在單一-container">1. 全部裝在單一 Container&lt;/h3>
-&lt;p>撰寫一個 Dockerfile，以 MySQL 資料資料庫為基底，在上面安裝 ASP.NET Core Runtime、Nginx 組裝合成獸。&lt;/p>
-&lt;p>好處是一個 Container 搞定，高內聚低耦合，不會因相依服務沒配置好或未啟動而故障。但缺點挺明顯：&lt;/p>
-&lt;ul>
-&lt;li>某些 Container Image 為求輕巧作業系統層次的工具、程式庫很精簡(例如：Nginx Container 連 ping 都沒有)，只求目標程式能執行就好，要加裝其他軟體時要點技巧，得多花些心思。&lt;/li>
-&lt;li>全部綁在一起便失去動態調配的彈性，例如：當前端 Web 負載過高時，擴充不易。&lt;/li>
-&lt;li>當需要個別升級資料庫、ASP.NET Core 版本，或是想抽換服務組合時手續複雜，有違模組化精神。&lt;/li>
-&lt;/ul>
-&lt;h3 id="2-以個別-container-執行獨立控制">2. 以個別 Container 執行，獨立控制&lt;/h3>
-&lt;p>如同&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
->前篇文章&lt;/a>的做法，ASP.NET Core 網站跑 Cotainer 繫結到 Host OS 的 5000 Port，用 Container 跑 MySQL，再用 Container 跑 Ngnix 繫結到 Host OS 80 Port，再設定 Reverse Proxy 規則。&lt;/p>
-&lt;p>Container 間串接配置全靠人工，系統管理員需協助哪個 Container 聽哪個 Port，確保彼此不衝突。如此做有兩個缺點：&lt;/p>
-&lt;ul>
-&lt;li>相依服務的啟動狀態未連動，需靠人為控制確保先啟動資料庫 Container 再啟動網站 Container 的順序。&lt;/li>
-&lt;li>若 Host OS 跑多個系統都用到 MySQL，系統管理員需協調 TCP Port 不衝突，Docker 的 Bridge (橋接器)隔離網段機制全無用武之地。&lt;/li>
-&lt;/ul>
-&lt;h3 id="3-以個別-container-執行但使用-docker-compose-關聯">3. 以個別 Container 執行，但使用 Docker Compose 關聯&lt;/h3>
-&lt;p>為滿足多 Container 協同作業需求，&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
->Docker Compose&lt;/a> 應運而生。&lt;/p>
-&lt;p>&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
->Docker Compose&lt;/a> 定義了一套宣告語法(採用 YAML 格式)，在其中定義各服務 Container 的啟動參數、與 Host OS Port 對映、隸屬 Bridge 網段、Volume 資料夾/檔案對應等等。&lt;/p>
-&lt;p>&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
->Docker Compose&lt;/a> 會自動為 Container 建立隔離網段並設好名稱解析，讓 Container 使用容器名稱解析成 IP 找到其他 Container，因此設定連線字串或 URL 時便可寫成 httq://myweb:5000、mongodb://mydb，清楚又方便。&lt;/p>
-&lt;p>最重要是透過 docker-compose up/down 指令可以一次啟動或停用相關服務，&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
->Docker Compose&lt;/a> 還會依據相依 depends_on 指定關聯先啟動 DB 再啟動 Web，先關閉 Web 再關閉 DB，便利性讓人工操作望塵莫及。&lt;/p>
-&lt;p>參考：&lt;a class="link" href="http://blog.maxkit.com.tw/2017/03/docker-compose.html" target="_blank" rel="noopener"
->Docker Compose 初步閱讀與學習記錄&lt;/a>&lt;/p>
-&lt;hr>
-&lt;h2 id="實例">實例&lt;/h2>
-&lt;p>針對上述三種做法，以 ASP.NET Core + Ngninx 為題，對映到以下實例：&lt;/p>
-&lt;h3 id="1-安裝成單一-container">1. 安裝成單一 Container&lt;/h3>
-&lt;p>以 ASP.NET Core Image 為基底，安裝 Nginx，設定 nginx.conf，複製 ASP.NET Core 網站檔案並設定 service nginx start 及 dotnet /app/web.dll 分別啟動 Nginx 及 Kestrel。&lt;/p>
-&lt;p>細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/24/nginx-reverse-proxy-to-asp-net-core-same-container/" target="_blank" rel="noopener"
->Nginx Reverse Proxy to ASP.NET Core – Same Docker Container&lt;/a>&lt;/p>
-&lt;p>不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
->前文&lt;/a>&lt;/p>
-&lt;h3 id="2-aspnet-corenginx-各自跑-container">2. ASP.NET Core、Nginx 各自跑 Container&lt;/h3>
-&lt;p>就是我們在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
->前篇文章&lt;/a>採行的方式，但有一點要補充，除了直接對映到 Host OS IP 的 TCP Port，也可考慮自訂 Bridge，讓 Container 在隔離網段內溝通，例如：ASP.NET Core 的 5000 Port 只有 Nginx 看得到，從 Host OS 無法存取，如此可避免網路介面(網站、資料庫&amp;hellip;)外露到 Host OS，減少被攻擊的風險，這部分後面再找時間介紹。&lt;/p>
-&lt;h3 id="3-使用-docker-compose-串連">3. 使用 Docker Compose 串連&lt;/h3>
-&lt;p>ASP.NET Core 與 Nginx 各有自己的容器，使用 Docker Compose 組合串連，一次啟動兩個服務。&lt;/p>
-&lt;p>細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/27/nginx-reverse-proxy-to-asp-net-core-separate-docker-containers/" target="_blank" rel="noopener"
->Nginx Reverse Proxy to ASP.NET Core – Separate Docker Containers&lt;/a>&lt;/p>
-&lt;p>綜合以上分析，Docker Compose 無疑是整合關聯 Container 較佳的方式。&lt;/p>
-&lt;hr>
-&lt;h2 id="練習">練習&lt;/h2>
-&lt;p>光說不練是假把式，寫技術文沒實作感覺怪怪的，來個 Docker Compose 練習好了。手邊沒有 ASP.NET Core + DB Server 的範例，就用 Docker 可以找到的 Image 當題材(也方便大家實地驗證)，試試用 Container 跑 &lt;a class="link" href="https://wekan.github.io/" target="_blank" rel="noopener"
->Wekan 看板系統&lt;/a>。&lt;a class="link" href="https://wekan.github.io/" target="_blank" rel="noopener"
->Wekan&lt;/a> 在 Node.js 執行，另外需要 MongoDB，這個練習會用 Docker Compose 組合兩個 Container 架設看板網站。&lt;/p>
-&lt;p>開始前，記得先&lt;a class="link" href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener"
->安裝 Docker Compose&lt;/a>，如果發生 sudo docker-compose 找不到指令，要再加上 &lt;code>sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose&lt;/code> &lt;a class="link" href="https://stackoverflow.com/a/50243566/288936" target="_blank" rel="noopener"
->參考&lt;/a>。&lt;/p>
-&lt;p>要使用 Docker Compose 很簡單，說穿了就是將 Container 設定寫成 docker-compose.yml，寫好寫對再呼叫 docker-compose up -d 即大功告成。以 Wekan 為例，docker-compose.yml 如下：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;3&amp;#39;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">wekan&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">wekanteam/wekan:latest&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">depends_on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">wekandb&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MONGO_URL=mongodb://wekandb/wekan&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">ROOT_URL=http://localhost:80&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">80&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">8080&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">wekandb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mongo:3.2.14&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/www/wekan/db:/data/db&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>在這個 YAML 裡，我定義了兩個 Service Container，分別叫 &lt;strong>wekan&lt;/strong> 及 &lt;strong>wekandb&lt;/strong>。&lt;/p>
-&lt;p>Wekan Container Image 來自 wekanteam/wekan 最新版，depends_on 宣告 wekan 依賴 wekandb，故 Docker Compose 會先啟動 wekandb 再啟動 wekan。&lt;/p>
-&lt;p>MONGO_URL、ROOTL_URL 為環境變數，其中 MONGO_URL 寫成 mongodb://wekandb/wekan，docker-compose.yml 所定義的各 Container 預設隸屬同一個 Bridge 網段，彼此可用機器名稱解析。&lt;/p>
-&lt;p>Wekan 網站在 Container 掛在 8080 Port，透過 ports 80:8080 會將其對映到 Host IP 80 Port。&lt;/p>
-&lt;p>wekandb Container 則以 Mongo DB Container Image 為基底，資料庫檔案以 Volume 方式對映到 Host OS /var/www/wekan/db 資料夾。&lt;/p>
-&lt;p>這裡補充一個眉角，由於 SELinux 資安管控較嚴，在 CentOS/REHL/Fedora 版 Linux 上 Docker Container 讀取 Volume 對映資料夾可能會出現 permission denied 錯誤，需對該資料夾執行 &lt;code>chcon -Rt svirt\_sandbox\_file\_t /var/www/wekan/db&lt;/code> 調整權限，或在目錄名稱後方加上 &lt;code>:Z&lt;/code> 由 Docker 自動執行。&lt;/p>
-&lt;p>參考：&lt;a class="link" href="https://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/" target="_blank" rel="noopener"
->Using Volumes with Docker can Cause Problems with SELinux&lt;/a>&lt;/p>
-&lt;p>寫好 docker-compose.yml，執行 &lt;code>sudo docker-compose up -d&lt;/code>，Docker Compose 依序帶起 weknadb、wekan 兩個容器，Wekan 看板已在 Host OS 80 Port 運行成功。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564919984_4f7956db54_o.png"
-max-width="100%"
-max-height="100%"
-class="gallery-image"
->&lt;/p>
-&lt;p>最後補充一點，前面提到 Docker Compose 會為整組 Container 建立專屬 Bridge，上圖一開始的 Create network &amp;ldquo;wekan_default&amp;rdquo; with the default driver 訊息就是證明。&lt;/p>
-&lt;p>執行 docker network ls，可看到 wekan_default 是個 bridge，執行 docker inspect wekan_default 則可進一步看到這個網段為 172.18.&lt;em>.&lt;/em>，而兩個 Container 的 IP 分別為 172.28.0.3 及 172.28.0.2。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564641066_0975c2159e_o.png"
-max-width="100%"
-max-height="100%"
-class="gallery-image"
->&lt;/p>
-&lt;p>Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-3/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/dotnet-core/</link><description>Recent content in dotnet-core on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 08 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/dotnet-core/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -324,6 +193,137 @@ padding: 0 5px;
 &lt;p>參考：&lt;a class="link" href="https://notes.doublemine.me/2017-06-12-Docker-Compose-%E9%93%BE%E6%8E%A5%E5%A4%96%E9%83%A8%E5%AE%B9%E5%99%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F.html" target="_blank" rel="noopener"
 >Docker Compose：链接外部容器的几种方式&lt;/a>&lt;/p>
 &lt;p>就醬，Nginx Reverse Proxy 準備好了，下一篇來再來分享我將 ASP.NET Core 搬進 Docker 的經驗。&lt;/p>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://github.com/wekan/wekan/wiki/Install-Wekan-Docker-for-testing" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+>上篇文章&lt;/a>體驗過在 CentOS 用 Docker Container 分別跑 Nginx 跟 ASP.NET Core 網站，並建立 Reverse Proxy 關係，接著探討在實務上當需要多個 Container 協同運作時應如何規劃整合。&lt;/p>
+&lt;p>一個系統常可再拆解成多個服務。以線上購物網站為例，就可能是由 ASP.NET Core 網站(Kestrel)、MySQL 資料庫、Reverse Proxy、金流 Gateway&amp;hellip; 等多個服務組成，若要以 Docker Container 實現，有幾種策略：&lt;/p>
+&lt;h2 id="策略">策略&lt;/h2>
+&lt;h3 id="1-全部裝在單一-container">1. 全部裝在單一 Container&lt;/h3>
+&lt;p>撰寫一個 Dockerfile，以 MySQL 資料資料庫為基底，在上面安裝 ASP.NET Core Runtime、Nginx 組裝合成獸。&lt;/p>
+&lt;p>好處是一個 Container 搞定，高內聚低耦合，不會因相依服務沒配置好或未啟動而故障。但缺點挺明顯：&lt;/p>
+&lt;ul>
+&lt;li>某些 Container Image 為求輕巧作業系統層次的工具、程式庫很精簡(例如：Nginx Container 連 ping 都沒有)，只求目標程式能執行就好，要加裝其他軟體時要點技巧，得多花些心思。&lt;/li>
+&lt;li>全部綁在一起便失去動態調配的彈性，例如：當前端 Web 負載過高時，擴充不易。&lt;/li>
+&lt;li>當需要個別升級資料庫、ASP.NET Core 版本，或是想抽換服務組合時手續複雜，有違模組化精神。&lt;/li>
+&lt;/ul>
+&lt;h3 id="2-以個別-container-執行獨立控制">2. 以個別 Container 執行，獨立控制&lt;/h3>
+&lt;p>如同&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+>前篇文章&lt;/a>的做法，ASP.NET Core 網站跑 Cotainer 繫結到 Host OS 的 5000 Port，用 Container 跑 MySQL，再用 Container 跑 Ngnix 繫結到 Host OS 80 Port，再設定 Reverse Proxy 規則。&lt;/p>
+&lt;p>Container 間串接配置全靠人工，系統管理員需協助哪個 Container 聽哪個 Port，確保彼此不衝突。如此做有兩個缺點：&lt;/p>
+&lt;ul>
+&lt;li>相依服務的啟動狀態未連動，需靠人為控制確保先啟動資料庫 Container 再啟動網站 Container 的順序。&lt;/li>
+&lt;li>若 Host OS 跑多個系統都用到 MySQL，系統管理員需協調 TCP Port 不衝突，Docker 的 Bridge (橋接器)隔離網段機制全無用武之地。&lt;/li>
+&lt;/ul>
+&lt;h3 id="3-以個別-container-執行但使用-docker-compose-關聯">3. 以個別 Container 執行，但使用 Docker Compose 關聯&lt;/h3>
+&lt;p>為滿足多 Container 協同作業需求，&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
+>Docker Compose&lt;/a> 應運而生。&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
+>Docker Compose&lt;/a> 定義了一套宣告語法(採用 YAML 格式)，在其中定義各服務 Container 的啟動參數、與 Host OS Port 對映、隸屬 Bridge 網段、Volume 資料夾/檔案對應等等。&lt;/p>
+&lt;p>&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
+>Docker Compose&lt;/a> 會自動為 Container 建立隔離網段並設好名稱解析，讓 Container 使用容器名稱解析成 IP 找到其他 Container，因此設定連線字串或 URL 時便可寫成 httq://myweb:5000、mongodb://mydb，清楚又方便。&lt;/p>
+&lt;p>最重要是透過 docker-compose up/down 指令可以一次啟動或停用相關服務，&lt;a class="link" href="https://docs.docker.com/compose/overview/#/common-use-cases" target="_blank" rel="noopener"
+>Docker Compose&lt;/a> 還會依據相依 depends_on 指定關聯先啟動 DB 再啟動 Web，先關閉 Web 再關閉 DB，便利性讓人工操作望塵莫及。&lt;/p>
+&lt;p>參考：&lt;a class="link" href="http://blog.maxkit.com.tw/2017/03/docker-compose.html" target="_blank" rel="noopener"
+>Docker Compose 初步閱讀與學習記錄&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="實例">實例&lt;/h2>
+&lt;p>針對上述三種做法，以 ASP.NET Core + Ngninx 為題，對映到以下實例：&lt;/p>
+&lt;h3 id="1-安裝成單一-container">1. 安裝成單一 Container&lt;/h3>
+&lt;p>以 ASP.NET Core Image 為基底，安裝 Nginx，設定 nginx.conf，複製 ASP.NET Core 網站檔案並設定 service nginx start 及 dotnet /app/web.dll 分別啟動 Nginx 及 Kestrel。&lt;/p>
+&lt;p>細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/24/nginx-reverse-proxy-to-asp-net-core-same-container/" target="_blank" rel="noopener"
+>Nginx Reverse Proxy to ASP.NET Core – Same Docker Container&lt;/a>&lt;/p>
+&lt;p>不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+>前文&lt;/a>&lt;/p>
+&lt;h3 id="2-aspnet-corenginx-各自跑-container">2. ASP.NET Core、Nginx 各自跑 Container&lt;/h3>
+&lt;p>就是我們在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+>前篇文章&lt;/a>採行的方式，但有一點要補充，除了直接對映到 Host OS IP 的 TCP Port，也可考慮自訂 Bridge，讓 Container 在隔離網段內溝通，例如：ASP.NET Core 的 5000 Port 只有 Nginx 看得到，從 Host OS 無法存取，如此可避免網路介面(網站、資料庫&amp;hellip;)外露到 Host OS，減少被攻擊的風險，這部分後面再找時間介紹。&lt;/p>
+&lt;h3 id="3-使用-docker-compose-串連">3. 使用 Docker Compose 串連&lt;/h3>
+&lt;p>ASP.NET Core 與 Nginx 各有自己的容器，使用 Docker Compose 組合串連，一次啟動兩個服務。&lt;/p>
+&lt;p>細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/27/nginx-reverse-proxy-to-asp-net-core-separate-docker-containers/" target="_blank" rel="noopener"
+>Nginx Reverse Proxy to ASP.NET Core – Separate Docker Containers&lt;/a>&lt;/p>
+&lt;p>綜合以上分析，Docker Compose 無疑是整合關聯 Container 較佳的方式。&lt;/p>
+&lt;hr>
+&lt;h2 id="練習">練習&lt;/h2>
+&lt;p>光說不練是假把式，寫技術文沒實作感覺怪怪的，來個 Docker Compose 練習好了。手邊沒有 ASP.NET Core + DB Server 的範例，就用 Docker 可以找到的 Image 當題材(也方便大家實地驗證)，試試用 Container 跑 &lt;a class="link" href="https://wekan.github.io/" target="_blank" rel="noopener"
+>Wekan 看板系統&lt;/a>。&lt;a class="link" href="https://wekan.github.io/" target="_blank" rel="noopener"
+>Wekan&lt;/a> 在 Node.js 執行，另外需要 MongoDB，這個練習會用 Docker Compose 組合兩個 Container 架設看板網站。&lt;/p>
+&lt;p>開始前，記得先&lt;a class="link" href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener"
+>安裝 Docker Compose&lt;/a>，如果發生 sudo docker-compose 找不到指令，要再加上 &lt;code>sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose&lt;/code> &lt;a class="link" href="https://stackoverflow.com/a/50243566/288936" target="_blank" rel="noopener"
+>參考&lt;/a>。&lt;/p>
+&lt;p>要使用 Docker Compose 很簡單，說穿了就是將 Container 設定寫成 docker-compose.yml，寫好寫對再呼叫 docker-compose up -d 即大功告成。以 Wekan 為例，docker-compose.yml 如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;3&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">wekan&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">wekanteam/wekan:latest&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">depends_on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">wekandb&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">MONGO_URL=mongodb://wekandb/wekan&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">ROOT_URL=http://localhost:80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">80&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">8080&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">wekandb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mongo:3.2.14&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/www/wekan/db:/data/db&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在這個 YAML 裡，我定義了兩個 Service Container，分別叫 &lt;strong>wekan&lt;/strong> 及 &lt;strong>wekandb&lt;/strong>。&lt;/p>
+&lt;p>Wekan Container Image 來自 wekanteam/wekan 最新版，depends_on 宣告 wekan 依賴 wekandb，故 Docker Compose 會先啟動 wekandb 再啟動 wekan。&lt;/p>
+&lt;p>MONGO_URL、ROOTL_URL 為環境變數，其中 MONGO_URL 寫成 mongodb://wekandb/wekan，docker-compose.yml 所定義的各 Container 預設隸屬同一個 Bridge 網段，彼此可用機器名稱解析。&lt;/p>
+&lt;p>Wekan 網站在 Container 掛在 8080 Port，透過 ports 80:8080 會將其對映到 Host IP 80 Port。&lt;/p>
+&lt;p>wekandb Container 則以 Mongo DB Container Image 為基底，資料庫檔案以 Volume 方式對映到 Host OS /var/www/wekan/db 資料夾。&lt;/p>
+&lt;p>這裡補充一個眉角，由於 SELinux 資安管控較嚴，在 CentOS/REHL/Fedora 版 Linux 上 Docker Container 讀取 Volume 對映資料夾可能會出現 permission denied 錯誤，需對該資料夾執行 &lt;code>chcon -Rt svirt\_sandbox\_file\_t /var/www/wekan/db&lt;/code> 調整權限，或在目錄名稱後方加上 &lt;code>:Z&lt;/code> 由 Docker 自動執行。&lt;/p>
+&lt;p>參考：&lt;a class="link" href="https://www.projectatomic.io/blog/2015/06/using-volumes-with-docker-can-cause-problems-with-selinux/" target="_blank" rel="noopener"
+>Using Volumes with Docker can Cause Problems with SELinux&lt;/a>&lt;/p>
+&lt;p>寫好 docker-compose.yml，執行 &lt;code>sudo docker-compose up -d&lt;/code>，Docker Compose 依序帶起 weknadb、wekan 兩個容器，Wekan 看板已在 Host OS 80 Port 運行成功。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564919984_4f7956db54_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>最後補充一點，前面提到 Docker Compose 會為整組 Container 建立專屬 Bridge，上圖一開始的 Create network &amp;ldquo;wekan_default&amp;rdquo; with the default driver 訊息就是證明。&lt;/p>
+&lt;p>執行 docker network ls，可看到 wekan_default 是個 bridge，執行 docker inspect wekan_default 則可進一步看到這個網段為 172.18.&lt;em>.&lt;/em>，而兩個 Container 的 IP 分別為 172.28.0.3 及 172.28.0.2。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564641066_0975c2159e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p>
 &lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
