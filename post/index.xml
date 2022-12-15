@@ -1,4 +1,732 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 15 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/post/index.xml" rel="self" type="application/rss+xml"/><item><title>【Tampermonkey】輕鬆上手 - 油猴腳本開發</title><link>https://wayneblog.ga/2022-12-15/tampermonkey-userscript-tutorial/</link><pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-15/tampermonkey-userscript-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564977913_09952966be_o.jpg" alt="Featured image of post 【Tampermonkey】輕鬆上手 - 油猴腳本開發" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://juejin.cn/post/7138346293042085924" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://juejin.cn/post/7022654292880424991" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>油猴腳本運行於&lt;a class="link" href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW" target="_blank" rel="noopener"
+>油猴插件&lt;/a>之上，&lt;a class="link" href="https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=zh-TW" target="_blank" rel="noopener"
+>油猴插件&lt;/a>本質上對瀏覽器能力的再封裝。既然如此，我們先來簡單了解一下瀏覽器插件。&lt;/p>
+&lt;hr>
+&lt;h2 id="瀏覽器插件browser-extension瀏覽器的擴展應用">瀏覽器插件(Browser Extension)：瀏覽器的擴展應用&lt;/h2>
+&lt;p>說的直白一點，就是拿著瀏覽器開放的能力(插件API)，去實現一些小型應用。&lt;/p>
+&lt;p>瀏覽器插件主要由四部分構成：background scripts、content scripts、全局 UI 元素、options page。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>background scrips&lt;/strong>: 後台腳本，一個後台腳本是一個獨立線程，是游離於各個頁面之外的&amp;quot;上帝之眼&amp;quot;。具有訪問各類插件 API 的能力，但同時也喪失了直接操作頁面的能力。&lt;/li>
+&lt;li>&lt;strong>content scripts&lt;/strong>：內容腳本，具有直接操作頁面的能力。其實就是在頁面中運行 js 腳本，可以使用 DOM API。&lt;code>content script&lt;/code> 只能直接訪問少量插件 API，但能和 &lt;code>background script&lt;/code> 進行雙向通信完成數據交換。&lt;/li>
+&lt;li>&lt;strong>全局 UI 元素&lt;/strong>：瀏覽器層的UI 交互，包括：
+&lt;ul>
+&lt;li>在 Toolbar 顯示 icon，定義點擊 icon 後顯示的 Popup 或其他效果&lt;/li>
+&lt;li>增加右鍵選項&lt;/li>
+&lt;li>增加全局快捷鍵&lt;/li>
+&lt;li>改造新Tab 頁、歷史記錄頁、書籤頁&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>options page&lt;/strong>：插件配置頁。&lt;/li>
+&lt;/ul>
+&lt;p>瀏覽器插件的核心機制可以用下圖簡單概括：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564900330_0ebd02f71f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>想必，大家最好奇的還是有哪些 API 以及能用這些 API 做什麼，這裡例舉幾個：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>contextMenus&lt;/strong>：增加右鍵選項。
+&lt;ul>
+&lt;li>使用選中文本，例如：劃詞翻譯、文本收集&lt;/li>
+&lt;li>快速調用插件功能，例如：打開 DevTool，頁面剪藏&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>cookies&lt;/strong>：增刪改查 cookie(任意域名)，直接拿著本地 cookie 發送請求，不必再做授權。同時由於後台腳本不是 Web 頁面，在發送請求時沒有跨域限制。
+&lt;ul>
+&lt;li>多平台信息聚合&lt;/li>
+&lt;li>多平台信息分發&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>&lt;strong>devtools.panels&lt;/strong>：增加 Devtool 面板，這個對前端開發者來說應該很熟悉，React Developer Tools、Vue.js devtools。&lt;/li>
+&lt;li>&lt;strong>notifications&lt;/strong>：瀏覽器通知，未打開頁面的情況下進行通知，可以輔助一些工具類應用。&lt;/li>
+&lt;li>&lt;strong>storage&lt;/strong>：全局保存數據，可跟隨瀏覽器帳戶同步。&lt;/li>
+&lt;/ul>
+&lt;p>這裡例舉的只是我常用的一些，只是滄海一粟，更多 API 可以查閱：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://developer.chrome.com/docs/extensions/reference/" target="_blank" rel="noopener"
+>Chrome Extension API Reference&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://learn.microsoft.com/zh-cn/microsoft-edge/extensions-chromium/developer-guide/api-support" target="_blank" rel="noopener"
+>支持用於擴展Microsoft Edge API&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions/API" target="_blank" rel="noopener"
+>Mozilla WebExtensions API&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>瀏覽器插件就簡單介紹到這裡，如果有興趣繼續了解，推薦：&lt;a class="link" href="https://developer.chrome.com/docs/extensions/mv3/getstarted/" target="_blank" rel="noopener"
+>Chrome&lt;/a>、&lt;a class="link" href="https://learn.microsoft.com/zh-cn/microsoft-edge/extensions-chromium/getting-started/" target="_blank" rel="noopener"
+>Edge&lt;/a>、&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Mozilla/Add-ons/WebExtensions" target="_blank" rel="noopener"
+>Mozilla&lt;/a>三家的文檔。&lt;/p>
+&lt;hr>
+&lt;h2 id="油猴插件tampermonkey">油猴插件(Tampermonkey)&lt;/h2>
+&lt;p>瀏覽器插件可以實現各式各樣的功能，但有時候開發者只是想對某一個站點加一點點小功能，如果這也要構建環境打包上架分發，未免就太麻煩了一些；從應用市場角度來看，充斥著顆粒化的應用，市場也會擁擠繁雜不堪。&lt;/p>
+&lt;p>油猴插件為輕量化腳本提供了一個平台，在線編輯器中編寫油猴腳本即時生效，通過 Github、GreasyFork 快速分發。&lt;/p>
+&lt;p>在油猴插件中，&lt;code>content script&lt;/code> 起到非常重要的角色，它將用戶編寫的代碼運行在頁面中，同時提供 &lt;code>GM_xxxx&lt;/code> 函數封裝瀏覽器的部分能力。封裝的內部實現是和 &lt;code>background script&lt;/code> 通信，驅動 &lt;code>background script&lt;/code> 調用插件API。&lt;/p>
+&lt;p>對油猴插件簡單了解之後，來看看如何編寫油猴腳本。&lt;/p>
+&lt;hr>
+&lt;h2 id="tampermonkey-api">Tampermonkey API&lt;/h2>
+&lt;p>油猴腳本由&lt;strong>頭部&lt;/strong>和&lt;strong>核心邏輯&lt;/strong>兩部分組成。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ==UserScript==
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @name New Userscript
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @namespace http://tampermonkey.net/
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @version 0.1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @description try to take over the world!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @author You
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @match https://www.tampermonkey.net/documentation.php?ext=dhdg
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @icon https://www.google.com/s2/favicons?domain=tampermonkey.net
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @grant none
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ==/UserScript==
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;use strict&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Your code here...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">})();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="頭部">頭部&lt;/h3>
+&lt;p>&lt;strong>頭部&lt;/strong>是腳本的一些元信息、更新方式、指定運行頁面、權限聲明，逐一解釋一下：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>配置名&lt;/th>
+&lt;th>作用&lt;/th>
+&lt;th>使用技巧&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>@name&lt;/strong>&lt;/td>
+&lt;td>腳本顯示的名稱&lt;/td>
+&lt;td>加後綴實現國際化，例如：&lt;br/>&lt;strong>@name:zh-CN&lt;/strong> 指定在瀏覽器語言為中文時顯示的名稱&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@namespace&lt;/strong>&lt;/td>
+&lt;td>腳本的命名空間，可以理解為腳本的標識&lt;/td>
+&lt;td>為了避免衝突一般使用 Github 倉庫地址&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@version&lt;/strong>&lt;/td>
+&lt;td>與更新相關，當前版本&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@updateURL&lt;/strong>&lt;/td>
+&lt;td>檢查腳本是否更新地址&lt;/td>
+&lt;td>配合 &lt;strong>@version&lt;/strong> 和自動更新使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@downloadURL&lt;/strong>&lt;/td>
+&lt;td>檢測到更新時，去哪下載腳本&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@supportURL&lt;/strong>&lt;/td>
+&lt;td>遇到問題時，用戶去哪反饋&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@include&lt;/strong>&lt;/td>
+&lt;td>腳本在哪些頁面運行&lt;/td>
+&lt;td>可使用正則，不支持 hashtag，多個頁面的地址聲明多個 &lt;strong>@include&lt;/strong> 即可&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@match&lt;/strong>&lt;/td>
+&lt;td>與 &lt;strong>@include&lt;/strong> 類似&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@exclude&lt;/strong>&lt;/td>
+&lt;td>腳本禁止在哪些頁面運行，優先於 &lt;strong>@include&lt;/strong>&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@require&lt;/strong>&lt;/td>
+&lt;td>在腳本運行前引入外部 JavaScript 文件&lt;/td>
+&lt;td>例如：引入 jQuery&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@resource&lt;/strong>&lt;/td>
+&lt;td>聲明外部資源文件，搭配 &lt;strong>GM_getResourceText&lt;/strong> 使用&lt;/td>
+&lt;td>例如：引入 html、icon&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@connect&lt;/strong>&lt;/td>
+&lt;td>聲明 &lt;strong>GM_xmlhttpRequest&lt;/strong> 可訪問的域&lt;/td>
+&lt;td>必須指定才能正常請求&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@grant&lt;/strong>&lt;/td>
+&lt;td>聲明 &lt;strong>GM_xxx&lt;/strong> 函數的使用列表&lt;/td>
+&lt;td>必須先指定權限才能正常使用&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@run-at&lt;/strong>&lt;/td>
+&lt;td>指定腳本運行時機&lt;/td>
+&lt;td>document-start：盡快執行&lt;br/>document-body：當 body 掛載時執行&lt;br/>document-end：DOMContentLoaded 觸發時執行&lt;br/>document-idle：DOMContentLoaded 觸發後執行，也是默認設置項&lt;br/>context-menu: 右鍵菜單項被點擊時執行&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@author&lt;/strong>&lt;/td>
+&lt;td>作者名&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@description&lt;/strong>&lt;/td>
+&lt;td>簡短介紹&lt;/td>
+&lt;td>同樣可以加後綴實現國際化，例如：&lt;br/>&lt;strong>@description:zh-CN&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@homepage&lt;/strong>&lt;/td>
+&lt;td>主頁地址&lt;/td>
+&lt;td>如果未設置並且 &lt;strong>@namespace&lt;/strong> 是倉庫地址，默認導向倉庫地址&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@icon&lt;/strong>&lt;/td>
+&lt;td>腳本 icon&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@icon64&lt;/strong>&lt;/td>
+&lt;td>64x64 像素的腳本 icon&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@antifeature&lt;/strong>&lt;/td>
+&lt;td>腳本是否有廣告、挖礦、數據收集等商業行為&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>@noframes&lt;/strong>&lt;/td>
+&lt;td>聲明腳本不在 iframe 中運行&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="核心邏輯">核心邏輯&lt;/h3>
+&lt;p>&lt;strong>核心邏輯&lt;/strong>通過一個立即執行函數包裹，避免和全局作用域相互干擾。Tampermonkey 將瀏覽器的部分能力封裝為 &lt;code>GM_XXX&lt;/code> 函數以供調用：&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>API&lt;/th>
+&lt;th>作用&lt;/th>
+&lt;th>使用技巧&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>&lt;strong>unsafeWindow&lt;/strong>&lt;/td>
+&lt;td>訪問頁面的 Window 對象&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_addStyle(css)&lt;/strong>&lt;/td>
+&lt;td>創建全局樣式的快捷方式，向頁面插入 style 元素&lt;/td>
+&lt;td>也可以用 DOM 操作手動創建&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_addElement(tag_name, attributes)&lt;/strong>&lt;br/>&lt;strong>GM_addElement(parent_node, tag_name, attributes)&lt;/strong>&lt;/td>
+&lt;td>向 DOM 新建元素的快捷方式&lt;/td>
+&lt;td>也可以用 DOM 操作手動創建&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_log(message)&lt;/strong>&lt;/td>
+&lt;td>在 Console 中打印信息&lt;/td>
+&lt;td>console.log 的快捷方式&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_getValue(name, defaultValue)&lt;/strong>&lt;/td>
+&lt;td>從存儲體中獲取數據&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_deleteValue(name)&lt;/strong>&lt;/td>
+&lt;td>從存儲體中刪除數據&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_listValues()&lt;/strong>&lt;/td>
+&lt;td>列舉存儲體中所有數據項&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_addValueChangeListener&lt;/strong>&lt;/td>
+&lt;td>監聽數據更新&lt;/td>
+&lt;td>例如要使 Tab 間數據同步，可以用監聽 value 達成同步&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_removeValueChangeListener&lt;/strong>&lt;/td>
+&lt;td>移除監聽&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_getResourceText(name)&lt;/strong>&lt;/td>
+&lt;td>獲取 &lt;strong>@resource&lt;/strong> 中已聲明的資源&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_getResourceURL(name)&lt;/strong>&lt;/td>
+&lt;td>獲取 &lt;strong>@resource&lt;/strong> 中已聲明的資源(base64 URI 形式)&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_registerMenuCommand(name, fn, accessKey)&lt;/strong>&lt;/td>
+&lt;td>在 Tampermonkey 的 popup 中增加選項&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_unregisterMenuCommand(menuCmdId)&lt;/strong>&lt;/td>
+&lt;td>移除選項&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_openInTab(url, options)&lt;/strong>&lt;/td>
+&lt;td>新開一個 tab 頁&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_xmlhttpRequest(details)&lt;/strong>&lt;/td>
+&lt;td>使用後台腳本進行請求，自動帶上 cookie，無跨域問題，目標域需要在 &lt;strong>@connect&lt;/strong> 中提前聲明&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_download(details)&lt;/strong>&lt;/td>
+&lt;td>下載資源到本地&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_getTab(callback)&lt;/strong>&lt;/td>
+&lt;td>獲取當前 tab 的 object 對象&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_saveTab(tab)&lt;/strong>&lt;/td>
+&lt;td>通過 tab 的 object 對象重新打開一個 tab&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_getTabs(callback)&lt;/strong>&lt;/td>
+&lt;td>獲取當前存活的所有 tab 的對象，以便和其他腳本實例溝通&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_notification&lt;/strong>&lt;/td>
+&lt;td>使用插件 notification API 彈出桌面通知&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_setClipboard&lt;/strong>&lt;/td>
+&lt;td>複製內容到剪貼板&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>&lt;strong>GM_info&lt;/strong>&lt;/td>
+&lt;td>獲取腳本的油猴插件的信息&lt;/td>
+&lt;td>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>完整的說明文檔：&lt;a class="link" href="https://www.tampermonkey.net/documentation.php" target="_blank" rel="noopener"
+>Tampermonkey documentation&lt;/a>&lt;/p>
+&lt;h2 id="實踐打印-hello-world">實踐：打印 &amp;ldquo;Hello, World&amp;rdquo;&lt;/h2>
+&lt;p>做一個非常簡單的小練習：創建一個名為 &amp;ldquo;Hello&amp;rdquo; 的腳本，當進入掘金和知乎頁面時，在 Console 中打印 &amp;ldquo;Hello, World&amp;rdquo;。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564900350_360ca23caf_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;ol>
+&lt;li>新建腳本&lt;/li>
+&lt;li>修改腳本名稱&lt;/li>
+&lt;li>指定運行地址 &lt;code>@match&lt;/code> 或 &lt;code>@include&lt;/code>&lt;/li>
+&lt;li>直接使用 &lt;code>console.log&lt;/code> 或者聲明權限調用 &lt;code>GM_log&lt;/code>&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ==UserScript==
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @name Hello
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @namespace http://tampermonkey.net/hello
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @version 0.1
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @description try to take over the world!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @author You Name
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @match https://zhihu.com/*
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @match https://juejin.cn/*
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// @grant GM_log
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// ==/UserScript==
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s1">&amp;#39;use strict&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GM_log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello World&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="搭建舒適的開發環境">搭建舒適的開發環境&lt;/h2>
+&lt;p>使用在線編輯器小試牛刀之後，或許你也發現在線編輯器：&lt;/p>
+&lt;ul>
+&lt;li>缺少語法補全和自動提示&lt;/li>
+&lt;li>難以格式化代碼&lt;/li>
+&lt;/ul>
+&lt;p>不免懷念起 VSCode。&lt;/p>
+&lt;p>或許你還會有更深遠的考慮，在線編輯器編輯完成後：&lt;/p>
+&lt;ul>
+&lt;li>怎麼同步到遠程倉庫，怎麼做代碼分發&lt;/li>
+&lt;li>如果要用到新語法，怎麼保證跨瀏覽器兼容性&lt;/li>
+&lt;li>如果代碼越寫越多，沒有模塊化怎麼管理&lt;/li>
+&lt;li>沒有 TS，很難保證長期維護&lt;/li>
+&lt;/ul>
+&lt;p>這些坑我已經踩過了，並且抽出一個腳手架工具 &lt;a class="link" href="https://www.npmjs.com/package/create-tampermonkey" target="_blank" rel="noopener"
+>create-tampermonkey - npm (npmjs.com)&lt;/a>，一鍵搭建舒適的油猴腳本開發環境。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564900355_5c5dab79e3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>腳手架集成 rollup + babel + eslint + typescript，支持：&lt;/p>
+&lt;ul>
+&lt;li>自動生成 UserScript Header&lt;/li>
+&lt;li>語法和類型系統：ESNext、ES Module、TypeScript&lt;/li>
+&lt;li>樣式系統：CSS Modules，以及 scss、sass、less、stylus (需安裝對應依賴)&lt;/li>
+&lt;li>靜態資源：導入圖片、SVG 轉換為 Base64，同時支持 SVG Sprite 多語言&lt;/li>
+&lt;li>擴展：基於 Rollup，可以按需安裝插件進行擴展&lt;/li>
+&lt;/ul>
+&lt;h3 id="create-tampermonkey-啟動項目">&lt;strong>create-tampermonkey&lt;/strong> 啟動項目&lt;/h3>
+&lt;h4 id="初始化項目">初始化項目&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx create-tampermonkey demo-userscript
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或者&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm init tampermonkey demo-userscript
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 或者&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yarn create tampermonkey demo-userscript
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="初始化完畢後進入目錄安裝依賴">初始化完畢後，進入目錄安裝依賴。&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm run dev &lt;span class="c1"># 跑起開發模式&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;img src="https://live.staticflickr.com/65535/52563988282_f3f5fd5df6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="到瀏覽器中打開-devuserjs自動進入-tampermonkey-腳本安裝界面">到瀏覽器中打開 &lt;code>dev.user.js&lt;/code>，自動進入 Tampermonkey 腳本安裝界面。&lt;/h4>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52563988297_351ae5b113_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h4 id="最後一步配置油猴插件">最後一步：配置油猴插件&lt;/h4>
+&lt;p>訪問 &lt;a class="link" href="chrome://extension" >&lt;code>chrome://extension&lt;/code>&lt;/a>，找到油猴插件的卡片，點擊 &lt;strong>Details&lt;/strong> 進入配置界面。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564447881_bf4223c421_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>勾選 &lt;strong>Allow acess to file URLs&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564447906_3a3c7d450d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>刷新頁面，出現彈窗，一切就緒。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564726624_5f584154d4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>用 VSCode 打開項目，這時右下角會推薦一些輔助插件，建議安裝。&lt;/p>
+&lt;p>代碼中使用到的 &lt;code>GM_xxx&lt;/code> 會自動提取到 UserScript Header 中，當然也可以在 &lt;code>src/meta.json&lt;/code> 中自定義。&lt;/p>
+&lt;p>代碼的默認入口是 &lt;code>src/main.js&lt;/code> 文件。&lt;/p>
+&lt;hr>
+&lt;h2 id="實踐掘金簽到功能">實踐：掘金簽到功能&lt;/h2>
+&lt;p>基於上面初始化的項目 &lt;code>demo-userscript&lt;/code> 做一個小功能：掘金簽到功能。&lt;/p>
+&lt;h3 id="定位請求">定位請求&lt;/h3>
+&lt;p>&amp;ldquo;掘金簽到&amp;quot;本質是調用接口，我們的實現思路是追踪點擊&amp;quot;立即簽到&amp;quot;按鈕時請求發送情況，定位到&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564978003_bab32df628_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="調試接口">調試接口&lt;/h3>
+&lt;p>打開 Postman 做一下調試，這裡有一個導入小技巧：右鍵拷貝 &lt;strong>cURL&lt;/strong>。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564447981_d70749ea73_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>到 Postman 中通過 curl 導入整個請求：點擊左側面板中的 import 按鈕，選擇 Raw text 貼上上一步複製的內容即可。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564726689_b0091f3b75_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="獲取參數">獲取參數&lt;/h3>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564978043_fe3c0edc6f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>在 Postman 中發現請求需要 &lt;code>aid&lt;/code>、&lt;code>uuid&lt;/code>、&lt;code>_signature&lt;/code> 三個參數，試試看不帶參數能否請求成功，先確定好必不可少的參數和請求頭。&lt;/p>
+&lt;p>簡單嘗試後，發現這裡並不需要帶 &lt;code>aid&lt;/code>、&lt;code>uuid&lt;/code>、&lt;code>_signature&lt;/code> 三個參數，主要是依賴 &lt;code>cookie&lt;/code>，使用 &lt;code>GM_xmlhttpRequest&lt;/code> 會自動帶上對應的 &lt;code>cookie&lt;/code>，事情變得簡單。&lt;/p>
+&lt;p>修改 &lt;code>src/main.js&lt;/code> 的代碼：&lt;/p>
+&lt;h5 id="srcmainjs">src/main.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">GM_xmlhttpRequest&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">url&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;https://api.juejin.cn/growth_api/v1/check_in&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">method&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;POST&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">headers&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;content-type&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;application/json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;user-agent&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">navigator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">userAgent&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">responseType&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">onload&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">status&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;success&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;簽到成功&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">err_msg&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>刷新頁面測試一下。在其他站點刷新一下居然也可以發送請求，這就是插件沒有跨域限制的優勢了。&lt;/p>
+&lt;p>再做一下節流優化。利用 &lt;code>GM_setValue&lt;/code> 和 &lt;code>GM_getValue&lt;/code> 做持續存儲。&lt;/p>
+&lt;h5 id="srcmainjs-1">src/main.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">storageKey&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;last_sign_timestamp&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 取得上一次簽到的日子
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">lastSignNumberOfDays&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">GM_getValue&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">storageKey&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 計算現在所在的日子
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">currentNumberOfDays&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">Math&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">floor&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">new&lt;/span> &lt;span class="nb">Date&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="nx">valueOf&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">1000&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">60&lt;/span> &lt;span class="o">/&lt;/span> &lt;span class="mi">24&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 如果今天已经請求過，不再請求
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">currentNumberOfDays&lt;/span> &lt;span class="o">!==&lt;/span> &lt;span class="nx">lastSignNumberOfDays&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">GM_xmlhttpRequest&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">url&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;https://api.juejin.cn/growth_api/v1/check_in&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">method&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;POST&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">headers&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;content-type&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;application/json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;user-agent&amp;#34;&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">navigator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">userAgent&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">responseType&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">onload&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">status&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">200&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">data&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">response&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">data&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;success&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;簽到成功&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">err_msg&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 更新最近一次簽到的日子
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">GM_setValue&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">storageKey&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">currentNumberOfDays&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>難免會遇到需要獲取數據的情況，可訪問的數據一般有三種：&lt;/p>
+&lt;ol>
+&lt;li>頁面中包含數據，通過DOM 獲取&lt;/li>
+&lt;li>通過接口請求得到&lt;/li>
+&lt;li>存儲在本地存儲中，localStorage 或 cookie 之類&lt;/li>
+&lt;/ol>
+&lt;p>確定方式很粗暴：&lt;/p>
+&lt;ol>
+&lt;li>複製參數或參數值到Element 中搜索&lt;/li>
+&lt;li>查看前面幾個請求，看看是否有跡可循&lt;/li>
+&lt;li>到 localStorage 或 cookie 中搜索&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="發布腳本">發布腳本&lt;/h2>
+&lt;p>在本地開發完腳本之後，&lt;code>npm run build&lt;/code> 構建生產版本並上傳代碼到 Github 或 Gitee。&lt;/p>
+&lt;p>用 Github/Gitee 上文件的 &lt;strong>Raw URL&lt;/strong> 就能直接實現分發。如果在 package.json 中設置好 &lt;code>repository&lt;/code>，&lt;code>create-tampermonkey&lt;/code> 會自動生成 &lt;strong>Raw URL&lt;/strong> 並賦給 &lt;code>downloadURL&lt;/code>、&lt;code>updateURL&lt;/code>。&lt;/p>
+&lt;p>但這樣分發存在的問題是無法統計下載量、從網絡訪問的角度考慮同時維護 Github 和 Gitee 兩個倉庫。&lt;/p>
+&lt;p>另一種分發方式是上傳到腳本平台 &lt;a class="link" href="https://greasyfork.org/zh-CN" target="_blank" rel="noopener"
+>greasyfork.org/&lt;/a>，登錄後即可發布新腳本，如果代碼託管在 Github 或 GitLab 還可以使用 &lt;strong>Webhooks&lt;/strong> 實現自動更新。&lt;/p>
+&lt;hr>
+&lt;h2 id="開發技巧">開發技巧&lt;/h2>
+&lt;h3 id="調試油猴腳本">調試油猴腳本&lt;/h3>
+&lt;p>油猴腳本的運行依託於 &lt;code>background script&lt;/code> 和 &lt;code>content script&lt;/code>，在調試前需要對運行環境有所區分，例如 &lt;code>GM_xmlhttpRequest&lt;/code> 請求是 &lt;code>background script&lt;/code> 發出的，DOM 處理和腳本邏輯是 &lt;code>content script&lt;/code> 執行的。&lt;/p>
+&lt;p>確定環境之後，就可以使用對應的調試方式進行調試了。&lt;/p>
+&lt;h4 id="調試-background-script">調試 &lt;code>background script&lt;/code>&lt;/h4>
+&lt;p>還是訪問 &lt;a class="link" href="chrome://extension" >chrome://extension&lt;/a>，找到油猴插件的卡片：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564726704_a5c5a856d5_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;code>inspect views&lt;/code> 後面有個 &lt;code>background.html&lt;/code>，點擊一下彈出 &lt;code>background script&lt;/code> 的調試彈窗。&lt;/p>
+&lt;h4 id="調試-content-script">調試 &lt;code>content script&lt;/code>&lt;/h4>
+&lt;p>在網頁inspect -&amp;gt; Sources -&amp;gt; Page 下找到 &lt;code>Tampermonkey&lt;/code> 目錄，頁面中運行的油猴腳本代碼都在這了，選擇目標，斷點調試即可。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564726729_292f203646_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="獲取-userid-等信息">獲取 &lt;code>userId&lt;/code> 等信息&lt;/h3>
+&lt;p>有時候需要拿一些額外信息做請求，一般有三種方式：&lt;/p>
+&lt;ol>
+&lt;li>看看能不能在頁面中搜索到，通過 DOM 獲取&lt;/li>
+&lt;li>看看有沒有接口可以調用獲取&lt;/li>
+&lt;li>看看本地存儲裡有沒有&lt;/li>
+&lt;/ol>
+&lt;h3 id="目標-dom-節點未掛載怎麼辦">目標 DOM 節點未掛載怎麼辦？&lt;/h3>
+&lt;p>如果節點是在首屏加載的，粗暴的方法是使用 &lt;code>setTimeout&lt;/code> 做一下延時。&lt;/p>
+&lt;p>但如果是在交互過程中有DOM 更新，就只能引入監聽機制了，使用 &lt;code>MutationObserver&lt;/code> 來實現。&lt;/p>
+&lt;p>具體的實例可以看&lt;a class="link" href="https://juejin.cn/post/7012565266827739150" target="_blank" rel="noopener"
+>【開發記錄】掘金&amp;quot;破圈行動&amp;rdquo; 輔助腳本- 掘金(juejin.cn)&lt;/a>&lt;/p>
+&lt;h3 id="查看插件源碼">查看插件源碼&lt;/h3>
+&lt;p>瀏覽器插件安裝之後，插件包被下載到本地目錄中，可通過下述方法訪問。&lt;/p>
+&lt;p>訪問 &lt;a class="link" href="chrome://version" >chrome://version&lt;/a>，找到 Profile path(存放用戶數據的路徑)&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52563988382_afd8393105_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>訪問 &lt;a class="link" href="chrome://extensions/" >chrome://extensions/&lt;/a>，找到目標插件的ID&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52564900305_7278510b37_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>將 Profile Path 和插件 ID 拼裝在一起 &lt;code>${Prifile Path}/Extensions/${Extension Id}&lt;/code>，便是插件包的路徑了。友情提示，通過命令行訪問時需要在空格前加個 &lt;code>\&lt;/code> 轉義一下。&lt;/p>
+&lt;hr>
+&lt;h2 id="總結">總結&lt;/h2>
+&lt;p>瀏覽器插件利用瀏覽器能力進行功能擴展，具有跨域請求、讀取 cookie、管理歷史記錄、註冊右鍵項等能力。&lt;/p>
+&lt;p>瀏覽器插件的能力很豐富，能夠實現複雜的功能。但如果只是做一些針對頁面的操作，只需要依賴基礎能力，完全可以使用油猴腳本實現，開發更便捷分發更迅速。&lt;/p>
+&lt;p>開發油猴腳本，主要是使用 Tampermonkey API 和 JavaScript。&lt;/p>
+&lt;p>&lt;a class="link" href="https://www.npmjs.com/package/create-tampermonkey" target="_blank" rel="noopener"
+>create-tampermonkey&lt;/a> 腳手架提供一個全面的油猴腳本開發環境，依托這個環境，可以使用最新的 ES 語法、TypeScript、CSS Modules，在 VSCode 中進行模塊化開發，大大提高開發效率。&lt;/p>
+&lt;p>開發完畢的油猴腳本可通過 Github/Gitee Raw URL 或 &lt;a class="link" href="https://greasyfork.org/zh-CN" target="_blank" rel="noopener"
+>Greasy Fork&lt;/a> 平台分發。&lt;/p>
+&lt;p>瀏覽器插件的主要分工為 &lt;code>background script&lt;/code> 和 &lt;code>content script&lt;/code> 兩部分，在調試油猴腳本時需要思考清楚是哪一部分出現的問題，再採用對應的調試方式。&lt;/p>
+&lt;p>實現了兩個小實踐，走出第一步，接下來盡情發揮創造力吧，玩得開心～&lt;/p>
+&lt;hr></description></item><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

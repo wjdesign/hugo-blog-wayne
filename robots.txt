@@ -1,6 +1,22 @@
 User-agent: *
 
+Allow: /2022-12-15/tampermonkey-userscript-tutorial/
+
 Allow: /categories/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /tags/tampermonkey/
+
+Allow: /categories/tampermonkey/
+
+Allow: /
 
 Allow: /tags/nodejs/
 
@@ -10,12 +26,6 @@ Allow: /tags/open-ai/
 
 Allow: /categories/open-ai/
 
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
-
 Allow: /2022-12-12/nodejs-create-openai-line-bot/
 
 Allow: /tags/gcp/
@@ -23,10 +33,6 @@ Allow: /tags/gcp/
 Allow: /categories/gcp/
 
 Allow: /2022-12-08/use-google-sheet-as-db/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /2022-12-05/js-13-useful-array-tricks/
 
