@@ -1826,6 +1826,201 @@ max-height="100%"
 class="gallery-image"
 >&lt;/p>
 &lt;p>Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-3/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-3/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
+>前篇文章&lt;/a>介紹過使用 Docker Compose 設定關聯容器(Web、DB、Reverse Proxy)組成系統，容器被隔離在專用網段(Compose 自動建立的 Bridge)，並可透過容器名稱彼此溝通，Compose 也確保相關服務一起啟動一起關閉，是用多個容器建構系統最簡便的做法。&lt;/p>
+&lt;p>註：關於容器管理 &lt;a class="link" href="https://blog.gcp.expert/kubernetes-gke-introduction/" target="_blank" rel="noopener"
+>Kubernetes&lt;/a>，K8S 提供更強大的功能，支援 Cluster 高可用架構 (單一容器、主機掛掉系統不會死)，為當今在雲端掛載容器以及中大型企業實做容器架構的主流，K8S 無疑可取代 Docker Compose，但其複雜性較高。 目前我在單一 Linux 機跑 Docker 還用不到牛刀(雖然有單機版 &lt;a class="link" href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener"
+>Minikube&lt;/a> 可用)，未來若要將 Docker 應用於工作，K8S 已成必要技能。&lt;/p>
+&lt;p>用 Docker Compose 組合容器建立服務看似完美，但應用在 Reverse Proxy (Nginx) 時需要額外考量。&lt;/p>
+&lt;p>我打算在同一台 Linux 上跑多個網站，對外用同一個 IP，再依 HTTP Request 的 &lt;strong>Host 標頭&lt;/strong>導向不同網站。&lt;/p>
+&lt;hr>
+&lt;h2 id="舉例">舉例&lt;/h2>
+&lt;p>舉個例子：假設 Linux 的對外 IP 是 123.123.123.123，我申請兩個 DNS 名稱 web1.xxx.com.tw、web2.xxx.com.tw 都指向 123.123.123.123。&lt;/p>
+&lt;p>使用者用 &lt;a class="link" href="http://web1.xxx.com.tw" target="_blank" rel="noopener"
+>http://web1.xxx.com.tw&lt;/a> 連上 123.123.123.123 的 80 Port 時，Reverse Proxy 導向 &lt;strong>Web1&lt;/strong> 網站；用 &lt;a class="link" href="http://web2.xxx.com.tw" target="_blank" rel="noopener"
+>http://web2.xxx.com.tw&lt;/a> 時連線時則導向 &lt;strong>Web2&lt;/strong> 網站。由於對外靜態 IP 為珍貴資源，多網站透過 Host 共用 IP 是節省成本的常見做法。&lt;/p>
+&lt;p>上述以 HTTP Host 名稱導向的做法，若用 Docker Compose 將網站連同 Reverse Proxy 包在一起，就可能出問題。&lt;/p>
+&lt;p>例如：某 Host OS 跑兩個網站，若各自用 Docker Compose 連同 Nginx 一起包進去，網站 A 由 Web-A + MySQL-A + Nginx-A 組成，網站 B 由 Web-B + MySQL-B + Nginx-B 組成，二者跑在自己的專屬網段，僅 Nginx-A 跟 Nginx-B 對映到 Host OS IP 的 80 Port&amp;hellip; 哦哦，衝突出現了，Nginx-A 與 Nginx-B 都需對映 Host IP 的 80 Port，但 Host OS 的 80 Port 只允許被一個程序使用。&lt;/p>
+&lt;hr>
+&lt;h2 id="解決方式">解決方式&lt;/h2>
+&lt;p>有幾個解決方向：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Nginx-A 與 Nginx-B 各自對應到主機不同 Port，更前端再掛一台 Nginx 聽 80 Port，依 Host Name 導向到 Nginx-A 與 Nginx- B，如此 Nginx-A 與 Nginx-B 的角色顯得多餘，多了一次轉接但未看到明顯效益，徒增複雜性又耗損效能。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>將兩個系統包成一個大 Docker Compose，Web-A + MySQL-A + Web-B + MySQL-B + Nginx，共用 Nginx 可避免 Port 80 繫結衝突，但將不相關系統綁架成一團，被迫一起啟動一起停止挺鳥的，更不用提一旦加跑新服務就要改 Docker Compose，我覺得不行。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>將 Nginx 從 Docker Compose 抽離，讓 Web-A 與 Web-B 對映到 Host IP 的不同 Port，整個 Host OS 只跑一份 Nginx 聽 80 Port，依 Host Name 分派給網站 A 或網站 B。也就是用 Docker Compose 執行三個容器：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Web-A + MySQL-A&lt;/li>
+&lt;li>Web-B + MySQL-B&lt;/li>
+&lt;li>Ngnix&lt;/li>
+&lt;/ul>
+&lt;p>3 是我認為較可行且有效率的做法。&lt;/p>
+&lt;p>Nginx 包容器的做法在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+>第一篇筆記&lt;/a>已提過，這次我們將重點放在整合 Certbot 及 docker-compose.yml 定義。&lt;/p>
+&lt;p>原本想抓 Nginx 的 Docker Image 自行加裝 certbot 實現自動安裝與更新 &lt;a class="link" href="https://zh.wikipedia.org/wiki/Let%27s_Encrypt" target="_blank" rel="noopener"
+>Let&amp;rsquo;s Encrypt SSL 憑證&lt;/a>。&lt;/p>
+&lt;p>用 Docker 的好處是資源豐富，很快在網路上找到現成解決方案，超級好用的全自動化 Nginx + Certbot -&amp;gt; &lt;a class="link" href="https://github.com/staticfloat/docker-nginx-certbot" target="_blank" rel="noopener"
+>staticfloat/nginx-certbot&lt;/a>。&lt;/p>
+&lt;hr>
+&lt;h2 id="staticfloatnginx-certbot">staticfloat/nginx-certbot&lt;/h2>
+&lt;p>&lt;a class="link" href="https://github.com/staticfloat/docker-nginx-certbot" target="_blank" rel="noopener"
+>staticfloat/nginx-certbot&lt;/a>&lt;/p>
+&lt;p>使用方法很簡單，在 &lt;code>/etc/nginx/conf.d&lt;/code> 放一個 &lt;code>certbot.conf&lt;/code> 接受 80 Port 流量，只用於接收 Let&amp;rsquo;s Encrypt 的 &lt;code>/.well-known/acme-challenge&lt;/code> 要求導向 Certbot 完成自動驗證，其餘則一律導向 HTTPS：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Listen on plain old HTTP
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">80&lt;/span> &lt;span class="s">default_server&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Pass this particular URL off to certbot, to authenticate HTTPS certificates
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">location&lt;/span> &lt;span class="s">&amp;#39;/.well-known/acme-challenge&amp;#39;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">default_type&lt;/span> &lt;span class="s">&amp;#34;text/plain&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://localhost:1337&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># Everything else gets shunted over to HTTPS
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kn">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">return&lt;/span> &lt;span class="mi">301&lt;/span> &lt;span class="s">https://&lt;/span>&lt;span class="nv">$http_host$request_uri&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>接著在 &lt;code>/etc/nginx/conf.d&lt;/code> 為每個網站新增一個 someweb.conf 承接 HTTPS 請求。server_name 註明該網站綁定的 Host 名稱(DNS 名稱)，ssl_certificate、ssl_certficate_key 則指向 &lt;code>/etc/letsencrypt/live/DNS名稱&lt;/code> 的 &lt;code>fullchain.pem&lt;/code> 及 &lt;code>private.pem&lt;/code>，這兩個檔案不需事先準備，Certbot 會自動產生，至於 &lt;code>proxy_*&lt;/code> 相關設定比照先前介紹過的做法。完整範例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">server&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">listen&lt;/span> &lt;span class="mi">443&lt;/span> &lt;span class="s">ssl&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">server_name&lt;/span> &lt;span class="s">blog.darkthread.net&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate&lt;/span> &lt;span class="s">/etc/letsencrypt/live/blog.darkthread.net/fullchain.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">ssl_certificate_key&lt;/span> &lt;span class="s">/etc/letsencrypt/live/blog.darkthread.net/privkey.pem&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">location&lt;/span> &lt;span class="s">/&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_pass&lt;/span> &lt;span class="s">http://localhost:5000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_http_version&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="s">.1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Upgrade&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Connection&lt;/span> &lt;span class="s">keep-alive&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">Host&lt;/span> &lt;span class="nv">$host&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_cache_bypass&lt;/span> &lt;span class="nv">$http_upgrade&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-For&lt;/span> &lt;span class="nv">$proxy_add_x_forwarded_for&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">proxy_set_header&lt;/span> &lt;span class="s">X-Forwarded-Proto&lt;/span> &lt;span class="nv">$scheme&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這個 Docker Image 有一段精巧設計，它在啟動時會主動掃瞄 /etc/nginx/conf.d 下的 config，一旦偵測缺少 &lt;code>/etc/letsencrypt/live/*/fullchain.pem&lt;/code> 就連上 &lt;a class="link" href="https://zh.wikipedia.org/wiki/Let%27s_Encrypt" target="_blank" rel="noopener"
+>Let&amp;rsquo;s Encrypt 網站&lt;/a>進行驗證下載 SSL 憑證，另外還設了每週一次的排程，憑證到期前會自動更新，一氣喝成，全不沾手，貼心到我想起立鼓掌。&lt;/p>
+&lt;p>若對它的運作原理有興趣，&lt;a class="link" href="https://github.com/staticfloat/docker-nginx-certbot/tree/master/src/scripts" target="_blank" rel="noopener"
+>Github&lt;/a> 有原始碼可以參考。&lt;/p>
+&lt;p>為了瞭解原理，我是依著 &lt;a class="link" href="https://github.com/staticfloat/docker-nginx-certbot/tree/master/src/scripts" target="_blank" rel="noopener"
+>Github 原始碼&lt;/a>自己跑 Dockerfile 製作 Nginx + Certbot 的 Image，如果嫌麻煩，直接從 &lt;a class="link" href="https://hub.docker.com/r/staticfloat/nginx-certbot/" target="_blank" rel="noopener"
+>Docker Hub&lt;/a> 下載也成。&lt;/p>
+&lt;p>以下是我的 Nginx docker-compose.yml：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yml" data-lang="yml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">nginx&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nginx-certbot&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">container_name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nginx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">80&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">443&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">443&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/log/nginx:/var/log/nginx&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/etc/nginx/conf.d:/etc/nginx/conf.d&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/etc/letsencrypt:/etc/letsencrypt&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">CERTBOT_EMAIL=your-email@mail.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">network_mode&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;host&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我設了三個 Volume 對映：&lt;/p>
+&lt;ul>
+&lt;li>/var/log/nginx：Log 檔&lt;/li>
+&lt;li>/etc/nginx/conf.d：設定檔&lt;/li>
+&lt;li>/etc/letsencrypt：用來存放 SSL 憑證&lt;/li>
+&lt;/ul>
+&lt;p>若為 &lt;strong>SELinux&lt;/strong> 記得要 &lt;code>chcon -Rt&lt;/code> &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
+>參考&lt;/a>，另外 network_mode 指定 host 表示 Nginx 容器將直接使用 Host OS 網段，不另設 Bridge。&lt;/p>
+&lt;p>參考：&lt;a class="link" href="https://notes.doublemine.me/2017-06-12-Docker-Compose-%E9%93%BE%E6%8E%A5%E5%A4%96%E9%83%A8%E5%AE%B9%E5%99%A8%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E5%BC%8F.html" target="_blank" rel="noopener"
+>Docker Compose：链接外部容器的几种方式&lt;/a>&lt;/p>
+&lt;p>就醬，Nginx Reverse Proxy 準備好了，下一篇來再來分享我將 ASP.NET Core 搬進 Docker 的經驗。&lt;/p>
 &lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
