@@ -1,4 +1,214 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/docker/</link><description>Recent content in Docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 08 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/docker/</link><description>Recent content in Docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.mjollnir.cc/archives/264.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.exfast.me/2018/09/iis-netcore-remoteipaddress-is-wrong-after-iis-reverse-proxy/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://stackoverflow.com/a/44390593/288936" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-4/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+>前篇文章&lt;/a>已經提過，用 Docker / Docker-Compose 玩玩小網站還 OK，一旦涉及高可用性如備援、負載平衡，若不依賴現成管理架構，維運操作將複雜到會咬人。而 Kubernetes 正是目前容器管理框架的主流業界標準，尤其如打算將容器直接部署到雲端廠商(Azure、AWS、Google GCP)，不會 Kubernetes 更是寸步難行。故在次聲明以正視聽，在企業環境如需考量高可用性、負載平衡或想直接部署到廠商雲端，一般不會用 Docker-Compose 而會採用 Kubernetes，請大家注意。&lt;/p>
+&lt;p>這篇筆記是我將部落格網站移入 Docker 容器的經驗分享，將記錄 Miniblog.Core ASP.NET Core 網站搬進 Docker 過程遇到的一些眉角。&lt;/p>
+&lt;hr>
+&lt;h2 id="reverse-proxy-問題">Reverse Proxy 問題&lt;/h2>
+&lt;p>由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+>前一篇筆記&lt;/a>所說的「以 Compose 組合網站與 DB，網站對映 Host IP/Port，Nginx 另跑容器導向各網站 Port」策略。&lt;/p>
+&lt;hr>
+&lt;h2 id="目錄對應">目錄對應&lt;/h2>
+&lt;p>部落格網站有一些執行期間更新的內容，包含 NLog Log 檔、文章圖檔、SQLitｅ 資料庫等，這些內容不適合放在容器裡，故都需設 Volume 對映到 Host OS 的實際檔案，如此容器可任意刪除重建及升級，管理運用較方便。&lt;/p>
+&lt;hr>
+&lt;h2 id="時區問題">時區問題&lt;/h2>
+&lt;p>踩了雷才知道：Docker 容器內的時區跟 Host OS 是脫鉤的。即便本機已設好定為台北時區，Docker 容器預設為 UTC+0 時區，有兩種做法：&lt;/p>
+&lt;ol>
+&lt;li>在 &lt;strong>docker-compose.yml&lt;/strong> 中加註環境參數 TZ&lt;/li>
+&lt;li>新增 Volume 對映 &lt;strong>/etc/localtime:/etc/localtime:ro&lt;/strong>，要求容器以 Host OS 的時區為準&lt;/li>
+&lt;/ol>
+&lt;p>第一種做法遇到以 Alpine Linux 版 Image 建的容器需要額外裝套件，故對映 /etc/localtime 較單純。&lt;/p>
+&lt;p>參考：&lt;a class="link" href="https://www.arthurtoday.com/2016/07/how-to-setup-docker-container-timezone-host.html" target="_blank" rel="noopener"
+>設定 Docker Container 與 Host 相同時區的方法&lt;/a>&lt;/p>
+&lt;h2 id="取得真實來源-ip-問題">取得真實來源 IP 問題&lt;/h2>
+&lt;p>Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+>ASP.NET Core + Nginx on CentOS 安裝筆記&lt;/a> 提過，當 ASP.NET Core 架設在 Reverse Proxy 後方，直接看到的是 Reverse Proxy 的 IP，要得到真實來源 IP，在 Nginx config 需加註 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for，透過 HTTP Header 傳遞內容。而 ASP.NET Core 程式也需修改：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IApplicationBuilder&lt;/span> &lt;span class="n">app&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IHostingEnvironment&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UseForwardedHeaders&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">ForwardedHeadersOptions&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ForwardedHeaders&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ForwardedHeaders&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">XForwardedFor&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="n">ForwardedHeaders&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">XForwardedProto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>不過若 ASP.NET Core 運行於容器，綁定的 IP 不是 127.0.0.1 而是隔離網段 172.1x.0.x IP，此行為打破 UseForwardedHeaders 假設 Request 來自 localhost 的前題，就算設了 ForwardedHeaders， IHttpContextAccessor.HttpContext.Connection.RemoteIpAddress 讀到的仍是 172.1x.0.1 (隔離網段的 Gateway IP)。&lt;/p>
+&lt;p>由 ASP.NET Core 的&lt;a class="link" href="https://github.com/aspnet/BasicMiddleware/blob/master/src/Microsoft.AspNetCore.HttpOverrides/ForwardedHeadersMiddleware.cs" target="_blank" rel="noopener"
+>原始碼&lt;/a>，檢查規則為若 ForwardedHeadersOptions.KnownNetworks 或 ForwardedHeadersOptions.KnownProxies 有設定，來源 IP 必須要是 KnownNetworks 或 KnownProxies 才會認定請求為 Proxy 轉傳。而 KnownNetworks 及 KnownProxies 預設只有本機 IP。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// Addresses of known proxies to accept forwarded headers from.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">IList&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">IPAddress&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="n">KnownProxies&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">get&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">IPAddress&lt;/span>&lt;span class="p">&amp;gt;()&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">IPAddress&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">IPv6Loopback&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// Address ranges of known proxies to accept forwarded headers from.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">IList&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">IPNetwork&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="n">KnownNetworks&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">get&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">IPNetwork&lt;/span>&lt;span class="p">&amp;gt;()&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">IPNetwork&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IPAddress&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Loopback&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="m">8&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>解決方法有兩種，一種是將 172.x.0.0 加入 ForwardedHeadersOptions.KnownNetworks，但網段為 Docker 自由調配，最好寫成自動偵測不宜寫死。&lt;/p>
+&lt;p>另一個解法是將 KnownNetworks 與 KnownProxies 都清空，一般有來源 IP 被偽造的風險，但我們 ASP.NET Core 網站架構 Nginx Reverse Proxy 是唯一的入口，故我將其視為可接受做法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="kt">var&lt;/span> &lt;span class="n">forwardingOptions&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">ForwardedHeadersOptions&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ForwardedHeaders&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ForwardedHeaders&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">XForwardedFor&lt;/span> &lt;span class="p">|&lt;/span> &lt;span class="n">ForwardedHeaders&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">XForwardedProto&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">forwardingOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">KnownNetworks&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Clear&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">//its loopback by default&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">forwardingOptions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">KnownProxies&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Clear&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UseForwardedHeaders&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">forwardingOptions&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>參考：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://www.mjollnir.cc/archives/264.html" target="_blank" rel="noopener"
+>记录Docker部署asp.net core应用时使用反向代理的坑&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://blog.exfast.me/2018/09/iis-netcore-remoteipaddress-is-wrong-after-iis-reverse-proxy/" target="_blank" rel="noopener"
+>IIS Reverse Proxy 後 RemoteIpAddress 取值錯誤&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://stackoverflow.com/a/44390593/288936" target="_blank" rel="noopener"
+>Stackoverlow 討論&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="nginx-內容壓縮問題">Nginx 內容壓縮問題&lt;/h2>
+&lt;p>跑了一陣子才發現，我用的 Nginx + Certbot 容器的 Nginx 設定檔 /etc/nginx/nginx.conf 預設未開啟 GZIP 壓縮。&lt;/p>
+&lt;p>我的解法是新增 Volume 對映將 /etc/nginx/nginx.conf 對應到 Host /etc/nginx/nginx.conf，並修改增加 gzip 那段內容：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-nginx" data-lang="nginx">&lt;span class="line">&lt;span class="cl">&lt;span class="k">user&lt;/span> &lt;span class="s">nginx&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">worker_processes&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">error_log&lt;/span> &lt;span class="s">/var/log/nginx/error.log&lt;/span> &lt;span class="s">warn&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">pid&lt;/span> &lt;span class="s">/var/run/nginx.pid&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">events&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">worker_connections&lt;/span> &lt;span class="mi">1024&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">http&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">include&lt;/span> &lt;span class="s">/etc/nginx/mime.types&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">default_type&lt;/span> &lt;span class="s">application/octet-stream&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">log_format&lt;/span> &lt;span class="s">main&lt;/span> &lt;span class="s">&amp;#39;&lt;/span>&lt;span class="nv">$remote_addr&lt;/span> &lt;span class="s">-&lt;/span> &lt;span class="nv">$remote_user&lt;/span> &lt;span class="s">[&lt;/span>&lt;span class="nv">$time_local]&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="nv">$request&amp;#34;&lt;/span> &lt;span class="s">&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#39;&lt;/span>&lt;span class="nv">$status&lt;/span> &lt;span class="nv">$body_bytes_sent&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="nv">$http_referer&amp;#34;&lt;/span> &lt;span class="s">&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#39;&amp;#34;&lt;/span>&lt;span class="nv">$http_user_agent&amp;#34;&lt;/span> &lt;span class="s">&amp;#34;&lt;/span>&lt;span class="nv">$http_x_forwarded_for&amp;#34;&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">access_log&lt;/span> &lt;span class="s">/var/log/nginx/access.log&lt;/span> &lt;span class="s">main&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">sendfile&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">#tcp_nopush on;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">keepalive_timeout&lt;/span> &lt;span class="mi">65&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">gzip&lt;/span> &lt;span class="no">on&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">gzip_min_length&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">gzip_buffers&lt;/span> &lt;span class="mi">4&lt;/span> &lt;span class="mi">16k&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">gzip_comp_level&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">gzip_types&lt;/span> &lt;span class="s">text/plain&lt;/span> &lt;span class="s">application/x-javascript&lt;/span> &lt;span class="s">text/css&lt;/span> &lt;span class="s">application/xml&lt;/span> &lt;span class="s">text/javascript&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kn">include&lt;/span> &lt;span class="s">/etc/nginx/conf.d/*.conf&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>Nginx 壓縮設定的意義可參考&lt;a class="link" href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html" target="_blank" rel="noopener"
+>官方文件&lt;/a>&lt;/p>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
