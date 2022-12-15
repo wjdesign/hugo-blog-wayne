@@ -41162,4 +41162,52 @@ $$&lt;/p></description></item><item><title>Emoji Support</title><link>https://wa
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">}&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item></channel></rss>
+&lt;/div></description></item><item><title>10 個 Q&amp;A 快速認識 Docker</title><link>https://wayneblog.ga/2014-10-28/docker-10-qa/</link><pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2014-10-28/docker-10-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564831824_2754e80d0b_o.png" alt="Featured image of post 10 個 Q&amp;A 快速認識 Docker" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.ithome.com.tw/news/91847" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>不論是 Google、Amazon、微軟、VMware 都紛紛擁戴，加入 Docker 和 Container 所掀起的新世代雲端虛擬化行列，這 2 項技術成為了 IT 界的新顯學。Docker 和 Container 到底是什麼？以下 10 個 Q&amp;amp;A 告訴你。&lt;/p>
+&lt;p>&lt;strong>Q1：Container 技術和伺服器虛擬化是一樣的技術嗎？&lt;/strong>&lt;/p>
+&lt;p>**A：**不是。兩者雖然都屬於虛擬化的技術，目標都是為了將一套應用程式所需的執行環境打包起來，建立一個孤立環境，方便在不同的硬體中移動，但兩者的運作思維截然不同。簡單來說，常見的傳統虛擬化技術如 vSphere 或 Hyper-V 是以作業系統為中心，而 Container 技術則是一種以應用程式為中心的虛擬化技術。&lt;/p>
+&lt;p>傳統虛擬化技術從作業系統層下手，目標是建立一個可以用來執行整套作業系統的沙箱獨立執行環境，習慣以虛擬機器(Virtual Machine)來稱呼。而 Container 技術則是直接將一個應用程式所需的相關程式碼、函式庫、環境配置檔都打包起來建立沙箱執行環境，為了和傳統虛擬化技術產生的虛擬機器區分，Container 技術產生的環境就稱為 Container。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q2：一般常見的虛擬機器和 Container 有何不同？&lt;/strong>&lt;/p>
+&lt;p>**A：**最明顯的差別是，虛擬機器需要安裝作業系統(安裝 Guest OS)才能執行應用程式，而 Container 內不需要安裝作業系統就能執行應用程式。Container 技術不是在 OS 外來建立虛擬環境，而是在 OS 內的核心系統層來打造虛擬執行環境，透過共用 Host OS 的作法，取代一個一個 Guest OS 的功用。Container 也因此被稱為是 OS 層的虛擬化技術。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q3：為何 Container 是輕量級虛擬化技術？&lt;/strong>&lt;/p>
+&lt;p>**A：**因為 Container 技術採取共用 Host OS 的作法，而不需在每一個 Container 內執行 Guest OS，因此建立 Container 不需要等待作業系統開機時間，不用 1 分鐘或幾秒鐘就可以啟用，遠比需要數分鐘甚至數十分鐘才能開啟的傳統虛擬機器來的快。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q4：Container 技術是全新的技術嗎？&lt;/strong>&lt;/p>
+&lt;p>**A：**不是，早在 1982 年，Unix 系統內建的 chroot 機制也是一種 Container 技術。其他如 1998 年的 FreeBSD jails、2005 年出現的 Solaris Zones 和 OpenVZ，或像是 Windows 系統 2004 年就有的 Sandboxie 機制都屬於在作業系統內建立孤立虛擬執行環境的作法，都可稱為是 Container 的技術。&lt;/p>
+&lt;p>直到 2013 年，dotCloud 這家 PaaS 服務公司開源釋出了一套將 Container 標準化的平臺 Docker，大受歡迎，所以，dotCloud 決定以 Docker 為名成立新公司力推。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q5：Docker 如何實現 Container 標準化？&lt;/strong>&lt;/p>
+&lt;p>**A：**Docker 採用了 aufs 檔案系統來設計一個可以層層堆疊的 Container 映象檔，將 Container 內的所有程式(包括應用程式、相關函式庫、設定檔)，都打包進 Docker 映象檔，並且提供了一個 Dockerfile 設定檔來記錄建立 Container 過程的每一個步驟包括參數。只要在任何支援 Docker 平臺的環境中，就可以從這個映象檔來建立出一個一模一樣的 Container 來執行同一個應用程式。如此一來，應用程式等於是可以透過 Docker 映象檔，或甚至只需要 Dockerfile，就能將程式執行環境帶著走，移動到任何支援 Docker 的環境中。Docker 公司也釋出 API，可以用來控制所有的 Container 相關指令，任何人只要使用同一套 Docker，就等於有了同一套管理和建立 Container 的方法，也就等同於將 Container 運用標準化了。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q6：一個 Container 映象檔內可以安裝多少應用程式？&lt;/strong>&lt;/p>
+&lt;p>**A：**一個 Container 的映象檔內可以安裝多支程式，例如同時安裝 Ubuntu、Apache、MySQL、Node.js、Ruby 等。不過，Docker 官方建議，一隻程式安裝在一個 Container 內，再把這些 Container 疊起來提供一個完整的服務。&lt;/p>
+&lt;p>Docker 稱這是一種 Microservices(微服務)的新軟體架構，將組成一個應用系統的每一個 Stack，拆解成許多小型服務，例如 Apache 服務、MySQL 服務、Node.js 服務、Ruby 服務，每一個服務都是包在 Container 裡的一隻程式，例如 MySQL 服務就是部署在 Container 內的 MySQL。&lt;/p>
+&lt;p>這麼做的好處是可以建立一個鬆散耦合的彈性應用程式架構，也能輕易地抽換其中一個 Container，例如要升級 MySQL，只需要重新載入新版 MySQL 的 Container 映象檔，就可以完成資料庫升級，不用將整套應用系統停機。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q7：Container 內不是不需要 OS，為何需要 OS 的基礎映象檔？&lt;/strong>&lt;/p>
+&lt;p>**A：**OS 基礎映象檔的用途是讓 Container 擁有這 OS 的檔案系統，例如使用 ubuntu 基礎映象檔就可以讓 Container 建立 ubuntu 的根目錄架構，而不是用來執行一個 OS 執行實例。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q8：Docker 對 Devops 有何幫助？&lt;/strong>&lt;/p>
+&lt;p>**A：**因為 Docker 透過 Dockerfile 來記錄建立 Container 映象檔的每一個步驟，可以將建立應用程式執行環境的過程和配置參數，完整地記錄下來。開發人員和維運人員之間可以利用 Dockerfile 來溝通對執行環境的討論。甚至結合版本控制服務如 GitHub，可以讓 Dockerfile 具備版本控制功能，能將基礎架構程式化(Infrastructure as code)來管理。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q9：可以在 Windows Server 環境中執行 Docker 嗎？&lt;/strong>&lt;/p>
+&lt;p>**A：**還不行。目前 Docker 只能在 Linux 平臺上執行，但是微軟 10 月中剛宣布要在下一波 Windows Server 改版時內建 Docker 引擎，未來同一份 Docker 映象檔能否跨 Linux 和 Windows OS，還需待微軟揭露更多細節才能得知。&lt;/p>
+&lt;hr>
+&lt;p>&lt;strong>Q10：在臺灣，如何找到懂 Docker 技術的人？&lt;/strong>&lt;/p>
+&lt;p>**A：**目前 Docker 公司還未在臺設點，但有一個 Docker Taipei 社群，成員截至 10 月有 383 人。&lt;/p>
+&lt;p>Docker Taipei 也預計配合 Docker 總公司舉辦的全球 HackDay 活動，在 11 月 1 日舉辦臺北場 HackDay。參加作品將直接發布到美國和全球 Docker 開發者一起評比，獎品是明年到美國參加 Docker 技術大會的資格。&lt;/p>
+&lt;hr></description></item></channel></rss>
