@@ -726,6 +726,10 @@ class="gallery-image"
 >Greasy Fork&lt;/a> 平台分發。&lt;/p>
 &lt;p>瀏覽器插件的主要分工為 &lt;code>background script&lt;/code> 和 &lt;code>content script&lt;/code> 兩部分，在調試油猴腳本時需要思考清楚是哪一部分出現的問題，再採用對應的調試方式。&lt;/p>
 &lt;p>實現了兩個小實踐，走出第一步，接下來盡情發揮創造力吧，玩得開心～&lt;/p>
+&lt;blockquote>
+&lt;p>最後分享一下&lt;a class="link" href="https://github.com/wjdesign/TampermonkeyScripts" target="_blank" rel="noopener"
+>我的 Tampermonkey UserScripts 清單&lt;/a>，持續更新，需要的歡迎下載來使用！&lt;/p>
+&lt;/blockquote>
 &lt;hr></description></item><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
