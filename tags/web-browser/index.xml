@@ -1,4 +1,53 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/web-browser/</link><description>Recent content in web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 19 Dec 2022 00:05:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡</title><link>https://wayneblog.ga/2022-12-19/browser-delegation-capture-bubble/</link><pubDate>Mon, 19 Dec 2022 00:05:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-delegation-capture-bubble/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571751437_6018c4804c_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/web-browser/</link><description>Recent content in web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 19 Dec 2022 00:10:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://zh.wikipedia.org/zh-tw/HTTP/2" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.explainthis.io/zh-hant/interview-guides/browser/http1.0-http1.1-http2.0-difference" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>從 1989 年起，HTTP 經歷了數代的演化，從 1 到 1.1 再到 2 以及目前的 3，這些不同版本有些什麼不同呢？不管是前端或後端的面試，都是經常會考的。這篇我們會先針對 1 到 1.1 再到 2 之間的異同處做摘要。&lt;/p>
+&lt;hr>
+&lt;h2 id="出現時間">出現時間&lt;/h2>
+&lt;p>&lt;strong>超文本傳輸協定 HTTP&lt;/strong> (&lt;strong>H&lt;/strong>yper&lt;strong>T&lt;/strong>ext &lt;strong>T&lt;/strong>ransfer &lt;strong>P&lt;/strong>rotocol) 是在網際網路中用來通信數據的基礎。HTTP 一開始的發展是從 1989 年所發起制定，其中經過幾個時期的演進，HTTP/1.1 是隨著在 1999 年 6 月公布的 &lt;a class="link" href="https://tools.ietf.org/html/rfc2616" target="_blank" rel="noopener"
+>RFC 2616&lt;/a> 所發表 。HTTP/2 (最初命名為 HTTP 2.0) 則是在 2015 年 5 月以 &lt;a class="link" href="https://www.rfc-editor.org/rfc/rfc7540" target="_blank" rel="noopener"
+>RFC 7540&lt;/a> 正式發表，並取代 HTTP/1.1 成為 HTTP 的實作標準。截至 2021 年 10 月，全球有 46.5%的網站支援了 HTTP/2 (&lt;a class="link" href="https://zh.wikipedia.org/zh-tw/HTTP/2" target="_blank" rel="noopener"
+>wiki&lt;/a>)。&lt;/p>
+&lt;hr>
+&lt;h2 id="http1-和-http11-差異">HTTP/1 和 HTTP/1.1 差異&lt;/h2>
+&lt;p>往下讀之前，要先理解之所以會有 HTTP/1.1 是因為 HTTP/1 有一些不那麼理想的地方。因此建議不要死背差異，而是從「 HTTP/1.1 解決了什麼問題」出發來理解。&lt;/p>
+&lt;h3 id="持久連接-keep-alive">持久連接 (keep-alive)&lt;/h3>
+&lt;p>HTTP/1 在發送每個請求之前都需要建立一個新的連接，而每次連接都是有成本的，這種每次重連的方式會造成很多頻寬的浪費，以及時間的延遲。而 HTTP/1.1 默認使用持久連接，讓 HTTP/1.1 可以使用同一個 TCP 連接來重複多個 HTTP 請求，這麼一來就可以避免每次重新建立連接造成的頻寬浪費、時間延遲。&lt;/p>
+&lt;h3 id="狀態碼-100-continue">狀態碼 100 (Continue)&lt;/h3>
+&lt;p>在某些情況下，伺服器端會拒絕客戶端發送的請求，因為發請求時可能會夾帶正文 (request body)，所以每次請求被拒絕都會造成頻寬上的額外浪費。在 HTTP/1 沒有機制避免這種類型的浪費，而 HTTP/1.1 的 &lt;code>100 (Continue)&lt;/code> 狀態碼則可以協助我們避免這種浪費。具體來說，HTTP/1.1 讓使用者端先送出一個只含有標頭、不帶內文的請求到伺服器，伺服器確認沒有問題之後，會回應狀態碼 &lt;code>100 (Continue)&lt;/code>；收到 &lt;code>100 (Continue)&lt;/code> 後，客戶端才會正式發一個帶有正文的請求；如果沒有收到，則代表伺服器端不接受該請求，這讓客戶端知道伺服器端不接受，這能讓客戶端可以避免發帶有正文的請求，進而減少傳輸上的頻寬浪費。(詳細請見 &lt;a class="link" href="https://www.rfc-editor.org/rfc/rfc2616#section-8.2.3" target="_blank" rel="noopener"
+>RFC 的這個段落&lt;/a>)。&lt;/p>
+&lt;h3 id="快取緩存">快取緩存&lt;/h3>
+&lt;p>HTTP/1 主要使用標頭中的 &lt;code>If-Modified-Since&lt;/code>、&lt;code>Expires&lt;/code> 來做為緩存的判斷標準，這兩者都是以時間作為依據；HTTP/1.1 則引入更多的緩存策略，例如：&lt;code>Etag&lt;/code>、&lt;code>If-Unmodified-Since&lt;/code>、&lt;code>If-Match&lt;/code>、&lt;code>If-None-Match&lt;/code>，透過這些可以更優化緩存的實現 (這些標頭的使用在面試也很常考，詳見&lt;a class="link" href="https://www.explainthis.io/zh-hant/interview-guides/browser/http-caching" target="_blank" rel="noopener"
+>這篇文章&lt;/a>)。&lt;/p>
+&lt;h3 id="host-字段">Host 字段&lt;/h3>
+&lt;p>HTTP/1.1 增加了 Host 字段，用來指定伺服器的域名。在 HTTP/1 中，會認為每台伺服器都綁定唯一的 IP 地址，因此請求當中的 URL 並沒有傳遞主機名(hostname)。但隨著之後虛擬主機技術的演進，現在在一台伺服器上可以存在多個虛擬主機，並且他們會共享同一個 IP 地址。所以有了 host 字段之後，就可以將請求發往同一台伺服器上的不同網站。&lt;/p>
+&lt;h3 id="更多請求方法">更多請求方法&lt;/h3>
+&lt;p>HTTP/1.1 相對於 HTTP/1 新增了許多請求方法，現今我們常用的 PUT, PATCH, DELETE, CONNECT, TRACE 和 OPTIONS 等都是在 HTTP/1.1 時新增的。&lt;/p>
+&lt;hr>
+&lt;h2 id="http2-和-http11-比較">HTTP/2 和 HTTP/1.1 比較&lt;/h2>
+&lt;h3 id="多路復用request-multiplexing-來解決頭部阻塞-head-of-line-blocking">多路復用(Request multiplexing) 來解決頭部阻塞 (head-of-line blocking)&lt;/h3>
+&lt;p>HTTP/1.1 使用了 pipelining 的機制，這可以讓客戶端在同一個 TCP 連接內並行發出多個 HTTP 請求，客戶端也不需要等待上一次請求結果返回，就可以發出下一次請求，但伺服器端必須依照接收到的客戶端請求的先後順序一次返回，以保證客戶端能夠區分出每次請求的回應內容，但這項機制在實作上較難實現，因此各家瀏覽器，都將此功能預設為關閉。(&lt;a class="link" href="https://stackoverflow.com/questions/30477476/why-is-pipelining-disabled-in-modern-browsers" target="_blank" rel="noopener"
+>可以參考此篇 stackoverflow&lt;/a>)。此外 pipeline 也造成頭部阻塞(head-of-line blocking ( HOL ))問題，如果有任一個請求要操作很久或傳輸包流失，那就會阻塞整個 pipeline 的工作。&lt;/p>
+&lt;p>HTTP/2 引進了多路復用的機制，讓同一個 TCP 連接中，同時發送和接受多個請求，並且不用等到前一個請求收到回應，透過這個機制，解決了過往在 HTTP 層級的的頭部阻塞問題 (備註：但 TCP 層級仍有頭部阻塞問題，這會在 HTTP/3 被解決)。&lt;/p>
+&lt;h3 id="優先請求順序">優先請求順序&lt;/h3>
+&lt;p>HTTP/2 版本中，每個請求或回應的所有數據包，稱之為一個數據流，並且，每個數據流擁有一個唯一編號 ID (&lt;code>stream ID&lt;/code>)。每個數據包在發送的時候就會戴上對應的數據流編號 ID，客戶端還能指定數據流的優先級，優先級越高服務器也會越快做出回應。&lt;/p>
+&lt;h3 id="標頭header訊息壓縮">標頭(Header)訊息壓縮&lt;/h3>
+&lt;p>在 HTTP/2 之前因為安全性問題，多數不會對標頭的訊息進行壓縮，主要是過去的採用的演算法可能遭受 CRIME 攻擊。在 HTTP/2 中，使用 HPACK 算法來避免攻擊，進而能壓縮標頭。因為壓縮標頭，讓傳輸時能大幅減少傳輸的訊息量，進而減少頻寬負擔，也增快傳輸速度。具體上 HPACK 使用一份索引表來定義常用的 http header，並把 http header 存放在表裡，請求的時候只需要發送在表裡的索引位置即可，不須用傳完整的標頭。&lt;/p>
+&lt;h3 id="伺服器主動推送server-push">伺服器主動推送(Server push)&lt;/h3>
+&lt;p>HTTP/2 允許伺服器端主動向客戶端推送數據，這能協助減少客戶端的請求次數。舉例來說，瀏覽器在過去要請求 &lt;code>index.html&lt;/code> 與 &lt;code>style.css&lt;/code> 來渲染完整的畫面；透過 Server Push，可以在瀏覽器請求 &lt;code>index.html&lt;/code> 時，也由伺服器主動發送 &lt;code>style.css&lt;/code> ，這樣只需要一輪 HTTP 的請求，就可以拿到所需的所有資源。&lt;/p>
+&lt;hr></description></item><item><title>面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡</title><link>https://wayneblog.ga/2022-12-19/browser-delegation-capture-bubble/</link><pubDate>Mon, 19 Dec 2022 00:05:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-delegation-capture-bubble/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571751437_6018c4804c_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

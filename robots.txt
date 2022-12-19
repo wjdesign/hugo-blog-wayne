@@ -12,6 +12,12 @@ Allow: /categories/web-browser/
 
 Allow: /tags/web-browser/
 
+Allow: /2022-12-19/browser-http1.0-http1.1-http2.0-difference/
+
+Allow: /tags/%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A/
+
+Allow: /categories/%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A/
+
 Allow: /2022-12-19/browser-delegation-capture-bubble/
 
 Allow: /2022-12-19/browser-http-caching/
@@ -273,10 +279,6 @@ Allow: /2022-08-01/hugo-github-pages-actions-and-cloudflare/
 Allow: /tags/http/
 
 Allow: /2022-07-24/beginner-http-lesson/
-
-Allow: /tags/%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A/
-
-Allow: /categories/%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A/
 
 Allow: /2022-07-23/common-time-complexity/
 
