@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/web-browser/</link><description>Recent content in Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>https://wayneblog.ga/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/web-browser/</link><description>Recent content in Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>面試常見的瀏覽器問題(一) - HTTP caching 機制</title><link>https://wayneblog.ga/2022-12-19/browser-http-caching/</link><pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http-caching/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571693467_4bcdc4d080_o.png" alt="Featured image of post 面試常見的瀏覽器問題(一) - HTTP caching 機制" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://aws.amazon.com/tw/caching/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.explainthis.io/zh-hant/interview-guides/browser/http-caching" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>如果要加快網頁應用程式的速度，caching 是個經常被用的策略 (caching 中文有被翻譯成緩存或快取，但因為工作與面試時都還是會說 caching 居多，這篇就暫不翻譯這個詞了)。當我們已經跟後端請求過某個資源，例如某筆資料或某張圖片，下一次再次請求時，如果該資源沒有改變，這時再次請求會相對浪費網路頻寬；反之，如果第一次請求來的資源已經被存下來，那麼下次請求時，可以直接用該資源，這樣可以減少不必要的請求。而這也是 caching 的概念。&lt;/p>
+&lt;p>caching 可以被應用在很多地方，&lt;a class="link" href="https://aws.amazon.com/tw/caching/" target="_blank" rel="noopener"
+>AWS 的這篇文章&lt;/a>中有概略分析到，在客戶端、DNS、伺服器、資料庫等地方都可以做 caching。而身為前後端工程師，在面試中很常被問到的是 HTTP 的 caching 機制。透過本篇文章，希望讓大家下次面試時被問到「請說明 HTTP caching 機制」時，可以解釋地夠清楚與完整。&lt;/p>
+&lt;hr>
+&lt;h2 id="http-caching-是用在哪-為什麼要用-http-caching">HTTP caching 是用在哪？ 為什麼要用 HTTP caching？&lt;/h2>
+&lt;p>可以把 cache 理解成某個我們暫時存放資源(例如某筆資料、某張圖片)的地方，所以當下次需要這些資源時，不用再請求一次，而是可以直接從 cache 這個暫存處拿到。換到 HTTP caching 的脈絡，這個暫存的地方就是瀏覽器。&lt;/p>
+&lt;p>舉例來說，當今天使用者逛了 LV 的官網，官網中的商品圖片與價錢，不太會快速改變，換句話說現在逛跟一小時後逛，看到的資訊很可能是完全一樣的。&lt;/p>
+&lt;p>這時當第一次逛網站時，前端跟伺服器請求了這些商品圖片、描述與價錢，把他們 cache 起來 (放在瀏覽器記憶體的某個地方)，當使用者下次逛的時候，就不需要再跟伺服器請求了。下面這張是來自 MDN 的圖示，可以看到，如果沒有 cache，每一次請求都要對到伺服器；然而如果有 cache，則可以從 cache 裡面拿，可以減少直接對伺服器的請求：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52571693412_75c82142de_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>讀到這邊我們可以歸納出，這麼做有幾項 caching 好處，也是我們為什麼要用 caching 的理由：&lt;/p>
+&lt;ul>
+&lt;li>減少請求次數：因為不用請求，而是直接從 cache 拿出之前暫存的資料，這樣做能減少伺服器與資料庫端的負擔。&lt;/li>
+&lt;li>加快資源載入：向伺服器請求，需要等網路傳輸資料。直接從瀏覽器裡面的 cache 拿，就不用等這一段資料傳輸的時間，會快很多。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="該如何設定-http-caching">該如何設定 HTTP caching？&lt;/h2>
+&lt;p>上面談到 HTTP caching 的好處，以及可以把跟伺服器請求來的資料 cache 在瀏覽器中。但實際上該如何設定呢？這也是面試時會被追問的。&lt;/p>
+&lt;p>以下有幾種方式：&lt;/p>
+&lt;h3 id="expires">Expires&lt;/h3>
+&lt;p>第一種方式是在 &lt;strong>HTTP Response header&lt;/strong> 當中加入 &lt;code>Expires&lt;/code>，舉例來說：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">Expires: Tue, &lt;span class="m">18&lt;/span> Jul &lt;span class="m">2022&lt;/span> 16:07:23 GMT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>瀏覽器收到該回應的資料會先把資料存在 cache 當中，而下一次用戶發送相同請求時，瀏覽器會去判斷現在時間是否已經到了 &lt;code>Expires&lt;/code> 設定的時間，如果還沒到，那就會直接從 cache 裡面拿資料，而不是發送請求。&lt;/p>
+&lt;h3 id="cache-control">cache-control&lt;/h3>
+&lt;p>由於 &lt;code>Expires&lt;/code> 是比較舊的方法，現在比較少人會用，更多人會用 &lt;code>cache-control&lt;/code>。&lt;code>cache-control&lt;/code> 的設定方式不是直接設定一個 cache 過期的時間點，而是設定 cache 有效的時間。舉例來說，下面這段是設定 cache 有效期是 60 秒。所以在第一次請求拿到回應後的六十秒內，如果在發送相同請求，瀏覽器都會直接拿 cache 的資料，而不是發請求到伺服器端：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cache-control: max-age&lt;span class="o">=&lt;/span>&lt;span class="m">60&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="cache-control-快問快答">cache-control 快問快答&lt;/h3>
+&lt;p>關於 &lt;code>cache-control&lt;/code> 的設定，有一些面試常會被問的快問快答，以下列出題目。下面會有答案，不過大家可以先自己想想看，看看自己知不知道這些問題的回答。&lt;/p>
+&lt;ul>
+&lt;li>如果只想讓客戶端 cached，而不想讓中間層的代理伺服器等其他層 cached，該用什麼？&lt;/li>
+&lt;li>反之，如果想讓代理伺服器也能夠 cached 從後端來的資料，該用什麼？&lt;/li>
+&lt;li>因為很多時候瀏覽器可能會自動 cache，如果完全不想要有 cache，想要內容一直都是最新的，那又該用什麼&lt;/li>
+&lt;li>cache-control: no-store 跟 cache-control: no-cache 兩者有什麼差別？&lt;/li>
+&lt;/ul>
+&lt;p>上面的問題的回答分別是：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>cache-control: private&lt;/code>&lt;/li>
+&lt;li>&lt;code>cache-control: public&lt;/code>&lt;/li>
+&lt;li>&lt;code>cache-control: no-store&lt;/code>&lt;/li>
+&lt;/ul>
+&lt;p>&lt;code>cache-control: no-store&lt;/code> 是指不要 cache，而 &lt;code>cache-control: no-cache&lt;/code> 則是指會 cache，不過每一次請求時都要重新驗證一次 (&lt;strong>revalidate&lt;/strong>)，換句話說每次都還是會問伺服器內容有沒有更新，沒更新就用 cache 的。詳見&lt;a class="link" href="https://stackoverflow.com/questions/7573354/what-is-the-difference-between-no-cache-and-no-store-in-cache-control" target="_blank" rel="noopener"
+>這篇討論&lt;/a>。&lt;/p>
+&lt;hr>
+&lt;h2 id="http-caching-過期後該如何重新驗證">HTTP caching 過期後，該如何重新驗證？&lt;/h2>
+&lt;p>上面提到我們可以透過 &lt;code>cache-control: max-age&lt;/code> 來設定多久後 cache 過期；不過當 cache 過期後就要直接跟伺服器請求嗎？&lt;/p>
+&lt;p>如果 cache 過期了，但其實伺服器那邊的資料並沒有更新，換句話說 cache 還是可以繼續被使用，這時有沒有什麼方法可以避免我們直接重新請求，繼續使用 cache？&lt;/p>
+&lt;p>有的，這又被稱為&lt;strong>驗證 (validation)&lt;/strong>，而 HTTP caching 有兩種主要方式可以做到這件事。&lt;/p>
+&lt;h3 id="etag-搭配-if-none-match">ETag (搭配 If-None-Match)&lt;/h3>
+&lt;p>第一個方式是在回應的 header 當中放入 &lt;strong>ETag&lt;/strong> (entity tag 的簡寫)。這個 ETag 會是一個獨特的值，例如 ETag: &amp;ldquo;686897696a7c876b7e&amp;rdquo;；如果後端的資料有變動，則 ETag 會改變。如果伺服器在回傳的 header 中有放入 ETag， 則之後瀏覽器在請求時，會在請求的 header 帶上 &lt;code>If-None-Match&lt;/code> 欄位，而欄位的值會是之前收到的 ETag 的獨特值。&lt;/p>
+&lt;p>這時後端收到了該請求，並去查看 &lt;code>If-None_match&lt;/code> 當中的 ETag 跟現在的 ETag 是不是一樣的。如果是一樣的，就代表後端的資料沒變(因為如果資料有變，則 ETag 會跟著變)；這時只需用傳個 &lt;strong>304 Not Modified&lt;/strong> 給前端，瀏覽器收到 304 後，就知道資料沒變，所以可以繼續用 cache 的。&lt;/p>
+&lt;p>而如果後端比較了 ETag 發現改變，那就不是回傳 304，而是回傳一包新的資料。&lt;/p>
+&lt;h3 id="last-modified-搭配-if-modified-since">Last-Modified (搭配 If-Modified-Since)&lt;/h3>
+&lt;p>第二個方式則是在伺服器的回應 header 中加入 &lt;code>Last-Modified&lt;/code>，並標注最後修改該資源的時間，例如 &lt;code>Last-Modified: 2021-11-07 21:32:16&lt;/code>。&lt;/p>
+&lt;p>當瀏覽器收到帶有 &lt;code>Last-Modified&lt;/code> 的回應後，之後的請求就會帶上 &lt;code>If-Modified-Since&lt;/code>，然後帶上先前收到的時間，例如 &lt;code>If-Modified-Since: 2021-11-07 21:32:16&lt;/code>。伺服器收到帶有 &lt;code>If-Modified-Since&lt;/code> 的請求，比對了時間，如果更新資源的時間沒有變，拿一樣可以回傳 &lt;strong>304 Not Modified&lt;/strong> 給前端，如果變了則回傳 200 以及新的資料。&lt;/p>
+&lt;hr></description></item><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>https://wayneblog.ga/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

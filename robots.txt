@@ -1,22 +1,28 @@
 User-agent: *
 
-Allow: /2022-12-15/tampermonkey-userscript-tutorial/
-
 Allow: /categories/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /post/
 
 Allow: /tags/
 
+Allow: /
+
+Allow: /categories/web-browser/
+
+Allow: /tags/web-browser/
+
+Allow: /2022-12-19/browser-http-caching/
+
+Allow: /2022-12-15/tampermonkey-userscript-tutorial/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
 Allow: /tags/tampermonkey/
 
 Allow: /categories/tampermonkey/
-
-Allow: /
 
 Allow: /tags/nodejs/
 
@@ -183,10 +189,6 @@ Allow: /tags/indexeddb/
 Allow: /tags/mis/
 
 Allow: /categories/mis/
-
-Allow: /tags/web-browser/
-
-Allow: /categories/web-browser/
 
 Allow: /2022-09-12/use-indexeddb/
 
