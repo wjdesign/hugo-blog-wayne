@@ -1,4 +1,115 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/web-browser/</link><description>Recent content in web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 19 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>面試常見的瀏覽器問題(一) - HTTP caching 機制</title><link>https://wayneblog.ga/2022-12-19/browser-http-caching/</link><pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http-caching/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571693467_4bcdc4d080_o.png" alt="Featured image of post 面試常見的瀏覽器問題(一) - HTTP caching 機制" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/web-browser/</link><description>Recent content in web-browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 19 Dec 2022 00:05:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡</title><link>https://wayneblog.ga/2022-12-19/browser-delegation-capture-bubble/</link><pubDate>Mon, 19 Dec 2022 00:05:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-delegation-capture-bubble/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571751437_6018c4804c_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://developer.mozilla.org/zh-TW/docs/Learn/JavaScript/Building_blocks/Events#event_delegation" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.explainthis.io/zh-hant/interview-guides/browser/fe-event-delegation-capture-bubble" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>當使用者與瀏覽器互動時，會觸發各類不同的&lt;strong>事件(event)&lt;/strong>，例如常見的&lt;strong>點擊(click)&lt;/strong>、&lt;strong>滑動(scroll)&lt;/strong>。我們可以透過 JavaScript 的事件處理器(handler)，來處理這些事件。讓我們能在事件觸發時，做出我們要的效果，例如點擊某個按鈕，觸發某個邏輯。&lt;/p>
+&lt;p>針對瀏覽器事件，最常見的考題之一，便是&lt;strong>事件委派&lt;/strong>、&lt;strong>事件捕獲&lt;/strong>、&lt;strong>事件冒泡&lt;/strong>，是很常見的面試考題。以下將用第一人稱的擬答，來回答「請說明瀏覽器中的事件委派、捕獲、冒泡」這個問題。&lt;/p>
+&lt;hr>
+&lt;h2 id="事件委派">事件委派&lt;/h2>
+&lt;p>事件委派是當我們想要在一群子元素中，都加上同樣的事件監聽器與處理器時可以派上用場。當我們有許多相同元素，有相似的行為時，我們可以不用在每個元件都加上處理器，而是可以直接&lt;strong>在父層加上處理器&lt;/strong>。這時透過 &lt;code>event.target&lt;/code> 來得知實際上是哪一個元素發生事件，並處理該事件。&lt;/p>
+&lt;p>這種&lt;strong>把監聽器與處理器裝在父層，然後委派給子元素&lt;/strong>，就是所謂的&lt;code>事件委派&lt;/code>。&lt;/p>
+&lt;p>這麼做的好處是，我們不用在每個元件，例如每個按鈕上都加上處理器，這可以&lt;strong>減少記憶體消耗&lt;/strong>；這也讓我們的架構更彈性，可以隨時新增或移除元素。也可以寫比較少的程式碼，讓可閱讀性提升。&lt;/p>
+&lt;p>舉例來說 (編按：&lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_delegation" target="_blank" rel="noopener"
+>此例子來自 MDN&lt;/a>)，如果想要在一長串列表中的每個項目，都加上處理器，我們可以直接加在父層，不用每個子元素都加上，就算今天有上百上千個子元件都是。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;container&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;tile&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">container&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;#container&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">container&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">addEventListener&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;click&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">target&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">backgroundColor&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">bgChange&lt;/span>&lt;span class="p">()));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="事件捕獲">事件捕獲&lt;/h2>
+&lt;p>事件委派之所以能夠發生，是因為在背後的&lt;code>事件捕獲&lt;/code>與&lt;code>冒泡機制&lt;/code>。一般來說，當事件觸發時，會先進入&lt;strong>捕獲階段&lt;/strong>，然後到達&lt;strong>事件目標&lt;/strong>，接著才是&lt;strong>冒泡階段&lt;/strong>。(建議在面試時，可以簡單手繪這張 W3C 的事件流程，會更加幫助說明唷！)&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52572209101_d6bbd1b3a7_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>從上圖可得知，所謂的捕獲階段是指：當某個事件觸發時，例如使用者點了某個按鈕，此時由 &lt;code>DOM 樹的最上層 Window 一路往下，將事件傳遞下去並執行&lt;/code>。實際在程式碼上，需要在事件監聽器中，加入 &lt;code>{capture: true}&lt;/code> 來開啟捕獲機制。&lt;/p>
+&lt;hr>
+&lt;h2 id="事件冒泡">事件冒泡&lt;/h2>
+&lt;p>冒泡階段則是比較常用的，跟捕獲階段相反，它是&lt;code>先在目標上執行事件處理器，接著傳遞到父層，再傳到祖父層，然後一路傳上去&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">form&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;alert(&amp;#39;form 點擊事件觸發&amp;#39;)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 這是一個 form 元素
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;alert(&amp;#39;div 點擊事件觸發&amp;#39;)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> 這是一個 div 元素
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="na">onclick&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;alert(&amp;#39;p 點擊事件觸發&amp;#39;)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>這是一個 p 元素&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">form&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上面的例子來說(建議在面試時也可以簡單快速手寫這個例子，可以幫助說明)，當我們在子層 &lt;code>&amp;lt;p&amp;gt;&lt;/code> 裝一個 &lt;code>onclick&lt;/code> 的處理器，點下去時，不僅該元素有跑出 &lt;code>alert&lt;/code> ，其父層 &lt;code>&amp;lt;div&amp;gt;&lt;/code> 的 &lt;code>onclick&lt;/code> 也被觸發，然後祖父層 &lt;code>&amp;lt;form&amp;gt;&lt;/code> 的 &lt;code>onclick&lt;/code> 也接續被觸發。&lt;/p>
+&lt;p>這邊有個細節需要分別，在冒泡時的 &lt;code>this&lt;/code> 不必然等於 &lt;code>event.target&lt;/code>，而是會等於 &lt;code>event.currentTarget&lt;/code>。換句話說，&lt;code>this&lt;/code> 是正在執行的處理器 (會一直變成下一個)；而 &lt;code>event.target&lt;/code> 一直都會是真正變點擊的那個(在這邊就是最裡頭的子層)。&lt;/p>
+&lt;p>在實務上，我們有時候不想要冒泡，例如只想要子元素的事件被觸發，不想要父層的元素被觸發，避免干擾。這時候想要不發生冒泡，可以在處理器加上 &lt;code>event.stopPropagation()&lt;/code>(不過這個仍會讓該處理器執行，只是不會冒泡上去)；如果連該處理器的其他事件類別都不想執行的話，可以用 &lt;code>event.stopImmediatePropagation()&lt;/code>。&lt;/p>
+&lt;hr></description></item><item><title>面試常見的瀏覽器問題(一) - HTTP caching 機制</title><link>https://wayneblog.ga/2022-12-19/browser-http-caching/</link><pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http-caching/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571693467_4bcdc4d080_o.png" alt="Featured image of post 面試常見的瀏覽器問題(一) - HTTP caching 機制" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
