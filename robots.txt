@@ -2,6 +2,12 @@ User-agent: *
 
 Allow: /categories/
 
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /2022-12-21/js-map-set-difference/
+
 Allow: /post/
 
 Allow: /tags/
@@ -23,10 +29,6 @@ Allow: /2022-12-19/browser-delegation-capture-bubble/
 Allow: /2022-12-19/browser-http-caching/
 
 Allow: /2022-12-15/tampermonkey-userscript-tutorial/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/tampermonkey/
 

@@ -1,4 +1,198 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 15 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Tampermonkey】輕鬆上手 - 油猴腳本開發</title><link>https://wayneblog.ga/2022-12-15/tampermonkey-userscript-tutorial/</link><pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-15/tampermonkey-userscript-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564977913_09952966be_o.jpg" alt="Featured image of post 【Tampermonkey】輕鬆上手 - 油猴腳本開發" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 21 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>Javascript 中，Map、Set、WeakMap 和 WeakSet 的區別？</title><link>https://wayneblog.ga/2022-12-21/js-map-set-difference/</link><pubDate>Wed, 21 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-21/js-map-set-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52576483407_0c40603733_o.jpg" alt="Featured image of post Javascript 中，Map、Set、WeakMap 和 WeakSet 的區別？" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.zhenghao.io/posts/object-vs-map" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.explainthis.io/zh-hant/interview-guides/javascript/set-map-weakset-weakmap" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.explainthis.io/zh-hant/interview-guides/javascript/map-vs-object" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>ES6 推出了 Map 物件，讓開發者可以透過這個特製資料結構進行鍵值對(key-value pairs)的操作。然而 JavaScript 原始物件(plain object)就可以用來做鍵值對的操作，為什麼還需要 Map 物件呢？ Map 物件解決了什麼問題？那與 Set 又有什麼不同呢？本篇來詳細說明一下。&lt;/p>
+&lt;hr>
+&lt;h2 id="map-與-object-的差別">Map 與 object 的差別&lt;/h2>
+&lt;h3 id="原始物件的鍵key只可以是字串但-map-的鍵可以是任何東西">原始物件的鍵(key)只可以是字串，但 Map 的鍵可以是任何東西&lt;/h3>
+&lt;p>在用鍵值對處理資料時，很常開發者會用各類東西做為&lt;strong>鍵(key)&lt;/strong>，但是在 JavaScript，如果用原始物件，不管用什麼當做鍵，都會被轉換成&lt;strong>字串&lt;/strong>，這往往會造成一切錯誤，例如被轉成字串時，原本兩格不同的鍵被轉成同樣的字串，這就導致撞鍵問題。而 Map 物件解決了這個問題，開發者想用什麼當鍵都可以。&lt;/p>
+&lt;h3 id="原始物件不支援迭代iteration但-map-物件有">原始物件不支援迭代(iteration)，但 Map 物件有&lt;/h3>
+&lt;p>過去我們沒辦法直接對一個原始物件用 &lt;code>for...of&lt;/code>、&lt;code>forEach&lt;/code> 來迭代，而是需要用額外的方法，例如 &lt;code>Object.entries&lt;/code>、&lt;code>Object.keys&lt;/code> 來協助。但是 Map 物件是&lt;strong>可迭代的(iterable)&lt;/strong>，所以我們可以直接對 Map 物件用 &lt;code>for...of&lt;/code>、&lt;code>forEach&lt;/code>。&lt;/p>
+&lt;h3 id="原始物件的元素沒有順序性map-物件則有順序">原始物件的元素沒有順序性，Map 物件則有順序&lt;/h3>
+&lt;p>上面提到 Map 物件是&lt;strong>可迭代的&lt;/strong>，它有一個相關的優點是在迭代時是&lt;strong>有順序性的&lt;/strong>。過去用原始物件，即使用用物件方法 (例如 &lt;code>Object.entries&lt;/code>、&lt;code>Object.keys&lt;/code> 來協助迭代)，迭代出的結果順序不一定會是我們放入鍵值對的順序。&lt;/p>
+&lt;p>但有時候在寫演算法時，我們需要保留順序，這時 Map 物件就會好用很多。&lt;/p>
+&lt;h3 id="map-提供許多鍵值對常用的方法但原始物件沒有">Map 提供許多鍵值對常用的方法，但原始物件沒有&lt;/h3>
+&lt;p>舉例來說，如果要知道一個鍵值對的大小，Map 有 &lt;code>size&lt;/code> 方法，簡單又好用；但如果用原始物件，我們可能需要使用 &lt;code>Object.keys&lt;/code> 然後搭配 &lt;code>.length&lt;/code> 去自己找該物件有多少個鍵，這就麻煩很多。&lt;/p>
+&lt;p>另外 Map 也有提供 &lt;code>clear&lt;/code> 方法，可以一次把所有鍵值對刪掉；如果是原始物件就需要一個一個刪。&lt;/p>
+&lt;hr>
+&lt;h2 id="map">Map&lt;/h2>
+&lt;p>類似於 Object 的資料結構，都是用鍵與值(key-value pair)的形式儲存資料格式，但還是有許多差異。&lt;/p>
+&lt;p>Map 本身是一種&lt;strong>構造函式&lt;/strong>，用來生成 &lt;code>Map&lt;/code> 這種數據結構，具體做法是 &lt;code>new Map()&lt;/code> 來生成實例。&lt;/p>
+&lt;h3 id="常見操作方法">常見操作方法&lt;/h3>
+&lt;p>Map 常見操作方法有&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>set(key, value)&lt;/code>： Map 新增元素。&lt;/li>
+&lt;li>&lt;code>get(key)&lt;/code>： 透過鍵(Key)查詢特定元素，並返回。&lt;/li>
+&lt;li>&lt;code>has(key)&lt;/code>： 判斷 Map 中是否存在某鍵(key)。&lt;/li>
+&lt;li>&lt;code>delete(key)&lt;/code>： 透過鍵(Key)從 Map 中移除特定元素。&lt;/li>
+&lt;li>&lt;code>size&lt;/code>： 方法得到元素的數量。&lt;/li>
+&lt;/ul>
+&lt;h3 id="常見遍歷方法">常見遍歷方法&lt;/h3>
+&lt;p>Map 常見遍歷方法(遍歷順序會是插入順序)&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>values()&lt;/code>： 返回 Map 中所有元素的值。&lt;/li>
+&lt;li>&lt;code>keys()&lt;/code>： 方法等同於 &lt;code>values()&lt;/code>。&lt;/li>
+&lt;li>&lt;code>entries()&lt;/code>： 返回 Set 中所有的元素，因在 Set 中沒有鍵值(Key)，返回的元素會是 &lt;code>[value, value]&lt;/code> 的形式。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="map-和-weakmap-的區別">Map 和 WeakMap 的區別&lt;/h2>
+&lt;p>WeakMap 的方法和使用部分與 Map 資料結構相近，本區塊會專注在這兩者不同之處。&lt;/p>
+&lt;ul>
+&lt;li>WeakMap 只允許物件(Object) 作為鍵名(key)，但是 &lt;strong>null&lt;/strong> 除外。而 Map 則是可接受各種資料類型作為&lt;strong>鍵名(key)&lt;/strong>。&lt;/li>
+&lt;li>WeakMap 中的鍵名是**「弱引用」(weak reference)**，鍵名(key)所指向的對象可以被垃圾回收，此時的鍵名(key)是無效的。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 如果放入的物件在外面沒有其他引用，在 WeakMap 中會被垃圾回收掉
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">food&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">WeakMap&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">fruit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;apple&amp;#39;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">food&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fruit&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;good&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 將 apple 物件置入 WeakMap 中
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">fruit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 移除 apple 的引用
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">food&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// WeakMap(0) fruit 已經被垃圾回收，因此 WeakMap 中沒有項目
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 一般的 Map，即使放入的物件在外面沒有其他引用，仍在 Map 當中存放
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">food&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Map&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">fruit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;apple&amp;#39;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">food&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">fruit&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;good&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">food&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// WeakMap(1)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fruit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kc">null&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">food&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// WeakMap(1) fruit 不會被垃圾回收
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在上方的強引用程式碼中，雖然 &lt;code>fruit&lt;/code> 物件最後被重新賦值為 &lt;code>null&lt;/code> (意思等同於無法再透過 &lt;code>fruit&lt;/code> 變數獲取該對象值，因為其中的引用被斷開)，但由於 &lt;code>food&lt;/code> 與此物件間存在強引用，所以被保留在記憶體中，這就是前面提到的，&lt;strong>強引用會防止物件被垃圾回收，並將物件保留在記憶體當中&lt;/strong>； 弱引用則相反，並&lt;strong>不能防止物件被垃圾回收&lt;/strong>，當 JavaScript 執行環境執行垃圾回收時，上述弱引用例子中的 &lt;code>fruit&lt;/code> 物件會被從記憶體和 WeakMap 中刪除。&lt;/p>
+&lt;p>弱引用的適用情境在於，如果引用的物件在未來可能會被刪除的情況、且不想防止被垃圾回收時，就適合用 WeakMap 或 WeakSet。例如，如果我們想要記錄一些與 DOM 節點相關的數據，有一種方法是使用 &lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Glossary/Expando" target="_blank" rel="noopener"
+>Expando&lt;/a> 擴充節點上的資訊，但壞處是會直接修改到這個 DOM 節點、且如果未來這個節點被移除時，相關資訊不會被垃圾回收掉，這時如果是使用 WeakMap 就會是很好的替代方案。&lt;/p>
+&lt;blockquote>
+&lt;p>備註： 如果直接將弱引用程式碼的例子在 JavaScript 執行環境中執行，可能還是會看到 WeakMap 中有值，這是因為 JavaScript 執行環境會在特定的時間點執行垃圾回收。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="set">Set&lt;/h2>
+&lt;p>Set 這個數據結構類似陣列，但是裡面的元素值都是&lt;strong>唯一&lt;/strong>，不會有重複的值，無論此值是原始型別(primitive values)或引用型別(object references)。在 JavaScript 當中，Set 本身是一種&lt;strong>構造函式&lt;/strong>，用來生成 Set 這種數據結構，具體的做法是透過 &lt;code>new Set()&lt;/code> 來生成實例。&lt;/p>
+&lt;h3 id="常見操作方法-1">常見操作方法&lt;/h3>
+&lt;p>Set 常見操作方法有&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>add(value)&lt;/code>： 用來新增值。&lt;/li>
+&lt;li>&lt;code>delete(value)&lt;/code>：用來刪除每個 Set 中的值。&lt;/li>
+&lt;li>&lt;code>has(value)&lt;/code>：判斷 Set 中是否存在每個值。&lt;/li>
+&lt;li>&lt;code>size&lt;/code>： 方法得到元素的數量，與陣列使用 &lt;code>arr.length&lt;/code> 方法不一樣。&lt;/li>
+&lt;/ul>
+&lt;p>Set 中&lt;strong>沒有鍵值(Key)&lt;/strong>，如果使用 &lt;code>entries()&lt;/code> 遍歷，返回的元素會是 &lt;code>[value, value]&lt;/code> 的形式。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">set1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">Set&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">set1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">42&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">set1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;forty two&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">iterator1&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">set1&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">entries&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">entry&lt;/span> &lt;span class="k">of&lt;/span> &lt;span class="nx">iterator1&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">entry&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// expected output: [42, 42]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="c1">// expected output: [&amp;#34;forty two&amp;#34;, &amp;#34;forty two&amp;#34;]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="set-和-weakset-的區別">Set 和 WeakSet 的區別&lt;/h2>
+&lt;p>WeakSet 的方法和使用部分與 Set 資料結構相近，本區塊會專注在這兩者不同之處。&lt;/p>
+&lt;ul>
+&lt;li>WeakSet 內的元素值只允許是&lt;strong>物件(Object)&lt;/strong>，但 Set 可接受&lt;strong>各種資料類型&lt;/strong>的值。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">wSet&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">WeakSet&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;explainthis&amp;#39;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">wSet&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// WeakSet {Array(3)}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wSet&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// WeakSet {{...}}
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wSet&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// Uncaught TypeError: Invalid value used in weak set
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>WeakSet 內的元素都是**「弱引用」(weak reference)**，可以被垃圾回收機制回收。假如使用 Set ，即使某個被存入的值，在其他地方已經沒有被引用，該值仍會存在於 Set 當中，不會被垃圾回收。但如果是 WeakSet，則會被垃圾回收。如果要更有意識地做記憶體管理，WeakSet 在許多時候能派上用場。&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">disableElements&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nx">WeakSet&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">loginButton&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;#login&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">disableElements&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">loginButton&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 使用的時候通過查詢元素是否在集合中，就可以知道它是否被禁用。而一旦元素从DOM樹中删除，
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// WeakMap也會釋放其内存（為了嚴謹，假設没有其它地方引用這個對象）。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">disableElements&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">has&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">loginButton&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr></description></item><item><title>【Tampermonkey】輕鬆上手 - 油猴腳本開發</title><link>https://wayneblog.ga/2022-12-15/tampermonkey-userscript-tutorial/</link><pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-15/tampermonkey-userscript-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564977913_09952966be_o.jpg" alt="Featured image of post 【Tampermonkey】輕鬆上手 - 油猴腳本開發" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
