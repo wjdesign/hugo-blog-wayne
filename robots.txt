@@ -10,7 +10,17 @@ Allow: /post/
 
 Allow: /tags/
 
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
+Allow: /tags/vitest/
+
+Allow: /categories/vitest/
+
 Allow: /
+
+Allow: /2022-12-29/vitest-unit-test/
 
 Allow: /2022-12-26/js-rebuild-common-function/
 
@@ -87,10 +97,6 @@ Allow: /categories/docker-compose/
 Allow: /2022-12-04/docker-compose-link-external-comtainer/
 
 Allow: /tags/docker-compose/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
 
 Allow: /2022-11-28/ts-string-type-vs-class/
 
