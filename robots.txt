@@ -1,10 +1,16 @@
 User-agent: *
 
+Allow: /2022-12-30/npm-vueuse/
+
 Allow: /categories/
 
 Allow: /tags/javascript/
 
 Allow: /categories/javascript/
+
+Allow: /categories/npm-plugins/
+
+Allow: /tags/npm-plugins/
 
 Allow: /post/
 
@@ -129,10 +135,6 @@ Allow: /2022-11-21/pure-css-toggle-menu-icon/
 Allow: /2022-11-21/prevent-invalid-favicon/
 
 Allow: /2022-11-15/localforage-and-idb-keyval/
-
-Allow: /categories/npm-plugins/
-
-Allow: /tags/npm-plugins/
 
 Allow: /2022-11-14/try-runkit/
 

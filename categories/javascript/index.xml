@@ -1,4 +1,388 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 30 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://wayneblog.ga/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 30 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://wayneblog.ga/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10278366" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://juejin.cn/post/7030395303433863205" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="vueuse-是什麼">VueUse 是什麼？&lt;/h2>
+&lt;p>&lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
+>VueUse&lt;/a> 作者為 Anthony Fu，是一款基於 Vue 組合式 API (Composition API) 的函數工具集，其中 &lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
+>VueUse&lt;/a> 主要特色可以分為以下幾點：&lt;/p>
+&lt;ul>
+&lt;li>Vue 2 和 Vue 3 都支援&lt;/li>
+&lt;li>採取 Tree Shaking 結構，只會打包引入的程式碼&lt;/li>
+&lt;li>支持各種套件&lt;/li>
+&lt;li>可配置事件過濾器和目標&lt;/li>
+&lt;/ul>
+&lt;p>以上是&lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
+>官方網站&lt;/a>關於它的定義。&lt;/p>
+&lt;p>首先，它基於 Vue Composition API (組合式API)，只有在支持組合式 API 的環境下，才可以正常使用它。&lt;/p>
+&lt;p>&lt;a class="link" href="https://cn.vuejs.org/guide/extras/composition-api-faq.html" target="_blank" rel="noopener"
+>什麼是組合式 API？&lt;/a>&lt;/p>
+&lt;p>然後，它是一款函數工具集(可類比為 &lt;a class="link" href="https://www.lodashjs.com/" target="_blank" rel="noopener"
+>lodash.js&lt;/a> / &lt;a class="link" href="https://ramda.cn/" target="_blank" rel="noopener"
+>ramda.js&lt;/a>)&lt;/p>
+&lt;p>簡單來說，這是一個能讓你&lt;strong>更早下班&lt;/strong>的工具庫。&lt;/p>
+&lt;hr>
+&lt;h2 id="vueuse-開源嗎現狀如何">VueUse 開源嗎？現狀如何？&lt;/h2>
+&lt;p>&lt;strong>當然開源！&lt;/strong> &lt;a class="link" href="https://github.com/vueuse/vueuse" target="_blank" rel="noopener"
+>github/vueuse&lt;/a>&lt;/p>
+&lt;p>社區活躍度：社區非常活躍，截止 2021 年 11 月，一直有 mr 被合入主線。&lt;/p>
+&lt;p>被引用情況：截止 2021 年 11 月 13 日，npm 上可查詢到依賴它的庫就有 172 個，其中包括著名UI庫：&lt;a class="link" href="https://element-plus.org/zh-CN/" target="_blank" rel="noopener"
+>Element-Plus&lt;/a>&lt;/p>
+&lt;p>Vue 的著名開源作者 Evan You 也是此庫的金牌贊助商。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595668748_bb0dc1189c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="安裝-vueuse">安裝 VueUse&lt;/h2>
+&lt;p>NPM 或 YARN：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm i @vueuse/core
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yarn add @vueuse/core
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>CDN 引入：&lt;/p>
+&lt;blockquote>
+&lt;p>這邊注意 &lt;strong>shared 一定要在前面&lt;/strong>&lt;/p>
+&lt;/blockquote>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://unpkg.com/@vueuse/shared&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://unpkg.com/@vueuse/core&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>注：VueUse 借助 vue-demi 的強大功能，可以在一個包中同時適用於 Vue 2、3！&lt;/p>
+&lt;/blockquote>
+&lt;p>Vue 3 Demo&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/vueuse/vueuse-vite-starter" target="_blank" rel="noopener"
+>使用 Vite&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://github.com/vueuse/vueuse-vue3-example" target="_blank" rel="noopener"
+>使用 Webpack&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Vue 2 Demo (Vue CLI)&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://github.com/vueuse/vueuse-vue2-example" target="_blank" rel="noopener"
+>使用 Vue CLI&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>另外，要注意庫的版本：&lt;/p>
+&lt;p>從 &lt;code>v6.0&lt;/code> 版本起，vue3 需要 &lt;code>vue &amp;gt;= v3.2&lt;/code>，vue2 需要依賴 &lt;a class="link" href="https://github.com/vuejs/composition-api" target="_blank" rel="noopener"
+>@vue/composition-api&lt;/a>：&lt;code>@vue/composition &amp;gt;= v1.1&lt;/code>。&lt;/p>
+&lt;hr>
+&lt;h2 id="vueuse-能做什麼">VueUse 能做什麼？&lt;/h2>
+&lt;p>能做的那可太多了，但總體上分為以下幾個類別提供工具函數：&lt;/p>
+&lt;ul>
+&lt;li>Animation 動畫&lt;/li>
+&lt;li>Browser 瀏覽器&lt;/li>
+&lt;li>Component 組件&lt;/li>
+&lt;li>Formatters 格式化&lt;/li>
+&lt;li>Sensors 傳感器&lt;/li>
+&lt;li>State 狀態機&lt;/li>
+&lt;li>Utility 實用方法&lt;/li>
+&lt;li>Watch 監聽&lt;/li>
+&lt;li>Misc 各式各樣的雜項&lt;/li>
+&lt;/ul>
+&lt;p>這麼列了一遍，估計你還是很懵，但因為方法實在太多，也不可能一個個都列出來。&lt;/p>
+&lt;p>那我就舉幾個有代表性的例子，帶你快速理解這些方法大概是做什麼的，有什麼特點。&lt;/p>
+&lt;h3 id="例子一usemouse">例子(一)：useMouse&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;app&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h3&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">Mouse&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">}}&lt;/span> &lt;span class="nx">x&lt;/span> &lt;span class="p">{{&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">}}&amp;lt;/&lt;/span>&lt;span class="nt">h3&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">setup&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;ts&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useMouse&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;@vueuse/core&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">y&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useMouse&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595149366_78bc02b664_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>Wooooow~~~ 這可太簡單易用了！&lt;/p>
+&lt;p>經過源碼閱讀，我們可以發現，這短短的一個方法，至少做了以下這些事：&lt;/p>
+&lt;ul>
+&lt;li>創建了 x 和 y 這兩個響應式對象(Ref)&lt;/li>
+&lt;li>給 window 添加了鼠標事件監聽，將鼠標的坐標實時賦給 x、y (並且還做了移動端兼容)&lt;/li>
+&lt;/ul>
+&lt;p>如果這些邏輯放到頁面裡，至少需要 6 行代碼，這些代碼後期都會增加維護人員理解頁面的成本，而現在，你只需要一行代碼。&lt;/p>
+&lt;p>除此之外，該方法還有組件式用法，適合更熱愛標籤的盆友&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">UseMouse&lt;/span> &lt;span class="nt">v-slot&lt;/span>&lt;span class="s">=&amp;#34;{ x, y }&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">x&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="na">x&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">y&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="na">y&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">UseMouse&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="例子二useinterval">例子(二)：useInterval&lt;/h3>
+&lt;p>顧名思義，這個方法是對&lt;strong>延时重複調用&lt;/strong>能力的封裝。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">setup&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;ts&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useInterval&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;.&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">counter&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">pause&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">resume&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">200&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">controls&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// counter 一個 Ref 對象，它是響應式的，counter.value 等於已經計算的次數
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// pause() 暫停
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// resume() 恢復
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="na">id&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;APP&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">Interval&lt;/span> &lt;span class="nx">fired&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{{&lt;/span> &lt;span class="nx">counter&lt;/span> &lt;span class="p">}}&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595409614_bbf967ebb4_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>是不是很好用？相比手寫 setInterval 更為便捷。&lt;/p>
+&lt;p>如果徒手實現這樣一整套方法，多少行暫且不說，我們需要在業務中寫下大量的邏輯代碼。&lt;/p>
+&lt;p>而眾所周知：&lt;/p>
+&lt;p>寫的代碼越多，出 Bug 的可能性越大，維護和理解的難度就越高。從這個角度看，這個庫確實是一個合格的函數工具集。&lt;/p>
+&lt;h3 id="例子三useclipboard">例子(三)：useClipboard&lt;/h3>
+&lt;p>以複製文字為例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">setup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useClipboard&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;@vueuse/core&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// 只需要引入所使用到的 API
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">ref&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;vue&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">input&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">ref&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;我是 Winnie&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">text&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 複製的值
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">isSupported&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 瀏覽器有無支援
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">copy&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 方法
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">copied&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useClipboard&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span> &lt;span class="nt">v-if&lt;/span>&lt;span class="s">=&amp;#34;isSupported&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h3&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">useClipboard&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h3&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="nx">複製內容&lt;/span>&lt;span class="err">：&lt;/span>&lt;span class="p">{{&lt;/span> &lt;span class="nx">input&lt;/span> &lt;span class="p">}}&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="nt">v-model&lt;/span>&lt;span class="s">=&amp;#34;input&amp;#34; /&amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;a @click=&amp;#34;copy(input)&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;{{&lt;/span> &lt;span class="na">copied&lt;/span> &lt;span class="err">?&lt;/span> &lt;span class="err">&amp;#34;已複製&amp;#34;&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="err">&amp;#34;複製&amp;#34;&lt;/span> &lt;span class="p">}}&amp;lt;/&lt;/span>&lt;span class="nt">a&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="nt">v-else&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="na">Your&lt;/span> &lt;span class="na">browser&lt;/span> &lt;span class="na">does&lt;/span> &lt;span class="na">not&lt;/span> &lt;span class="na">support&lt;/span> &lt;span class="na">Clipboard&lt;/span> &lt;span class="na">API&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595409639_2ccc3500ea_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="例子四usevmodel">例子(四)：useVModel&lt;/h3>
+&lt;p>這是一個給&lt;strong>經常封裝組件&lt;/strong>的小伙伴們的大好利器。&lt;/p>
+&lt;p>先創建一個組件：&lt;code>Test.vue&lt;/code>&lt;/p>
+&lt;h5 id="testvue">Test.vue&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">v&lt;/span>&lt;span class="nt">-model&lt;/span>&lt;span class="err">=&amp;#34;&lt;/span>&lt;span class="na">_name&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">v&lt;/span>&lt;span class="nt">-model&lt;/span>&lt;span class="err">=&amp;#34;&lt;/span>&lt;span class="na">_age&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sex&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">input&lt;/span> &lt;span class="na">v&lt;/span>&lt;span class="nt">-model&lt;/span>&lt;span class="err">=&amp;#34;&lt;/span>&lt;span class="na">_sex&lt;/span>&lt;span class="err">&amp;#34;&lt;/span>&lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;ts&amp;#34;&lt;/span> &lt;span class="na">setup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useVModel&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;@vueuse/core&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">props&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">defineProps&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nb">String&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sex&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nb">String&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">emit&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">defineEmits&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s1">&amp;#39;update:name&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;update:age&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;update:sex&amp;#39;&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">_name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useVModel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">props&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;name&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">emit&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">_age&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useVModel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">props&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;age&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">emit&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">_sex&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useVModel&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">props&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;sex&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">emit&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>接著，在 index.vue 中使用它&lt;/p>
+&lt;h5 id="indexvue">index.vue&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">Test&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">v&lt;/span>&lt;span class="nt">-model:name&lt;/span>&lt;span class="s">=&amp;#34;formData.name&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">v&lt;/span>&lt;span class="nt">-model:age&lt;/span>&lt;span class="s">=&amp;#34;formData.age&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="na">v&lt;/span>&lt;span class="nt">-model:sex&lt;/span>&lt;span class="s">=&amp;#34;formData.sex&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">Test&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{{&lt;/span> &lt;span class="nx">formData&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">setup&lt;/span> &lt;span class="na">lang&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;ts&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">reactive&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;vue-demi&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">Test&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;./Test.vue&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">formData&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">reactive&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;lily&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">age&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;8&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">sex&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;boy&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>效果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52594662992_38c1bfd956_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>對於有組件封裝需求的朋友，這個方法強烈推薦！&lt;/p>
+&lt;p>不用再為了單向數據流的組件封裝，而在組件內寫冗餘的代碼了。&lt;/p>
+&lt;p>直接將 &lt;code>useVModel&lt;/code> 返回的數據作為響應式對象用即可。&lt;/p>
+&lt;hr>
+&lt;h2 id="最後">最後&lt;/h2>
+&lt;p>例子太多，就不再一一介紹了，但大家應該已經有了一個初步的概念，知道了此庫的作用，一言以蔽之：&lt;strong>助力摸鱼，提前下班&lt;/strong>。&lt;/p>
+&lt;p>它沒辦法做到你之前做不到的事情。&lt;/p>
+&lt;p>它只能做到讓你更輕鬆的完成工作！願你今天也能按時下班。&lt;/p>
+&lt;hr></description></item><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://wayneblog.ga/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
