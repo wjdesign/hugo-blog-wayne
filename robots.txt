@@ -8,7 +8,19 @@ Allow: /categories/javascript/
 
 Allow: /post/
 
+Allow: /tags/react/
+
+Allow: /categories/react/
+
 Allow: /tags/
+
+Allow: /tags/vue/
+
+Allow: /categories/vue/
+
+Allow: /
+
+Allow: /2022-12-30/why-use-hooks/
 
 Allow: /tags/typescript/
 
@@ -17,8 +29,6 @@ Allow: /categories/typescript/
 Allow: /tags/vitest/
 
 Allow: /categories/vitest/
-
-Allow: /
 
 Allow: /2022-12-29/vitest-unit-test/
 
@@ -133,10 +143,6 @@ Allow: /categories/entity-framework-core/
 Allow: /2022-11-10/efcore-6-string-not-null/
 
 Allow: /tags/entity-framework-core/
-
-Allow: /tags/vue/
-
-Allow: /categories/vue/
 
 Allow: /2022-11-10/vue-2to3-global-component/
 

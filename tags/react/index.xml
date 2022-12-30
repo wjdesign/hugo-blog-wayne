@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>react on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/react/</link><description>Recent content in react on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 30 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/react/index.xml" rel="self" type="application/rss+xml"/><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://wayneblog.ga/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://juejin.cn/post/7066951709678895141" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="一hooks什麼叫大勢所趨">一、hooks：什麼叫大勢所趨？&lt;/h2>
+&lt;p>2019年年初，&lt;code>react&lt;/code> 在 &lt;code>16.8.x&lt;/code> 版本正式具備了 &lt;code>hooks&lt;/code> 能力。&lt;/p>
+&lt;p>2019年6月，尤雨溪在 &lt;a class="link" href="https://github.com/vuejs/rfcs/pull/42" target="_blank" rel="noopener"
+>vue/github-issues&lt;/a> 裡提出了關於 &lt;code>vue3 Composition API&lt;/code> 的提案。(vue hooks的基礎)&lt;/p>
+&lt;p>在後續的 &lt;code>react&lt;/code> 和 &lt;code>vue3&lt;/code> 相關版本中，相關 &lt;code>hooks&lt;/code> 能力都開始被更多人所接受。&lt;/p>
+&lt;p>除此之外，&lt;code>solid.js&lt;/code>、&lt;code>preact&lt;/code> 等框架，也是開始選擇加入 &lt;code>hooks&lt;/code> 大家庭。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595337539_162e880f36_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>可以預見，雖然目前仍然是 class Component 和 hooks api 並駕齊驅的場面，但未來幾年裡，hooks 極有可能取代 class Component 成為業內真正的主流。&lt;/p>
+&lt;hr>
+&lt;h2 id="二什麼是-hooks">二、什麼是 hooks？&lt;/h2>
+&lt;h3 id="hooks-的定義">hooks 的定義&lt;/h3>
+&lt;p>hooks 直譯是&lt;code>&amp;quot;鉤子&amp;quot;&lt;/code>，它並不僅是 &lt;code>react&lt;/code>，甚至不僅是前端界的專用術語，而是整個行業所熟知的用語。&lt;/p>
+&lt;p>通常指：&lt;/p>
+&lt;blockquote>
+&lt;p>系統運行到某一時期時，會調用被註冊到該時機的回調函數。&lt;/p>
+&lt;/blockquote>
+&lt;p>比較常見的鉤子有：&lt;code>windows&lt;/code> 系統的鉤子能監聽到系統的各種事件，瀏覽器提供的 &lt;code>onload&lt;/code> 或 &lt;code>addEventListener&lt;/code> 能註冊在瀏覽器各種時機被調用的方法。&lt;/p>
+&lt;p>以上這些，都可以被稱一聲 &lt;code>hook&lt;/code>。&lt;/p>
+&lt;p>但是很顯然，在特定領域的特定話題下，&lt;code>hooks&lt;/code> 這個詞被賦予了一些特殊的含義。&lt;/p>
+&lt;p>在 &lt;code>react@16.x&lt;/code> 之前，當我們談論 &lt;code>hooks&lt;/code> 時，我們可能談論的是&amp;quot;組件的生命週期&amp;quot;。&lt;/p>
+&lt;p>但是現在，&lt;code>hooks&lt;/code> 則有了全新的含義。&lt;/p>
+&lt;p>以 &lt;code>react&lt;/code> 為例，&lt;code>hooks&lt;/code> 是：&lt;/p>
+&lt;blockquote>
+&lt;p>一系列以 &amp;ldquo;use&amp;rdquo; 作為開頭的方法，它們提供了讓你可以完全避開 class 式寫法，在函數式組件中完成生命週期、狀態管理、邏輯複用等幾乎全部組件開發工作的能力。&lt;/p>
+&lt;/blockquote>
+&lt;p>簡化一下：&lt;/p>
+&lt;blockquote>
+&lt;p>一系列方法，提供了在&lt;strong>函數式組件&lt;/strong>中完成開發工作的能力。&lt;/p>
+&lt;/blockquote>
+&lt;p>(記住這個關鍵詞：&lt;code>函數式組件&lt;/code>)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useCallback&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;react&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 比如以上這幾個方法，就是最為典型的 Hooks
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>而在 &lt;code>vue&lt;/code> 中，&lt;code>hooks&lt;/code> 的定義可能更模糊，姑且總結一下：&lt;/p>
+&lt;blockquote>
+&lt;p>在 &lt;code>vue&lt;/code> 組合式 API 裡，以 &amp;ldquo;use&amp;rdquo; 作為開頭的，一系列提供了&lt;strong>組件複用&lt;/strong>、&lt;strong>狀態管理&lt;/strong>&amp;hellip;等開發能力的方法。&lt;/p>
+&lt;/blockquote>
+&lt;p>(關鍵詞：&lt;code>組合式API&lt;/code>)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useSlots&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useAttrs&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;vue&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useRouter&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;vue-router&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 以上這些方法，也是 vue3 中相關的 Hook！
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如：&lt;code>useSlots&lt;/code>、&lt;code>useAttrs&lt;/code>、&lt;code>useRouter&lt;/code> 等。&lt;/p>
+&lt;p>但主觀來說，我認為 vue 組合式 API 其本身就是 &amp;ldquo;vue hooks&amp;rdquo; 的關鍵一環，起到了 &lt;code>react hooks&lt;/code> 裡對&lt;strong>生命週期&lt;/strong>、&lt;strong>狀態管理&lt;/strong>的核心作用。(如 &lt;code>onMounted&lt;/code>、&lt;code>ref&lt;/code> 等等)。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52594591157_e812d218e1_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>如果按這個標準來看的話，&lt;code>vue&lt;/code> 和 &lt;code>react&lt;/code> 中 &lt;code>hooks&lt;/code> 的定義，似乎都差不多。&lt;/p>
+&lt;p>那麼為什麼要提到是以 &lt;code>&amp;quot;use&amp;quot;&lt;/code> 作為開頭的方法呢？&lt;/p>
+&lt;h3 id="命名規範和指導思想">命名規範和指導思想&lt;/h3>
+&lt;p>通常來說，&lt;code>hooks&lt;/code> 的命名都是以 &lt;code>use&lt;/code> 作為開頭，這個規範也包括了那麼我們自定義的 &lt;code>hooks&lt;/code>。&lt;/p>
+&lt;p>為什麼？&lt;/p>
+&lt;p>在 &lt;code>react&lt;/code> &lt;a class="link" href="https://zh-hant.reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener"
+>官方文檔&lt;/a>裡，對 hooks 的定義和使用提出了 &lt;span class="focus">一個假設、兩個只在&lt;/span> 核心指導思想。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595337519_42d965b186_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>&lt;span class="focus">一個假設&lt;/span>：假設任何以「&lt;code>use&lt;/code>」 開頭並緊跟著一個大寫字母的函數就是一個 &lt;code>Hook&lt;/code>。&lt;/p>
+&lt;p>&lt;span class="focus">第一個只在&lt;/span>：只在 &lt;code>React&lt;/code> 函數組件中調用 &lt;code>Hook&lt;/code>，而不在普通函數中調用 &lt;code>Hook&lt;/code>。(&lt;code>Eslint&lt;/code> 通過判斷一個方法是不是大坨峰命名來判斷它是否是 &lt;code>React&lt;/code> 函數)&lt;/p>
+&lt;p>&lt;span class="focus">第二個只在&lt;/span>：只在最頂層使用 &lt;code>Hook&lt;/code>，而不要在循環、條件或嵌套函數中調用 &lt;code>Hook&lt;/code>。&lt;/p>
+&lt;p>因為約定的力量在於：我們不用細看實現，也能通過命名來了解一個它是什麼。&lt;/p>
+&lt;p>以上 &lt;span class="focus">一個假設、兩個只在&lt;/span> 總結自 react 官網：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://zh-hant.reactjs.org/docs/hooks-rules.html" target="_blank" rel="noopener"
+>Hook 的規則&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://zh-hant.reactjs.org/docs/hooks-faq.html#what-exactly-do-the-lint-rules-enforce" target="_blank" rel="noopener"
+>Lint 規則究竟強制了些什麼？&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="三為什麼我們需要-hooks">三、為什麼我們需要 hooks？&lt;/h2>
+&lt;h3 id="更好的狀態複用">更好的狀態複用&lt;/h3>
+&lt;blockquote>
+&lt;p>針對的就是你，mixin！&lt;/p>
+&lt;/blockquote>
+&lt;p>在 &lt;code>class&lt;/code> 組件模式下，狀態邏輯的複用是一件困難的事情。&lt;/p>
+&lt;p>假設有如下需求：&lt;/p>
+&lt;blockquote>
+&lt;p>當組件實例創建時，需要創建一個 &lt;code>state&lt;/code> 屬性：&lt;code>name&lt;/code>，並隨機給此 &lt;code>name&lt;/code> 屬性附一個初始值。除此之外，還得提供一個 &lt;code>setName&lt;/code> 方法。你可以在組件其他地方取得和修改此狀態屬性。&lt;br>
+更重要的是：這個邏輯要可以複用，在各種業務組件裡複用這個邏輯。&lt;/p>
+&lt;/blockquote>
+&lt;p>在擁有 &lt;code>Hooks&lt;/code> 之前，我首先會想到的解決方案一定是 &lt;code>mixin&lt;/code>。&lt;/p>
+&lt;p>代碼如下：(此示例採用 vue2 mixin 寫法)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 混入文件：name-mixin.js
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">data&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">genRandomName&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="c1">// 假裝它能生成隨機的名字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">methods&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">name&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="c">&amp;lt;!--&lt;/span> &lt;span class="nx">组件&lt;/span>&lt;span class="err">：&lt;/span>&lt;span class="nx">my&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="nx">component&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">vue&lt;/span> &lt;span class="o">--&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;{{&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="p">}}&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">nameMixin&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;./name-mixin&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mixins&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">nameMixin&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 通過 mixins，你可以直接獲得 nameMixin 中所定義的狀態、方法、生命周期中的事件...等
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">mounted&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">setName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;Tom&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="mi">3000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>粗略看來，&lt;code>mixins&lt;/code> 似乎提供了非常不錯的複用能力，但是，react 官方文檔直接表明：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595501320_19a324aa37_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>為什麼呢？&lt;/p>
+&lt;p>因為 &lt;code>mixins&lt;/code> 雖然提供了這種狀態複用的能力，但它的弊端實在太多了。&lt;/p>
+&lt;h4 id="弊端一難以追溯的方法與屬性">弊端一：難以追溯的方法與屬性！&lt;/h4>
+&lt;p>試想一下，如果出現這種代碼，你是否會懷疑人生：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mixins&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="nx">a&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">c&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">d&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">e&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">f&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">g&lt;/span> &lt;span class="p">],&lt;/span> &lt;span class="c1">// 當然，這只是表示它混入了很多能力
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">mounted&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 嗯...這個 this.name 來自於誰？我難道要一個個混入看實現？
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>又或者：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">js&lt;/span> &lt;span class="nx">mixins&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">js&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">b&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">js&lt;/span> &lt;span class="nx">mixins&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">js&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">c&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">js&lt;/span> &lt;span class="nx">mixins&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">d&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">js&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 你猜猜看，this.name 來自於誰？
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 求求你别再說了，我血壓已经上来了
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="弊端二覆蓋同名貴圈真亂">弊端二：覆蓋、同名？貴圈真亂！&lt;/h4>
+&lt;p>當我同時想混入 &lt;code>mixin-a.js&lt;/code> 和 &lt;code>mixin-b.js&lt;/code> 以同時獲得它們能力的時候，不幸的事情發生了：&lt;/p>
+&lt;p>由於這兩個 &lt;code>mixin&lt;/code> 功能的開發者惺惺相惜，它們都定義了 &lt;code>this.name&lt;/code> 作為屬性。&lt;/p>
+&lt;p>這種時候，你會深深懷疑，&lt;code>mixins&lt;/code> 究竟是不是一種科學的複用方式。&lt;/p>
+&lt;h4 id="弊端三梅開二度代價很大">弊端三：梅開二度？代價很大！&lt;/h4>
+&lt;p>仍然說上面的例子，如果我的需求發生了改變，我需要的不再是一個簡單的狀態 &lt;code>name&lt;/code>，而是分別需要 &lt;code>firstName&lt;/code> 和 &lt;code>lastName&lt;/code>。&lt;/p>
+&lt;p>此時 &lt;code>name-mixin.js&lt;/code> 混入的能力就會非常尷尬，因為我無法兩次 &lt;code>mixins&lt;/code> 同一個文件。&lt;/p>
+&lt;p>當然，也是有解決方案的，如：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 動態生成 mixin
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">genNameMixin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">funcKey&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">data&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">genRandomName&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">methods&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">[&lt;/span>&lt;span class="nx">funcKey&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.[&lt;/span>&lt;span class="nx">key&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">v&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">mixins&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">genNameMixin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;firstName&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;setFirstName&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">genNameMixin&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;lastName&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;setLastName&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>確實通過動態生成 &lt;code>mixin&lt;/code> 完成了能力的複用，但這樣一來，無疑更加地增大了程序的複雜性，降低了可讀性。&lt;/p>
+&lt;p>因此一種新的&lt;strong>狀態邏輯複用&lt;/strong>，就變得極為迫切了——————它就是 &lt;code>Hooks&lt;/code>！&lt;/p>
+&lt;h4 id="hook-的狀態複用寫法">Hook 的狀態複用寫法：&lt;/h4>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 單個 name 的寫法
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useName&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 梅開二度的寫法
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">firstName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">setFirstName&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useName&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">secondName&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">setSecondName&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useName&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>相比於 &lt;code>mixins&lt;/code>，它們簡直太棒了！&lt;/p>
+&lt;ol>
+&lt;li>方法和屬性好追溯嗎？這可太好了，誰產生的，哪兒來的一目了然。&lt;/li>
+&lt;li>會有重名、覆蓋問題嗎？完全沒有！內部的變量在閉包內，返回的變量支持定義別名。&lt;/li>
+&lt;li>多次使用，沒開 N 度？你看上面的代碼塊內不就 &amp;ldquo;梅開三度&amp;rdquo; 了嗎？&lt;/li>
+&lt;/ol>
+&lt;p>就衝 &lt;span class="focus">狀態邏輯復用&lt;/span> 這個理由，Hooks 就已經香得我口水直流了。&lt;/p>
+&lt;h3 id="代碼組織">代碼組織&lt;/h3>
+&lt;blockquote>
+&lt;p>熵減，宇宙哲學到編碼哲學。&lt;/p>
+&lt;/blockquote>
+&lt;p>項目、模塊、頁面、功能，如何高效而清晰地組織代碼，這一個看似簡單的命題就算寫幾本書也無法完全說清楚。&lt;/p>
+&lt;p>但一個頁面中，N 件事情的代碼在一個組件內互相糾纏確實是在 &lt;code>Hooks&lt;/code> 出現之前非常常見的一種狀態。&lt;/p>
+&lt;p>那麼 &lt;code>Hooks&lt;/code> 寫法在代碼組織上究竟能帶來怎樣的提升呢？&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595337489_c4ff52d48d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>(假設上圖中每一種顏色就代碼一種高度相關的業務邏輯)&lt;/p>
+&lt;p>無論是 &lt;code>vue&lt;/code> 還是 &lt;code>react&lt;/code>，通過 &lt;code>Hooks&lt;/code> 寫法都能做到，將&amp;quot;分散在各種聲明周期裡的代碼塊&amp;quot;，通過 &lt;code>Hooks&lt;/code> 的方式將相關的內容聚合到一起。&lt;/p>
+&lt;p>這樣帶來的好處是顯而易見的：&lt;span class="focus">高度聚合，可閱讀性提升&lt;/span>。伴隨而來的便是&lt;span class="focus">效率提升，bug變少&lt;/span>。&lt;/p>
+&lt;p>按照&amp;quot;物理學&amp;quot;裡的理論來說，這種代碼組織方式，就算是&amp;quot;熵減&amp;quot;了。&lt;/p>
+&lt;h3 id="比-class-組件更容易理解">比 class 組件更容易理解&lt;/h3>
+&lt;blockquote>
+&lt;p>尤其是 &lt;strong>this&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>在 &lt;code>react&lt;/code> 的 &lt;code>class&lt;/code> 寫法中，隨處可見各種各樣的 &lt;code>.bind(this)&lt;/code>。(甚至官方文檔裡也有專門的章節描述了&amp;quot;&lt;a class="link" href="https://zh-hant.reactjs.org/docs/faq-functions.html#why-is-binding-necessary-at-all" target="_blank" rel="noopener"
+>為什麼綁定是必要的？&lt;/a>&amp;ldquo;這一問題)&lt;/p>
+&lt;p>&lt;code>vue&lt;/code> 玩家別笑，&lt;code>computed: { a: () =&amp;gt; { this } }&lt;/code> 裡的 &lt;code>this&lt;/code> 也是 &lt;code>undefined&lt;/code>。&lt;/p>
+&lt;p>很顯然，綁定雖然&amp;quot;必要&amp;rdquo;，但並不是&amp;quot;優點&amp;quot;，反而是&amp;quot;故障高發&amp;quot;地段。&lt;/p>
+&lt;p>但在 &lt;code>Hooks&lt;/code> 寫法中，你就完全不必擔心 &lt;code>this&lt;/code> 的問題了。&lt;/p>
+&lt;p>因為：&lt;/p>
+&lt;blockquote>
+&lt;p>本來無一物，何處惹塵埃。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;code>Hooks&lt;/code> 寫法直接告別了 &lt;code>this&lt;/code>，從&amp;quot;函數&amp;quot;來，到&amp;quot;函數&amp;quot;去。&lt;/p>
+&lt;p>媽媽再也不用擔心我忘記寫 bind 了。&lt;/p>
+&lt;h3 id="友好的漸進式">友好的漸進式&lt;/h3>
+&lt;blockquote>
+&lt;p>隨風潛入夜，潤物細無聲。&lt;/p>
+&lt;/blockquote>
+&lt;p>漸進式的含義是：你可以一點點深入使用。&lt;/p>
+&lt;p>無論是 &lt;code>vue&lt;/code> 還是 &lt;code>react&lt;/code>，都只是提供了 &lt;code>Hooks&lt;/code> API，並將它們的優劣利弊擺在了那裡。並沒有通過無法接受的 &lt;code>break change&lt;/code> 來強迫你必須使用 &lt;code>Hooks&lt;/code> 去改寫之前的 &lt;code>class&lt;/code> 組件。&lt;/p>
+&lt;p>你依然可以在項目裡一邊寫 &lt;code>class&lt;/code> 組件，一邊寫 &lt;code>Hooks&lt;/code> 組件，在項目的演進和開發過程中，這是一件沒有痛感，卻悄無聲息改變著一切的事情。&lt;/p>
+&lt;p>但是事情發展的趨勢卻很明顯，越來越多的人加入了 &lt;code>Hooks&lt;/code> 和 &lt;code>组合式 API&lt;/code> 的大軍。&lt;/p>
+&lt;hr>
+&lt;h2 id="如何開始玩-hooks">如何開始玩 hooks？&lt;/h2>
+&lt;h3 id="環境和版本">環境和版本&lt;/h3>
+&lt;p>在 &lt;code>react&lt;/code> 項目中，&lt;code>react&lt;/code> 的版本需要高於 &lt;code>16.8.0&lt;/code>。&lt;/p>
+&lt;p>而在 &lt;code>vue&lt;/code> 項目中，&lt;code>vue3.x&lt;/code> 是最好的選擇，但 &lt;code>vue2.6+&lt;/code> 配合 &lt;a class="link" href="https://github.com/vuejs/composition-api" target="_blank" rel="noopener"
+>@vue/composition-api&lt;/a>，也可以開始享受 &amp;ldquo;組合式 API&amp;rdquo; 的快樂。&lt;/p>
+&lt;h3 id="react-的-hooks-寫法">react 的 Hooks 寫法&lt;/h3>
+&lt;p>因為 &lt;code>react&lt;/code> &lt;code>Hooks&lt;/code> 僅支持 &amp;ldquo;函數式&amp;rdquo; 組件，因此需要創建一個函數式組件 &lt;code>my-component.js&lt;/code>。&lt;/p>
+&lt;h5 id="my-componentjs">my-component.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">useMemo&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;React&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 通過 useState 可以創建一個 狀態屬性 和一個 賦值方法
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span> &lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 通過 useEffect 可以對副作用進行處理
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">useEffect&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 通過 useMemo 能生成一個依賴 name 的變量 message
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useMemo&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="sb">`hello, my name is &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">])&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="nx">div&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="p">{&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="p">}&lt;/span>&lt;span class="o">&amp;lt;&lt;/span>&lt;span class="err">/div&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>細節可參考 &lt;a class="link" href="https://zh-hant.reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener"
+>react 官方網站&lt;/a>&lt;/p>
+&lt;h3 id="vue-的-hooks-寫法">vue 的 Hooks 寫法&lt;/h3>
+&lt;p>&lt;code>vue&lt;/code> 的 &lt;code>Hooks&lt;/code> 寫法依賴於组合式API，因此本例採用 &lt;code>&amp;lt;script setup&amp;gt;&lt;/code> 來寫：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{{&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="p">}}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">setup&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">computed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">ref&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;vue&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 定義了一個 ref 對象
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">ref&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 定義了一個依賴 name.value 的計算屬性
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">message&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">computed&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="sb">`hello, my name is &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>很明顯，vue &lt;code>組合式API&lt;/code> 裡完成 &lt;code>useState&lt;/code> 和 &lt;code>useMemo&lt;/code> 相關工作的 API 並沒有通過 &lt;code>useXxx&lt;/code> 來命名，而是遵從了 &lt;code>Vue&lt;/code> 一脈相承而來的 &lt;code>ref&lt;/code> 和 &lt;code>computed&lt;/code>。&lt;/p>
+&lt;p>雖然不符合 &lt;code>react Hook&lt;/code> 定義的 &lt;code>Hook&lt;/code> 約定，但 &lt;code>vue&lt;/code> 的 &lt;code>api&lt;/code> 不按照 &lt;code>react&lt;/code> 的約定好像也並沒有什麼不妥。&lt;/p>
+&lt;p>&lt;a class="link" href="https://cn.vuejs.org/api/#composition-api" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="五開始第一個自定義-hook">五、開始第一個自定義 hook&lt;/h2>
+&lt;p>除了官方提供的 &lt;code>Hooks Api&lt;/code>，&lt;code>Hooks&lt;/code> 的另外一個重要特質，就是可以自己進行 &amp;ldquo;自定義 Hooks&amp;rdquo; 的定義，從而完成&lt;strong>狀態邏輯&lt;/strong>的複用。&lt;/p>
+&lt;p>開源社區也都有很多不錯的基於 &lt;code>Hooks&lt;/code> 的封裝，比如 &lt;a class="link" href="https://ahooks.js.org/zh-CN" target="_blank" rel="noopener"
+>ahooks&lt;/a>，又比如 &lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
+>VueUse&lt;/a>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52595598223_119a5f0e21_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>那麼，我們應該怎麼開始撰寫 &amp;ldquo;自定義 Hooks&amp;rdquo; 呢？往下看吧！&lt;/p>
+&lt;h3 id="react-玩家看這裡">react 玩家看這裡&lt;/h3>
+&lt;p>&lt;a class="link" href="https://zh-hant.reactjs.org/" target="_blank" rel="noopener"
+>react 官方網站&lt;/a>就專門有一個章節講述 &amp;ldquo;&lt;a class="link" href="https://zh-hant.reactjs.org/docs/hooks-custom.html" target="_blank" rel="noopener"
+>自定義 Hook&lt;/a>&amp;quot;。&lt;/p>
+&lt;p>這裡，我們扔用文章開頭那個 &lt;code>useName&lt;/code> 的需求為例，希望達到效果：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">useName&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 隨機生成一個狀態屬性 name，它有一個隨機名作為初始值
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 並且提供了一個可隨時更新該值的方法 setName
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果我們要實現上面效果，我們該怎麼寫代碼呢？&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">React&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;react&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">useName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 這個 useMemo 很關鍵
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">randomName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">React&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">useMemo&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">genRandomName&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="p">[]);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span> &lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">React&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">randomName&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>忍不住要再次感嘆一次，和 &lt;code>mixins&lt;/code> 相比，它不僅使用起來更棒，就連定義起來也那麼簡單。&lt;/p>
+&lt;p>可能有朋友會好奇，為什麼不直接這樣寫：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">setName&lt;/span> &lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">React&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">useState&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">genRandomName&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>因為這樣寫是不對的，每次使用該 &lt;code>Hook&lt;/code> 的函數組件被渲染一次時，&lt;code>genRandom()&lt;/code> 方法就會被執行一次，雖然不影響 &lt;code>name&lt;/code> 的值，但存在性能消耗，甚至產生其他 bug。&lt;/p>
+&lt;p>為此，我寫了一個能複現錯誤的 demo，有興趣的朋友可以驗證：&lt;/p>
+&lt;iframe src="https://codesandbox.io/embed/naughty-bash-znffif?fontsize=14&amp;hidenavigation=1&amp;theme=dark" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" title="naughty-bash-znffif" allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking" sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts">&lt;/iframe>
+&lt;blockquote>
+&lt;p>可以通過 React.useState(() =&amp;gt; randomName()) 傳參來避免重複執行，這樣就不需要 useMemo 了！&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="vue-玩家看這裡">vue 玩家看這裡&lt;/h3>
+&lt;p>&lt;a class="link" href="https://cn.vuejs.org/" target="_blank" rel="noopener"
+>vue3 官網&lt;/a> 沒有關於 自定義 Hook 的玩法介紹，但實踐起來也並不困難。&lt;/p>
+&lt;p>目標也定位實現一個 &lt;code>useName&lt;/code> 方法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">ref&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;vue&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">useName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">name&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">ref&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">genRandomName&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kr">const&lt;/span> &lt;span class="nx">setName&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">v&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">value&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">v&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">name&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">setName&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="vue-和-react-自定義-hook-的差異">vue 和 react 自定義 Hook 的差異&lt;/h3>
+&lt;ul>
+&lt;li>相似點：總體思路是一致的都遵照著 &lt;strong>定義狀態數據&lt;/strong>、&lt;strong>操作狀態數據&lt;/strong>、&lt;strong>隱藏細節&lt;/strong> 作為核心思路。&lt;/li>
+&lt;li>差異點：组合式 API 和 React 函数组件，有著本質差異：
+&lt;ul>
+&lt;li>Vue3 的組件裡，setup 是作為一個早於 &amp;ldquo;created&amp;rdquo; 的生命週期存在的，無論如何，在一個組件的渲染過程中只會進入一次。&lt;/li>
+&lt;li>React 函数组件則完全不同，如果沒有被 memorized，它們可能會被不停地觸發，不停地進入並執行方法，因此需要開銷的心智相比於 Vue 其實是更多的。&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;hr></description></item></channel></rss>
