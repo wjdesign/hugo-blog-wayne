@@ -1,8 +1,20 @@
 User-agent: *
 
-Allow: /2022-12-30/npm-vueuse/
-
 Allow: /categories/
+
+Allow: /tags/others/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2023-01-07/single-multi-thread/
+
+Allow: /categories/others/
+
+Allow: /2022-12-30/npm-vueuse/
 
 Allow: /tags/javascript/
 
@@ -12,19 +24,13 @@ Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
 
-Allow: /post/
-
 Allow: /tags/react/
 
 Allow: /categories/react/
 
-Allow: /tags/
-
 Allow: /tags/vue/
 
 Allow: /categories/vue/
-
-Allow: /
 
 Allow: /2022-12-30/why-use-hooks/
 
