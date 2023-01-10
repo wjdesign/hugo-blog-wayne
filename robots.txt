@@ -1,24 +1,38 @@
 User-agent: *
 
+Allow: /2023-01-10/nuxt-try-nuxt3/
+
 Allow: /categories/
 
-Allow: /tags/others/
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /tags/nuxt/
+
+Allow: /categories/nuxt/
 
 Allow: /post/
 
 Allow: /tags/
 
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
+Allow: /tags/vue/
+
+Allow: /categories/vue/
+
 Allow: /
+
+Allow: /tags/others/
 
 Allow: /2023-01-07/single-multi-thread/
 
 Allow: /categories/others/
 
 Allow: /2022-12-30/npm-vueuse/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /categories/npm-plugins/
 
@@ -28,15 +42,7 @@ Allow: /tags/react/
 
 Allow: /categories/react/
 
-Allow: /tags/vue/
-
-Allow: /categories/vue/
-
 Allow: /2022-12-30/why-use-hooks/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
 
 Allow: /tags/vitest/
 
@@ -357,8 +363,6 @@ Allow: /2019-03-05/emoji-support/
 Allow: /2014-10-28/docker-10-qa/
 
 Allow: /tags/ci/cd/
-
-Allow: /categories/nuxt/
 
 Allow: /%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/
 
