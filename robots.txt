@@ -1,20 +1,32 @@
 User-agent: *
 
-Allow: /2023-01-16/nuxt-nuxt3-practice-project/
-
 Allow: /categories/
+
+Allow: /tags/communications-protocol/
 
 Allow: /tags/javascript/
 
 Allow: /categories/javascript/
 
+Allow: /post/
+
+Allow: /tags/security/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /categories/communications-protocol/
+
+Allow: /categories/security/
+
+Allow: /2023-01-17/why-encrypt-in-client/
+
+Allow: /2023-01-16/nuxt-nuxt3-practice-project/
+
 Allow: /tags/nuxt/
 
 Allow: /categories/nuxt/
-
-Allow: /post/
-
-Allow: /tags/
 
 Allow: /tags/typescript/
 
@@ -23,8 +35,6 @@ Allow: /categories/typescript/
 Allow: /tags/vue/
 
 Allow: /categories/vue/
-
-Allow: /
 
 Allow: /2023-01-14/nuxt-try-nuxt3/
 
@@ -61,10 +71,6 @@ Allow: /categories/web-browser/
 Allow: /tags/web-browser/
 
 Allow: /2022-12-19/browser-http1.0-http1.1-http2.0-difference/
-
-Allow: /tags/%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A/
-
-Allow: /categories/%E9%80%9A%E8%A8%8A%E5%8D%94%E5%AE%9A/
 
 Allow: /2022-12-19/browser-delegation-capture-bubble/
 
