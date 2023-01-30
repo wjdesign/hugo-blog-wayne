@@ -2,19 +2,25 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /tags/communications-protocol/
-
 Allow: /tags/javascript/
 
 Allow: /categories/javascript/
 
-Allow: /post/
+Allow: /categories/npm-plugins/
 
-Allow: /tags/security/
+Allow: /tags/npm-plugins/
+
+Allow: /post/
 
 Allow: /tags/
 
 Allow: /
+
+Allow: /2023-01-30/npm-partytown-from-web-worker/
+
+Allow: /tags/communications-protocol/
+
+Allow: /tags/security/
 
 Allow: /categories/communications-protocol/
 
@@ -45,10 +51,6 @@ Allow: /2023-01-07/single-multi-thread/
 Allow: /categories/others/
 
 Allow: /2022-12-30/npm-vueuse/
-
-Allow: /categories/npm-plugins/
-
-Allow: /tags/npm-plugins/
 
 Allow: /tags/react/
 
@@ -371,6 +373,8 @@ Allow: /2019-03-05/emoji-support/
 Allow: /2014-10-28/docker-10-qa/
 
 Allow: /tags/ci/cd/
+
+Allow: /categories/web-worker/
 
 Allow: /%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/
 

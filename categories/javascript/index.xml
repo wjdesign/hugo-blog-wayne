@@ -1,4 +1,170 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 17 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>網站前端打 API 時把密碼加密，有意義嗎？</title><link>https://wayneblog.ga/2023-01-17/why-encrypt-in-client/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-17/why-encrypt-in-client/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52634831533_259566b84f_o.jpg" alt="Featured image of post 網站前端打 API 時把密碼加密，有意義嗎？" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 30 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.miniasp.com/post/2023/01/27/Partytown-Run-Third-Party-Scripts-From-Web-Worker" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>前端效能調校的技法多如牛毛，但最明顯的效能殺手不外乎是 JavaScript 佔用 Main Thread 而導致頁面無法回應的狀況了。最近研究 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 這個函式庫，他用了一個非常巧妙的技巧，把部分 JS 自動切換到 &lt;a class="link" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Web_Workers_API/Using_web_workers" target="_blank" rel="noopener"
+>Web Workers&lt;/a> 背景執行。這篇文章我就來分享如何將 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 安裝到任意網站中。&lt;/p>
+&lt;hr>
+&lt;h2 id="如何安裝-partytown-到任意網站">如何安裝 Partytown 到任意網站&lt;/h2>
+&lt;ol>
+&lt;li>透過 Partytown CLI 下載 Partytown 函式庫&lt;/li>
+&lt;/ol>
+&lt;p>以下命令會在當前目錄建立一個 &lt;code>~partytown&lt;/code> 資料夾(建議統一用這個名稱)：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx &lt;span class="s2">&amp;#34;@builder.io/partytown&amp;#34;&lt;/span> copylib ~partytown
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>將 ~partytown 資料夾上傳到網站根目錄&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>如果是 ASP.NET Core 的話，可以上傳到 &lt;code>wwwroot&lt;/code> 目錄下，或是在 ASP.NET Core 專案根目錄輸入以下命令：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx &lt;span class="s2">&amp;#34;@builder.io/partytown&amp;#34;&lt;/span> copylib &lt;span class="s2">&amp;#34;wwwroot\~partytown&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>如果是 Node.js 的話，可以上傳到 &lt;code>public&lt;/code> 目錄下，或是在 ASP.NET Core 專案根目錄輸入以下命令：&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx &lt;span class="s2">&amp;#34;@builder.io/partytown&amp;#34;&lt;/span> copylib &lt;span class="s2">&amp;#34;public/~partytown&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>你也可以設定好 &lt;code>package.json&lt;/code> 加入到建置流程中：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install &lt;span class="s2">&amp;#34;@builder.io/partytown&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="packagejson">package.json&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;scripts&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;build&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;npm run partytown &amp;amp;&amp;amp; ng build&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;partytown&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;partytown copylib public/~partytown&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>總之，上傳到網站根目錄就對了！(詳見 &lt;a class="link" href="https://partytown.builder.io/copy-library-files" target="_blank" rel="noopener"
+>Copy Library Files&lt;/a> 有更完整的說明)&lt;/p>
+&lt;ol start="3">
+&lt;li>調整網頁中的 &lt;code>&amp;lt;script&amp;gt;&lt;/code> 標籤語法&lt;/li>
+&lt;/ol>
+&lt;p>請將以下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;...&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>全部修改為：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">type&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;text/partytown&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;...&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>就大功告成！&lt;/p>
+&lt;hr>
+&lt;h2 id="使用的注意事項">使用的注意事項&lt;/h2>
+&lt;p>雖然 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 函式庫的初衷非常理想，就是管理第三方 JS 函式庫(third-party scripts)，徹底降低 JS 佔用 Main Thread 的狀況。但實際上還是有不少 JS 檔案在透過 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 載入到 Web Workers 執行後就掛掉了，所以實際上 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 並不適用於所有 JS 執行，因此&lt;strong>不太建議&lt;/strong>把網站上所有 JS 都改用 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 來載入。&lt;/p>
+&lt;p>除此之外，目前 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 因為有用到 &lt;a class="link" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Atomics" target="_blank" rel="noopener"
+>Atomics&lt;/a> API 的關係，它的&lt;a class="link" href="https://partytown.builder.io/atomics#browser-atomics-support" target="_blank" rel="noopener"
+>相容性&lt;/a>確實有些限制，有些太舊的手機版本是沒有支援的！詳見 &lt;a class="link" href="https://caniuse.com/mdn-javascript_builtins_atomics" target="_blank" rel="noopener"
+>JavaScript built-in: Atomics | Can I use&lt;/a> 說明。&lt;/p>
+&lt;p>最後要提醒大家的地方，就是使用 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 的 &lt;a class="link" href="https://partytown.builder.io/trade-offs" target="_blank" rel="noopener"
+>Trade-Offs&lt;/a> (權衡)。因為這個世界沒有銀子彈，有一好就沒兩好，使用 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 不見得適用所有的網頁開發情境。以下是 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 官方認為不適用的地方：&lt;/p>
+&lt;ol>
+&lt;li>大量的 DOM 操作會被節流(Throttled DOM Operations)&lt;/li>
+&lt;/ol>
+&lt;p>由於在 Web Workers 無法直接存取 DOM，所以 Partytown 會透過 onmessage 事件傳給 Main Thread 來處理，所以 DOM 處理的速度反而會變慢！&lt;/p>
+&lt;ol start="2">
+&lt;li>只要是 UI 特別吃重的 JS 函式庫，處理大量 DOM 操作，都不太適合用 Partytown 來管理&lt;/li>
+&lt;/ol>
+&lt;p>如果執行實際效果不理想，其實就這個 JS 不要用 Partytown 即可！&lt;/p>
+&lt;ol start="3">
+&lt;li>若第三方函式庫在載入時沒有設定 CORS Headers 的話，透過 Partytown 是無法載入的&lt;/li>
+&lt;/ol>
+&lt;p>必須透過 &lt;a class="link" href="https://partytown.builder.io/proxying-requests" target="_blank" rel="noopener"
+>Proxying Requests&lt;/a> 從**相同來源(Same-origin)**載入！&lt;/p>
+&lt;ol start="4">
+&lt;li>事件處理只要用到 &lt;code>event.preventDefault()&lt;/code> 就會失效&lt;/li>
+&lt;/ol>
+&lt;p>透過 Web Workers 執行 event callback 會導致 &lt;code>event.preventDefault()&lt;/code> 的行為失效！&lt;/p>
+&lt;ol start="5">
+&lt;li>若透過 Partytown 管理的 JS 動態建立 &lt;code>iframe&lt;/code> 的話，&lt;code>document.cookie&lt;/code>、&lt;code>localStorage&lt;/code> 與 &lt;code>sessionStorage&lt;/code> 都會讀不到！&lt;/li>
+&lt;/ol>
+&lt;p>基本上程式不會報錯，但就是沒效果，所以使用上要注意！&lt;/p>
+&lt;ol start="6">
+&lt;li>透過 &lt;code>setInterval()&lt;/code> 不斷的對 &lt;code>document&lt;/code> 進行 DOM 操作&lt;/li>
+&lt;/ol>
+&lt;p>這也會失去使用 Partytown 的價值，因為頻繁的 DOM 操作反而會讓 Web Workers 過於忙碌！&lt;/p>
+&lt;p>目前確定很適合用 &lt;a class="link" href="https://partytown.builder.io/" target="_blank" rel="noopener"
+>Partytown&lt;/a> 來管理的第三方函式庫，從官網是有整理出來的，大家可以多多利用，照著官網設定即可：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://partytown.builder.io/common-services" target="_blank" rel="noopener"
+>Common Services&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://partytown.builder.io/facebook-pixel" target="_blank" rel="noopener"
+>Facebook Pixel&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://partytown.builder.io/google-tag-manager" target="_blank" rel="noopener"
+>Google Tag Manager&lt;/a> (GTM)&lt;/li>
+&lt;/ul>
+&lt;hr></description></item><item><title>網站前端打 API 時把密碼加密，有意義嗎？</title><link>https://wayneblog.ga/2023-01-17/why-encrypt-in-client/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-17/why-encrypt-in-client/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52634831533_259566b84f_o.jpg" alt="Featured image of post 網站前端打 API 時把密碼加密，有意義嗎？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
