@@ -16,6 +16,10 @@ Allow: /tags/
 
 Allow: /
 
+Allow: /categories/web-worker/
+
+Allow: /tags/web-worker/
+
 Allow: /2023-01-30/npm-partytown-from-web-worker/
 
 Allow: /tags/communications-protocol/
@@ -373,8 +377,6 @@ Allow: /2019-03-05/emoji-support/
 Allow: /2014-10-28/docker-10-qa/
 
 Allow: /tags/ci/cd/
-
-Allow: /categories/web-worker/
 
 Allow: /%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/
 
