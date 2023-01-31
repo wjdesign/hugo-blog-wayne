@@ -1,6 +1,18 @@
 User-agent: *
 
+Allow: /2023-01-31/windows-chocolatey-scoop-winget/
+
 Allow: /categories/
+
+Allow: /categories/windows/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /tags/windows/
 
 Allow: /tags/javascript/
 
@@ -9,12 +21,6 @@ Allow: /categories/javascript/
 Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /categories/web-worker/
 

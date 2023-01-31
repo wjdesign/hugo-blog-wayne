@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>windows on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/windows/</link><description>Recent content in windows on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 31 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget</title><link>https://wayneblog.ga/2023-01-31/windows-chocolatey-scoop-winget/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/windows-chocolatey-scoop-winget/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660107874_752a7075c3_o.jpg" alt="Featured image of post 【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://nodachisoft.com/common/en/article/en000009/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.onmsft.com/feature/scoop-or-chocolatey-which-windows-10-package-manager-should-you-use/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://dotblogs.com.tw/yc421206/2021/06/05/chocolatey_config_install" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://dotblogs.com.tw/yc421206/2021/08/24/scoop_configuration_and_installation" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://learn.microsoft.com/zh-tw/windows/package-manager/winget/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.darkthread.net/blog/chocolatey-scoop-winget/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>這些年我漸漸變成 CLI 愛好者，覺得很多時侯敲指令比滑滑鼠簡單有效率，跟伙伴溝通更簡潔精確(例如：「git add Program.cs &amp;amp;&amp;amp; git commit -m &amp;ldquo;poc&amp;rdquo;」對上「切換到 Git Changes，在 Changes 的 Program.cs 按右鍵點 Stage，在 Message 欄位輸入 poc，然後點下面那個 Commit&amp;hellip;」，簡單十倍)，常用指令可以用記事本保存快速重複操作，寫幾行程式可將複雜作業自動化或改為批次作業或排程，比 GUI 操作更容易擴充及應用。&lt;/p>
+&lt;p>安裝軟體這檔事也是如此，習慣了在 Linux 下指令 apt-get install XXX 就裝好軟體，便會覺得 Google 找網站下載檔案再跑安裝程式或解壓縮的做法太繁瑣。&lt;/p>
+&lt;p>Windows 其實也有下指令裝軟體的做法，最早只有 Chocolatey，後來陸續加入其他選擇，我的資訊有點落後，在這篇做個更新。&lt;/p>
+&lt;p>目前 Windows 上常用的指令式軟體安裝服務有三個：&lt;a class="link" href="https://chocolatey.org/" target="_blank" rel="noopener"
+>Chcolatey&lt;/a>、&lt;a class="link" href="https://scoop.sh/" target="_blank" rel="noopener"
+>Scoop&lt;/a> 及 &lt;a class="link" href="https://learn.microsoft.com/zh-tw/windows/package-manager/winget/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>winget&lt;/a>。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Point&lt;/th>
+&lt;th>Chocolatey&lt;/th>
+&lt;th>Scoop&lt;/th>
+&lt;th>winget&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>開發商&lt;/td>
+&lt;td>Chocolatey Software, Inc.&lt;/td>
+&lt;td>lukesampson&lt;/td>
+&lt;td>Microsoft Corp.&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>發布時間&lt;/td>
+&lt;td>Mar. 2011&lt;/td>
+&lt;td>Sep. 2013&lt;/td>
+&lt;td>May 2020&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>是否開源&lt;/td>
+&lt;td>&lt;a class="link" href="https://github.com/Chocolatey-archive/Chocolatey" target="_blank" rel="noopener"
+>是&lt;/a>&lt;/td>
+&lt;td>&lt;a class="link" href="https://github.com/lukesampson/scoop" target="_blank" rel="noopener"
+>是&lt;/a>&lt;/td>
+&lt;td>&lt;a class="link" href="https://github.com/microsoft/winget-cli" target="_blank" rel="noopener"
+>是&lt;/a>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>套件數量&lt;br/>截至2020年7月18日&lt;/td>
+&lt;td>5036&lt;/td>
+&lt;td>2959&lt;/td>
+&lt;td>657&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>可用版本&lt;/td>
+&lt;td>since Win7、since Win2003&lt;/td>
+&lt;td>since Win7、since Win2008&lt;/td>
+&lt;td>Win10since ver 1709&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>難易度&lt;/td>
+&lt;td>有點麻煩&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>自建倉庫&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>免費/付費&lt;/td>
+&lt;td>免費&lt;br/>部分付費&lt;/td>
+&lt;td>免費&lt;/td>
+&lt;td>免費&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>方便性&lt;/td>
+&lt;td>有點麻煩&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;td>有點麻煩&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>套件包內容&lt;/td>
+&lt;td>太棒了&lt;/td>
+&lt;td>足夠&lt;/td>
+&lt;td>有點麻煩&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;p>&lt;a class="link" href="https://nodachisoft.com/common/en/article/en000009/" target="_blank" rel="noopener"
+>資料來源&lt;/a> (註：資料時間 2020/10，套件數已有變化)&lt;/p>
+&lt;p>三者都是開源軟體，可免費使用(&lt;a class="link" href="https://chocolatey.org/" target="_blank" rel="noopener"
+>Chcolatey&lt;/a> 有付費版提供企業需要的額外功能)，簡單歸納三者的差異。&lt;/p>
+&lt;hr>
+&lt;h2 id="1-chcolatey">1. Chcolatey&lt;/h2>
+&lt;p>&lt;a class="link" href="https://chocolatey.org/" target="_blank" rel="noopener"
+>Chcolatey&lt;/a>&lt;/p>
+&lt;p>起源最早，目前有超過 9500 個套件，涵蓋許多常用軟體(Chrome、VLC Player)，Chocolatey 依賴 PowerShell 及 NuGet 運作，對非程式開發使用者來說比較複雜，安裝時需要管理者權限。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52659824611_2654a18a85_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="2-scoop">2. Scoop&lt;/h2>
+&lt;p>&lt;a class="link" href="https://scoop.sh/" target="_blank" rel="noopener"
+>Scoop&lt;/a>&lt;/p>
+&lt;p>Scoop 的初衷是用於安裝系統工具，尤其是 Linux 常用但 Windows 缺少的工具程式。它也能用來安裝一般桌面程式，但需要新增特定安裝來源(Bucket)。&lt;/p>
+&lt;p>Scoop 最大的優點是軟體限縮在使用者環境，不修改 Registry 及系統設定，不需要管理者權限，不依賴 PowerShell/NuGet，使用較簡單。&lt;/p>
+&lt;p>若算上散佈各地的 1100 個 Bucket，套件數量&lt;a class="link" href="https://rasa.github.io/scoop-directory/" target="_blank" rel="noopener"
+>可達 27000 種&lt;/a>，但引用時多了搜尋、確認對象跟設定來源的手續。&lt;/p>
+&lt;hr>
+&lt;h2 id="3-winget">3. winget&lt;/h2>
+&lt;p>&lt;a class="link" href="https://learn.microsoft.com/zh-tw/windows/package-manager/winget/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>winget&lt;/a>&lt;/p>
+&lt;p>2020 年才推出的 winget，血統純正是其最大優勢，winget 由微軟開發維護，但因推出時間較晚，套件數量不如前二者豐富，且因透過微軟商店安裝，限定 Windows 10 1709 之後的版本才能使用，跟 Windows Terminal 一樣，要應用在 Server 及網路受限環境得花點功夫。&lt;/p>
+&lt;hr>
+&lt;h2 id="小結">小結&lt;/h2>
+&lt;p>若要安裝 Windows 上的工具程式或軟體的話：&lt;/p>
+&lt;p>Chocolatey 仍是最方便的選擇，單一來源涵蓋幾乎大小會用到的軟體，並能處理 Registry、右鍵選單等系統層次設定，但執行時需要管理者權限。&lt;/p>
+&lt;p>Scoop 以開發用的工具程式為主，最大的優點安裝範圍會限制在當時登入的使用者環境下，不干擾系統設計也不需要管理者權限；Scoop 也能安裝 Chrome、VLC 播放器這類軟體，但需要找到並設定安裝來源。&lt;/p>
+&lt;p>winget 是微軟的官方指令安裝系統，預設透過微軟商店下載安裝，要在 Windows Server 或網路受限環境使用需費點工夫，且因出道較晚，提供的軟體種類不如其他二者齊全。&lt;/p>
+&lt;hr></description></item></channel></rss>
