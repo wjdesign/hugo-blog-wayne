@@ -1,24 +1,36 @@
 User-agent: *
 
+Allow: /2023-01-31/docker-private-registry/
+
+Allow: /categories/
+
+Allow: /tags/docker/
+
+Allow: /categories/docker/
+
+Allow: /categories/docker-compose/
+
+Allow: /tags/docker-compose/
+
+Allow: /post/
+
+Allow: /tags/private-registry/
+
+Allow: /tags/
+
+Allow: /
+
 Allow: /categories/dotnet-core/
 
 Allow: /2023-01-31/web-wait-for-qrcode-scan/
 
 Allow: /2023-01-31/windows-chocolatey-scoop-winget/
 
-Allow: /categories/
-
 Allow: /tags/dotnet-core/
 
 Allow: /categories/windows/
 
-Allow: /post/
-
 Allow: /tags/server-sent-event/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /tags/windows/
 
@@ -124,10 +136,6 @@ Allow: /categories/csharp/
 
 Allow: /tags/csharp/
 
-Allow: /tags/docker/
-
-Allow: /categories/docker/
-
 Allow: /2022-12-08/dotnet-core-docker-note-3/
 
 Allow: /2022-12-07/dotnet-core-docker-note-2/
@@ -144,11 +152,7 @@ Allow: /2022-12-05/js-13-useful-array-tricks/
 
 Allow: /2022-12-05/js-7-killer-one-liners/
 
-Allow: /categories/docker-compose/
-
 Allow: /2022-12-04/docker-compose-link-external-comtainer/
-
-Allow: /tags/docker-compose/
 
 Allow: /2022-11-28/ts-string-type-vs-class/
 

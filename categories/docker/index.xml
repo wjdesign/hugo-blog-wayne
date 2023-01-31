@@ -1,4 +1,113 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/docker/</link><description>Recent content in Docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 09 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/docker/</link><description>Recent content in Docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 31 Jan 2023 00:00:05 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayneblog.ga/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_629b9ddf09_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.nuget.org/packages/Lib.AspNetCore.ServerSentEvents" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>深度應用 Docker 容器後常會走到這一步 - 自建 Docker Registry (容器 Image 倉庫)。&lt;/p>
+&lt;p>不管用 docker 指令或跑 Docker Compose，建立容器都需先載入 Docker Image，若是公開 Image，透過 docker pull 指令、在 docker-compose.yml 指定 image 來源、或 Dockerfile 寫 FROM imageName:tag，都可從 &lt;a class="link" href="https://www.docker.com/products/docker-hub/" target="_blank" rel="noopener"
+>Docker Hub&lt;/a> 下載，私有程式或內部應用系統不適合上傳第三方系統，企業內部主機則可能位於無法連 Internet 的環境，從 Docker Hub 下載這條路便不可行。簡單做法是用 &lt;code>docker save container-name &amp;gt; container-name.tar&lt;/code> 再 scp 上傳到 Docker 主機用 &lt;code>docker load -i container-name.tar&lt;/code> 載入，但儲存、上傳、載入(有時還需要壓縮解壓縮)程序複雜，若要部署多台主機格外沒效率。因此，建立私有 Docker Registry 取代 Docker Hub 的角色，是較省事有效率的實務做法。&lt;/p>
+&lt;p>(補充：關於 Container Image 部署，可參考保哥這篇&lt;a class="link" href="https://blog.miniasp.com/post/2023/01/02/How-to-Move-Container-Image-to-another-Docker-Engine" target="_blank" rel="noopener"
+>遷移容器映像(Container Image)到另一台主機的各種作法&lt;/a>)&lt;/p>
+&lt;p>Docker 支援自建私有 Registry 伺服器，不意外地有安裝成 Docker 容器的便捷做法。經簡單設定與安裝，架一台私有 Docker Registry 儲存非公開容器 Image 並不困難。說是一回事，做是一回事，這篇來實地演練一次。&lt;/p>
+&lt;hr>
+&lt;h2 id="開始">開始&lt;/h2>
+&lt;p>首先準備一台 Docker 主機，裝好 Nginx + Certbot 服務，我是在 Azure 開一個 B1s 小 VM 來跑。&lt;/p>
+&lt;blockquote>
+&lt;p>註：Azure 有 &lt;a class="link" href="https://azure.microsoft.com/zh-tw/products/container-registry" target="_blank" rel="noopener"
+>Azure Container Registry&lt;/a> 的現成雲端服務，做法更簡便。學習在 Linux 跑 Docker 做法是為將來在離線環境建立 Docker Registry 做準備。&lt;/p>
+&lt;/blockquote>
+&lt;p>以我的標準，即便內部伺服器也要控管存取身分，不能讓閒雜人等隨便用。Docker Registry 支援帳號密碼登入，但前題要啟甪 TLS HTTPS 連線，故除了安裝 htpasswd 工具設定密碼雜湊檔，並需要安裝 mkcert 建立 TLS 憑證：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt-get install apache2-utils mkcert
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>我在主機端建了一個 /var/registry 資料夾放 Docker Registry 相關檔案，接著用 mkcert 建立自簽憑證給 Registry 用：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52660476204_fdaaf38881_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>設定帳號密碼：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52660195346_c7fb46f15c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>準備好 Docker Compose 設定檔，REGISTRY_HTTP_TLS_CERTIFICATE 及 REGISTRY_HTTP_TLS_KEY 環境變數指向 mkcert 剛才製作的兩個 pem 檔名、REGISTRY_AUTH_HTPASSWD_PATH 指向密碼檔名；volumes 部分將 Docker 的 Image 資料、憑證、認證資料對應到 /var/registry 實體路徑保存，以免容器關閉後資料消失：&lt;/p>
+&lt;h5 id="docker-composeyml">docker-compose.yml&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">registry&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">restart&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">always&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">registry:2&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">5000&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">5000&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REGISTRY_HTTP_TLS_CERTIFICATE&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/certs/localhost.pem&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REGISTRY_HTTP_TLS_KEY&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/certs/localhost-key.pem&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REGISTRY_AUTH&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">htpasswd&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REGISTRY_AUTH_HTPASSWD_PATH&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">/auth/htpasswd&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REGISTRY_AUTH_HTPASSWD_REALM&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Registry Realm&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/registry/data:/var/lib/registry&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/registry/certs:/certs&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/registry/auth:/auth&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>用 &lt;code>docker-compose up -d&lt;/code> 啟動容器，若一切正常，用 &lt;code>curl https://localhost:5000/v2/&lt;/code> 測試，若傳回 &lt;code>{&amp;quot;errors&amp;quot;:[{&amp;quot;code&amp;quot;:&amp;quot;UNAUTHORIZED&amp;quot;,&amp;quot;message&amp;quot;:&amp;quot;authentication required&amp;quot;,&amp;quot;detail&amp;quot;:null}]}&lt;/code> 就代表成功了。&lt;/p>
+&lt;p>接著來測試 Push Image 到私有 Registry，操作程序是用 docker tag 為己載入容器加上 &lt;code>localhost:5000/aspnetapp&lt;/code> 這種標籤，此時等同同一個 IMAGE ID 有兩個 Tag，由於 Registry 需要登入，用剛才的設定帳號密碼以指令 &lt;code>docker login&lt;/code> 登入，接著 &lt;code>docker push localhost:5000/aspnetsapp&lt;/code> 就能完成上傳：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52660686773_ffdc70fc45_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>檢查資料夾 &lt;code>/var/registry/data/docker/registry/v2/repositories/aspnetapp/_layers/sha256&lt;/code> 可看見上傳過程出現的四個 Layer ID，成功！&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52659697842_ef4b89b360_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>接下來試試從 Windows Docker Desktop 從 VM 的對外網域名稱下載容器 Image 執行，一樣輕鬆秒殺：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52660476229_bfa8528053_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>以上，一台自建 Docker Registry 便上線服役囉～&lt;/p>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
