@@ -9,7 +9,15 @@ color: #d62c2c;
 padding: 0 5px;
 }
 &lt;/style>
-&lt;p>&lt;a class="link" href="https://blog.darkthread.net/blog/sse-notify-example/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://www.nuget.org/packages/Lib.AspNetCore.ServerSentEvents" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://tpeczek.github.io/Lib.AspNetCore.ServerSentEvents/articles/getting-started.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://learn.microsoft.com/zh-tw/aspnet/core/signalr/introduction?view=aspnetcore-7.0&amp;amp;WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://github.com/wjdesign/web-wait-for-qrcode-scan" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.darkthread.net/blog/sse-notify-example/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
 &lt;p>多因素認證(Multiple Factor Authentication，MFA)是網頁常會用到一種技巧，介面停在登入網頁，等待手機 App 操作，網頁能偵測 App 動作是否完成，若驗證成功自動導向已登入畫面，本篇來簡易的實作此流程。&lt;/p>
 &lt;hr>
