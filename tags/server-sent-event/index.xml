@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>server-sent event on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/server-sent-event/</link><description>Recent content in server-sent event on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 31 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/server-sent-event/index.xml" rel="self" type="application/rss+xml"/><item><title>【Server-Sent Event】在網頁等待手機端完成操作</title><link>https://wayneblog.ga/2023-01-31/web-wait-for-qrcode-scan/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/web-wait-for-qrcode-scan/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52659620952_e6d1186f14_o.jpg" alt="Featured image of post 【Server-Sent Event】在網頁等待手機端完成操作" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://blog.darkthread.net/blog/sse-notify-example/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>多因素認證(Multiple Factor Authentication，MFA)是網頁常會用到一種技巧，介面停在登入網頁，等待手機 App 操作，網頁能偵測 App 動作是否完成，若驗證成功自動導向已登入畫面，本篇來簡易的實作此流程。&lt;/p>
+&lt;hr>
+&lt;h2 id="以-facebook-為例">以 Facebook 為例&lt;/h2>
+&lt;p>以 Facebook 為例，若有啟動兩階段驗證，第一次登入網站，輸入密碼後會出現以下畫面：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52660562085_5eb3d64294_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>除了開代碼產生器(Authenticator App)查驗證碼在網頁輸入，有安裝 Facebook App 且為登入狀態的手機也會出現「剛剛是你本人登入的嗎？」登入，只要按「是」即可跳過輸入驗證碼步驟，自動進入登入後畫面：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52660606878_50f14290d3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="實作">實作&lt;/h2>
+&lt;p>「需要雙重驗證碼」網頁必定可持續從網站接收最新狀態，才能做到手機 App 一按「是」馬上接到通知。對前端網頁來說，這不是什麼新鮮技術，做法很多，從雖可恥但有用的 &lt;strong>setInterval 定期查詢&lt;/strong>、&lt;strong>Long Polling&lt;/strong>、&lt;a class="link" href="https://developer.mozilla.org/zh-TW/docs/Web/API/Server-sent_events/Using_server-sent_events" target="_blank" rel="noopener"
+>&lt;strong>Server-Sent Event&lt;/strong>&lt;/a>、WebSocket，乃至更高階的程式庫如 &lt;a class="link" href="https://learn.microsoft.com/zh-tw/aspnet/core/signalr/introduction?view=aspnetcore-7.0&amp;amp;WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>SignalR&lt;/a>，都是解法。這邊我使用 Servent-Sent Event (SSE)，理由是比輪詢即時有效率，不像 WebSocket 會因防火牆、Proxy 或網站伺服器不支援而失效，又比 SignalR 來得輕巧。&lt;/p>
+&lt;p>本專案已改用 ASP.NET Core，做法不同。查了一下，發現 NuGet 套件 &lt;a class="link" href="https://www.nuget.org/packages/Lib.AspNetCore.ServerSentEvents" target="_blank" rel="noopener"
+>Lib.AspNetCore.ServerSentEvents&lt;/a>，文件清楚且擴充彈性不錯，沒必要自己造輪子。&lt;/p>
+&lt;p>先看試做成果：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52659620972_19493c4004_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>我建了一個 ASP.NET Core MVC 站台，首頁放了一顆鈕，按下會彈出 QR Code 網頁，10 秒內掃瞄 QR Code 呼叫指定網址，首頁會從 SSE 接獲通知確認掃瞄完成。為方便本機測試，我加了一顆鈕用 JavaScript 程式瀏覽指定 URL 模擬掃瞄 QR Code 動作。而等待掃瞄過程會計時，未在時限內完成將判定逾時。&lt;/p>
+&lt;p>Index.cshtml 寫法如下，原理是開啟 EventSource() 接收伺服器端 SSE 回應，新開啟的 QR Code 視窗引導使用者呼叫特定連結觸發從 SSE 連線回傳結果，正常由 onmessage 事件接收、逾時或出錯則由 onerror 事件接收：&lt;/p>
+&lt;h5 id="viewshomeindexcshtml">Views/Home/Index.cshtml&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="err">@&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ViewData&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s">&amp;#34;Title&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;Home Page&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span> &lt;span class="n">class&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;text-center&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">h1&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;h&amp;#34;&lt;/span> &lt;span class="n">class&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;display-4&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="n">Welcome&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">h1&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">button&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;btn&amp;#34;&lt;/span> &lt;span class="n">onclick&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;showQRCode()&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="n">Scan&lt;/span> &lt;span class="n">QR&lt;/span> &lt;span class="n">Code&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">button&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">qrCodeWin&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">source&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">EventSource&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">sse&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">@ViewBag&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Token&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">function&lt;/span> &lt;span class="n">showResult&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">msg&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qrCodeWin&lt;/span> &lt;span class="p">&amp;amp;&amp;amp;&lt;/span> &lt;span class="n">qrCodeWin&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">close&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">btn&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="k">remove&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">let&lt;/span> &lt;span class="n">h&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sc">&amp;#39;h&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">h&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">innerText&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">msg&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">h&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">style&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">color&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">red&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">source&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">onmessage&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">showResult&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">source&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">onerror&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">showResult&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">true&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">function&lt;/span> &lt;span class="n">showQRCode&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">qrCodeWin&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">window&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">open&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">@Url&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Content&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">$&amp;#34;~/Home/QRCode/{ViewBag.Token}&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">_blank&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">width&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="m">300&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="n">height&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="m">300&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>初步測試成功，接著改寫成模仿手機掃 QR Code 的登入流程。在我 Home 加一個 Test 方法，/Views/Home/Test.cshtml 如下，直接在頁面顯示 QR Code，QR Code 指定連結被呼叫後由 SSE 傳來通知，網頁導向測試成功畫面：&lt;/p>
+&lt;h5 id="viewshometestcshtml">Views/Home/Test.cshtml&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="err">@&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span> &lt;span class="n">class&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;text-center&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">img&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;qrc&amp;#34;&lt;/span> &lt;span class="n">src&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;@ViewBag.QRCodePng&amp;#34;&lt;/span> &lt;span class="n">alt&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;QR Code&amp;#34;&lt;/span> &lt;span class="p">/&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">div&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;msg&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Timeout&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">span&lt;/span> &lt;span class="n">id&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;t&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="n">@ViewBag&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TimeoutSecs&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">span&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="n">s&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">source&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">EventSource&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">sse&lt;/span>&lt;span class="p">/&lt;/span>&lt;span class="n">@ViewBag&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Token&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">source&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">onmessage&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">location&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">href&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">@Url&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Action&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Succ&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Home&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">source&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">onerror&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">event&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">qrc&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="k">remove&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">msg&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">innerText&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">event&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">data&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">timeout&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">@ViewBag&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TimeoutSecs&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">h&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">setInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">timeout&lt;/span>&lt;span class="p">--;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">getElementById&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sc">&amp;#39;t&amp;#39;&lt;/span>&lt;span class="p">).&lt;/span>&lt;span class="n">innerText&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">timeout&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">timeout&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="m">0&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="n">clearInterval&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">h&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span> &lt;span class="m">1000&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="n">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上範例中，以手機掃瞄並瀏覽 QR Code 內含網址判定成功，改為 App 使用手機實體保存的金鑰對隨機產生內容做數位簽章，將可達到專業水準的安全防護，有機會做出土砲版多重因素驗證或免密碼登入。&lt;/p>
+&lt;p>簡單說一下伺服器端程式寫法。SSE 部分主要靠 &lt;a class="link" href="https://www.nuget.org/packages/Lib.AspNetCore.ServerSentEvents" target="_blank" rel="noopener"
+>Lib.AspNetCore.ServerSentEvents&lt;/a> 程式庫處理，Program.cs 有以下幾個地方要改：(中文註解處)&lt;/p>
+&lt;h5 id="programcs">Program.cs&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Lib.AspNetCore.ServerSentEvents&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">sse_notify.Models&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">var&lt;/span> &lt;span class="n">builder&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">WebApplication&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CreateBuilder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">args&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 註冊 SSE 服務&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Services&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddServerSentEvents&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 改由 URL 包含的 Guid 取得 ClientId&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Services&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddSingleton&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">IServerSentEventsClientIdProvider&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">SseClientIdFromPathProvider&lt;/span>&lt;span class="p">&amp;gt;();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 自訂一個繼承 ServerSentEventsService 及實作 IServerSentEventsService 的類別處理通知&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 使用程式庫提供的 AddServerSentEvents 擴充方法註冊&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Services&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddServerSentEvents&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">SseNotifyService&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">InProcSseNotifyService&lt;/span>&lt;span class="p">&amp;gt;(&lt;/span>&lt;span class="n">options&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 程式庫提供 KeepAlive 功能&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">KeepaliveMode&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">ServerSentEventsKeepaliveMode&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Always&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">KeepaliveInterval&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">15&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Add services to the container.&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Services&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddControllersWithViews&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kt">var&lt;/span> &lt;span class="n">app&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Build&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UseStaticFiles&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UseRouting&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">UseAuthorization&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 定義 SSE 對映的服務及路由及型別，每次等待的掃瞄操作產生隨機 GUID 識別&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MapServerSentEvents&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">InProcSseNotifyService&lt;/span>&lt;span class="p">&amp;gt;(&lt;/span>&lt;span class="s">&amp;#34;/sse/{regex(^[=0-9a-z].+)$)}&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">MapControllerRoute&lt;/span>&lt;span class="p">(&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">name&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;default&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">pattern&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;{controller=Home}/{action=Index}/{id?}&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Run&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>自訂類別要繼承 ServerSentEventsService，寫法可參考 &lt;a class="link" href="https://tpeczek.github.io/Lib.AspNetCore.ServerSentEvents/articles/getting-started.html" target="_blank" rel="noopener"
+>API 文件&lt;/a>，以下是我的做法。QR Code 掃瞄執行結果打算用訂閱與發布設計模式，測試開發階段靠記憶體中的 Dictionary、IMemoryCache 交換資料；在負載平衡架構會有多台並行，則需要分散式的訂閱發布架構，可使用 Redis、&lt;a class="link" href="https://learn.microsoft.com/zh-tw/dotnet/architecture/microservices/multi-container-microservice-net-applications/rabbitmq-event-bus-development-test-environment?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
+>RabbitMQ&lt;/a> 之類的解決方案。為此，我宣告了 &lt;a class="link" href="https://github.com/wjdesign/web-wait-for-qrcode-scan/blob/main/Models/SseNotifyService.cs" target="_blank" rel="noopener"
+>SseNotifyService&lt;/a> 抽象型別，先做了 &lt;a class="link" href="https://github.com/wjdesign/web-wait-for-qrcode-scan/blob/main/Models/InProcSseNotifyService.cs" target="_blank" rel="noopener"
+>InProcessSseNotifyService&lt;/a> 用 IMemoryCache 簡單搞定，正式運轉如有需要再改用 Redis 或其他 MQ 機制實作。&lt;/p>
+&lt;h5 id="modelsssenotifyservicecs">Models/SseNotifyService.cs&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Lib.AspNetCore.ServerSentEvents&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Microsoft.Extensions.Options&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">sse_notify.Models&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// https://tpeczek.github.io/Lib.AspNetCore.ServerSentEvents/articles/getting-started.html&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">abstract&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">SseNotifyService&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">ServerSentEventsService&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IServerSentEventsService&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">SseNotifyService&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IOptions&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">ServerSentEventsServiceOptions&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">ServerSentEventsService&lt;/span>&lt;span class="p">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">options&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">base&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ToBaseServerSentEventsServiceOptions&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">ServerSentEventsService&lt;/span>&lt;span class="p">&amp;gt;())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">abstract&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Subscribe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Guid&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">timeoutSecs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">300&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">async&lt;/span> &lt;span class="n">Task&lt;/span> &lt;span class="n">SendEventAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Guid&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">type&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">client&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">GetClients&lt;/span>&lt;span class="p">().&lt;/span>&lt;span class="n">SingleOrDefault&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">o&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">o&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Id&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">client&lt;/span> &lt;span class="p">!=&lt;/span> &lt;span class="k">null&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">await&lt;/span> &lt;span class="n">client&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">SendEventAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">ServerSentEvent&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Type&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">type&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Data&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">List&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="n">message&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">abstract&lt;/span> &lt;span class="n">Task&lt;/span> &lt;span class="n">Notify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Guid&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="modelsinprocssenotifyservicecs">Models/InProcSseNotifyService.cs&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Lib.AspNetCore.ServerSentEvents&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Microsoft.Extensions.Caching.Memory&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">using&lt;/span> &lt;span class="nn">Microsoft.Extensions.Options&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">namespace&lt;/span> &lt;span class="nn">sse_notify.Models&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">InProcSseNotifyService&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">SseNotifyService&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IServerSentEventsService&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">private&lt;/span> &lt;span class="k">readonly&lt;/span> &lt;span class="n">IMemoryCache&lt;/span> &lt;span class="n">_cache&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">InProcSseNotifyService&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IOptions&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">ServerSentEventsServiceOptions&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">ServerSentEventsService&lt;/span>&lt;span class="p">&amp;gt;&amp;gt;&lt;/span> &lt;span class="n">options&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">IMemoryCache&lt;/span> &lt;span class="n">cache&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">base&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ToBaseServerSentEventsServiceOptions&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">ServerSentEventsService&lt;/span>&lt;span class="p">&amp;gt;())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_cache&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">cache&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">override&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Subscribe&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Guid&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="n">timeoutSecs&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="m">300&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">$&amp;#34;S:{token}&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">semaphore&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">SemaphoreSlim&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">0&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">timeout&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">TimeSpan&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">FromSeconds&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">timeoutSecs&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_cache&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">semaphore&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">timeout&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">task&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Task&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Factory&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">StartNew&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">async&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//wait for semaphore to be released&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(!&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="n">semaphore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">WaitAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">TimeSpan&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">FromSeconds&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">timeoutSecs&lt;/span>&lt;span class="p">)))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">await&lt;/span> &lt;span class="n">SendEventAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;error&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;Timeout&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//try get response&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(!&lt;/span>&lt;span class="n">_cache&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TryGetValue&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">&amp;gt;(&lt;/span>&lt;span class="s">$&amp;#34;R:{token}&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">out&lt;/span> &lt;span class="kt">var&lt;/span> &lt;span class="n">res&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">await&lt;/span> &lt;span class="n">SendEventAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;error&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;No response&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">await&lt;/span> &lt;span class="n">SendEventAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">&amp;#34;message&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">res&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">async&lt;/span> &lt;span class="k">override&lt;/span> &lt;span class="n">Task&lt;/span> &lt;span class="n">Notify&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Guid&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">key&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">$&amp;#34;S:{token}&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(!&lt;/span>&lt;span class="n">_cache&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TryGetValue&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="k">out&lt;/span> &lt;span class="n">SemaphoreSlim&lt;/span> &lt;span class="n">semaphore&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">throw&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">ApplicationException&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Token not found&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_cache&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Set&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;R:&amp;#34;&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ToString&lt;/span>&lt;span class="p">(),&lt;/span> &lt;span class="n">message&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">semaphore&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Release&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_cache&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Remove&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">key&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>SSE 程式庫識別客戶端連線的預設做法是從 HttpContext.User.Identity 抓使用者身分，若使用者有多條 SSE 連線，每條連線都傳訊息也無妨。但我的應用情境，每次顯示 QR Code 為獨立傳輸通道，會以 GUID 識別，故要自訂識別 Client Id 邏輯。做法是寫個自訂類別實作 IServerSentEventsClientIdProvider，在 Program.cs DI 註冊成 Singleton：&lt;/p>
+&lt;h5 id="modelssseclientidfrompathprovidercs">Models/SseClientIdFromPathProvider.cs&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">SseClientIdFromPathProvider&lt;/span> &lt;span class="p">:&lt;/span> &lt;span class="n">IServerSentEventsClientIdProvider&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="n">Guid&lt;/span> &lt;span class="n">AcquireClientId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">HttpContext&lt;/span> &lt;span class="n">context&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">path&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">context&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Request&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Path&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">m&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Regex&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">path&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s">@&amp;#34;(?i)/(?&amp;lt;g&amp;gt;[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Success&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="k">return&lt;/span> &lt;span class="n">Guid&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Parse&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">m&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Groups&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s">&amp;#34;g&amp;#34;&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="n">Value&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">Guid&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">NewGuid&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">ReleaseClientId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Guid&lt;/span> &lt;span class="n">clientId&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">HttpContext&lt;/span> &lt;span class="n">context&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>瑣碎細節還不少，就不一一介紹了。範例專案已放上 &lt;a class="link" href="https://github.com/wjdesign/web-wait-for-qrcode-scan" target="_blank" rel="noopener"
+>Github&lt;/a>，大家如有興趣再下載回去研究。&lt;/p>
+&lt;hr></description></item></channel></rss>

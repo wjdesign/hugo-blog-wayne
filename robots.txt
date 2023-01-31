@@ -1,12 +1,20 @@
 User-agent: *
 
+Allow: /categories/dotnet-core/
+
+Allow: /2023-01-31/web-wait-for-qrcode-scan/
+
 Allow: /2023-01-31/windows-chocolatey-scoop-winget/
 
 Allow: /categories/
 
+Allow: /tags/dotnet-core/
+
 Allow: /categories/windows/
 
 Allow: /post/
+
+Allow: /tags/server-sent-event/
 
 Allow: /tags/
 
@@ -110,8 +118,6 @@ Allow: /categories/gcp/
 
 Allow: /2022-12-10/use-google-sheet-as-db/
 
-Allow: /categories/dotnet-core/
-
 Allow: /2022-12-09/dotnet-core-docker-note-4/
 
 Allow: /categories/csharp/
@@ -121,8 +127,6 @@ Allow: /tags/csharp/
 Allow: /tags/docker/
 
 Allow: /categories/docker/
-
-Allow: /tags/dotnet-core/
 
 Allow: /2022-12-08/dotnet-core-docker-note-3/
 
