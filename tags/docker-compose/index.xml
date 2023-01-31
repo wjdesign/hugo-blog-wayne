@@ -11,13 +11,14 @@ padding: 0 5px;
 &lt;/style>
 &lt;p>&lt;a class="link" href="https://www.nuget.org/packages/Lib.AspNetCore.ServerSentEvents" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
 &lt;p>深度應用 Docker 容器後常會走到這一步 - 自建 Docker Registry (容器 Image 倉庫)。&lt;/p>
 &lt;p>不管用 docker 指令或跑 Docker Compose，建立容器都需先載入 Docker Image，若是公開 Image，透過 docker pull 指令、在 docker-compose.yml 指定 image 來源、或 Dockerfile 寫 FROM imageName:tag，都可從 &lt;a class="link" href="https://www.docker.com/products/docker-hub/" target="_blank" rel="noopener"
 >Docker Hub&lt;/a> 下載，私有程式或內部應用系統不適合上傳第三方系統，企業內部主機則可能位於無法連 Internet 的環境，從 Docker Hub 下載這條路便不可行。簡單做法是用 &lt;code>docker save container-name &amp;gt; container-name.tar&lt;/code> 再 scp 上傳到 Docker 主機用 &lt;code>docker load -i container-name.tar&lt;/code> 載入，但儲存、上傳、載入(有時還需要壓縮解壓縮)程序複雜，若要部署多台主機格外沒效率。因此，建立私有 Docker Registry 取代 Docker Hub 的角色，是較省事有效率的實務做法。&lt;/p>
 &lt;p>(補充：關於 Container Image 部署，可參考保哥這篇&lt;a class="link" href="https://blog.miniasp.com/post/2023/01/02/How-to-Move-Container-Image-to-another-Docker-Engine" target="_blank" rel="noopener"
 >遷移容器映像(Container Image)到另一台主機的各種作法&lt;/a>)&lt;/p>
 &lt;p>Docker 支援自建私有 Registry 伺服器，不意外地有安裝成 Docker 容器的便捷做法。經簡單設定與安裝，架一台私有 Docker Registry 儲存非公開容器 Image 並不困難。說是一回事，做是一回事，這篇來實地演練一次。&lt;/p>
-&lt;hr>
 &lt;h2 id="開始">開始&lt;/h2>
 &lt;p>首先準備一台 Docker 主機，裝好 Nginx + Certbot 服務，我是在 Azure 開一個 B1s 小 VM 來跑。&lt;/p>
 &lt;blockquote>
