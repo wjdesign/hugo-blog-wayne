@@ -1,8 +1,26 @@
 User-agent: *
 
-Allow: /2023-01-31/docker-private-registry/
+Allow: /2023-02-01/line-front-end-framework-v2/
 
 Allow: /categories/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /tags/line/
+
+Allow: /categories/line/
+
+Allow: /tags/line-front-end-framework/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2023-01-31/docker-private-registry/
 
 Allow: /tags/docker/
 
@@ -12,13 +30,7 @@ Allow: /categories/docker-compose/
 
 Allow: /tags/docker-compose/
 
-Allow: /post/
-
 Allow: /tags/private-registry/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /categories/dotnet-core/
 
@@ -33,10 +45,6 @@ Allow: /categories/windows/
 Allow: /tags/server-sent-event/
 
 Allow: /tags/windows/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /categories/npm-plugins/
 

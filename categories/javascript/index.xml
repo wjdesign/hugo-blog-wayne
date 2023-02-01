@@ -1,4 +1,260 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 30 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/javascript/</link><description>Recent content in Javascript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 01 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>【LIFF】認識 LINE Front-end Framework (LIFF) 前端框架 (LIFF v2)</title><link>https://wayneblog.ga/2023-02-01/line-front-end-framework-v2/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-01/line-front-end-framework-v2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52662373535_00afc03eca_o.jpg" alt="Featured image of post 【LIFF】認識 LINE Front-end Framework (LIFF) 前端框架 (LIFF v2)" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://taichunmin.idv.tw/blog/2020-09-18-line-three-size-liff.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://oakmega.com/blog/basic-knowledge-in-line-business" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.ezpretty.com.tw/blog/inner?id=43" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://tw.linebiz.com/manual/line-official-account/line-porvider-and-channel-intro/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.miniasp.com/post/2023/01/29/The-LINE-Front-end-Framework-LIFF-v2" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>我最早接觸 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/" target="_blank" rel="noopener"
+>LIFF&lt;/a> 的時候已經是 2019 的時候了，當時的 LIFF v1 與現在的 LIFF v2 已經有了蠻大的差異，我想透過這篇文章梳理一下 LIFF v2 新版本的特性，好讓我們可以更方便的在網站上透過 LIFF 提供 LINE 用戶一些好用功能。&lt;/p>
+&lt;hr>
+&lt;h2 id="正確理解-liff-的用途">正確理解 LIFF 的用途&lt;/h2>
+&lt;p>雖然說 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/" target="_blank" rel="noopener"
+>LINE Front-end Framework&lt;/a> (&lt;code>LIFF&lt;/code>) 從名字上看起來是一套由 LINE 推出的前端框架，但事實上他的用途比較像是一個&lt;strong>函式庫&lt;/strong>(Library)，讓你可以在 LINE 平台(LINE Platform) 順利的開發網頁應用程式(Web Application)，幫助開發人員可以輕鬆的透過 &lt;code>LIFF&lt;/code> 提供的 API 跟 LINE 用戶進行互動。&lt;/p>
+&lt;blockquote>
+&lt;p>任何從 LINE 平台開啟的網頁，而網頁使用到 &lt;strong>LIFF&lt;/strong> 提供的 JavaScript SDK，都可以稱為是一個 &lt;strong>LIFF Apps&lt;/strong>！&lt;/p>
+&lt;/blockquote>
+&lt;p>所以在 LINE 平台上開發網頁，是一個什麼樣的情境與感受呢？什麼又是 LINE 平台呢？事實上，LINE 這家公司不但有龐大的用戶基礎，它們提供的各項服務也是琳瑯滿目，所有服務的加總，就是 LINE 平台，大家都可以在這個平台上開發 Web 應用程式。以下我用一個最淺顯易懂的使用情境來說明：&lt;/p>
+&lt;blockquote>
+&lt;p>假設某甲經營著一個團購生意，客戶都是透過 &lt;strong>LINE 官方帳戶&lt;/strong>(Official Account) (簡稱 &lt;strong>LINE OA&lt;/strong> 帳戶) 進行聯繫，當某甲想提供他的客戶一個團購的表單時，最簡單的方式就是直接傳送一個連結給他的客戶，而這個連結就是一個「&lt;strong>網頁&lt;/strong>」並擁有一個「&lt;strong>網址&lt;/strong>」對吧！如果你是 Web 開發人員，就可以在這份「&lt;strong>網頁&lt;/strong>」中加入 &lt;strong>LIFF SDK&lt;/strong>，並使用 &lt;strong>LIFF SDK&lt;/strong> 提供的 API 來取得客戶基本資料，或是設計一些便利的 Web UI 介面幫助客戶在 LINE 聊天室中下單。這就是一個 &lt;strong>LIFF App&lt;/strong> 的經典使用情境！👍&lt;/p>
+&lt;/blockquote>
+&lt;p>要認識 LIFF 最快的方式，就是直接開啟 &lt;a class="link" href="https://liff-playground.netlify.app/" target="_blank" rel="noopener"
+>LIFF Playground&lt;/a> 網頁，快速預覽所有 LIFF SDK 提供的各項功能，讓你很清楚的知道 LIFF 可以做哪些事！以下我列出幾個 &lt;a class="link" href="https://liff-playground.netlify.app/" target="_blank" rel="noopener"
+>LIFF Playground&lt;/a> 的亮點：&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>幫助 LINE 用戶登入/登出：&lt;br>
+事實上，這些使用到 LIFF SDK 的 LIFF Apps 並不一定要跑在 LINE App 之中，也就是說，他不一定要直接從 LINE App 開啟這份網頁。這個 LIFF Apps 其實也可以是一個獨立網頁，在任何一台電腦或手機開啟網頁也行。只是在 LINE App 之中開啟網頁可以省去「登入」的程序，使用者的操作門檻會更低一些！&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>取得 LINE 用戶的裝置資訊：&lt;br>
+你可以透過 LIFF SDK 提供的 API 取得使用者的作業系統(OS)、使用的語言(Language)、目前 LIFF SDK 使用的版本、目前 LINE App 的版本、判斷網頁是否開在 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/overview/#liff-browser" target="_blank" rel="noopener"
+>LIFF Browser&lt;/a> 之中、判斷用戶目前是否是登入狀態、判斷用戶目前環境可以使用哪些 LIFF API。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>取得 LINE 用戶基本資料：&lt;br>
+取得用戶的 Access Token、取得用戶的 ID Token、取得 ID Token 解開後的內容、取得 Context 資訊、取得基本資料(只有使用者唯一值、顯示名稱與大頭照)、取得與 &lt;code>LINE OA&lt;/code> 之間的好友狀態。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>強化 UI 互動的小功能：&lt;br>
+你可以在 LIFF 永久連結上加入額外參數、可以幫 LINE 用戶直接送出訊息到 OA 帳戶的聊天室中、從 LIFF Browser 開啟連結到新視窗、從 LIFF Browser 關閉視窗、分享資訊給好友、取得 QRCode 掃描結果。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;p>當你已經瞭解 LIFF 用途之後，開發人員就可以直接看 &lt;a class="link" href="https://developers.line.biz/en/reference/liff/" target="_blank" rel="noopener"
+>LIFF v2 API reference&lt;/a> 參考文件，這裡有更多 LIFF SDK 與 API 的技術細節。&lt;/p>
+&lt;hr>
+&lt;h2 id="正確理解-liff-browser-的用途">正確理解 LIFF Browser 的用途&lt;/h2>
+&lt;p>在 LINE 平台中可以使用以下 4 種瀏覽器類型，很多人搞不清楚其中的差別，我特別重點說明一下：&lt;/p>
+&lt;h3 id="line-in-app-browser">LINE In-App Browser&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developers.line.biz/en/glossary/#line-iab" target="_blank" rel="noopener"
+>LINE In-App Browser&lt;/a>：&lt;/p>
+&lt;p>在 LINE App 任意位置開啟的連結，預設都會開啟一個&lt;strong>內嵌&lt;/strong>在 LINE App 中的瀏覽器，這種瀏覽器幾乎與一般瀏覽器無異，但其實在使用上有諸多限制，建議開發人員&lt;strong>不要&lt;/strong>把他當成「正常」的瀏覽器來使用，當成「&lt;strong>閱讀網頁內容&lt;/strong>」的工具會比較好一些，不要做太多需要登入才能用的功能在上面。&lt;/p>
+&lt;blockquote>
+&lt;p>LINE In-App Browser 雖然支援 &lt;strong>Cookies&lt;/strong> 與 &lt;strong>localStorage&lt;/strong> 操作，但沒人保證可以儲存多久，可能 App 升級一下資料就清除了，對使用者來說其實很不好用。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="line-liff-browser">LINE LIFF Browser&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developers.line.biz/en/glossary/#liff-browser" target="_blank" rel="noopener"
+>LINE LIFF Browser&lt;/a>：&lt;/p>
+&lt;p>這是一個相當特殊的瀏覽器類型，他只有透過 &lt;code>LIFF App&lt;/code> 的&lt;strong>專用網址&lt;/strong>才能開啟，網址結構如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://liff.line.me/&lt;span class="o">{&lt;/span>LIFF_ID&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這個 &lt;code>LIFF App&lt;/code> 專用網址必須跟 &lt;a class="link" href="https://developers.line.biz/zh-hant/" target="_blank" rel="noopener"
+>LINE Developers&lt;/a> 之中的 &lt;code>LINE Login&lt;/code> 或 &lt;code>LINE MINI App&lt;/code> 頻道(Channel)綁定，事先在「&lt;strong>頻道&lt;/strong>」中建立一組 &lt;code>LIFF_ID&lt;/code> 才能使用。在 LIFF SDK 中，有部分 API 只有在 &lt;strong>LINE LIFF Browser&lt;/strong> 之中才能使用！&lt;/p>
+&lt;blockquote>
+&lt;p>使用 &lt;code>LIFF App&lt;/code> 專用網址開啟的網頁，不一定要使用 LIFF SDK 來實作，只是用了 LIFF SDK 就可以享受許多 LINE LIFF Browser 才有的功能，可以降低開發門檻。其他開啟 LIFF App 的說明文件可以參考 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/opening-liff-app/" target="_blank" rel="noopener"
+>Opening a LIFF app&lt;/a> 說明！&lt;/p>
+&lt;/blockquote>
+&lt;blockquote>
+&lt;p>這個 LIFF Browser 也支援「&lt;strong>最小化&lt;/strong>」功能，把剛開啟的 LIFF App 最小化成一個 Icon，隨時可以點擊 Icon 恢復瀏覽器顯示，還蠻方便的。詳情請見 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/minimizing-liff-browser/" target="_blank" rel="noopener"
+>Minimizing LIFF browser&lt;/a> 說明！👍&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="line-mini-app">LINE MINI App&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developers.line.biz/en/services/line-mini-app/" target="_blank" rel="noopener"
+>LINE MINI App&lt;/a>：&lt;/p>
+&lt;p>這也是一個相當特殊的瀏覽器類型，其用途跟 &lt;code>LINE LIFF Browser&lt;/code> 相當類似，都需要&lt;strong>專用網址&lt;/strong>才能打開，但是跟 &lt;code>LINE LIFF Browser&lt;/code> 不同的地方在於，&lt;code>LINE MINI App&lt;/code> 可以打包上架為一個 &lt;strong>LINE 服務&lt;/strong>，可以讓使用者在 LINE App 的「&lt;strong>主頁&lt;/strong>」搜尋到這個 &lt;code>LINE MINI App&lt;/code>，使用上會方便許多，通常只有知名品牌才會選用這種方式上架。目前 &lt;code>LINE MINI App&lt;/code> 只有指定的 &lt;strong>LINE 技術合作夥伴&lt;/strong>或&lt;strong>特定主題或品牌&lt;/strong>才能通過審核，在台灣尚未公開給大眾申請。&lt;/p>
+&lt;h3 id="external-browser">External Browser&lt;/h3>
+&lt;p>&lt;a class="link" href="https://developers.line.biz/en/glossary/#external-browser" target="_blank" rel="noopener"
+>External Browser&lt;/a>：&lt;/p>
+&lt;p>你可以在 LINE App 之中已經開啟的瀏覽器，額外再開啟一個「&lt;strong>外部瀏覽器&lt;/strong>」(External Browser)，使用手機的&lt;strong>預設瀏覽器&lt;/strong>來開啟網頁，這種網頁在瀏覽的時候就可以用到完整的瀏覽器能力，雖然可以解決 LINE App 之中的其他瀏覽器類型所提到的一些限制，但卻會失去一些在 LINE 裡面開啟網頁的方便性，例如：&lt;strong>自動登入&lt;/strong>。&lt;/p>
+&lt;p>除此之外，你直接用桌機的任意瀏覽器開啟一個有使用 LIFF SDK 的網頁，對 LIFF SDK 來說，這個瀏覽器本身就是一個「&lt;strong>外部瀏覽器&lt;/strong>」(External Browser)，你可以透過 LIFF SDK 非常輕鬆的實現 LINE Login 機制，只要呼叫 &lt;code>liff.login()&lt;/code> 即可！👍&lt;/p>
+&lt;hr>
+&lt;h2 id="開始使用-liff-sdk-開發網頁">開始使用 LIFF SDK 開發網頁&lt;/h2>
+&lt;p>在任何一個網頁上，只要加入 LIFF SDK 檔案，這是一個 JavaScript 檔，就可以立即開始使用，以下是在任意網頁加入 LIFF 的標準作業流程：&lt;/p>
+&lt;ol>
+&lt;li>設定網頁標題 (Page Title)&lt;br>
+請在 HTML 的 &lt;code>&amp;lt;head&amp;gt;&lt;/code> 區段中加入 &lt;code>&amp;lt;title&amp;gt;&lt;/code> 標籤，理論上每一份 HTML 應該都有這個標籤定義才對！&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>The Will Will Web&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">title&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>加入 LIFF SDK&lt;br>
+請將 LIFF SDK 加入到網頁 &lt;code>&amp;lt;body&amp;gt;&lt;/code> 最開頭的地方：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">charset&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;utf-8&amp;#34;&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://static.line-scdn.net/liff/edge/2/sdk.js&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果你的網站使用到任何其他前端框架，可能會想把 LIFF SDK 改用 &lt;code>npm&lt;/code> 的方式安裝載入：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install --save @line/liff
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># yarn add @line/liff&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>匯入 &lt;code>liff&lt;/code> 物件的方法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">liff&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;@line/liff&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>初始化 LIFF SDK&lt;br>
+初始化 LIFF SDK 是一個&lt;strong>非常必要&lt;/strong>的操作，因為當你的網頁開在 &lt;strong>LINE In-App Browser&lt;/strong> 或 &lt;strong>LINE LIFF Browser&lt;/strong> 瀏覽器時，在 LIFF SDK 初始化過後才能呼叫某些 API 取得當前的環境資訊。這裡最重要的參數就是 &lt;code>liffId&lt;/code> 了，你要先到 &lt;a class="link" href="https://developers.line.biz/console/" target="_blank" rel="noopener"
+>LINE Developers&lt;/a> 的 &lt;strong>LINE Login&lt;/strong> 或 &lt;strong>LINE MINI App&lt;/strong> 頻道的 LIFF 頁籤內先建立一組 &lt;code>LIFF_ID&lt;/code>，並將這個 &lt;code>LIFF_ID&lt;/code> 設定到 &lt;code>liff.init()&lt;/code> 的 &lt;code>liffId&lt;/code> 參數上。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">init&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">liffId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;1566379427-xKvNdlJ9&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}).&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start to use liff&amp;#39;s api
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以下是取得環境資訊的程式碼範例，記得一定要&lt;strong>初始化之後&lt;/strong>才能執行這些 API 喔！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">init&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">liffId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;1566379427-xKvNdlJ9&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}).&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getLanguage&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 取得用戶的主要語言
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getVersion&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 取得 LIFF SDK 的版本
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">isInClient&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 判斷目前網頁是否跑在 LIFF Browser 底下
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">isLoggedIn&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 判斷開啟此網頁的 LINE 使用者是否為登入狀態
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getOS&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 取得使用者目前使用的作業系統為何
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">getLineVersion&lt;/span>&lt;span class="p">());&lt;/span> &lt;span class="c1">// 取得使用者目前使用的 LINE App 版本
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>注意: 你只要是用 &lt;code>LINE LIFF Browser&lt;/code> 瀏覽器開啟 LIFF App 網頁，透過 &lt;code>liff.init()&lt;/code> 初始化之後，預設就會自動登入！👍&lt;/p>
+&lt;/blockquote>
+&lt;p>如果你希望在初始化 LIFF SDK 的時候，即便在「外部瀏覽器」的環境下也要啟用「&lt;strong>自動登入&lt;/strong>」功能，可以加入 &lt;code>withLoginOnExternalBrowser: true&lt;/code> 參數，他會在頁面初始化的時候自動進行 LINE Login 的 OAuth 2.0 授權流程！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">liff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">init&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">liffId&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;1566379427-xKvNdlJ9&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Use own liffId
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">withLoginOnExternalBrowser&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// Enable automatic login process
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}).&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Start to use liff&amp;#39;s api
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>這個 &lt;code>withLoginOnExternalBrowser: true&lt;/code> 選項建議只用在 LINE App 內才會開啟的網頁上使用。否則你能想像你開啟我的部落格後，第一時間轉向到 LINE Login 畫面是什麼感覺嗎？😅&lt;/p>
+&lt;/blockquote>
+&lt;ol start="4">
+&lt;li>有些取得環境資訊的 API 在透過 &lt;code>liff.init()&lt;/code> 初始化之前也可以使用：&lt;/li>
+&lt;/ol>
+&lt;p>&lt;strong>liff.ready&lt;/strong>： 會回傳一個 Promise 並會在 &lt;code>liff.init()&lt;/code> 初始化完畢後執行，你可以在 &lt;code>.then()&lt;/code> callback 撰寫一些程式碼。&lt;/p>
+&lt;p>&lt;strong>liff.getOS()&lt;/strong>： 取得用戶端的作業系統，可能的值只有 &lt;code>ios&lt;/code>、&lt;code>android&lt;/code> 與 &lt;code>web&lt;/code>。&lt;/p>
+&lt;p>&lt;strong>liff.getLanguage()&lt;/strong>： 這等同於透過 &lt;code>navigator.language&lt;/code> 取得目前瀏覽器使用的語言。&lt;/p>
+&lt;p>&lt;strong>liff.getVersion()&lt;/strong>： 取得目前 LIFF SDK 使用的版本。&lt;/p>
+&lt;p>&lt;strong>liff.getLineVersion()&lt;/strong>： 取得使用者目前 LINE App 的版本。&lt;/p>
+&lt;p>&lt;strong>liff.isInClient()&lt;/strong>： 判斷目前網頁是否跑在 LIFF Browser 底下，你可以藉此判斷是否要初始化 LIFF SDK 或透過 &lt;code>liff.closeWindow()&lt;/code> 關閉視窗！&lt;/p>
+&lt;p>&lt;strong>liff.closeWindow()&lt;/strong>： 你可以任意時間透過這個 API 關閉視窗，甚至於在 &lt;code>liff.init()&lt;/code> 初始化完成之前也可以關閉。&lt;/p>
+&lt;p>&lt;strong>liff.use()&lt;/strong>： 啟用與初始化一個 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/liff-plugin/" target="_blank" rel="noopener"
+>LIFF Plugin&lt;/a>。&lt;/p>
+&lt;p>&lt;strong>liff.i18n.setLang()&lt;/strong>： 設定 LIFF SDK 的顯示語言，任何 &lt;a class="link" href="https://datatracker.ietf.org/doc/html/rfc5646" target="_blank" rel="noopener"
+>RFC 5646 (BCP 47)&lt;/a> 定義的語言都可以，&lt;strong>繁體中文&lt;/strong>可以是 &lt;code>zh-Hant&lt;/code> 或 &lt;code>zh-Hant-TW&lt;/code> 都可以。&lt;/p>
+&lt;p>以上就是使用 LIFF SDK 開發網頁的起手式，理解了觀念與啟動方法，其他都不複雜了，剩下的 API 就是有用到的時候才去看 &lt;a class="link" href="https://developers.line.biz/en/reference/liff/" target="_blank" rel="noopener"
+>LIFF v2 API reference&lt;/a> 說明文件。當然，別忘記 &lt;a class="link" href="https://liff-playground.netlify.app/" target="_blank" rel="noopener"
+>LIFF Playground&lt;/a> 的存在，他可以很快速的幫助你快速瀏覽所有的 LIFF APIs！👍&lt;/p>
+&lt;hr>
+&lt;h2 id="總結">總結&lt;/h2>
+&lt;p>我覺得 LIFF 並不難，難的地方在於初學者很容易搞不清楚 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/overview/" target="_blank" rel="noopener"
+>&lt;strong>LIFF 的用途&lt;/strong>&lt;/a>、&lt;a class="link" href="https://developers.line.biz/en/docs/liff/overview/#liff-browser" target="_blank" rel="noopener"
+>&lt;strong>LIFF Browser 的存在&lt;/strong>&lt;/a> 與 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/opening-liff-app/" target="_blank" rel="noopener"
+>&lt;strong>LIFF App 的開啟方式&lt;/strong>&lt;/a>，搞懂這些地方，後續在開發上就不會有甚麼困難與障礙了！🚀&lt;/p>
+&lt;hr></description></item><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
