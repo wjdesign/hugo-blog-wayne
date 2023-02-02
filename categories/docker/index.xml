@@ -29,7 +29,7 @@ padding: 0 5px;
 &lt;li>容器的可寫層與運行容器的主機緊密耦合。您不能輕易地將數據移動到其他地方。&lt;/li>
 &lt;li>寫入容器的可寫層需要 存儲驅動程序來管理文件系統。存儲驅動程序使用 Linux 內核提供聯合文件系統。與使用直接寫入主機文件系統的數據卷相比，這種額外的抽象降低了性能。&lt;/li>
 &lt;/ol>
-&lt;p>Container 是在 Image 之上去創建的，Container 可以讀寫數據，而 Image 只能夠讀取，但是 Container 裡面所寫入的數據，只會存在 Container 裡面，如果刪除 Container，寫入的數據會全部消失。但是有一種需求，資料庫的 Container 會有數據的讀寫，在這種情況下，Docker 就需要數據持久化。&lt;/p>
+&lt;p>Container 是在 Image 之上去創建的，Container 可以讀寫數據，而 Image 只能夠讀取，但是 Container 裡面所寫入的數據，只會存在 Container 裡面，如果刪除 Container，寫入的數據會全部消失。有一種需求，資料庫的 Container 會有數據的讀寫，在這種情況下，Docker 就需要數據持久化。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511452_6e029288d8_o.png"
 max-width="100%"
 max-height="100%"
