@@ -22,6 +22,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以預見，雖然目前仍然是 class Component 和 hooks api 並駕齊驅的場面，但未來幾年裡，hooks 極有可能取代 class Component 成為業內真正的主流。&lt;/p>
 &lt;hr>
@@ -79,6 +80,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果按這個標準來看的話，&lt;code>vue&lt;/code> 和 &lt;code>react&lt;/code> 中 &lt;code>hooks&lt;/code> 的定義，似乎都差不多。&lt;/p>
 &lt;p>那麼為什麼要提到是以 &lt;code>&amp;quot;use&amp;quot;&lt;/code> 作為開頭的方法呢？&lt;/p>
@@ -91,6 +93,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;span class="focus">一個假設&lt;/span>：假設任何以「&lt;code>use&lt;/code>」 開頭並緊跟著一個大寫字母的函數就是一個 &lt;code>Hook&lt;/code>。&lt;/p>
 &lt;p>&lt;span class="focus">第一個只在&lt;/span>：只在 &lt;code>React&lt;/code> 函數組件中調用 &lt;code>Hook&lt;/code>，而不在普通函數中調用 &lt;code>Hook&lt;/code>。(&lt;code>Eslint&lt;/code> 通過判斷一個方法是不是大坨峰命名來判斷它是否是 &lt;code>React&lt;/code> 函數)&lt;/p>
@@ -194,6 +197,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>為什麼呢？&lt;/p>
 &lt;p>因為 &lt;code>mixins&lt;/code> 雖然提供了這種狀態複用的能力，但它的弊端實在太多了。&lt;/p>
@@ -341,6 +345,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>(假設上圖中每一種顏色就代碼一種高度相關的業務邏輯)&lt;/p>
 &lt;p>無論是 &lt;code>vue&lt;/code> 還是 &lt;code>react&lt;/code>，通過 &lt;code>Hooks&lt;/code> 寫法都能做到，將&amp;quot;分散在各種聲明周期裡的代碼塊&amp;quot;，通過 &lt;code>Hooks&lt;/code> 的方式將相關的內容聚合到一起。&lt;/p>
@@ -476,6 +481,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>那麼，我們應該怎麼開始撰寫 &amp;ldquo;自定義 Hooks&amp;rdquo; 呢？往下看吧！&lt;/p>
 &lt;h3 id="react-玩家看這裡">react 玩家看這裡&lt;/h3>

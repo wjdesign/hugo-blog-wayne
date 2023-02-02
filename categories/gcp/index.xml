@@ -30,6 +30,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="發佈-google-excel-到網路">發佈 Google Excel 到網路&lt;/h2>
@@ -39,12 +40,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊後，會出現詢問框，問說發佈的範圍：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804960_d56c660192_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這篇 Demo 因為只有一張表，所以直接用「&lt;strong>整份文件&lt;/strong>」，如果是有很多張表，但限制其中幾張是可以抓的，就選擇可以公開的表即可。&lt;/p>
 &lt;p>按下「&lt;strong>發佈&lt;/strong>」後，就會看見結果的詢問框：&lt;/p>
@@ -52,6 +55,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>就可以按下叉叉關掉這框了。&lt;/p>
 &lt;p>接著記得將表單的「檢視」權限開放給知道連結的任何人，以免後面步驟因權限不足而被阻擋。&lt;/p>
@@ -59,6 +63,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="取得-google-api-key">取得 Google API Key&lt;/h2>
@@ -73,18 +78,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊後按下「啟用」，專案就會開通 &lt;strong>Google Sheets API&lt;/strong> 的功能：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332711_79a2bbc937_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>啟用完成，頁面會回到 GCP 的頁面，可以看到上面一條訊息提醒要有憑證才能使用 API：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804875_033c1b47e2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>直接點擊「&lt;strong>建立憑證&lt;/strong>」，或是打開網址：&lt;a class="link" href="https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW" target="_blank" rel="noopener"
 >https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW&lt;/a>&lt;/p>
@@ -94,6 +102,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>「&lt;strong>選取 API&lt;/strong>」，選擇「&lt;strong>Google Sheets API&lt;/strong>」。&lt;/p>
 &lt;p>「您需要存取什麼資料？」，這段看了 &lt;a class="link" href="https://cloud.google.com/docs/authentication?hl=zh-TW" target="_blank" rel="noopener"
@@ -105,6 +114,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>填寫完後按下「&lt;strong>建立並繼續&lt;/strong>」。&lt;/p>
 &lt;p>後面二項是選填，不用設定也沒關係，按下「&lt;strong>完成&lt;/strong>」。&lt;/p>
@@ -115,12 +125,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>幾秒後，就會看見跳出一個小視窗，上面寫了「&lt;strong>您的 API 金鑰&lt;/strong>」，這個金鑰也就是我們要取 Google Sheets 時後面要附上的：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876663_965c0731fb_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>視窗上面也提醒了，為了怕金鑰被外人拿到也可以用，我們必須要對這組金鑰加上限制，點擊「&lt;strong>限制金鑰&lt;/strong>」就會進入設定的頁面。&lt;/p>
 &lt;p>建議&lt;strong>一定要設定限制&lt;/strong>，本篇的 Demo 有限制只有在 Demo 頁下才有效，而且也只能用 &lt;strong>Google Sheets API&lt;/strong> 的功能。&lt;/p>
@@ -162,6 +174,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>回來資料的格式，所有資料都收在 &lt;strong>values&lt;/strong> 裡，Google Sheets 上的每一列會成為一個一個的陣列。&lt;/p>
 &lt;hr>

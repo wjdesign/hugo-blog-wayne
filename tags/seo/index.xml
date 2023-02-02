@@ -30,6 +30,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step2檢查網頁">Step2：檢查網頁&lt;/h3>
@@ -38,6 +39,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step3建立-manifestjson">Step3：建立 manifest.json&lt;/h3>
@@ -158,6 +160,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在head標籤中加入 &lt;code>manifest.json&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -203,6 +206,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step6加入-serviceworker-語法">Step6：加入 &lt;code>serviceWorker&lt;/code> 語法&lt;/h3>
@@ -214,6 +218,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -336,6 +341,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step9安裝頁面">Step9：安裝「頁面」&lt;/h3>
@@ -344,6 +350,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step10安裝">Step10：安裝&lt;/h3>
@@ -352,12 +359,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當安裝完畢後，就會開啟剛所安裝的應用程式，哈！是不是畫面乾淨許多，就像在使用一般的應用程式一樣，有了PWA後可實現透過網頁就能打造專屬的應用程式的夢想，且完全不用再學新語言，真是超方便的。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439205910_65be017ebf_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="manifestjson-介紹">manifest.json 介紹&lt;/h2>
@@ -1130,6 +1139,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>（圖片來自：&lt;a class="link" href="https://developers.google.com/web/updates/2018/06/a2hs-updates" target="_blank" rel="noopener"
 >Changes to Add to Home Screen Behavior&lt;/a>）&lt;/p>
@@ -1260,6 +1270,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>那通常，很多網站 UX 設計不良，在使用者根本就還搞不清楚這網站是幹麻的情況下就跳通知，所以大部份都直接按封鎖了吧 XD？&lt;/p>
 &lt;p>總之，在踩了幾個坑以後，終於完整的寫出了 Web Push 的功能。&lt;/p>
@@ -1283,24 +1294,28 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊 Cloud Messaging：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439308150_dcc89eebfd_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>頁面往下拉，會看到一個「網路設定」的區塊，有一個「產生金鑰組」的按金，按下去：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439127849_20fb7aee04_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>就會產生一組 Web Push 用的&lt;code>金鑰&lt;/code>，先存下來，Firebase Config 裡會用到：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439127839_7ae66a876d_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="新增-manifestjsonfirebase-config">新增 manifest.json、Firebase Config&lt;/h3>
 &lt;p>取得金鑰後，第二步就是新增一個 &lt;code>manifest.json&lt;/code> 的檔案，檔案內容大概如下：&lt;/p>
@@ -1384,12 +1399,14 @@ Firebase Config 一樣是後台有提供，點小齒輪，再點專案設定後�
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>就會出現 Config 了：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439308100_319e8310b7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>copy 以後貼到 &lt;code>index.html&lt;/code>，另外也一併貼上 FCM 的引用，整合後如下：&lt;/p>
 &lt;h5 id="fcm-web-push-firebase-confightml">fcm-web-push-firebase-config.html&lt;/h5>
@@ -1628,6 +1645,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;strong>註冊 sw.js 只能在 https 下，因此網域必須有S SL，不然會註冊失敗。&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1653,6 +1671,7 @@ Firebase 上會看到以下：&lt;/p>
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>之後只要跑個迴圈，就可以一個個去發送 Web Push。&lt;/p>
 &lt;h3 id="發送-web-push">發送 Web Push&lt;/h3>
@@ -1661,6 +1680,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Web Push 如果要判斷成效，直接用 Google Analytics 的 utm 參數就可以了，所以後台欄位有給 utm 用的 3 個主要參數。&lt;br>
 不含樣式的原始碼文末會附上 GitHub 網址。&lt;br>
@@ -1669,6 +1689,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>發送 Web Push 的 JS 如下，寫在 &lt;code>admin.html&lt;/code> 裡：&lt;/p>
 &lt;h5 id="fcm-web-push-triggerjs">fcm-web-push-trigger.js&lt;/h5>
@@ -1891,6 +1912,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="第-1-章連結優化基礎">第 1 章：連結優化基礎&lt;/h2>
@@ -1901,6 +1923,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="什麼是連結建立">什麼是連結建立？&lt;/h3>
@@ -1919,6 +1942,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>而他們是正確的。&lt;/p>
 &lt;p>在接近 20 年以後，連結仍然是衡量網頁品質的最好方法。&lt;/p>
@@ -1937,6 +1961,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="頁面權重">頁面權重&lt;/h3>
@@ -1948,6 +1973,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>（筆記：雖然 Google 並沒有公開分享關於 PageRank 的資訊，他們仍然將其視為演算法的基礎）&lt;/p>
 &lt;p>你可以使用 Semrush ，輕易的察看 PageRank 的大約指標。&lt;/p>
@@ -1956,6 +1982,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="網站權重">網站權重&lt;/h3>
@@ -1968,6 +1995,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="網站相關性">網站相關性&lt;/h3>
@@ -1989,12 +2017,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>或是埋在網頁的頁尾？&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2021/01/backlinko-footer-640x231.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>事實證明，你的連結在頁面上的位置很重要。&lt;/p>
 &lt;p>特別是埋藏在頁首與測攔的連結，並不如頁面正文區塊的連結有價值。&lt;/p>
@@ -2022,11 +2052,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2021/01/anchor-links-768x736.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Google 看到該錨點文字，並說：&lt;/p>
 &lt;p>恩&amp;hellip; 這個網站使用「原始人甜點」錨點文字，該連結導向的網頁一定是關於「原始人甜點」。&lt;/p>
@@ -2036,6 +2068,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>簡短來說，我不推薦透過關鍵字豐富的錨點文字，用以建立反向連結。&lt;/p>
 &lt;p>如果你是真的從錨點文字取得反向連結，還是值得慶祝。&lt;/p>
@@ -2048,6 +2081,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果你這樣思考，就能理解：&lt;/p>
 &lt;p>那些圍繞在連結上的文字，同樣提供該頁面的線索。&lt;/p>
@@ -2087,6 +2121,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="一視覺資產">一、視覺資產&lt;/h3>
@@ -2108,6 +2143,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>直到現今，此圖已經被連結數十次（許多來自行銷領域的權威網站）&lt;/p>
 &lt;p>確實，即使我使用表格呈現，仍可能取得這些連結。&lt;/p>
@@ -2117,6 +2153,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>有趣的事，直到 2022 年的今天，每個月人們仍然連結此圖。&lt;/p>
 &lt;p>這就是創造視覺圖表的強大之處。&lt;/p>
@@ -2135,12 +2172,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>以及留言&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2020/12/seo-techniques-post-comments-480x73.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>但最重要的是，此貼文是一個連結磁鐵。&lt;/p>
 &lt;p>它擁有超過 4,000 條連結。&lt;/p>
@@ -2148,12 +2187,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>也因為此文章，擁有這麼多連結指向它，它取得關鍵字「SEO Techniques」的前 5 名。&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2021/12/google-serp-seo-techniques-640x1093.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="三原創的研究與數據">三、原創的研究與數據&lt;/h3>
@@ -2168,6 +2209,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>不用說，此貼文滿載了大量原始數據。&lt;/p>
 &lt;p>這就是為什麼此貼文至今，可以累計 18,900 則反向連節，這個驚人的數字。&lt;/p>
@@ -2176,6 +2218,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="四深度完整的指南">四、深度完整的指南&lt;/h3>
@@ -2192,6 +2235,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>因為這個多章節的指南，涵蓋了其他網路資源沒有的內容。&lt;/p>
 &lt;p>它已經被連結超過 37,700 次。&lt;/p>
@@ -2199,6 +2243,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>現在，你已經創造出一些值得連結的內容，是時候打造一些連結。&lt;/p>
 &lt;p>如何做？&lt;/p>
@@ -2213,6 +2258,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="步驟一找到可能連結者">步驟一：找到「可能連結者」&lt;/h3>
@@ -2224,6 +2270,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在第一頁搜尋結果頁，挑選一個網站連結，並放進連結分析工具（我使用Semrush 為例）&lt;/p>
 &lt;p>接著，點擊側攔的「反向連節分析」，再點「反向連節」。&lt;/p>
@@ -2232,6 +2279,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>(你如何知道哪個網站值得鎖定、哪個網站要忽略？去查看第二章的內容)&lt;/p>
 &lt;h3 id="步驟二找到他們的電子郵件地址">步驟二：找到他們的電子郵件地址&lt;/h3>
@@ -2247,12 +2295,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著，他將會向你展現，與該網域關聯的電子郵件地址。&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2021/01/email-results-640x391.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>但如果你想要接觸大型網站呢？梳理這份清單將會非常痛苦。&lt;/p>
 &lt;p>這就是為什麼，針對這些情境，我推薦 VoilaNorbert&lt;/p>
@@ -2262,6 +2312,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這樣，你就能接觸到那些可能連結者，並讓他們把你網站連結，放到他們頁面上的。&lt;/p>
 &lt;p>同時，它也會向你展現特定對象的電子郵件地址。&lt;/p>
@@ -2294,6 +2345,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="google-企鵝">Google 企鵝&lt;/h3>
@@ -2316,6 +2368,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="如何避免它-1">如何避免它：&lt;/h4>
 &lt;p>除了 Google 以外，沒人知道自己的網站為什麼被手動懲罰。&lt;/p>
@@ -2333,6 +2386,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="資源頁面連結優化">資源頁面連結優化&lt;/h3>
@@ -2343,6 +2397,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>因為這些頁面存在的原因，是將使用者導向適合的地方。&lt;/p>
 &lt;p>因此，這是個絕佳的連結建立策略。&lt;/p>
@@ -2402,6 +2457,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="2-找到擁有許多外部連結的頁面">2. 找到擁有許多外部連結的頁面&lt;/h4>
 &lt;p>一個網頁越多連結，他們之中越有可能會產生破損連結。&lt;/p>
@@ -2414,6 +2470,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="4-寄送郵件給該網站管理員告知關於破損連結的事情">4. 寄送郵件給該網站管理員，告知關於破損連結的事情&lt;/h4>
 &lt;p>最後，讓經營該網頁的人，知道該頁的破損連結，並作為交換，讓對方連結你的網站。&lt;/p>
@@ -2444,6 +2501,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="案例一">案例一&lt;/h3>
@@ -2457,6 +2515,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>她使用電子郵件推廣去創立反向連結，而非單純創造好內容並等待被推廣。&lt;/p>
 &lt;p>這使她取得從自然領域的權威網站，取得滿手的連結。&lt;/p>
@@ -2464,6 +2523,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這些白帽反向連結，使她自然搜尋增加了 194%。&lt;/p>
 &lt;p>為何「摩天大樓技術」運作得如此良好？&lt;/p>
@@ -2485,6 +2545,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>（仔細查看該信件有多麼客製化）&lt;/p>
 &lt;p>收到對方的回應後，我寄給他們那些失效的連結，以及來自 Backlinko 的一大堆內容，用以進行 1:1 替換。&lt;/p>
@@ -2492,12 +2553,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>而大多數的夥伴，都非常樂意增添我的連結：&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2017/04/broken-link-building-3-640x133.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="案例三">案例三&lt;/h3>
 &lt;h5 id="matt-如何優化它的電子商務連結">Matt 如何優化它的電子商務連結&lt;/h5>
@@ -2515,12 +2578,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>因為 Matt 聯繫上正確的人（並寄給他們客製化的電子郵件），許多人願意提供連接給他的指南。&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2018/04/history-of-gin-2-640x276.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這些連結都加強了 Matt 的電商網站，在搜尋結果頁想要爭取的關鍵字：澳洲琴酒。&lt;/p>
 &lt;hr>
@@ -2530,6 +2595,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="從連結回收輕鬆取得反向連結">從「連結回收」輕鬆取得反向連結&lt;/h3>
@@ -2541,6 +2607,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>但藉由輕推一把，多數網站擁有人都非常樂意，將提及你的部分轉成一個連結。&lt;/p>
 &lt;p>你要如何發現些未含連結的提及呢？BuzzSumo 效果非常好。&lt;/p>
@@ -2548,6 +2615,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="透過反向圖片搜尋取得額外連結">透過反向圖片搜尋，取得「額外」連結&lt;/h3>
 &lt;p>請問你是否發布視覺資產（如資訊圖表、示意圖）？&lt;/p>
@@ -2560,6 +2628,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="在下午寄送電子郵件">在下午寄送電子郵件&lt;/h3>
 &lt;p>以下是我寄送上千封電子郵件後，從中學到的事情。&lt;/p>
@@ -2572,6 +2641,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="創造視覺化的概念點子與策略">創造視覺化的概念、點子與策略&lt;/h3>
 &lt;p>以下是來自 Backlinko 實際的作為：&lt;/p>
@@ -2579,12 +2649,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>不管你相不相信，許多人都因為這張簡單片與我連結：&lt;/p>
 &lt;p>&lt;img src="https://api.backlinko.com/app/uploads/2021/01/backlinko-visual-reverse-image-search-640x746.webp"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>為何它如此有效？&lt;/p>
 &lt;p>恩&amp;hellip;我可以單純透過文字描述 APP 攻勢，但這將使我的內容比較不容易分享。&lt;/p>
@@ -2598,6 +2670,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這個方法的另一個好處，可以減少你花費的時間。&lt;/p>
 &lt;p>與其花費時間，客製化一封沒人閱讀的訊息，先寄送簡短試探郵件更好。&lt;/p>
@@ -2615,6 +2688,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用連結交集找出可能連結者">使用「連結交集」找出可能連結者&lt;/h3>
 &lt;p>如果某人連結給你的競爭者，他們可能也會提供連結給你對吧？&lt;/p>
@@ -2628,6 +2702,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用預先策畫的連結目標清單">使用「預先策畫」的連結目標清單&lt;/h3>
 &lt;p>不能否認：找到高品質的反向連結非常困難。&lt;/p>
@@ -2639,6 +2714,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>更不用說，如果你再經營一個烘焙部落格，每一個網站清單的頁面，都將會是一個反向連結的好機會。&lt;/p>
 &lt;p>你可以透過以下搜尋字詞，找到這些清單：&lt;/p>

@@ -32,6 +32,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>請選擇 &lt;code>nvm-setup&lt;/code> 下載並安裝&lt;/p>
@@ -41,6 +42,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>完成後，打開「命令提示字元」可以試著輸入 &lt;code>nvm&lt;/code>，如果看到類似以下畫面就算是完成了。&lt;/p>
 &lt;h3 id="macos">MacOS&lt;/h3>
@@ -59,6 +61,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來可以在你所使用的命令設定檔案加入以下片段程式碼，以下提供 &lt;code>bash&lt;/code>、&lt;code>zsh&lt;/code> 的說明，兩者依據環境選擇其一即可：&lt;/p>
 &lt;ul>
@@ -71,6 +74,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來使用任何文字編輯器打開該檔案，並加入以下程式碼存檔即可。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -104,6 +108,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>注意：&lt;/p>
@@ -515,6 +520,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="預設-alias-可以取代版本號">預設 alias 可以取代版本號&lt;/h4>
 &lt;ul>
@@ -588,18 +594,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點選下方進階&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52457748984_fe07a2b50b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>將「以系統管理員身份執行」打勾&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52457931905_56227dda4c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>搞定，之後使用捷徑打開 &lt;code>cmd&lt;/code> 時，皆為「以系統管理員身份執行」&lt;/p>
 &lt;hr>

@@ -23,6 +23,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>註冊完後，你就可以開始申請 API 了！&lt;/p>
 &lt;p>如果你本身有帳號的話，那就直接登入 OpenAI 吧。&lt;/p>
@@ -31,18 +32,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著找到你的頭像點它，找到「&lt;strong>View API keys&lt;/strong>」。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365326_f3562c9ffc_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>找到後你會看到「&lt;strong>API keys&lt;/strong>」的申請畫面，點一下下方的「&lt;strong>Create New Secret key&lt;/strong>」，這樣你就拿到串接 OpenAI 的 key，請先把它記下來，後面會用到。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908443_8cde78fd78_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>API key generated 是非常重要的，因此請不要隨意提供給他人，以免造成不必要的損失。&lt;/p>
@@ -78,6 +82,7 @@ tokens 是指你輸入的字數，例如：「我想要去日本旅遊」，這�
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>登入後，你可以透過&lt;a class="link" href="https://developers.line.biz/console/" target="_blank" rel="noopener"
 >這個連結&lt;/a>，進入 LINE 的開發者後台。&lt;/p>
@@ -85,6 +90,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著，你會看到畫面上什麼都沒有，所以這邊你要點一下中間的「&lt;strong>Create a new provider&lt;/strong>」，這個類似於一個公司帳號的概念，底下會有許多的專案，所以你可以把它想像成一個公司，而這個公司底下有許多的專案，例如：Line Bot、Line MUSIC 等等之類你的服務。&lt;/p>
 &lt;p>這邊的話，範例我們就叫做「&lt;strong>Wayne&amp;rsquo;s OpenAI Bot&lt;/strong>」。&lt;/p>
@@ -92,18 +98,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>建立的過程是非常快的，因此當你點下「&lt;strong>Create&lt;/strong>」 之後，你就可以馬上看到 Wayne&amp;rsquo;s OpenAI Bot 的畫面。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365301_94bda877c0_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著，點一下畫面上的 「&lt;strong>Create a Messaging API channel&lt;/strong>」，因為我們要來申請一個聊天機器人，所以我們要使用「&lt;strong>Messaging API&lt;/strong>」。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365296_cfd8c1caab_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>進入「&lt;strong>Create a Messaging API channel&lt;/strong>」後，會有一些欄位要填寫：&lt;/p>
 &lt;ul>
@@ -167,6 +176,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>到目前為止，我們只是申請好了一個 Line Bot，接著要來取得一些資訊，首先在「&lt;strong>Base settings&lt;/strong>」中找到以下資訊並複製起來。&lt;/p>
 &lt;ul>
@@ -178,6 +188,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著按下 「&lt;strong>issue&lt;/strong>」，你會取得一串很長的 Token，請複製起來，後面我們會使用到。&lt;/p>
 &lt;p>到目前為止，我們已經準備好了 Line Bot 的申請以及 OpenAI API 的申請，接下來就是準備進入撰寫程式碼的部分囉。&lt;/p>
@@ -376,30 +387,35 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這邊請選擇 「&lt;strong>Web Services&lt;/strong>」。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365266_3aed5a7ce7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著你可以在這個畫面上選擇專案，如果你發現你的畫面上一個專案都沒有的話，可以點一下旁邊的「&lt;strong>Configure account&lt;/strong>」。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365251_1ce40aac75_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著你可以在這邊選擇專案，懶一點的話你可以乾脆給它全部的權限，因為我們只是要部署一個簡單的專案，所以我就選擇我要的單一專案即可。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660254_17525814ca_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來畫面上應該就可以看到你的專案了，接著點選你要部署的專案。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660239_f49bf0cea8_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在這邊點一下「&lt;strong>Connect&lt;/strong>」。&lt;/p>
 &lt;p>這邊會要求你填一些欄位，我就不多說明了，我直接附上我的設定。&lt;/p>
@@ -407,24 +423,28 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著往下滾，就選擇 「&lt;strong>Free&lt;/strong>」專案即可，然後再點一下下方的「&lt;strong>Advanced&lt;/strong>」。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837630_4764ddc2d9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>因為我們要在「&lt;strong>Advanced&lt;/strong>」區塊填入&lt;strong>環境變數&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908308_fa977befa9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著點一下「&lt;strong>Add Environment Variable&lt;/strong>」，依照欄位填入。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911427_82f40e2f3a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>最後其他設定可以不用管，直接點一下最後的「&lt;strong>Create Web Service&lt;/strong>」。&lt;/p>
 &lt;blockquote>
@@ -434,6 +454,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>那麼由於為了方便示範，因此我這邊預設會採用「&lt;strong>Yes&lt;/strong>」。&lt;/p>
@@ -443,6 +464,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這個過程稍微會比較久一點，因為 &lt;strong>Render&lt;/strong> 會將它打包成一個 &lt;strong>Docker Image&lt;/strong>，然後再部署到它的伺服器上，所以這個過程會稍微比較久一點，但是不用擔心，因為它會自動幫你做這些事情，你只要等待它完成即可。&lt;/p>
 &lt;p>部署完畢的話，你可以在畫面看到他提示你專案已經運行起來並且開始部署。&lt;/p>
@@ -450,12 +472,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>而你的專案的網址，就會在這邊：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558908228_6ba7000c14_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>不出意外的話，應該是無法開啟的，因為我們只有做一個 &lt;code>post&lt;/code> 的 API，那麼到這邊我們專案就正式部署出去了，基本上都不用理會它了。&lt;/p>
 &lt;blockquote>
@@ -468,18 +492,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>加入好友後，你應該就會立刻看到好友歡迎的訊息通知。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52557911352_e4e4bcfda5_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著你可以試著發送訊息給它，例如「&lt;code>Test&lt;/code>」，但是你會發現它沒有辦法正常回應你。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837550_8dfc4f386e_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>因此接下來，我們要做一點調整，讓它可以正常回應你。&lt;/p>
 &lt;h3 id="調整-line-bot">調整 Line Bot&lt;/h3>
@@ -489,6 +516,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著點一下「&lt;strong>Edit&lt;/strong>」，然後將「Webhook URL」填入你的專案網址，例如 &lt;a class="link" href="https://example.com/callback" target="_blank" rel="noopener"
 >https://example.com/callback&lt;/a>&lt;/p>
@@ -496,6 +524,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>callback 是因為我們 Express 專案的路由是 &lt;strong>/callback&lt;/strong>，如果你的路由不是這個的話，請自行修改。&lt;/p>
@@ -505,24 +534,28 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>按下儲存後，你可以點一下「&lt;strong>Verify&lt;/strong>」，來驗證你的網址是否正確以及專案是否正常，只要能看到「&lt;strong>Success&lt;/strong>」就代表你的網址以及專案是正確的。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558837510_952267b7e7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接著將下方的 「&lt;strong>Use webhook&lt;/strong>」打開。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365056_2dfa7c5ec2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>打開後，你再去試著發送訊息給你的 Line Bot，你就會發現它可以正常回應你了，而且是不論你打什麼，他都會回應你剛剛打的字。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558365061_19ff4b6a1b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>恭喜你，截至為止，我們終於把 Line Bot 正式處理好了。&lt;/p>
 &lt;h3 id="關掉預設回饋">關掉預設回饋&lt;/h3>
@@ -565,12 +598,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你會跳到 LINE@ 管理介面，將「&lt;strong>加入好友歡迎訊息&lt;/strong>」以及「&lt;strong>自動回覆訊息&lt;/strong>」關掉就搞定囉！&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52558660009_7084f14f12_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="串接-openai-api">串接 OpenAI API&lt;/h2>
@@ -726,6 +761,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>只是你會發現它好像沒辦法回你很多話，這原因是我們沒有告知它要使用多少 Tokens，因此這邊我們調整一下：&lt;/p>
 &lt;h5 id="appjs-6">app.js&lt;/h5>
@@ -774,6 +810,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>恭喜你，完成了一個可以跟你聊天的機器人！而且是串接了 OpenAI 的機器人！&lt;/p>
 &lt;hr>
@@ -811,18 +848,21 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>登錄成功後可以看到：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52499417688_b22fc7e975_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊運行按鈕後就可以在頁面中看到執行結果：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52499338965_f2e405dd7a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在 Runkit 的頁面中可以像正常的 Node.js 環境一樣運行各種 JS 語句。比如，運行如下的簡單代碼獲取 Hive 中文區的最新文章：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -854,6 +894,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="api-endpoint">API Endpoint&lt;/h2>
@@ -872,12 +913,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>發布後單擊 &lt;code>endpoint&lt;/code> 就會打開對應的 API URL：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52498856886_942c86a5ed_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>比如說，我這裡的就是：&lt;/p>
 &lt;p>&lt;a class="link" href="https://api-jdcmj9qsmxmb.runkit.sh/" target="_blank" rel="noopener"
@@ -917,6 +960,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>請選擇 &lt;code>nvm-setup&lt;/code> 下載並安裝&lt;/p>
@@ -926,6 +970,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>完成後，打開「命令提示字元」可以試著輸入 &lt;code>nvm&lt;/code>，如果看到類似以下畫面就算是完成了。&lt;/p>
 &lt;h3 id="macos">MacOS&lt;/h3>
@@ -944,6 +989,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來可以在你所使用的命令設定檔案加入以下片段程式碼，以下提供 &lt;code>bash&lt;/code>、&lt;code>zsh&lt;/code> 的說明，兩者依據環境選擇其一即可：&lt;/p>
 &lt;ul>
@@ -956,6 +1002,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來使用任何文字編輯器打開該檔案，並加入以下程式碼存檔即可。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -989,6 +1036,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>注意：&lt;/p>
@@ -1400,6 +1448,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="預設-alias-可以取代版本號">預設 alias 可以取代版本號&lt;/h4>
 &lt;ul>
@@ -1473,18 +1522,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點選下方進階&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52457748984_fe07a2b50b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>將「以系統管理員身份執行」打勾&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52457931905_56227dda4c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>搞定，之後使用捷徑打開 &lt;code>cmd&lt;/code> 時，皆為「以系統管理員身份執行」&lt;/p>
 &lt;hr>
@@ -1591,12 +1643,14 @@ Node.js 16 (LTS) 將在 2023 年 9 月達到生命週期結束，比原計劃 20
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Node 16 於四月二十日發布，山月在第一時間下載了Node16 體驗了以下新特性。偶數號的版本為LTS 版本，這將是既Node14 之後的下一個長期支持版本，Node14 在2020-10-27 已進入 &lt;code>Active LTS&lt;/code> 階段，還沒有升級的同學要盡量更新呀。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52449191852_9b1c9c83d2_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>從 &lt;a class="link" href="https://github.com/nodejs/node/releases/tag/v16.0.0" target="_blank" rel="noopener"
 >Node 16 Release 官方文檔&lt;/a> 列出了此次它所有的新特性以及非常詳細的提交記錄。那它到底更新了哪些新特性，先讓我們一睹為快吧！&lt;/p>
@@ -1795,6 +1849,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>bin/www&lt;/code> 是啟動入口文件，在裡面可以設置端口號等&lt;/li>
@@ -1805,6 +1860,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1856,6 +1912,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這就啟動成功啦&lt;/p>
 &lt;p>瀏覽器打開&lt;a class="link" href="http://localhost:3000" target="_blank" rel="noopener"
@@ -1864,6 +1921,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="安裝-winston-添加打印日誌文件">安裝 winston 添加打印日誌文件&lt;/h2>
@@ -1922,6 +1980,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="修改錯誤處理">修改錯誤處理&lt;/h3>
 &lt;p>將錯誤打印到日誌上&lt;/p>
@@ -1929,6 +1988,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="測試日誌是否打印成功">測試日誌是否打印成功&lt;/h3>
 &lt;p>請求一個不存在的路由，如：&lt;a class="link" href="http://localhost:3000/hello" target="_blank" rel="noopener"
@@ -1937,12 +1997,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>打開日誌文件，看到這條錯誤被打印出來就成功啦&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52443411730_b91c1ab7f9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="mysql">MySQL&lt;/h2>
@@ -2007,6 +2069,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用-navicat-數據庫管理工具連線時出現錯誤">使用 &lt;code>Navicat&lt;/code> 數據庫管理工具連線時，出現錯誤&lt;/h3>
 &lt;p>若出現 &lt;code>1251 - Client does not support authentication protocol requested by server; consider upgrading MySQL client&lt;/code> 錯誤，原因為：&lt;br>
@@ -2080,11 +2143,13 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52442967796_fe83fd3528_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>進入 &lt;code>expressFrame&lt;/code> 庫，新建用戶信息表為 &lt;code>user&lt;/code> ，默認有 &lt;code>id&lt;/code> 字段，需要再添加以下必要字段：&lt;/p>
 &lt;p>字段：id&lt;/p>
@@ -2431,6 +2496,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="測試接口">測試接口&lt;/h3>
 &lt;p>訪問一下 &lt;a class="link" href="http://localhost:3000/get_user" target="_blank" rel="noopener"
@@ -2440,6 +2506,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這就大功告成啦～&lt;/p>
 &lt;p>github地址：&lt;a class="link" href="https://github.com/wjdesign/nodejsExpressMysqlDemo" target="_blank" rel="noopener"
@@ -2552,5 +2619,6 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

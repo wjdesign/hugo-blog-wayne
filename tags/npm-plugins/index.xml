@@ -211,6 +211,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="安裝-vueuse">安裝 VueUse&lt;/h2>
@@ -305,6 +306,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Wooooow~~~ 這可太簡單易用了！&lt;/p>
 &lt;p>經過源碼閱讀，我們可以發現，這短短的一個方法，至少做了以下這些事：&lt;/p>
@@ -369,6 +371,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>是不是很好用？相比手寫 setInterval 更為便捷。&lt;/p>
 &lt;p>如果徒手實現這樣一整套方法，多少行暫且不說，我們需要在業務中寫下大量的邏輯代碼。&lt;/p>
@@ -429,6 +432,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="例子四usevmodel">例子(四)：useVModel&lt;/h3>
 &lt;p>這是一個給&lt;strong>經常封裝組件&lt;/strong>的小伙伴們的大好利器。&lt;/p>
@@ -539,6 +543,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>對於有組件封裝需求的朋友，這個方法強烈推薦！&lt;/p>
 &lt;p>不用再為了單向數據流的組件封裝，而在組件內寫冗餘的代碼了。&lt;/p>
@@ -1069,6 +1074,7 @@ value 可以是 &lt;code>Number&lt;/code>、&lt;code>Array&lt;/code>、&lt;code>
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>使用 &lt;code>createStore&lt;/code> 建立的資料庫一個庫只會建立一個表：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1126,18 +1132,21 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>登錄成功後可以看到：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52499417688_b22fc7e975_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊運行按鈕後就可以在頁面中看到執行結果：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52499338965_f2e405dd7a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在 Runkit 的頁面中可以像正常的 Node.js 環境一樣運行各種 JS 語句。比如，運行如下的簡單代碼獲取 Hive 中文區的最新文章：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1169,6 +1178,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="api-endpoint">API Endpoint&lt;/h2>
@@ -1187,12 +1197,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>發布後單擊 &lt;code>endpoint&lt;/code> 就會打開對應的 API URL：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52498856886_942c86a5ed_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>比如說，我這裡的就是：&lt;/p>
 &lt;p>&lt;a class="link" href="https://api-jdcmj9qsmxmb.runkit.sh/" target="_blank" rel="noopener"
@@ -1221,6 +1233,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="vben-admin">Vben Admin&lt;/h2>
@@ -6129,12 +6142,14 @@ Install with &lt;code>npm&lt;/code> install &lt;code>rimraf&lt;/code>, or just d
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>關閉壓縮報告：&lt;code>3.50s&lt;/code>，少了後面一串壓縮大小，肯定更快啦。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52424483404_a28225651f_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="vite配置-buildchunksizewarninglimit">Vite配置-build.chunkSizeWarningLimit&lt;/h2>
@@ -6709,6 +6724,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="第五部分73-104行代碼">第五部分73-104行代碼&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">

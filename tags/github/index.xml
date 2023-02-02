@@ -92,6 +92,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>設定完畢後，github 會分配給你一個公開的網址：&lt;a class="link" href="https://%7byour-account%7d.github.io/%7byour-repo-name%7d/" target="_blank" rel="noopener"
@@ -110,6 +111,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="前往-cloudflare-後台">前往 Cloudflare 後台&lt;/h3>
 &lt;ul>
@@ -119,6 +121,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>DNS 設定如圖：
@@ -141,6 +144,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>選擇 &lt;code>Use custom nameservers (enter below)&lt;/code>&lt;/li>
@@ -150,6 +154,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="cloudflare-後台設定強制使用-ssl">Cloudflare 後台設定強制使用 SSL&lt;/h3>
 &lt;ul>
@@ -160,12 +165,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="回到-github-pages將網址填寫至-custom-domain短暫驗證完畢後即可點選-save-送出設定">回到 github pages，將網址填寫至 Custom domain，短暫驗證完畢後，即可點選 &lt;code>Save&lt;/code> 送出設定&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834708_a23fb3550c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>自定義網址已設定完畢，可使用網址打開網站。&lt;/p>
@@ -178,12 +185,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點選 &lt;code>Generate new token&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839257_4a097835f3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>設定備註、過期時間、權限後即可生成 token&lt;/p>
 &lt;ul>
@@ -193,6 +202,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>生成後，token 請複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/p>
@@ -201,6 +211,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="準備材料2登入-cloudflare-後台取得-區域識別碼zone">準備材料2：登入 Cloudflare 後台，取得 區域識別碼(Zone)&lt;/h3>
 &lt;ul>
@@ -211,6 +222,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="準備材料3取得-global-api-key">準備材料3：取得 Global API Key&lt;/h3>
 &lt;ul>
@@ -221,6 +233,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="準備材料4生成-api-token">準備材料4：生成 API token&lt;/h3>
 &lt;ul>
@@ -230,11 +243,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834623_6bd1187ba3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>設定 token 名稱、權限、TTL&lt;/li>
@@ -245,6 +260,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>建立後，也請將 token 複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/li>
@@ -253,6 +269,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h2 id="材料準備完畢開始設定-secret">材料準備完畢，開始設定 &lt;code>secret&lt;/code>&lt;/h2>
 &lt;h3 id="進入-source-code-的-repo點選-settings---secret---actions並將剛剛的四個準備材料設定到-actions-secrets-中">進入 source code 的 repo，點選 &lt;code>Settings&lt;/code> -&amp;gt; &lt;code>Secret&lt;/code> -&amp;gt; &lt;code>Actions&lt;/code>，並將剛剛的四個準備材料設定到 &lt;code>Actions secrets&lt;/code> 中&lt;/h3>
@@ -260,6 +277,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>此處 Actions secrets 的名稱如需修改，則待會的 github-actions.yml 內的名稱也需跟著修改，否則會抓不到 secrets 中設定的值哦!&lt;/p>
@@ -430,5 +448,6 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

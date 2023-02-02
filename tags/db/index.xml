@@ -40,6 +40,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>bin/www&lt;/code> 是啟動入口文件，在裡面可以設置端口號等&lt;/li>
@@ -50,6 +51,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -101,6 +103,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這就啟動成功啦&lt;/p>
 &lt;p>瀏覽器打開&lt;a class="link" href="http://localhost:3000" target="_blank" rel="noopener"
@@ -109,6 +112,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="安裝-winston-添加打印日誌文件">安裝 winston 添加打印日誌文件&lt;/h2>
@@ -167,6 +171,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="修改錯誤處理">修改錯誤處理&lt;/h3>
 &lt;p>將錯誤打印到日誌上&lt;/p>
@@ -174,6 +179,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="測試日誌是否打印成功">測試日誌是否打印成功&lt;/h3>
 &lt;p>請求一個不存在的路由，如：&lt;a class="link" href="http://localhost:3000/hello" target="_blank" rel="noopener"
@@ -182,12 +188,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>打開日誌文件，看到這條錯誤被打印出來就成功啦&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52443411730_b91c1ab7f9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="mysql">MySQL&lt;/h2>
@@ -252,6 +260,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用-navicat-數據庫管理工具連線時出現錯誤">使用 &lt;code>Navicat&lt;/code> 數據庫管理工具連線時，出現錯誤&lt;/h3>
 &lt;p>若出現 &lt;code>1251 - Client does not support authentication protocol requested by server; consider upgrading MySQL client&lt;/code> 錯誤，原因為：&lt;br>
@@ -325,11 +334,13 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52442967796_fe83fd3528_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>進入 &lt;code>expressFrame&lt;/code> 庫，新建用戶信息表為 &lt;code>user&lt;/code> ，默認有 &lt;code>id&lt;/code> 字段，需要再添加以下必要字段：&lt;/p>
 &lt;p>字段：id&lt;/p>
@@ -676,6 +687,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="測試接口">測試接口&lt;/h3>
 &lt;p>訪問一下 &lt;a class="link" href="http://localhost:3000/get_user" target="_blank" rel="noopener"
@@ -685,6 +697,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這就大功告成啦～&lt;/p>
 &lt;p>github地址：&lt;a class="link" href="https://github.com/wjdesign/nodejsExpressMysqlDemo" target="_blank" rel="noopener"

@@ -886,6 +886,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="優先權設計-prioritizationhttpsnghttp2orgblog20140427how-dependency-based-prioritization-works">優先權設計 (&lt;a class="link" href="https://nghttp2.org/blog/2014/04/27/how-dependency-based-prioritization-works/" target="_blank" rel="noopener"
 >Prioritization&lt;/a>)&lt;/h4>
@@ -900,6 +901,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>不過，這個功能比較有爭議，一來他需要 Web 開發者額外描述有哪些檔案需要隨著 HTML 一起推送給瀏覽器，不是 Web 伺服器升級 HTTP/2 就自動會有。二來它不管瀏覽器是不是已經有快取這個資源，都會推送而造成頻寬浪費。因此實務上筆者認為可以改用瀏覽器的 &lt;a class="link" href="https://css-tricks.com/prefetching-preloading-prebrowsing/" target="_blank" rel="noopener"
@@ -915,6 +917,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="總結">總結&lt;/h3>
 &lt;p>根據 &lt;a class="link" href="https://w3techs.com/technologies/details/ce-http2" target="_blank" rel="noopener"

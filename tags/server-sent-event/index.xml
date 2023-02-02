@@ -27,12 +27,14 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>除了開代碼產生器(Authenticator App)查驗證碼在網頁輸入，有安裝 Facebook App 且為登入狀態的手機也會出現「剛剛是你本人登入的嗎？」登入，只要按「是」即可跳過輸入驗證碼步驟，自動進入登入後畫面：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52660606878_50f14290d3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="實作">實作&lt;/h2>
@@ -46,6 +48,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我建了一個 ASP.NET Core MVC 站台，首頁放了一顆鈕，按下會彈出 QR Code 網頁，10 秒內掃瞄 QR Code 呼叫指定網址，首頁會從 SSE 接獲通知確認掃瞄完成。為方便本機測試，我加了一顆鈕用 JavaScript 程式瀏覽指定 URL 模擬掃瞄 QR Code 動作。而等待掃瞄過程會計時，未在時限內完成將判定逾時。&lt;/p>
 &lt;p>Index.cshtml 寫法如下，原理是開啟 EventSource() 接收伺服器端 SSE 回應，新開啟的 QR Code 視窗引導使用者呼叫特定連結觸發從 SSE 連線回傳結果，正常由 onmessage 事件接收、逾時或出錯則由 onerror 事件接收：&lt;/p>

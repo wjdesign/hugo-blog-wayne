@@ -525,6 +525,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>最後補充一點，前面提到 Docker Compose 會為整組 Container 建立專屬 Bridge，上圖一開始的 Create network &amp;ldquo;wekan_default&amp;rdquo; with the default driver 訊息就是證明。&lt;/p>
 &lt;p>執行 docker network ls，可看到 wekan_default 是個 bridge，執行 docker inspect wekan_default 則可進一步看到這個網段為 172.18.&lt;em>.&lt;/em>，而兩個 Container 的 IP 分別為 172.28.0.3 及 172.28.0.2。&lt;/p>
@@ -532,6 +533,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p>
 &lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
@@ -610,6 +612,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>註：docker 指令需繫結 Unix Socket，必須以 SuperUser 權限執行，將使用者加入 Docker 群組可省去每次加 sudo 的麻煩。參考：&lt;a class="link" href="https://docs.docker.com/install/linux/linux-postinstall/#manage-docker-as-a-non-root-user" target="_blank" rel="noopener"
 >Manage Docker as a non-root user&lt;/a>&lt;/p>
@@ -646,6 +649,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>驗證程式可執行後，寫個 Dockerfile 腳本將程式封裝成 Docker Image，這部分細節可參考保哥的文章：&lt;a class="link" href="https://blog.miniasp.com/post/2018/08/25/How-to-deploy-ASPNET-Core-to-Docker-Container.aspx" target="_blank" rel="noopener"
 >如何將 ASP.NET Core 2.1 網站部署到 Docker 容器中&lt;/a>。&lt;/p>
@@ -670,12 +674,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>使用 docker images 及 docker ps 我們可以看到剛才建立的 Image testapp 及 Container myapp：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52564111477_5a5d7b7acf_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="將-nginx-設成-aspnet-core-網站的-reverse-proxy">將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy&lt;/h3>
 &lt;p>至此，我們做了兩個 Container，myginx 聽 Host OS 80 Port，myapp 聽 Host OS 的 5000 Port，下一步要將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy。&lt;/p>
@@ -694,6 +700,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>修改 &lt;strong>/etc/nginx/conf.d/default.conf&lt;/strong>，目前是將進入 Nginx 80 Port 的請求導向 Host OS 5000 Port，但從 Docker Container 存取 Host OS IP 有些眉角，Mac 或 Windows Docker 18.3+ 可用 DNS 名稱 host.docker.internal 指向 Host OS IP，但 Docker for Linux 18.4+ 這招己失效。&lt;a class="link" href="https://stackoverflow.com/a/24326540/288936" target="_blank" rel="noopener"
 >參考&lt;/a>&lt;/p>
@@ -754,6 +761,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>經過以上練習，我們體驗了從 Docker Hub 下載 Image 建立 Docker Containter 跑 Nginx、用 Dockerfile 將 ASP.NET Core 網站包成 Container、用 Port 映對 Host OS TCP Port 到 Container、使用 -v(&amp;ndash;volume) 映對資料夾讓 Container 讀寫 Host OS 檔案。&lt;/p>
 &lt;p>而在實務應用上，相關的 Conatiner 需要組合在一起執行，例如一個 Container 跑網站，一個 Container 跑資料庫，此時可用 docker-compose 簡化管理；另外 Docker 也提供 Bridge 為相關 Container 建立專屬的隔離網段，防止外界接觸到不想對外公開的網路服務，也避免不相干的 Container 彼此干擾&amp;hellip; 這些議題就留待下一篇文章討論。&lt;/p>
@@ -828,6 +836,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ol start="4">
 &lt;li>ASP.NET Core 文件有詳細的&lt;a class="link" href="https://docs.microsoft.com/zh-tw/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.1&amp;amp;tabs=aspnetcore2x&amp;amp;WT.mc_id=DOP-MVP-37580#configure-a-reverse-proxy-server" target="_blank" rel="noopener"
@@ -1101,6 +1110,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item><item><title>.NET SqlClient 安全漏洞 CVE-2022-41064 解讀</title><link>https://wayneblog.ga/2022-11-11/dotnet-cve-2022-41064/</link><pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-11/dotnet-cve-2022-41064/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52491745274_95b2fa11ec_o.jpg" alt="Featured image of post .NET SqlClient 安全漏洞 CVE-2022-41064 解讀" />&lt;style>
 .article-content p code {
@@ -1296,11 +1306,13 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>所以，&lt;strong>.NET 6&lt;/strong> 啟用 &lt;strong>Nullable Context&lt;/strong> 時，Model 字串屬性要&lt;strong>允許&lt;/strong> null，型別也需改成 &lt;strong>string?&lt;/strong>，這樣才會對應成 &lt;strong>Nullable&lt;/strong> 資料庫欄位。(註：&lt;strong>RequiredText&lt;/strong> 故意拿掉 &lt;strong>= null!&lt;/strong> 觸發 CS8618 警告，證明有設 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code>)&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52490349030_170f87c2be_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

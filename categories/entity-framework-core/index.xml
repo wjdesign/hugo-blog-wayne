@@ -84,11 +84,13 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>所以，&lt;strong>.NET 6&lt;/strong> 啟用 &lt;strong>Nullable Context&lt;/strong> 時，Model 字串屬性要&lt;strong>允許&lt;/strong> null，型別也需改成 &lt;strong>string?&lt;/strong>，這樣才會對應成 &lt;strong>Nullable&lt;/strong> 資料庫欄位。(註：&lt;strong>RequiredText&lt;/strong> 故意拿掉 &lt;strong>= null!&lt;/strong> 觸發 CS8618 警告，證明有設 &lt;code>&amp;lt;Nullable&amp;gt;enable&amp;lt;/Nullable&amp;gt;&lt;/code>)&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52490349030_170f87c2be_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

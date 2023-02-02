@@ -59,6 +59,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://yeoman.io/" target="_blank" rel="noopener"
 >Yoman&lt;/a> 是一款流行已久的code generator，可以允許我們使用yoman設置專案的樣板，
@@ -67,6 +68,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>VSCode 官方已經發布了 &lt;strong>VSCode Yoman&lt;/strong> 專案，並且定期更新，因此我們可以直接使用 &lt;code>yo&lt;/code> 指令產生 VSCode Extension，無需手動開發 yoman 樣板。&lt;/p>
 &lt;p>請使用以下指令安裝yoman與VSCode Extension Generator：&lt;/p>
@@ -103,6 +105,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這些 Extension 選項的描述與說明如下：&lt;/p>
 &lt;table>
@@ -186,12 +189,14 @@ Extension 名稱: 對應到 package.json &amp;ldquo;displayName&amp;rdquo;&lt;br
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>讓子彈飛一會兒，最後 generator 會詢問是否使用 vscode 打開，這邊選擇打開。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516388099_78c5b73838_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="extension-專案重點相關檔案介紹">Extension 專案重點相關檔案介紹&lt;/h2>
@@ -200,6 +205,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -297,6 +303,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;code>active function&lt;/code> 為 extension 程式的&lt;code>進入點&lt;/code>。當 extension 被 active 事件啟動時，即會執行 extension 程式。&lt;/p>
 &lt;p>因此我們可以查看 &lt;code>pakcage.json&lt;/code>，package.json 配置了 &lt;code>activeEvents&lt;/code> 清單，可以看到清單裡列出跟active 有關的設定 &lt;code>activationEvents&lt;/code>。&lt;/p>
@@ -442,11 +449,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52515645567_5d83d2fff0_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>輸入後我們可以看到，Command 已正確被註冊。&lt;/p>
 &lt;h3 id="執行註冊後的-command">執行註冊後的 Command&lt;/h3>
@@ -455,18 +464,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>然後，點擊下去，我們可以看到 vscode 的 window 正確跳出「&lt;strong>Hello World from day05-first-command!&lt;/strong>」訊息。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668188_bc100ba36a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>然後，我們回到&lt;strong>原本專案&lt;/strong>的 Vscode Window，我們可以在專案的 &lt;strong>debug console&lt;/strong> 檢視 active function 下面的 console.log 訊息。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516388004_f7b61f5236_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="加入套件邏輯">加入套件邏輯&lt;/h2>
@@ -846,6 +858,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>完成後會在指定位置產生一個 &lt;strong>.vsix&lt;/strong> 檔案，此即為我的 &lt;strong>Extensions&lt;/strong>。&lt;/p>
 &lt;h3 id="本地安裝我的-extension">本地安裝我的 Extension&lt;/h3>
@@ -855,11 +868,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516668143_944d432b0b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="發布到-marketplace-前的準備">發布到 Marketplace 前的準備&lt;/h2>
@@ -891,24 +906,28 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點選 &lt;strong>New Token&lt;/strong> 按鈕。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120311_3b05a19de2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>給這個新 Token一個名字、過期時間，重點是 Organization 請選擇 &lt;code>All accessiable organization&lt;/code>，點選 &lt;code>Custom defined&lt;/code> 並點選 &lt;code>Show all scopes&lt;/code> 打開所有選項。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516598710_1a7bbd760b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>找到 &lt;code>Marketplace&lt;/code> 項目勾選 &lt;code>Acquire&lt;/code> 與 &lt;code>Manage&lt;/code> 後點選 &lt;strong>Create&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52516120281_7c0a59106d_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>然後你會得到一個 &lt;strong>Token&lt;/strong> 請複製下來。&lt;/p>
 &lt;h3 id="建立發佈器---publisher">建立發佈器 - Publisher&lt;/h3>
@@ -978,6 +997,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>也可以在 vsce publish 時&lt;strong>直接指定&lt;/strong> token：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -997,6 +1017,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="結語">結語&lt;/h2>
@@ -1013,6 +1034,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>出現如圖的問題，自行排查 extension 程式碼後發現非程式碼邏輯的問題，可以上 &lt;a class="link" href="https://github.com/microsoft/vsmarketplace/issues" target="_blank" rel="noopener"
 >issues&lt;/a> 將資訊反應給 vsmarketplace，此可能為 marketplace 驗證 extension 時偵測到特定字元組合而阻擋掉，會專人協助處理。&lt;/p>

@@ -263,6 +263,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="實作-grpc-client">實作 gRPC Client&lt;/h3>
@@ -433,6 +434,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="grpc-的四種類型">gRPC 的四種類型&lt;/h2>
@@ -446,6 +448,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>圖片來源：&lt;a class="link" href="https://www.udemy.com/course/grpc-golang/" target="_blank" rel="noopener"
 >gRPC Golang - Master Class: Build Modern API &amp;amp; MicroServices&lt;/a> @ Udemy&lt;/p>

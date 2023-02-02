@@ -17,6 +17,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;strong>選單&lt;/strong>一直是製作網頁最基本的功能需求之一，因此對於許多的套件內建都會提供選單的功能，且這些滑動式選單，大部分都是透過 Javascript 所製作而成，最主要的原因就在於，透過 Javascript 可以精準的知道，目前使用是點選&lt;strong>開啟&lt;/strong>還是&lt;strong>關閉&lt;/strong>。&lt;/p>
 &lt;p>而最近發現一個超酷的寫法，直接透過 HTML 中的核許框，就可判斷目前是開啟還是關閉，再搭配 CSS 就可實作出展開與收合，甚至連漢堡選單的那圖示，也可透過 CSS 繪製出來，且當選單開啟時，還可透過動畫將選單變叉叉的圖示，因此現在就一塊來看看，如何透過純 CSS 打造出開合式漢堡選單吧！&lt;/p>
@@ -466,6 +467,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>有了 has 以後，基本上就無敵了，因為可以指定改變背景的是哪個父元素，所以想怎麼選就怎麼選，怎樣都選得到。&lt;/p>
 &lt;hr>
@@ -510,6 +512,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可是這樣還不夠，你會發現 request 還是沒有送出，這是因為 meta 在 head 底下，而 head 也有預設的 &lt;code>display:none&lt;/code> 屬性，因此也要幫 head 特別設置，才會讓 meta「能被看到」：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -537,6 +540,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果你真的想要在畫面上顯示 content 的話，其實也做得到，可以利用偽元素搭配 &lt;code>attr&lt;/code>：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -594,6 +598,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>程式碼如下：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1157,6 +1162,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>藉由這招，我們可以得知頁面上有：13ac 這四個字元。&lt;/p>
 &lt;p>而這招的侷限之處也很明顯，就是：&lt;/p>
@@ -1234,6 +1240,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>很明顯 A 比其他字元的高度都高，而且根據我們的 CSS 設定，如果內容高度超過容器高度，會出現 scrollbar。雖然上面是截圖看不出來，但是下面的 ABC 有出現 scrollbar，而上面的 DBC 沒有。&lt;/p>
 &lt;p>再者，我們其實可以幫 scrollbar 設定一個外部的背景：&lt;/p>
@@ -1414,6 +1421,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>那這個對我們有什麼幫助呢？&lt;/p>
 &lt;p>我們可以自己製作出一個獨特的字體，把 &lt;code>ab&lt;/code> 設定成連字，並且 render 出一個超寬的元素。接著，我們把某個 div 寬度設成固定，然後結合剛剛 scrollbar 那招，也就是：「如果 ab 有出現，就會變很寬，scrollbar 就會出現，就可以載入 request 告訴 server；如果沒出現，那 scrollbar 就不會出現，沒有任何事情發生」。&lt;/p>
@@ -1530,6 +1538,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>上面因為內容是 &lt;code>var secret = &amp;quot;abc123&amp;quot;&lt;/code>，所以符合了 &amp;ldquo;a 的連字，因此寬度變寬，scrollbar 出現。&lt;/p>
 &lt;p>下面因為沒有 &lt;code>&amp;quot;a&lt;/code>，所以 scrollbar 沒出現（有 a 的地方都會缺字，應該跟我沒有定義其他的 glyph 有關，但不影響結果）&lt;/p>

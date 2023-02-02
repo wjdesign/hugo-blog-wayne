@@ -17,6 +17,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;strong>選單&lt;/strong>一直是製作網頁最基本的功能需求之一，因此對於許多的套件內建都會提供選單的功能，且這些滑動式選單，大部分都是透過 Javascript 所製作而成，最主要的原因就在於，透過 Javascript 可以精準的知道，目前使用是點選&lt;strong>開啟&lt;/strong>還是&lt;strong>關閉&lt;/strong>。&lt;/p>
 &lt;p>而最近發現一個超酷的寫法，直接透過 HTML 中的核許框，就可判斷目前是開啟還是關閉，再搭配 CSS 就可實作出展開與收合，甚至連漢堡選單的那圖示，也可透過 CSS 繪製出來，且當選單開啟時，還可透過動畫將選單變叉叉的圖示，因此現在就一塊來看看，如何透過純 CSS 打造出開合式漢堡選單吧！&lt;/p>
@@ -288,6 +289,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>嚴格來說，瀏覽器會記住結果，404 失敗只會&lt;strong>發生一次&lt;/strong>(&lt;strong>直到瀏覽器重啟&lt;/strong>)，大小 5KB 說來無傷大雅。但它最困擾我的地方是使用 F12 網路工具或 Fidder 抓封包時，觀察結果天下飛來一筆 &lt;strong>/favicon.ico 404&lt;/strong>，說明時還要額外解釋，蠻煩人的。&lt;/p>
 &lt;hr>

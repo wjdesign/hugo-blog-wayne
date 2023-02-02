@@ -130,6 +130,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>從上圖可得知，所謂的捕獲階段是指：當某個事件觸發時，例如使用者點了某個按鈕，此時由 &lt;code>DOM 樹的最上層 Window 一路往下，將事件傳遞下去並執行&lt;/code>。實際在程式碼上，需要在事件監聽器中，加入 &lt;code>{capture: true}&lt;/code> 來開啟捕獲機制。&lt;/p>
 &lt;hr>
@@ -185,6 +186,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>讀到這邊我們可以歸納出，這麼做有幾項 caching 好處，也是我們為什麼要用 caching 的理由：&lt;/p>
 &lt;ul>
@@ -274,6 +276,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="儲存限制">儲存限制&lt;/h2>

@@ -30,6 +30,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step2檢查網頁">Step2：檢查網頁&lt;/h3>
@@ -38,6 +39,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step3建立-manifestjson">Step3：建立 manifest.json&lt;/h3>
@@ -158,6 +160,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在head標籤中加入 &lt;code>manifest.json&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -203,6 +206,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step6加入-serviceworker-語法">Step6：加入 &lt;code>serviceWorker&lt;/code> 語法&lt;/h3>
@@ -214,6 +218,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -336,6 +341,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step9安裝頁面">Step9：安裝「頁面」&lt;/h3>
@@ -344,6 +350,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="step10安裝">Step10：安裝&lt;/h3>
@@ -352,12 +359,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當安裝完畢後，就會開啟剛所安裝的應用程式，哈！是不是畫面乾淨許多，就像在使用一般的應用程式一樣，有了PWA後可實現透過網頁就能打造專屬的應用程式的夢想，且完全不用再學新語言，真是超方便的。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439205910_65be017ebf_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="manifestjson-介紹">manifest.json 介紹&lt;/h2>
@@ -1130,6 +1139,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>（圖片來自：&lt;a class="link" href="https://developers.google.com/web/updates/2018/06/a2hs-updates" target="_blank" rel="noopener"
 >Changes to Add to Home Screen Behavior&lt;/a>）&lt;/p>
@@ -1260,6 +1270,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>那通常，很多網站 UX 設計不良，在使用者根本就還搞不清楚這網站是幹麻的情況下就跳通知，所以大部份都直接按封鎖了吧 XD？&lt;/p>
 &lt;p>總之，在踩了幾個坑以後，終於完整的寫出了 Web Push 的功能。&lt;/p>
@@ -1283,24 +1294,28 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊 Cloud Messaging：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439308150_dcc89eebfd_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>頁面往下拉，會看到一個「網路設定」的區塊，有一個「產生金鑰組」的按金，按下去：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439127849_20fb7aee04_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>就會產生一組 Web Push 用的&lt;code>金鑰&lt;/code>，先存下來，Firebase Config 裡會用到：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439127839_7ae66a876d_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="新增-manifestjsonfirebase-config">新增 manifest.json、Firebase Config&lt;/h3>
 &lt;p>取得金鑰後，第二步就是新增一個 &lt;code>manifest.json&lt;/code> 的檔案，檔案內容大概如下：&lt;/p>
@@ -1384,12 +1399,14 @@ Firebase Config 一樣是後台有提供，點小齒輪，再點專案設定後�
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>就會出現 Config 了：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52439308100_319e8310b7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>copy 以後貼到 &lt;code>index.html&lt;/code>，另外也一併貼上 FCM 的引用，整合後如下：&lt;/p>
 &lt;h5 id="fcm-web-push-firebase-confightml">fcm-web-push-firebase-config.html&lt;/h5>
@@ -1628,6 +1645,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;strong>註冊 sw.js 只能在 https 下，因此網域必須有S SL，不然會註冊失敗。&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -1653,6 +1671,7 @@ Firebase 上會看到以下：&lt;/p>
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>之後只要跑個迴圈，就可以一個個去發送 Web Push。&lt;/p>
 &lt;h3 id="發送-web-push">發送 Web Push&lt;/h3>
@@ -1661,6 +1680,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Web Push 如果要判斷成效，直接用 Google Analytics 的 utm 參數就可以了，所以後台欄位有給 utm 用的 3 個主要參數。&lt;br>
 不含樣式的原始碼文末會附上 GitHub 網址。&lt;br>
@@ -1669,6 +1689,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>發送 Web Push 的 JS 如下，寫在 &lt;code>admin.html&lt;/code> 裡：&lt;/p>
 &lt;h5 id="fcm-web-push-triggerjs">fcm-web-push-trigger.js&lt;/h5>

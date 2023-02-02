@@ -37,6 +37,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在程式碼中我們把七隻神奇寶貝這樣表達：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -110,12 +111,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>從上面的圖可以看到，一般的搜尋方法需要花五個步驟才能找到 55。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275803781_5fe0ae4bdb_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>而在二分搜尋法中，我們先打開最中間的櫃子，發現裡面的數字是 41。因為 55 比 41 大，因此我們知道從一號櫃到三號櫃都不會有 55，接下來只需要檢查五號櫃到七號櫃。&lt;/p>
 &lt;p>同樣的邏輯，我們打開剩下三個可能性中最中間的櫃子，發現六號櫃裡面的數字是 61，因為 61 比 55 大，我們可以知道七號櫃的數字一定也比 55 大，得知 55 一定就在五號櫃之中。&lt;/p>
@@ -124,6 +127,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>從上表我們可以發現，二分搜尋法最慘最慘，也只需要三個步驟。&lt;/p>
 &lt;p>推廣到有 n 個櫃子時，我們可以發現：二分搜尋法在每進行一個步驟時，就可以排除掉一半的可能性。每次都能減少一半，因此二分搜尋法最糟最糟也只需要以 2 為底的 log n 個步驟就能完成。&lt;/p>
@@ -202,6 +206,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="概要">概要&lt;/h4>
 &lt;ul>
@@ -216,6 +221,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>如果陣列長度是 &lt;strong>4&lt;/strong>，要比對 &lt;strong>3+2+1&lt;/strong> 總共 &lt;strong>6&lt;/strong> 次。&lt;/li>
@@ -230,6 +236,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>可以加入一個 &lt;strong>flag&lt;/strong> 來做判定，假設比較完第一輪發現沒有交換的情況發生，則代表已經排序完成，不需要再跑下一輪，即可稍微優化排序。&lt;/li>
@@ -296,6 +303,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="概要-1">概要&lt;/h4>
 &lt;ul>
@@ -310,6 +318,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>如果陣列長度是 &lt;strong>4&lt;/strong>，要比對 &lt;strong>1+2+3&lt;/strong> 總共 &lt;strong>6&lt;/strong> 次。&lt;/li>
@@ -324,6 +333,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>假設當前比對的值與第一個要比較的值一比較，恰好正確，則代表前面皆已經排序完成，可以進到下一輪。&lt;/li>

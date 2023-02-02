@@ -38,6 +38,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>想必，大家最好奇的還是有哪些 API 以及能用這些 API 做什麼，這裡例舉幾個：&lt;/p>
 &lt;ul>
@@ -366,6 +367,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ol>
 &lt;li>新建腳本&lt;/li>
@@ -430,6 +432,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>腳手架集成 rollup + babel + eslint + typescript，支持：&lt;/p>
 &lt;ul>
@@ -470,12 +473,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="到瀏覽器中打開-devuserjs自動進入-tampermonkey-腳本安裝界面">到瀏覽器中打開 &lt;code>dev.user.js&lt;/code>，自動進入 Tampermonkey 腳本安裝界面。&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52563988297_351ae5b113_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="最後一步配置油猴插件">最後一步：配置油猴插件&lt;/h4>
 &lt;p>訪問 &lt;a class="link" href="chrome://extension" >&lt;code>chrome://extension&lt;/code>&lt;/a>，找到油猴插件的卡片，點擊 &lt;strong>Details&lt;/strong> 進入配置界面。&lt;/p>
@@ -483,18 +488,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>勾選 &lt;strong>Allow acess to file URLs&lt;/strong>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52564447906_3a3c7d450d_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>刷新頁面，出現彈窗，一切就緒。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52564726624_5f584154d4_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>用 VSCode 打開項目，這時右下角會推薦一些輔助插件，建議安裝。&lt;/p>
 &lt;p>代碼中使用到的 &lt;code>GM_xxx&lt;/code> 會自動提取到 UserScript Header 中，當然也可以在 &lt;code>src/meta.json&lt;/code> 中自定義。&lt;/p>
@@ -508,6 +516,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="調試接口">調試接口&lt;/h3>
 &lt;p>打開 Postman 做一下調試，這裡有一個導入小技巧：右鍵拷貝 &lt;strong>cURL&lt;/strong>。&lt;/p>
@@ -515,18 +524,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>到 Postman 中通過 curl 導入整個請求：點擊左側面板中的 import 按鈕，選擇 Raw text 貼上上一步複製的內容即可。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52564726689_b0091f3b75_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="獲取參數">獲取參數&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52564978043_fe3c0edc6f_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在 Postman 中發現請求需要 &lt;code>aid&lt;/code>、&lt;code>uuid&lt;/code>、&lt;code>_signature&lt;/code> 三個參數，試試看不帶參數能否請求成功，先確定好必不可少的參數和請求頭。&lt;/p>
 &lt;p>簡單嘗試後，發現這裡並不需要帶 &lt;code>aid&lt;/code>、&lt;code>uuid&lt;/code>、&lt;code>_signature&lt;/code> 三個參數，主要是依賴 &lt;code>cookie&lt;/code>，使用 &lt;code>GM_xmlhttpRequest&lt;/code> 會自動帶上對應的 &lt;code>cookie&lt;/code>，事情變得簡單。&lt;/p>
@@ -679,6 +691,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;code>inspect views&lt;/code> 後面有個 &lt;code>background.html&lt;/code>，點擊一下彈出 &lt;code>background script&lt;/code> 的調試彈窗。&lt;/p>
 &lt;h4 id="調試-content-script">調試 &lt;code>content script&lt;/code>&lt;/h4>
@@ -687,6 +700,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="獲取-userid-等信息">獲取 &lt;code>userId&lt;/code> 等信息&lt;/h3>
 &lt;p>有時候需要拿一些額外信息做請求，一般有三種方式：&lt;/p>
@@ -707,12 +721,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>訪問 &lt;a class="link" href="chrome://extensions/" >chrome://extensions/&lt;/a>，找到目標插件的ID&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52564900305_7278510b37_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>將 Profile Path 和插件 ID 拼裝在一起 &lt;code>${Prifile Path}/Extensions/${Extension Id}&lt;/code>，便是插件包的路徑了。友情提示，通過命令行訪問時需要在空格前加個 &lt;code>\&lt;/code> 轉義一下。&lt;/p>
 &lt;hr>

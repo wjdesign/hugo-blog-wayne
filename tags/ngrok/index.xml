@@ -27,6 +27,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>因此有個缺點，就是&lt;span class="focus">速度相對較慢&lt;/span>，尤其是 &lt;code>ngrok&lt;/code> 的伺服器在美國因此也會減少一些速度。不過如果是爲了開發測試用，這個就不算缺點。&lt;/li>
@@ -88,6 +89,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="步驟-5---假設服務跑在本機的-port-3000則執行以下指令">步驟 5 - 假設服務跑在本機的 port 3000，則執行以下指令&lt;/h4>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -103,6 +105,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h5 id="直到-ngrok-關掉或-ngrok-session-過期之前這兩個-url-都可以被公開存取">直到 ngrok 關掉或 ngrok session 過期之前，這兩個 URL 都可以被公開存取。&lt;/h5>
 &lt;hr>
@@ -125,6 +128,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="重寫-hostname">重寫 hostname&lt;/h4>
 &lt;ul>
@@ -143,5 +147,6 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

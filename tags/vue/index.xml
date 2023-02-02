@@ -55,6 +55,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;code>./prisma/schema.prisma&lt;/code> 檔案內容如下，這裡就是定義我們資料庫位置與 &lt;code>Schema&lt;/code> 的地方，之後我們就可以透過 &lt;strong>Prisma&lt;/strong> 的 &lt;strong>Client&lt;/strong> 使用 ORM 來操作資料庫。&lt;/p>
 &lt;h5 id="prismaschemaprisma">prisma/schema.prisma&lt;/h5>
@@ -218,6 +219,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>初始化完畢後，你可以登入你的資料庫查看是否建立成功，也可使用 Prisma 提供的 &lt;a class="link" href="https://www.prisma.io/studio" target="_blank" rel="noopener"
 >Prisma Studio&lt;/a> 來快速的檢視與操作資料庫內的資料。&lt;a class="link" href="https://www.prisma.io/studio" target="_blank" rel="noopener"
@@ -235,6 +237,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以在 &lt;a class="link" href="https://www.prisma.io/studio" target="_blank" rel="noopener"
 >Prisma Studio&lt;/a> 看到我們建立的 &lt;code>User&lt;/code> 資料表，也將是我們稍後使用 Prisma 操作 ORM 所對應的 &lt;strong>User Model&lt;/strong>。&lt;/p>
@@ -242,6 +245,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>最後記得執行下列指令來產生 Prisma Client，這樣我們就可以在 Nuxt 3 中使用 Prisma Client 操作資料庫囉！&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -256,6 +260,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="nuxt-3-操作-prisma-client-建立一個使用者至資料庫">Nuxt 3 操作 Prisma Client 建立一個使用者至資料庫&lt;/h3>
 &lt;p>我們接下來就能使用如下程式碼建立 Prisma Client，後續可以用來來操作 &lt;strong>Model&lt;/strong>，更多的 Prisma Client API 可以參考&lt;a class="link" href="https://www.prisma.io/docs/reference/api-reference/prisma-client-reference" target="_blank" rel="noopener"
@@ -323,6 +328,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="nuxt-3-使用者註冊帳號">Nuxt 3 使用者註冊帳號&lt;/h3>
 &lt;p>我們將 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p>
@@ -727,6 +733,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>使用電子信箱與密碼登入&lt;/li>
@@ -735,6 +742,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="結合-pinia-儲存使用者資料">結合 Pinia 儲存使用者資料&lt;/h3>
 &lt;p>我們可以結合 Pinia 來將使用者的資料持久話儲存在 Local Storage 之中，這樣就可以在前端儲存使用者登入的狀態，例如導覽列的頭像、信箱，就可以從 Store 中拿出來囉。&lt;/p>
@@ -941,6 +949,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用伺服器中間件來驗證-jwt">使用伺服器中間件來驗證 JWT&lt;/h3>
 &lt;p>我們的會員系統在登入後，會產生一組 JWT 放置於 cookie 之中，在後端 API 使用時都要在呼叫 &lt;code>getCookie()&lt;/code> 來解析 cookie，所以我們可以將驗證 JWT 的流程，放置在伺服器中間件 (middleware) 之中，後端收到的每個請求就會經過這個中間件，只要有夾帶 &lt;code>access_token&lt;/code> 的 cookie 就會進行驗證解析出 JWT 所含的 &lt;code>payload&lt;/code> id，即為使用者的 ID。&lt;/p>
@@ -1263,6 +1272,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="取消或替換特定頁面的布局模板">取消或替換特定頁面的布局模板&lt;/h3>
 &lt;p>在&lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a> 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p>
@@ -1294,6 +1304,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="建立使用者選單">建立使用者選單&lt;/h3>
 &lt;p>為了豐富導覽列，我們可以為已登入的使用者，建立一個使用者頭像，點擊後可以顯示使用者專用的選項，例如登出等功能。&lt;/p>
@@ -1447,6 +1458,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="結合使用者-store-來控制顯示的時機">結合使用者 Store 來控制顯示的時機&lt;/h3>
 &lt;p>使用者頭像選單的元件應該控制於&lt;code>使用者登入之後再顯示&lt;/code>，所以我們可以結合 &lt;strong>Pinia&lt;/strong> 進行狀態管理，來檢查使用者資訊的 &lt;strong>store&lt;/strong> 是否具有資料且符合我們的判定依據再進行顯示，否則，我們僅需要渲染出登入的按鈕即可。&lt;/p>
@@ -1504,6 +1516,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="新增部落格文章">新增部落格文章&lt;/h3>
 &lt;p>當我們處理好登入後，就開可以開始來實作使用者建立部落格的文章囉！&lt;/p>
@@ -1772,6 +1785,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="取得部落格文章">取得部落格文章&lt;/h3>
 &lt;p>使用 Prisma Client 來取得文章，也非常方便，如下程式碼，我們就能取出文章資料並以建立時間遞減排序囉！&lt;/p>
@@ -1846,6 +1860,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們建立好了部落個的版面，有了導覽列和使用者選單，網站看起來也更專業了一些，結合布局模板，我們可以控制每個頁面所顯示的布局，在未來有更多頁面的時候能具有可控性。最後也實作了新增文章的 API，完成了第一篇文章的新增與瀏覽。&lt;/p>
 &lt;hr>
@@ -1933,6 +1948,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="登入完成後導回至登入前瀏覽的頁面">登入完成後導回至登入前瀏覽的頁面&lt;/h4>
 &lt;p>當使用者在瀏覽網站時被引導或準備登入時，我們可以將使用者目前的頁面進行記錄，以便登入完成後，可以重新導向至使用者登入前的頁面，以此提供使用者更棒的體驗。&lt;/p>
@@ -2030,6 +2046,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="頁面載入進度元件">頁面載入進度元件&lt;/h3>
 &lt;p>Nuxt 3 提供一個 &lt;code>&amp;lt;NuxtLoadingIndicator&amp;gt;&lt;/code> 元件，用作頁面導航後顯示載入的進度，會在頁面上方有一個進度條 (Progress bar)。&lt;/p>
@@ -2065,6 +2082,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="頁面切換的轉場效果">頁面切換的轉場效果&lt;/h3>
 &lt;p>除了載入的進度條，頁面切換之間，也可以使用轉場效果 (Transitions) 來讓頁面之間的銜接更柔順，Nuxt 利用了 Vue 內建的 &lt;code>&amp;lt;Transition&amp;gt;&lt;/code> 元件來幫助處理轉場和動畫，用以響應不斷變化的頁面與狀態。&lt;/p>
@@ -2136,6 +2154,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="自訂頁面的轉場">自訂頁面的轉場&lt;/h3>
 &lt;p>既然知道 &lt;code>pageTransition&lt;/code> 的 &lt;strong>name&lt;/strong> 會對應頁面轉場的 CSS 名稱，我們就可以來自定義更多轉場，讓不同頁面套用不同的效果。&lt;/p>
@@ -2202,6 +2221,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="布局的轉場效果">布局的轉場效果&lt;/h3>
 &lt;p>Nuxt 同樣為所有布局 (Layouts) 都設置了轉場，如果要啟用，請將以下 CSS 添加至 &lt;code>app.vue&lt;/code> 中。&lt;/p>
@@ -2310,6 +2330,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你也可以像自訂頁面轉場一樣，來使用 &lt;code>definePageMeta()&lt;/code> 設定 &lt;code>layoutTransition.name&lt;/code> 屬性，來指定自訂的轉場效果。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -2476,6 +2497,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在 Nuxt 3 提供了一些可以設置網頁屬性與 &lt;strong>Meta&lt;/strong> 的組合式函數，更能動態的調整與響應，結合 SSR 讓這些標記在伺服器端就能渲染出來，對網站做搜尋引擎最佳化 (SEO) 非常得友善，也是多數人選擇 Nuxt 3 來處理 SSR 與 SEO 的原因。除了 SEO 可能會使用到的的標記外，也有 &lt;strong>OG Tag&lt;/strong> 可以加強網頁的連結預覽效果，雖然 &lt;strong>OG Tag&lt;/strong> 與 SEO 沒有絕對的關係，但是透過伺服器端渲染調整這些 &lt;strong>Meta&lt;/strong> 對搜尋引擎或網站都非常的方便，我們只要根據需求及指引做設定，就能對網站的能見度有所提升。&lt;/p>
 &lt;hr>
@@ -2505,6 +2527,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="step-1-安裝-nuxtjsi18n">Step 1. 安裝 @nuxtjs/i18n&lt;/h4>
 &lt;p>目前有 A 或 B 兩種方式可以安裝 @nuxtjs/i18n v8 分別如下，可以選擇其中一種即可：&lt;/p>
@@ -2623,6 +2646,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們只需要新增 &lt;code>./pages/ingex.vue&lt;/code> 路由頁面，就可以解決錯誤囉！&lt;/p>
 &lt;h3 id="建立英語和繁體中文的語系切換">建立英語和繁體中文的語系切換&lt;/h3>
@@ -2654,6 +2678,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>新增按鈕來實現切換不同的語系，完整的程式碼如下：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -2756,6 +2781,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="獨立存放語系檔案">獨立存放語系檔案&lt;/h3>
 &lt;p>隨著專案增大，語系的翻譯數量也會增多，而全部放在 &lt;code>nuxt.config.ts&lt;/code> 中也實在太過冗長，所以我習慣獨立放置在一個資料夾內做處理。&lt;/p>
@@ -2972,6 +2998,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="cookie-來儲存語系設定">Cookie 來儲存語系設定&lt;/h4>
 &lt;p>Nuxt 3 的伺服器渲染，會導致第一次的請求無法在伺服器端取得 LocalStorage 的設定，所以上面的例子，仔細看會發現，雖然正確的套用儲存的 &lt;code>en&lt;/code> 英語語系設定，但畫面是先從預設的 &lt;code>zh&lt;/code> 繁體中文再切換過去，導致語系切換時閃了一下。&lt;/p>
@@ -3090,6 +3117,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>其實 &lt;strong>@nuxtjs/i18n&lt;/strong> 因為已將 detectBrowserLanguage.useCookie 預設為 true 等啟用了 cookie 儲存的相關設定，當使用者進入網站時，就會嘗試檢查瀏覽器的 cookie 來將使用者儲存的偏好語言進行套用或重定向。&lt;/p>
 &lt;p>因此，我們在 &lt;code>app.vue&lt;/code> 也不需要特別從 cookie 取出再進行套用，&lt;strong>@nuxtjs/i18n&lt;/strong> 會自動幫我們完成。&lt;/p>
@@ -3266,6 +3294,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://nuxt.com/" target="_blank" rel="noopener"
 >Nuxt 3&lt;/a> 官網的標語 &lt;code>The Intuitive Web Framework&lt;/code>，&lt;a class="link" href="https://nuxt.com/" target="_blank" rel="noopener"
@@ -3278,6 +3307,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>Lighter：更輕量，針對現在瀏覽器，伺服器部署與客戶端打包能減少最高 75 倍之多。&lt;/li>
@@ -3374,12 +3404,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>執行完指令後直到出現如下提示，代表專案已經初始建立成功，完成後可以發現目前目錄下多了一個名為 &lt;code>nuxt-app&lt;/code> 的資料夾，這個資料夾也就是 Nuxt 3 專案的根目錄。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616964239_b438581d8d_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來，我們可以進入專案目錄 &lt;code>nuxt-app&lt;/code>。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -3421,6 +3453,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>根據提示，我們可以在瀏覽器輸入網址 &lt;a class="link" href="http://localhost:3000/" target="_blank" rel="noopener"
 >http://localhost:3000/&lt;/a> 看看服務是否正常運作。&lt;/p>
@@ -3429,6 +3462,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>現在你可以嘗試打開在專案目錄下的 &lt;code>app.vue&lt;/code> 檔案之中，&lt;code>app.vue&lt;/code> 是我們 Nuxt 專案的進入點，它的內容如下：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -3472,6 +3506,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>至此，大家就可以先簡單的玩玩 Nuxt 3，接下來我將補充一些 nuxi 的指令與參數簡介。&lt;/p>
 &lt;h3 id="nuxt-cli-常用指令">Nuxt CLI 常用指令&lt;/h3>
@@ -3542,6 +3577,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="nuxt-3--typescript--eslint--prettier-環境建置">Nuxt 3 + TypeScript + ESLint + Prettier 環境建置&lt;/h2>
@@ -3551,6 +3587,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Nuxt 3 已經有內建支援 TypeScript，一些 TypeScript 設定都可以在專案根目錄下配置 &lt;code>tsconfig.json&lt;/code>，例如，在開發過程中針對 TypeScript 我會在開發環境下啟動類型檢查，可以參考以下進行配置。&lt;/p>
 &lt;h4 id="step-1-安裝-vs-code-插件">Step 1. 安裝 VS Code 插件&lt;/h4>
@@ -3628,12 +3665,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="eslint-設置-linter">ESLint 設置 Linter&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616698096_7b89a76f54_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>ESLint 是一個 &lt;code>JavaScript Linter&lt;/code>，它用來檢查 JavaScript Coding Style 的工具，主要能幫你&lt;code>分析並找到語法錯誤&lt;/code>，也能用來&lt;code>統一風格&lt;/code>，例如：縮排空白數、字串要用單引號或雙引號等，提醒你刪掉多餘程式碼或遵照最佳的實踐方式，確保程式碼能具有一定的水準。在團隊協作下 ESLint 更能讓大家撰寫程式碼時遵照規則，確保程式碼品質。ESLint 除了提供你可以使用大公司如 Google、Airbnb 等的規則配置來作為檢查基準，也可以客製自訂出自己喜好或團隊共識的規則來分析與提醒你校正語法。&lt;/p>
 &lt;h4 id="step-1-安裝-eslint-套件">Step 1. 安裝 ESLint 套件&lt;/h4>
@@ -3775,6 +3814,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們嘗試修正一下 &lt;code>app.vue&lt;/code> 這個檔案，在 template 中使用 title 這個變數。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -3833,6 +3873,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="在-vs-code-中自動修正-eslint-錯誤或警告">在 VS Code 中自動修正 ESLint 錯誤或警告&lt;/h3>
 &lt;p>在某些情況，ESLint 可以幫助你做自動修正程式碼，甚至在存擋時將錯誤部分直接進行修正。&lt;/p>
@@ -3842,6 +3883,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="存擋自動修正">存擋自動修正&lt;/h4>
 &lt;p>除了手動快速修正外，你也可以透過添加 VS Code 的設定檔，如專案目錄下新增 &lt;code>.vscode/settings.json&lt;/code>：&lt;/p>
@@ -3880,12 +3922,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="prettier-設置">Prettier 設置&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52617186383_1c8d988fe4_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Prettier 是程式碼格式化的工具，也可以與 ESLint 進行搭配，ESLint 與 Prettier 就能各司其職將 JaveScript 與 Vue 等檔案依照配置進行檢查與排版。&lt;/p>
 &lt;h4 id="step-1-安裝-prettier-套件">Step 1. 安裝 Prettier 套件&lt;/h4>
@@ -4020,6 +4064,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>為了後續範例程式在頁面呈現上能有比較好看的樣式，原先有想過使用 UI 框架或純寫 CSS，但是總覺得好像不夠潮，所以呢，我決定帶入近年滿熱門的 CSS 框架 &lt;a class="link" href="https://tailwindcss.com/" target="_blank" rel="noopener"
 >Tailwind CSS&lt;/a>，在本篇文章我就不再多花篇幅介紹 &lt;a class="link" href="https://tailwindcss.com/" target="_blank" rel="noopener"
@@ -4363,12 +4408,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="自動排序-tailwind-css-的-class">自動排序 Tailwind CSS 的 Class&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616964384_7ac2dd7e78_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當我們在寫 Tailwind CSS 時終究會碰到類型過多，第一眼不確定是否包含某個 class，或者對於順序上有強烈統一的要求，那麼這個 Prettier 的&lt;a class="link" href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss" target="_blank" rel="noopener"
 >插件&lt;/a>，&lt;code>prettier-plugin-tailwindcss&lt;/code> 插件是 Tailwind 推出的，目的在於可以使用官方推薦的 class 順序，來實現&lt;code>自動排序 class&lt;/code> 來做到統一程式碼風格。&lt;/p>
@@ -4421,6 +4468,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="小結">小結&lt;/h3>
 &lt;p>相較於 Tailwind CSS 官方指引的安裝方式，使用 Nuxt Community 幫我們整理好的 &lt;code>@nuxtjs/tailwindcss&lt;/code> 模組，可以省去繁瑣的設定步驟，也解決了一些目前 Nuxt 3 專案中，導入 Tailwind CSS 使用 HMR 可能無法自動編譯並重新套用等問題。&lt;/p>
@@ -4430,6 +4478,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://pugjs.org/" target="_blank" rel="noopener"
 >pug&lt;/a> 為 html 模板語言，可支援撰寫 JS 邏輯。寫法上，省略了 HTML 的開、閉合標籤，能夠大大的提升工程師開發速度，看上去也更為簡潔。&lt;/p>
@@ -4493,12 +4542,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果你是跟著這個系列安裝了 TypeScript、Linter、Tailwind CSS 及 Pug 等套件，那麼專案目錄結構會長得像這樣：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616698211_e29e8f9352_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>雖然我們能依照需求建立檔案及目錄，但 Nuxt 3 在&lt;code>目錄的結構與命名其實有一定的規則與模式&lt;/code>，以下針對 Nuxt 3 來講述一下目錄的結構與遵循的方式。&lt;/p>
 &lt;h3 id="nuxt-3-預設的目錄結構">Nuxt 3 預設的目錄結構&lt;/h3>
@@ -4727,6 +4778,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以發現，我們不需要添加 &lt;code>import IronManWelcome from './components/IronManWelcome'&lt;/code> 就可以直接在 template 直接使用 &lt;code>&amp;lt;IronManWelcome /&amp;gt;&lt;/code> 元件，這就是 Nuxt 3 基於目錄的自動載入功能。&lt;/p>
 &lt;h3 id="關閉自動載入">關閉自動載入&lt;/h3>
@@ -4825,6 +4877,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="多個路由頁面">多個路由頁面&lt;/h3>
 &lt;p>在實務上，通常一個網站會有多個頁面，並分別對應到不同的路由，接下來我們嘗試建立 About 與 Contact 兩個頁面。&lt;/p>
@@ -4882,11 +4935,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616188307_6a7217ce85_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以發現所建立的&lt;code>檔案名稱&lt;/code>，最終就會&lt;code>自動對應產生&lt;/code>出 &lt;strong>/about&lt;/strong> 及 &lt;strong>/contact&lt;/strong> 路由。&lt;/p>
 &lt;h4 id="自動產生的路由">自動產生的路由&lt;/h4>
@@ -4895,6 +4950,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這段程式碼與 Vue 中的路由配置非常相像，其實這就是 Nuxt 3 檢測到 &lt;strong>pages&lt;/strong> 目錄，自動幫我們載入 Vue Router 與依據 &lt;strong>pages&lt;/strong> 目錄下的檔案結構，自動產生出所需的路由配置。&lt;/p>
 &lt;h3 id="建立路由連結">建立路由連結&lt;/h3>
@@ -4934,6 +4990,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>使用 &lt;code>&amp;lt;NuxtLink&amp;gt;&lt;/code> 時，可以就把它想像為 &lt;code>&amp;lt;router-link&amp;gt;&lt;/code> 的替代品，像 &lt;code>to&lt;/code> 這個 Pros 控制路由位置的用法基本上一樣，其他更多的 Pros 用法及說明可以參考官網的&lt;a class="link" href="https://nuxt.com/docs/api/components/nuxt-link#props" target="_blank" rel="noopener"
 >文件&lt;/a>。&lt;/p>
@@ -5024,6 +5081,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你也可以在 &lt;strong>template&lt;/strong> 直接使用 &lt;code>{{ $route.params.id }}&lt;/code> 來渲染出 &lt;strong>id&lt;/strong> 參數。&lt;/p>
 &lt;h3 id="匹配所有層級的路由">匹配所有層級的路由&lt;/h3>
@@ -5074,6 +5132,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="建立-404-not-found-頁面">建立 404 Not Found 頁面&lt;/h3>
 &lt;p>Nuxt 3 提供一個配置來處理 &lt;strong>404 Not Found&lt;/strong> 的頁面，當我們建立 &lt;strong>./pages/[&amp;hellip;slug].vue&lt;/strong> 頁面， Nuxt 3 所有未匹配的路由，將會交由這個頁面元件做處理，並同時使用 &lt;code>setResponseStatus(404)&lt;/code> 函數設定 &lt;strong>404 HTTP Status Code&lt;/strong>。&lt;/p>
@@ -5115,6 +5174,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="建立多層的目錄結構">建立多層的目錄結構&lt;/h3>
 &lt;p>如果理解了動態路由的中括號 &lt;code>[]&lt;/code> 用法，那我們就可以建立更複雜的頁面目錄結構：&lt;/p>
@@ -5298,6 +5358,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>為了方便理解，整理了以下表格，來表示頁面結構及期望匹配的模式與參數：&lt;/p>
 &lt;p>&lt;strong>./pages/posts/index.vue&lt;/strong>：&lt;/p>
@@ -5555,6 +5616,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>透過目錄檔案的結構與名稱及中括號 &lt;code>[]&lt;/code> 我們就可以完成多數路由的情境，確實方便很多，也足以應付大部分實務上的需求，如果真的需要手動建立路由規則可以在參考&lt;a class="link" href="https://nuxt.com/docs/api/configuration/nuxt-config/#router" target="_blank" rel="noopener"
 >官方文檔&lt;/a>或等待釋出更好解決方案。&lt;/p>
@@ -5593,6 +5655,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="布局模板中的插槽">布局模板中的插槽&lt;/h3>
 &lt;p>如果你有注意到，&lt;strong>default.vue&lt;/strong> 檔案內程式碼內，有一個插槽 &lt;code>&amp;lt;slot /&amp;gt;&lt;/code>，這裡就會是 &lt;code>&amp;lt;NuxtLayout&amp;gt;&lt;/code> 內的元素所顯示的位置。&lt;/p>
@@ -5629,6 +5692,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="在布局模板中建立多個插槽">在布局模板中建立多個插槽&lt;/h3>
 &lt;p>當然，你也可以在布局模板中添加多個插槽，並給予名稱，這樣就可以將內容安排到特定的位置。&lt;/p>
@@ -5708,6 +5772,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="布局模板與路由頁面">布局模板與路由頁面&lt;/h3>
 &lt;p>當你熟悉了插槽配置，你也可以在其中添加 &lt;code>&amp;lt;NuxtPage /&amp;gt;&lt;/code> 與建立 &lt;strong>pages&lt;/strong> 下的頁面元件，以達到不同的路由頁面，使用相同的布局方式。&lt;/p>
@@ -5796,6 +5861,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="多個路由頁面共用預設布局模板">多個路由頁面共用預設布局模板&lt;/h3>
 &lt;p>承上，我們建立好預設的布局模板，讓它負責顯示路由的頁面。&lt;/p>
@@ -5884,6 +5950,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="建立多個布局模板">建立多個布局模板&lt;/h3>
 &lt;p>你也可以建立多個布局模板，再依據不同的情境，使用不同的布局模板。&lt;/p>
@@ -5963,6 +6030,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="更進階的指定布局模板">更進階的指定布局模板&lt;/h3>
 &lt;p>我們能使用 &lt;strong>layout: false&lt;/strong> 來禁止使用預設的布局模板，並在 &lt;strong>template&lt;/strong> 添加 &lt;code>&amp;lt;NuxtLayout name=&amp;quot;custom&amp;quot;&amp;gt;&lt;/code> 來使用 &lt;strong>custom&lt;/strong> 布局模板。&lt;/p>
@@ -6009,6 +6077,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>上圖的參考程式碼：&lt;/p>
 &lt;h5 id="layoutscustomvue-1">layouts/custom.vue&lt;/h5>
@@ -6329,6 +6398,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="動態載入-dynamic-imports">動態載入 (Dynamic Imports)&lt;/h3>
 &lt;p>動態載入 (Dynamic Imports) 元件也稱之為&lt;code>延遲載入 (lazy-loading)&lt;/code>，如果頁面中不需要立刻使用或顯示某個元件，透過動態載入的方式可以&lt;code>延遲元件載入的時間點&lt;/code>，有助於優化 JavaScript 首次載入時的檔案大小。&lt;/p>
@@ -6400,6 +6470,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="控制伺服器端或客戶端渲染元件">控制伺服器端或客戶端渲染元件&lt;/h3>
 &lt;h4 id="clientonly-元件">&lt;code>&amp;lt;ClientOnly&amp;gt;&lt;/code> 元件&lt;/h4>
@@ -6486,12 +6557,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你也可以透過瀏覽器頁面中點擊右鍵後展開選單的「檢視網頁原始碼」功能，所看到的網頁原始碼，發現伺服器端僅先回應了 &lt;code>&amp;lt;p class=&amp;quot;my-6 flex justify-center&amp;quot;&amp;gt;[IronManWelcome] 載入中...&amp;lt;/p&amp;gt;&lt;/code>，表示這是由伺服器端渲染 &lt;code>&amp;lt;ClientOnly&amp;gt;&lt;/code> 元件 &lt;code>fallback&lt;/code> 插槽的內容。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616964604_68d7e7bf6a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="client-與-server">.client 與 .server&lt;/h4>
 &lt;p>Nuxt 3 的元件，也可以透過元件的檔案名稱來控制僅顯示在客戶端或伺服器端。&lt;/p>
@@ -6626,6 +6699,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>透過元件我們能更好的整理可重複使用的程式碼，也提升了可維護性，而 Nuxt 中的動態載入更是能將非必要使用的元件延遲載入，大大提升了首次進入網頁所需要下載的檔案大小，最後我們也介紹了如何控制伺服器端或客戶端渲染元件，熟悉了之後就能針對網站需求設定元件的載入及渲染方式囉！&lt;/p>
 &lt;hr>
@@ -6938,6 +7012,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="在插件中使用組合式函數-composables">在插件中使用組合式函數 (Composables)&lt;/h3>
 &lt;p>你也可以在自定義的插件中使用組合式函數，但在插件中存在著一些限制和差異。&lt;/p>
@@ -7008,6 +7083,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="僅限伺服器端或客戶端中使用">僅限伺服器端或客戶端中使用&lt;/h4>
 &lt;p>有些插件可能只能在瀏覽器中使用，原因可能是這個插件不需要或無法在伺服器端中執行。&lt;/p>
@@ -7062,6 +7138,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="nuxt-3-中建立-vue-指令">Nuxt 3 中建立 Vue 指令&lt;/h3>
 &lt;p>在插件中可以取得 Vue 的實例，所以我們也能在插件註冊自定義的指令。&lt;/p>
@@ -7100,6 +7177,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Nuxt 讓我們可以很輕鬆的建立插件並選擇配置於伺服器端或客戶端，對於使用 UI 框架或元件，更能在插件中直接取得實例來安裝 Vue 的插件與指令，不過呢，目前也有個 &lt;a class="link" href="https://github.com/nuxt/framework/discussions/1175" target="_blank" rel="noopener"
 >RFC&lt;/a> 正在徵求意見期待讓 Nuxt 使用 Vue 插件可以更方便容易。&lt;/p>
@@ -7202,6 +7280,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="如何建立-nuxt-模組">如何建立 Nuxt 模組&lt;/h3>
 &lt;p>&lt;a class="link" href="https://nuxt.com/docs/api/advanced/kit" target="_blank" rel="noopener"
@@ -7341,6 +7420,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="nuxt-3-路由中間件">Nuxt 3 路由中間件&lt;/h2>
@@ -7478,6 +7558,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="全域的路由中間件">全域的路由中間件&lt;/h4>
 &lt;p>在具名的中間件的檔名添加後綴 &lt;code>.global&lt;/code>，如 &lt;strong>auth.global.js&lt;/strong>，這個路由中間件將會被自動載入，並在每次導航變更時自動執行。&lt;/p>
@@ -7500,6 +7581,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="動態添加路由中間件">動態添加路由中間件&lt;/h4>
 &lt;p>你可以使用 &lt;code>addRouteMiddleware()&lt;/code> 輔助函數來手動添加全域或命名路由中間件，例如在插件中。&lt;/p>
@@ -7600,6 +7682,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="伺服器路由">伺服器路由&lt;/h3>
 &lt;h4 id="基於檔案的路由">基於檔案的路由&lt;/h4>
@@ -7646,6 +7729,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="匹配-http-請求方法-http-request-method">匹配 HTTP 請求方法 (HTTP Request Method)&lt;/h4>
 &lt;p>我們可以添加 &lt;strong>.get&lt;/strong>、&lt;strong>.post&lt;/strong>、&lt;strong>.put&lt;/strong> 或 &lt;strong>.delete&lt;/strong> 等檔案名稱後綴，來匹配對應的 HTTP request methods。&lt;/p>
@@ -7696,12 +7780,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h5 id="post-apitest">[POST] /api/test&lt;/h5>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616964714_af11679e95_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>從上面的例子，我們建立了 &lt;code>test.get.js&lt;/code> 與 &lt;code>test.post.js&lt;/code> 檔案，分別對應了 &lt;strong>GET&lt;/strong> 與 &lt;strong>POST&lt;/strong> 方法，如果同一個路由使用了其他方法而無法匹配處理的檔案時，則會回傳 HTTP 狀態碼 &lt;strong>405 Method Not Allowed&lt;/strong> 表示錯誤。&lt;/p>
 &lt;h4 id="匹配包羅萬象的路由-catch-all-route">匹配包羅萬象的路由 (Catch-all Route)&lt;/h4>
@@ -7763,6 +7849,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="伺服器中間件">伺服器中間件&lt;/h3>
 &lt;p>Nuxt 會自動載入 &lt;code>./server/middleware&lt;/code> 中的檔案，並添加至&lt;code>伺服器中間件&lt;/code>，伺服器的中間件與路由中間件不同的是，&lt;code>pages&lt;/code> 路由頁面的請求是不會執行伺服器中間件。&lt;/p>
@@ -7833,6 +7920,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="處理-url-中的查詢參數-query-parameters">處理 URL 中的查詢參數 (Query Parameters)&lt;/h4>
 &lt;p>可以使用 &lt;code>getQuery(evnet)&lt;/code> 來解析查詢參數。&lt;/p>
@@ -7865,6 +7953,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="解析-http-請求所夾帶的-cookie">解析 HTTP 請求所夾帶的 Cookie&lt;/h4>
 &lt;p>可以使用 &lt;code>parseCookies(event)&lt;/code> 來解析請求所夾帶的 Cookie。&lt;/p>
@@ -7897,6 +7986,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="進階使用範例">進階使用範例&lt;/h3>
 &lt;h4 id="nitro-配置">Nitro 配置&lt;/h4>
@@ -8029,6 +8119,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>因為瀏覽 &lt;a class="link" href="http://localho:3000/count/useAsyncData" target="_blank" rel="noopener"
 >http://localho:3000/count/useAsyncData&lt;/a> 時，第一次都是由後端渲染處理，看不太出導航有被阻塞的效果，建議可以添加一下路由連結來進行導航，就可以發現差異。&lt;/p>
@@ -8037,6 +8128,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;strong>useAsyncData() 共有兩種呼叫時使用參數差異，可以選擇是否傳入第一個參數 &lt;code>key&lt;/code>，所傳入參數的類型如下&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -8350,6 +8442,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="攔截器">攔截器&lt;/h3>
 &lt;p>我們也可以透過 &lt;code>$fetch&lt;/code> 提供的選項來設置攔截器。&lt;/p>
@@ -8461,6 +8554,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>透過 &lt;code>default&lt;/code> 選項可以來建立 API 回傳前的預設值，在 &lt;code>options.lazy&lt;/code> 為 &lt;code>true&lt;/code> 的情況下，都建議設定一下預設值，可以讓使用者體驗更好一些。&lt;/p>
 &lt;p>添加 &lt;strong>default&lt;/strong> 選項，&lt;strong>./pages/count/useLazyAsyncData.vue&lt;/strong> 內容如下：&lt;/p>
@@ -8506,6 +8600,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="uselazyfetch">useLazyFetch&lt;/h3>
 &lt;p>如同 &lt;code>useLazyAsyncData&lt;/code> 所描述，&lt;code>useLazyFetch&lt;/code> 則是 &lt;strong>useFetch&lt;/strong> 的 &lt;code>options.lazy&lt;/code> 選項預設為 &lt;code>true&lt;/code> 的封裝。&lt;/p>
@@ -8587,6 +8682,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>細心你的可能會發現，每次重整頁面，數字好像&lt;code>變化了兩次&lt;/code>，圖中數字停留在 &lt;strong>517&lt;/strong>，重新整理網頁後竟然先變成了 &lt;strong>163&lt;/strong> 後再變成 &lt;strong>101&lt;/strong>。&lt;/p>
 &lt;p>這個現象其實是伺服器端渲染後與客戶端再次渲染所導致的。講的白話一點就是，因為 Nuxt 預設的渲染模式 &lt;a class="link" href="https://nuxt.com/docs/guide/concepts/rendering/#universal-rendering" target="_blank" rel="noopener"
@@ -8599,12 +8695,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>回到一開始的例子，我們在瀏覽器打開開發者工具的主控台 (Console)，可以發現到其實開發的過程，也出現了錯誤提示「&lt;code>Hydration completed but contains mismatches.&lt;/code>」，告訴我們 &lt;strong>Hydration&lt;/strong> 完成了但是包含了不匹配，正是前端與後端初始值不同的錯誤。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52616964799_2110719e1c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來我們將介紹 Nuxt 提供的組合式函數 &lt;code>useState&lt;/code>，來可以解決這個問題。&lt;/p>
 &lt;h3 id="nuxt-3-的狀態管理-state-management">Nuxt 3 的狀態管理 (State Management)&lt;/h3>
@@ -8660,6 +8758,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當我們使用 &lt;code>useState&lt;/code> 並以 &lt;strong>count&lt;/strong> 當作 key，在網頁請求進入伺服器端執行時，還沒有這個 &lt;strong>count&lt;/strong> 狀態，所以執行了初始化函數產生出一個亂數，例如 &lt;strong>888&lt;/strong> 就會回傳給 &lt;strong>count&lt;/strong> 當作響應式變數的初始值，此時這個網頁請求，已經有一個 &lt;strong>count&lt;/strong> 的響應式狀態，當前端於 &lt;strong>Hydration&lt;/strong> 步驟再次的執行了下面這段程式碼，&lt;code>useState&lt;/code> 一樣是以 &lt;strong>count&lt;/strong> 當作 &lt;strong>key&lt;/strong>，但是存在了一個由伺服器端建立好的 &lt;strong>count&lt;/strong>，就會直接使用該狀態，也就不會在執行初始化函數，而導致前後端的初始狀態不一致的問題。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -8742,6 +8841,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="usestate-的共享狀態">useState 的共享狀態&lt;/h3>
 &lt;p>前面 &lt;code>useState&lt;/code> 的基本用法以 &lt;code>counter&lt;/code> 當作 &lt;strong>key&lt;/strong>，我們可以再建立不同的頁面元件並使用 &lt;code>useState('counter')&lt;/code> 就可以把這個狀態拿做出來用，也就達到了在任何元件中可以共享相同的響應式狀態。&lt;/p>
@@ -8816,6 +8916,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當然你也可以直接在其他元件中使用 &lt;code>useState('counter')&lt;/code>，就可以取得共享的響應式裝態，但如果這個元件是初次進入而沒有預設值的建立函數，可能會引發一些錯誤，要特別的注意。&lt;/p>
 &lt;h3 id="使用組合式函數建立共享狀態">使用組合式函數建立共享狀態&lt;/h3>
@@ -8865,6 +8966,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在通用渲染的模式之下，瀏覽器於 Hydration 完成前，網頁雖然能瀏覽但是尚不具有互動性，直至 Hydration 完成後，Vue 的頁面元件會重新載入與綁定，因此我們對於響應式的變數，儘量使用 &lt;code>useState&lt;/code> 來替代 &lt;code>ref&lt;/code> 以確保 Hydration 前後的初始值得以被保留，而且 &lt;code>useState&lt;/code> 因為可以使用 &lt;code>key&lt;/code> 來使狀態於元件間共享。&lt;/p>
 &lt;hr>
@@ -8879,6 +8981,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="pinia">Pinia&lt;/h3>
 &lt;p>如果你使用過 Vuex 大概會知道 Vue 如何建立 Store 來做狀態管理，隨著時間 Vuex 很積極的蒐集社群及使用者的&lt;a class="link" href="https://github.com/vuejs/rfcs/discussions/270" target="_blank" rel="noopener"
@@ -9109,12 +9212,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在不同的元件間，你也可以使用 &lt;code>useCounterStore&lt;/code> 取得已經建立好的 store 來共享這些狀態或進行操作。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52617187013_1e1f4c217e_o.gif"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="pinia-store-的-state">Pinia Store 的 State&lt;/h3>
 &lt;p>預設情況下，可以直接對 store 的實例來取得狀態，而使用 Pinia 定義的 store 比較特別的是，我們可以不用透過呼叫函數來修改狀態，也可以直接對 store 的狀態進行修改。&lt;/p>
@@ -9513,6 +9618,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在小型的專案中，你可以使用 useState 來管理，但大專案你就需要一個更好的方式來管理這些狀態，如 Pinia 來為我們管理這些狀態，甚至定義多個 store，Pinia 支援的插件能協助我們擴展 Pinia 的功能，Pinia Plugin Persistedstate 就是一個很常用的插件，能協助我們將 Pinia 的狀態持久化至瀏覽器的 &lt;code>localStorage&lt;/code> 或 &lt;code>sessionStorage&lt;/code> 中。&lt;/p>
 &lt;hr>
@@ -9575,6 +9681,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>此外你也可以在插件或 Vue 中使用 &lt;code>useRuntimeConfig()&lt;/code> 來取得執行時的設置，但也僅在 &lt;strong>setup&lt;/strong> 或 &lt;strong>Nuxt Lifecycle Hooks&lt;/strong> 中有效。&lt;/p>
 &lt;h4 id="客戶端使用-runtimeconfig">客戶端使用 runtimeConfig&lt;/h4>
@@ -9647,6 +9754,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="使用-env-建立環境變數">使用 .env 建立環境變數&lt;/h4>
 &lt;p>Nuxt 在開發模式或執行時，已經有內建 &lt;a class="link" href="https://github.com/motdotla/dotenv" target="_blank" rel="noopener"
@@ -9947,6 +10055,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="小結-1">小結&lt;/h3>
 &lt;p>Nuxt 3 提供了 &lt;strong>Runtime Config&lt;/strong> 及 &lt;strong>App Config&lt;/strong> 來讓我們將常用或預設設定應用在不同的情境，使用時，我們僅需記得，&lt;code>不能公開的金鑰&lt;/code>或&lt;code>敏感訊息&lt;/code>，僅放置在 &lt;code>runtimeConfig&lt;/code> 中而且&lt;code>不在 public 屬性內&lt;/code>，&lt;code>runtimeConfig.public&lt;/code> 通常放的是&lt;code>前後端會使用到且不常修改的常數&lt;/code>。而 &lt;code>App Config&lt;/code> 則是當伺服器端與客戶端&lt;code>需要使用的設置&lt;/code>，如主題顏色、是否啟用深色模式等這類可以被使用者調整變動的且需要具有響應性，就可以放置在 &lt;code>appConfig&lt;/code> 之中。&lt;/p>
@@ -9961,6 +10070,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>完成後，記得保管好&lt;code>用戶端密碼&lt;/code>、&lt;code>用戶端 ID (Client ID)&lt;/code> 是我們稍後會需要的，用戶端編號格式大概如：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -10078,6 +10188,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="one-tap-prompt">One Tap prompt&lt;/h3>
 &lt;p>你可以在 &lt;code>&amp;lt;GoogleLogin&amp;gt;&lt;/code> 元件添加 &lt;code>prompt&lt;/code> 屬性並設為 &lt;code>true&lt;/code>，這樣就能同時啟用 &lt;strong>Google 一鍵登入 (One Tap prompt)&lt;/strong> 的功能囉！&lt;/p>
@@ -10228,6 +10339,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用-googleauthcodelogin">使用 googleAuthCodeLogin()&lt;/h3>
 &lt;p>我們也可以使用 &lt;code>googleAuthCodeLogin()&lt;/code> 來取得 &lt;strong>Auth Code&lt;/strong>。&lt;/p>
@@ -10271,6 +10383,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="伺服器端驗證">伺服器端驗證&lt;/h3>
 &lt;p>當使用者於前端成功登入後，通常會傳至後端進行登入或記錄使用者，再產生使用於網站的 Token、Cookie 或 Session 等，以供後續的網站驗證做使用。&lt;/p>
@@ -10431,6 +10544,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="驗證-credential">驗證 Credential&lt;/h4>
 &lt;p>在元件中，我們使用的登入方式如果是 &lt;code>Google 渲染的預設按鈕&lt;/code>或 &lt;code>One Tap prompt&lt;/code>，回傳值就會包含 &lt;code>Credential&lt;/code>，我們將就可使用下面修改後的 Server API 進行驗證。&lt;/p>
@@ -10724,6 +10838,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="伺服器端使用-getcookie-與-setcookie">伺服器端使用 getCookie 與 setCookie&lt;/h3>
 &lt;p>你可以在伺服器端使用 &lt;code>getCookie()&lt;/code> 來取得前端夾帶過來的 cookie，也可以使用 &lt;code>setCookie&lt;/code> 來設置 cookie 回應給前端。&lt;/p>
@@ -10760,6 +10875,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用-cookie-做使用者驗證">使用 Cookie 做使用者驗證&lt;/h3>
 &lt;p>我們可以將 Cookie 的運作機制應用在會員系統當中，使用者登入成功後，後端產生的 Token 或 Session 回傳並儲存在使用者的瀏覽器中，之後的請求將會自動夾帶可以辨識出使用者的 cookie，我們就可以在後端解析或比對 cookie 來驗證使用者的資訊，並依照策略給予不同的處理邏輯。&lt;/p>
@@ -10997,6 +11113,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>上圖的流程如下：&lt;/p>
 &lt;ol>
@@ -11157,12 +11274,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>搜尋引擎爬蟲在收錄網頁時，就會解析這些標籤來建立索引，我們在使用搜尋資料時，網頁的資訊也就對應著顯示出來，如下圖。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52618326416_00c8081182_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>各家的搜尋引擎爬蟲，雖然都有自己解析的規則，不過根據 SEO 的經驗都有大方向能夠依循做建立，此外就是在針對特定的搜尋引擎加強識別標記，遵照官方指引就能讓網站的內容能見度有顯著提升。&lt;/p>
 &lt;h3 id="網站的-open-graph-og">網站的 Open Graph (OG)&lt;/h3>
@@ -11174,24 +11293,28 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>其中縮圖依照 Facebook 的指引，即是對應網頁中的 &lt;code>&amp;lt;meta property=&amp;quot;og:image&amp;quot; ... /&amp;gt;&lt;/code>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52617815467_ca6f72b1e6_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>不只是在 Facebook 上分享連結會有&lt;code>連結預覽&lt;/code>的效果，也因為大家都遵循著 &lt;strong>OG Tag&lt;/strong> 進行設定，所以在其他主流的社群媒體或通訊軟體等也都有跟進解析。例如，我們使用 LINE 傳送一條連結，也會因為設置了 &lt;strong>OG Tag&lt;/strong> 也有成功解析出&lt;code>連結預覽&lt;/code>的效果。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52618814953_27c41dfc45_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>LINE 開發者也有提供一些問答指引可以做參考，&lt;code>連結預覽&lt;/code>與 &lt;code>og:title&lt;/code>、&lt;code>og:description&lt;/code> 和 &lt;code>og:image&lt;/code> 有著相應的設定關係。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52618595494_9fd4af0f1e_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="usehead">useHead&lt;/h3>
 &lt;p>我們可以使用 Nuxt 3 提供的 &lt;code>useHead()&lt;/code> 組合式函數，來設定網站的一些標籤或標記，使用方式如下：&lt;/p>
@@ -11343,6 +11466,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你也可以傳入一個函數來動態的添加網頁的標題。&lt;/p>
 &lt;h5 id="appvue-13">app.vue&lt;/h5>
@@ -11524,6 +11648,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>在 Nuxt 3 提供了一些可以設置網頁屬性與 &lt;strong>Meta&lt;/strong> 的組合式函數，更能動態的調整與響應，結合 SSR 讓這些標記在伺服器端就能渲染出來，對網站做搜尋引擎最佳化 (SEO) 非常得友善，也是多數人選擇 Nuxt 3 來處理 SSR 與 SEO 的原因。除了 SEO 可能會使用到的標記外，也有 &lt;strong>OG Tag&lt;/strong> 可以加強網頁的連結預覽效果，雖然 &lt;strong>OG Tag&lt;/strong> 與 SEO 沒有絕對的關係，但是透過伺服器端渲染調整這些 &lt;strong>Meta&lt;/strong> 對搜尋引擎或網站都非常的方便，我們只要根據需求及指引做設定，就能對網站的能見度有所提升。&lt;/p>
 &lt;hr>
@@ -11542,6 +11667,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>舉個例子，我們將這張圖片放置於 &lt;code>public&lt;/code> 目錄下並命名為 &lt;strong>bg.png&lt;/strong>，專案目錄下其他檔案就先不列，整個結構大概長的像下面這樣。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -11564,6 +11690,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>所以，我們在 &lt;strong>app.vue&lt;/strong> 新增如下程式碼，使用 &lt;code>/bg.png&lt;/code> 來等同訪問 &lt;strong>public/bg.png&lt;/strong> 檔案：&lt;/p>
 &lt;h5 id="appvue-15">app.vue&lt;/h5>
@@ -11588,6 +11715,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>既然 &lt;code>public&lt;/code> 目錄已經能提供靜態資源的連結，那麼為什麼還有一個名為 &lt;code>assets&lt;/code> 的目錄呢？接下來我們先介紹 &lt;code>assets&lt;/code> 目錄，最後再來總結一下差異。&lt;/p>
 &lt;h3 id="assets-目錄-1">assets 目錄&lt;/h3>
@@ -11635,6 +11763,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>除了 ~/assets 可以對應 assets 目錄外，也可以參考官方的 &lt;a class="link" href="https://nuxt.com/docs/api/configuration/nuxt-config#alias" target="_blank" rel="noopener"
@@ -11645,12 +11774,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>最後我們以最終建構出來的專案結構對比如下圖，在 &lt;code>public&lt;/code> 目錄下的檔案，會原封不動的照搬至 &lt;code>.output/public&lt;/code> 下，也就可以使用 &lt;strong>/bg.png&lt;/strong> 存取；而放置在 &lt;code>assets&lt;/code> 下的檔案，可能會被處理加工，最後檔案名稱會加上一個 &lt;code>Hash&lt;/code> 並放置在 &lt;code>.output/public/_nuxt&lt;/code> 下，也就需要使用 &lt;strong>/_nuxt/bg.0a299ea1.png&lt;/strong> 存取。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52629175877_933064e5f8_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>總結來說多數情況建議把靜態資源放置在 &lt;code>assets&lt;/code>，也因為靜態資源多為 SFC 所使用，通常也會放置最多檔案，最後建構時也會因為建構工具的設定來進行轉換或壓縮，最後添加 &lt;code>Hash&lt;/code> 來提供存取，也因為每次建構產生的檔案都不一樣，所以不適合直接以完整的 URL 供外部連結使用。而當有些例外情況不適合，例如 &lt;code>robots.txt&lt;/code> 或 &lt;code>sitemap.xml&lt;/code> 這類的檔案不需要經過額外處理且需要絕對路徑保持檔案名稱，那就得放置在 &lt;code>public&lt;/code> 目錄下提供存取。&lt;/p>
 &lt;hr>
@@ -11707,12 +11838,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>建構完成後會在專案目錄下多出一個 &lt;code>.output&lt;/code> 目錄，&lt;code>public&lt;/code> 就是在網站根目錄直接公開打包後的 JS、CSS 圖片等相關檔案。由於通用渲染使用 Nitro 作為服務引擎，所以會需要使用 Node.js 來啟動我們的服務，所以 &lt;code>server&lt;/code> 則是會放置伺服器端的 Nitro、Server API 處理邏輯等。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52630134450_bf00a38cea_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們可以先在本地執行下列指令來預覽建構出來的網站與 Nitro 是否能運作正常。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -11744,12 +11877,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當建構完成後，會在專案目錄下多出一個 &lt;code>.output&lt;/code> 目錄同時也會有 &lt;code>dist&lt;/code> 目錄，可以發現 &lt;code>.output/public&lt;/code> 目錄內容與 &lt;code>dist&lt;/code> 目錄相同。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52629176072_058cbabe22_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>靜態頁面的生成因為 Nuxt 使用基於爬蟲的技術為每個頁面產生 HTML 與 Payload 檔案，可以發現產生的靜態頁面目錄結構，也對應著我們專案的路由頁面，而頁面元件資料夾內會由一個 &lt;code>index.html&lt;/code> 與 &lt;code>_payload.js&lt;/code> 組成。&lt;/p>
 &lt;p>下圖所產生的結構，是因為我們的部落格資料庫內已經有三筆文章資料，&lt;code>/articles&lt;/code> 頁面會取得所有的文章，並列出對應著 &lt;code>/articles/1&lt;/code>、&lt;code>/articles/2&lt;/code> 與 &lt;code>/articles/3&lt;/code> 目錄，每個頁面內也都包含預先從 Server API 請求好的文章資料並存於 &lt;code>_payload.js&lt;/code> 之中。&lt;/p>
@@ -11757,6 +11892,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>至此我們就可以將 &lt;code>.output&lt;/code> 目錄部署至伺服器或靜態託管服務，而且也不需要在使用 Node.js 伺服器來服務這些靜態檔案。&lt;/p>
 &lt;h3 id="手動設定預渲染的路由規則">手動設定預渲染的路由規則&lt;/h3>
@@ -11815,6 +11951,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="generate">generate&lt;/h4>
 &lt;p>當我們使用 &lt;code>generate&lt;/code> 時，因為是進行全站的靜態頁面生成，所以基本上涵蓋了所有路由頁面，並且 &lt;code>nitro.prerender.crawlLinks&lt;/code> 屬性預設為 &lt;code>true&lt;/code> 會啟用 Nuxt 爬蟲來蒐集整的網站的路由頁面，進而開始預渲染產生靜態頁面。&lt;/p>
@@ -11848,6 +11985,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果我們將 &lt;code>nitro.prerender.crawlLinks&lt;/code> 屬性設為 &lt;code>false&lt;/code>，那麼在產生靜態頁面的時候，就算 &lt;code>/articles&lt;/code> 包含了所有文章的連結，Nuxt 爬蟲也就不會蒐集連結來產生靜態頁面，而是僅依照專案目錄下的 &lt;code>pages&lt;/code> 所產生出的路由但不包含 &lt;code>[id].vue&lt;/code> 這類動態匹配的路由來產生靜態頁面。&lt;/p>
 &lt;h3 id="建構僅在客戶端渲染的網站">建構僅在客戶端渲染的網站&lt;/h3>
@@ -11871,6 +12009,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這邊比較需要留意的地方是，當我們將 &lt;code>ssr&lt;/code> 屬性設為 &lt;code>false&lt;/code>，也還是會在 &lt;code>.output&lt;/code> 建構出 &lt;code>server&lt;/code> 目錄，也擁有著 &lt;code>.output/server/index.mjs&lt;/code>。&lt;/p>
 &lt;p>那這不就意謂著我還是得有 Node.js 服務才能部署嗎？其實你可以這麼理解，當我們設定 Nuxt 僅在客戶端進行渲染，但 Nuxt 專案中仍然可能有 Server API，這個屬於伺服器端的 API，總不可能一同打包至前端去做架設吧！所以使用 &lt;code>npm run build&lt;/code> 建構出來的專案，都會使用 Nitro 引擎來啟動服務，若有 Server API 的處理邏輯，則會連帶打包進 &lt;code>.output/server&lt;/code> 目錄之下。&lt;/p>
@@ -11940,6 +12079,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你可以設定下列環境變數來調整預設監聽的 &lt;strong>Port&lt;/strong> 或 &lt;strong>Host&lt;/strong>。&lt;/p>
 &lt;ul>
@@ -12006,6 +12146,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>你也可以在 &lt;code>ecosystem.config.js&lt;/code> 中添加環境變數。&lt;/p>
 &lt;h5 id="ecosystemconfigjs-1">ecosystem.config.js&lt;/h5>
@@ -12182,6 +12323,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來，可以選擇執行終端機提示的指令來啟動伺服器進行相關測試。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -12196,6 +12338,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>當確認專案服務運作上沒問題後，可以執行下列指令進行發布。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -12212,6 +12355,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="靜態的網站部署至-cloudflare-pages">靜態的網站部署至 CloudFlare Pages&lt;/h3>
 &lt;p>我們使用 Nuxt 3 可以預渲染全靜態的網站，因此也可以將專案部署至靜態託管平台，以 CloudFlare Pages 為例，部署的步驟如下：&lt;/p>
@@ -12260,6 +12404,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>使用下列指令，將預渲染的網站目錄進行部署，並指定專案名稱為 &lt;code>nuxt-app-blog&lt;/code>：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -12275,6 +12420,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>以上是介紹 Nuxt 3 的幾個部署方式的例子，更多雲端平台上面的部署，也可以參考 &lt;a class="link" href="https://nuxt.com/docs/getting-started/deployment#deployment" target="_blank" rel="noopener"
 >Nuxt&lt;/a> 與 &lt;a class="link" href="https://nitro.unjs.io/deploy/node" target="_blank" rel="noopener"
@@ -12404,6 +12550,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="安裝-vueuse">安裝 VueUse&lt;/h2>
@@ -12498,6 +12645,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Wooooow~~~ 這可太簡單易用了！&lt;/p>
 &lt;p>經過源碼閱讀，我們可以發現，這短短的一個方法，至少做了以下這些事：&lt;/p>
@@ -12562,6 +12710,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>是不是很好用？相比手寫 setInterval 更為便捷。&lt;/p>
 &lt;p>如果徒手實現這樣一整套方法，多少行暫且不說，我們需要在業務中寫下大量的邏輯代碼。&lt;/p>
@@ -12622,6 +12771,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="例子四usevmodel">例子(四)：useVModel&lt;/h3>
 &lt;p>這是一個給&lt;strong>經常封裝組件&lt;/strong>的小伙伴們的大好利器。&lt;/p>
@@ -12732,6 +12882,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>對於有組件封裝需求的朋友，這個方法強烈推薦！&lt;/p>
 &lt;p>不用再為了單向數據流的組件封裝，而在組件內寫冗餘的代碼了。&lt;/p>
@@ -12765,6 +12916,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以預見，雖然目前仍然是 class Component 和 hooks api 並駕齊驅的場面，但未來幾年裡，hooks 極有可能取代 class Component 成為業內真正的主流。&lt;/p>
 &lt;hr>
@@ -12822,6 +12974,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果按這個標準來看的話，&lt;code>vue&lt;/code> 和 &lt;code>react&lt;/code> 中 &lt;code>hooks&lt;/code> 的定義，似乎都差不多。&lt;/p>
 &lt;p>那麼為什麼要提到是以 &lt;code>&amp;quot;use&amp;quot;&lt;/code> 作為開頭的方法呢？&lt;/p>
@@ -12834,6 +12987,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;span class="focus">一個假設&lt;/span>：假設任何以「&lt;code>use&lt;/code>」 開頭並緊跟著一個大寫字母的函數就是一個 &lt;code>Hook&lt;/code>。&lt;/p>
 &lt;p>&lt;span class="focus">第一個只在&lt;/span>：只在 &lt;code>React&lt;/code> 函數組件中調用 &lt;code>Hook&lt;/code>，而不在普通函數中調用 &lt;code>Hook&lt;/code>。(&lt;code>Eslint&lt;/code> 通過判斷一個方法是不是大坨峰命名來判斷它是否是 &lt;code>React&lt;/code> 函數)&lt;/p>
@@ -12937,6 +13091,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>為什麼呢？&lt;/p>
 &lt;p>因為 &lt;code>mixins&lt;/code> 雖然提供了這種狀態複用的能力，但它的弊端實在太多了。&lt;/p>
@@ -13084,6 +13239,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>(假設上圖中每一種顏色就代碼一種高度相關的業務邏輯)&lt;/p>
 &lt;p>無論是 &lt;code>vue&lt;/code> 還是 &lt;code>react&lt;/code>，通過 &lt;code>Hooks&lt;/code> 寫法都能做到，將&amp;quot;分散在各種聲明周期裡的代碼塊&amp;quot;，通過 &lt;code>Hooks&lt;/code> 的方式將相關的內容聚合到一起。&lt;/p>
@@ -13219,6 +13375,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>那麼，我們應該怎麼開始撰寫 &amp;ldquo;自定義 Hooks&amp;rdquo; 呢？往下看吧！&lt;/p>
 &lt;h3 id="react-玩家看這裡">react 玩家看這裡&lt;/h3>
@@ -13705,6 +13862,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>https://wayneblog.ga/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
 .focus {
@@ -14376,6 +14534,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="功能二編輯器分隔">功能二：編輯器分隔&lt;/h3>
@@ -14386,17 +14545,20 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278825449_3943326afa_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>它就會自動給你分隔成三個頁面，分別對應 &lt;code>template&lt;/code>、&lt;code>script&lt;/code>、&lt;code>style&lt;/code>，這樣就太舒服了有沒有。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556091_2d9d2e2b05_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>還有很多新功能，可以參考下面這篇文章：&lt;br>
 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/375096539" target="_blank" rel="noopener"
@@ -14409,6 +14571,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>報錯先不管，是 &lt;code>eslint-plugin-vue&lt;/code> 的原因。&lt;/p>
@@ -14418,6 +14581,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以看到，我們點擊這個小對勾之後，它由原本的 &lt;code>ref sugar&lt;/code> 語法變為了普通的 &lt;code>script setup&lt;/code> 模式，驚不驚喜，意不意外。&lt;/p>
 &lt;hr>
@@ -14426,12 +14590,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以看到，在 &lt;code>.foo&lt;/code> 這個類名上面，出現了一個 &lt;code>1 reference&lt;/code> 的小圖標，代表著當前 &lt;code>class&lt;/code> 有一次引用，我們點擊一下這個 &lt;code>1 reference&lt;/code>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556066_f44a23ef65_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>出現了一個彈窗，裡面是當前 &lt;code>class&lt;/code> 的具體使用位置。&lt;/p>
 &lt;hr>
@@ -14469,6 +14635,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>對於經常使用 &lt;code>vscode&lt;/code> 的開發人員來說，這代表什麼意義就不必多說了，我們根據提示，按住 &lt;code>ctrl&lt;/code>(&lt;code>command&lt;/code>) 然後點擊，會發現光標自己移動到了 &lt;code>style&lt;/code> 中的 &lt;code>.foo&lt;/code> 之前，哇! awesome!&lt;/p>
 &lt;hr>
@@ -14501,6 +14668,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>有點意思，看來 &lt;code>vscode&lt;/code> 是讓 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
 >Volar&lt;/a> 玩明白了。&lt;/p>
@@ -14515,6 +14683,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="功能八template-語法轉換">功能八：&lt;code>template&lt;/code> 語法轉換&lt;/h3>
@@ -14552,18 +14721,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這個時候我們點擊一下這個圖標，讓它選中，神奇的事情發生了。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278577068_bc917eabf4_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們寫好的 &lt;code>html&lt;/code> 模板，被自動轉化成了 &lt;code>pug&lt;/code>，再點擊一下，又回到了我們熟悉的 &lt;code>html&lt;/code>。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278556001_3879f3bbba_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>從功能三開始，基本都是算內測的新功能，我是機緣巧合之下，將 &lt;a class="link" href="https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar" target="_blank" rel="noopener"
@@ -14576,12 +14748,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>然後它就給我們自動寫了如下程式碼：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52279039925_0316ccfe51_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>是不是超級省事，摸魚的時間又增加了！還有更多有趣的使用方式，小夥伴們自行探索吧。&lt;/p>
 &lt;hr>
@@ -14722,6 +14896,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來到了重頭戲，&lt;code>Vue3&lt;/code> 的招牌特性，&lt;code>Composition API&lt;/code>。&lt;/p>
 &lt;p>關於 &lt;code>Composition API&lt;/code> 這裡有圖解演示，極力推薦。&lt;/p>
@@ -14735,6 +14910,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="setup">setup&lt;/h3>
@@ -15497,6 +15673,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>注意：&lt;code>3.0&lt;/code> 中的生命週期鉤子要比 &lt;code>2.X&lt;/code> 中相同生命週期的鉤子要快。&lt;/li>
@@ -15918,6 +16095,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h3 id="suspense不確定的">Suspense(不確定的)&lt;/h3>
@@ -16080,6 +16258,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="響應式資料的判斷">響應式資料的判斷&lt;/h2>
@@ -16241,6 +16420,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>可以看到 &lt;code>context&lt;/code> 被列印了出來，其中的 &lt;code>attrs&lt;/code>、&lt;code>emit&lt;/code>、&lt;code>slots&lt;/code>、&lt;code>expose&lt;/code> 屬性和方法依然可以使用。&lt;code>props&lt;/code> 也可以輸出在頁面上，事件也成功派發。&lt;/p>
 &lt;hr>
@@ -16333,6 +16513,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>現在把子元件換成 &lt;code>script setup&lt;/code> 語法糖再來試一試：&lt;/p>
 &lt;h5 id="childrenvue-6">children.vue&lt;/h5>
@@ -16369,6 +16550,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="emit-派發事件可以對引數進行驗證">Emit 派發事件可以對引數進行驗證&lt;/h2>
@@ -16493,6 +16675,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="跨元件通訊-mittjs">跨元件通訊 &lt;code>mitt.js&lt;/code>&lt;/h2>
@@ -16703,6 +16886,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="自定義指令">自定義指令&lt;/h2>
@@ -16790,6 +16974,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -16874,11 +17059,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278504901_8cc9387727_o.gif"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -17125,6 +17312,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>兩個 mixin 裡都有 double 這個數，尷尬，看效果，lsp 的 count 被覆蓋了很尷尬，而且在 App.vue 這裡，你完全不知道這個 double 到底是哪個，調試很痛苦。&lt;/p>
 &lt;hr>
@@ -17136,11 +17324,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52278529193_878667eeba_o.gif"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們用vue3演示一下功能，具體api就不解釋了直接vue3文檔搞起就可以：&lt;/p>
 &lt;h5 id="appvue-2">App.vue&lt;/h5>
@@ -17743,11 +17933,13 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275615043_7d6b094202_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -17783,6 +17975,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://chrome.google.com/webstore/search/vue" target="_blank" rel="noopener"
 >Vue.js devtools&lt;/a>&lt;/p>

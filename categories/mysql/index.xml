@@ -26,11 +26,13 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52664516299_6571bcc92a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>問題的主要原因是因為 MySQL 8 之前的版本中，加密規則是 &lt;code>mysql_native_password&lt;/code>，而在 MySQL 8 之後，加密規則是 &lt;code>caching_sha2_password&lt;/code>，加密算法變了，有些 Client 工具沒有更新而導致。&lt;/p>
 &lt;hr>
@@ -71,6 +73,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>備註：host 為 &lt;code>%&lt;/code> 表示不限制 IP；&lt;code>localhost&lt;/code>表示本機使用；plugin 非 &lt;code>mysql_native_password&lt;/code> 則需要修改密碼。&lt;/p>
@@ -125,6 +128,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ol start="5">
 &lt;li>重新使用 Navicat 連接 MySQL，連接成功。&lt;/li>
@@ -133,6 +137,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" />&lt;style>
 .article-content p code {
@@ -176,6 +181,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>bin/www&lt;/code> 是啟動入口文件，在裡面可以設置端口號等&lt;/li>
@@ -186,6 +192,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -237,6 +244,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這就啟動成功啦&lt;/p>
 &lt;p>瀏覽器打開&lt;a class="link" href="http://localhost:3000" target="_blank" rel="noopener"
@@ -245,6 +253,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="安裝-winston-添加打印日誌文件">安裝 winston 添加打印日誌文件&lt;/h2>
@@ -303,6 +312,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="修改錯誤處理">修改錯誤處理&lt;/h3>
 &lt;p>將錯誤打印到日誌上&lt;/p>
@@ -310,6 +320,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="測試日誌是否打印成功">測試日誌是否打印成功&lt;/h3>
 &lt;p>請求一個不存在的路由，如：&lt;a class="link" href="http://localhost:3000/hello" target="_blank" rel="noopener"
@@ -318,12 +329,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>打開日誌文件，看到這條錯誤被打印出來就成功啦&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52443411730_b91c1ab7f9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="mysql">MySQL&lt;/h2>
@@ -388,6 +401,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用-navicat-數據庫管理工具連線時出現錯誤">使用 &lt;code>Navicat&lt;/code> 數據庫管理工具連線時，出現錯誤&lt;/h3>
 &lt;p>若出現 &lt;code>1251 - Client does not support authentication protocol requested by server; consider upgrading MySQL client&lt;/code> 錯誤，原因為：&lt;br>
@@ -461,11 +475,13 @@ mysql8 之前的版本，加密規則是 &lt;code>mysql_native_password&lt;/code
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52442967796_fe83fd3528_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>進入 &lt;code>expressFrame&lt;/code> 庫，新建用戶信息表為 &lt;code>user&lt;/code> ，默認有 &lt;code>id&lt;/code> 字段，需要再添加以下必要字段：&lt;/p>
 &lt;p>字段：id&lt;/p>
@@ -812,6 +828,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="測試接口">測試接口&lt;/h3>
 &lt;p>訪問一下 &lt;a class="link" href="http://localhost:3000/get_user" target="_blank" rel="noopener"
@@ -821,6 +838,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這就大功告成啦～&lt;/p>
 &lt;p>github地址：&lt;a class="link" href="https://github.com/wjdesign/nodejsExpressMysqlDemo" target="_blank" rel="noopener"

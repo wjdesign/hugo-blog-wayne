@@ -22,6 +22,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>現在你發了一段訊息給&lt;a class="link" href="https://t.me/userinfobot" target="_blank" rel="noopener"
 >機器人&lt;/a>&lt;br>
@@ -31,6 +32,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>一開始你的訊息會被傳送到 TG 伺服器&lt;/li>
@@ -44,6 +46,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ol>
 &lt;li>Webhook&lt;br>
@@ -71,6 +74,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -88,6 +92,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>這個方式 &lt;code>只有在 webhook 模式&lt;/code> 下才能使用，因為只有伺服器可以直接回應訊息。&lt;/p>
 &lt;hr>
@@ -97,6 +102,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;strong>The Botfather&lt;/strong> 這個名字是致敬 1972 年的&lt;strong>美國電影《教父》&lt;/strong>&lt;/p>
 &lt;p>它是機器人，也是機器人的管理者&lt;br>
@@ -109,6 +115,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://core.telegram.org/bots#botfather-commands" target="_blank" rel="noopener"
 >官方網頁版說明&lt;/a>&lt;/p>
@@ -187,6 +194,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ol start="2">
 &lt;li>幫機器人取名字&lt;/li>
@@ -204,6 +212,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ol start="3">
 &lt;li>設定 username&lt;/li>
@@ -237,6 +246,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -253,6 +263,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -269,6 +280,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -284,6 +296,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="使用你的機器人吧">使用你的機器人吧&lt;/h3>
 &lt;blockquote>
@@ -297,6 +310,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -409,6 +423,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="telegram-機器人的設定">Telegram 機器人的設定&lt;/h2>
@@ -417,6 +432,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -432,6 +448,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -449,6 +466,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -470,6 +488,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -489,6 +508,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -516,6 +536,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -530,6 +551,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -546,6 +568,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -560,6 +583,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -574,6 +598,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>原本在聊天室上方啥都沒有，現在多了一個訊息框&lt;/p>
 &lt;h4 id="edit-about---修改簡介">Edit About - 修改簡介&lt;/h4>
@@ -582,6 +607,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -596,6 +622,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -610,6 +637,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>原本是只有顯示 &lt;strong>username&lt;/strong>，現在多了 &lt;strong>簡介&lt;/strong>&lt;/p>
 &lt;h4 id="edit-botpic---修改大頭貼">Edit Botpic - 修改大頭貼&lt;/h4>
@@ -617,6 +645,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -631,6 +660,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -645,6 +675,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -659,12 +690,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="edit-commands---修改指令選單">Edit Commands - 修改指令選單&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141546_2e7bf6f4fe_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -689,6 +722,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -703,6 +737,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果機器人是在群組使用，建議改成&lt;strong>空的&lt;/strong>，避免誤觸&lt;br>
 群組裡較常使用 &lt;span class="focus">!&lt;/span> 開頭的指令，這樣才不會變成藍藍的容易按到&lt;br>
@@ -711,12 +746,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>修改完會變成這樣：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652144_ee7d18aea2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -755,6 +792,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -771,12 +809,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="allow-group---是否能被加入群組">Allow Group? - 是否能被加入群組?&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52308416352_a2ff6614cf_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -796,6 +836,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -818,6 +859,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -832,18 +874,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>機器人只看的到它的指令和回覆它的訊息&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52309607238_9233ba33c4_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>但是如果升級成管理員就沒這限制&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141421_4d2c39a6de_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -858,6 +903,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>機器人是成員時就能讀取所有訊息&lt;/p>
 &lt;h4 id="payments---付款相關設定">Payments - 付款相關設定&lt;/h4>
@@ -869,6 +915,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>歐付寶、綠界、台灣 pay、街口、悠遊付，不考慮&lt;a class="link" href="https://core.telegram.org/bots/payments#supported-payment-providers" target="_blank" rel="noopener"
 >進駐&lt;/a>一下嗎&lt;/p>
@@ -878,12 +925,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h4 id="choose-recipient---選擇使用者">Choose recipient - 選擇使用者&lt;/h4>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52309141281_4be9d0e0d4_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -902,6 +951,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -918,6 +968,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -934,6 +985,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -948,6 +1000,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -971,6 +1024,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如果你有設定兩步驟驗證的話，這邊會跳出來要你輸入&lt;/p>
 &lt;p>常見問題：&lt;/p>
@@ -981,6 +1035,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -995,6 +1050,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1009,6 +1065,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1028,6 +1085,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1042,6 +1100,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1056,6 +1115,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1087,6 +1147,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="透過-drone-pluginhttppluginsdroneio">透過 &lt;a class="link" href="http://plugins.drone.io/" target="_blank" rel="noopener"
 >Drone Plugin&lt;/a>&lt;/h3>
@@ -1097,6 +1158,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="drone-cicd-補上告警的-step">Drone CI/CD 補上告警的 step。&lt;/h3>
 &lt;p>你的 Drone CI/CD step 加上使用 &lt;a class="link" href="http://plugins.drone.io/appleboy/drone-telegram/" target="_blank" rel="noopener"
@@ -1317,6 +1379,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>設定完畢後，github 會分配給你一個公開的網址：&lt;a class="link" href="https://%7byour-account%7d.github.io/%7byour-repo-name%7d/" target="_blank" rel="noopener"
@@ -1335,6 +1398,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="前往-cloudflare-後台">前往 Cloudflare 後台&lt;/h3>
 &lt;ul>
@@ -1344,6 +1408,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>DNS 設定如圖：
@@ -1366,6 +1431,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>選擇 &lt;code>Use custom nameservers (enter below)&lt;/code>&lt;/li>
@@ -1375,6 +1441,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="cloudflare-後台設定強制使用-ssl">Cloudflare 後台設定強制使用 SSL&lt;/h3>
 &lt;ul>
@@ -1385,12 +1452,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="回到-github-pages將網址填寫至-custom-domain短暫驗證完畢後即可點選-save-送出設定">回到 github pages，將網址填寫至 Custom domain，短暫驗證完畢後，即可點選 &lt;code>Save&lt;/code> 送出設定&lt;/h3>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834708_a23fb3550c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>自定義網址已設定完畢，可使用網址打開網站。&lt;/p>
@@ -1403,12 +1472,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點選 &lt;code>Generate new token&lt;/code>&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839257_4a097835f3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>設定備註、過期時間、權限後即可生成 token&lt;/p>
 &lt;ul>
@@ -1418,6 +1489,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>生成後，token 請複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/p>
@@ -1426,6 +1498,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="準備材料2登入-cloudflare-後台取得-區域識別碼zone">準備材料2：登入 Cloudflare 後台，取得 區域識別碼(Zone)&lt;/h3>
 &lt;ul>
@@ -1436,6 +1509,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="準備材料3取得-global-api-key">準備材料3：取得 Global API Key&lt;/h3>
 &lt;ul>
@@ -1446,6 +1520,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="準備材料4生成-api-token">準備材料4：生成 API token&lt;/h3>
 &lt;ul>
@@ -1455,11 +1530,13 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834623_6bd1187ba3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>設定 token 名稱、權限、TTL&lt;/li>
@@ -1470,6 +1547,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>建立後，也請將 token 複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/li>
@@ -1478,6 +1556,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h2 id="材料準備完畢開始設定-secret">材料準備完畢，開始設定 &lt;code>secret&lt;/code>&lt;/h2>
 &lt;h3 id="進入-source-code-的-repo點選-settings---secret---actions並將剛剛的四個準備材料設定到-actions-secrets-中">進入 source code 的 repo，點選 &lt;code>Settings&lt;/code> -&amp;gt; &lt;code>Secret&lt;/code> -&amp;gt; &lt;code>Actions&lt;/code>，並將剛剛的四個準備材料設定到 &lt;code>Actions secrets&lt;/code> 中&lt;/h3>
@@ -1485,6 +1564,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>此處 Actions secrets 的名稱如需修改，則待會的 github-actions.yml 內的名稱也需跟著修改，否則會抓不到 secrets 中設定的值哦!&lt;/p>
@@ -1655,5 +1735,6 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr></description></item></channel></rss>

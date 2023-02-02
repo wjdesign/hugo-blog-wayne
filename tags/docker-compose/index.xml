@@ -34,6 +34,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>為了解決這些問題就誕生了 &lt;strong>Docker Volume&lt;/strong>。&lt;/p>
 &lt;p>Container 裡面會有一個 Program，把檔案寫入 File System，這些檔案會存在 Container 的 Layer 中，我們把數據的部分，額外 Mount 一個 Volume，這樣一來，數據就會被永久保存；每個 Container 都是獨立且封閉的，但有時候我們會想要不透過進入 Container 就能改變內部的程式碼，或者是想要進行 Database 升級並保留原本資料，這時就需要Docker Volume 了。&lt;/p>
@@ -41,6 +42,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Docker 持久化數據的方案：&lt;/p>
 &lt;ul>
@@ -58,6 +60,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>大家常用的 &lt;code>-v &amp;lt;Host 路徑&amp;gt;:&amp;lt;Container 路徑&amp;gt;&lt;/code> 參數其實就是使用 &lt;strong>BindMount&lt;/strong>，例如以下指令：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -105,6 +108,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>新版本 window desktop 可以直接掛載，指令：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -129,6 +133,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>當使用 -v 在掛載路徑時，若該路徑不存在於本機，則會建立該路徑，如果將綁定到容器上的目錄不為空，那目錄現有的內容會被綁定的目錄給遮蓋。&lt;/p>
@@ -182,6 +187,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Linux 版會在 &lt;code>/var/lib/docker/volumes/&lt;/code>&lt;/p>
 &lt;ul>
@@ -228,6 +234,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>前文提及 Volume 可以共享，因此可以打開一個新的容器並且掛載同一個 Volume 試試：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -761,12 +768,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>查看所有網路可以發現默認有分成 host 與 bridge ，Bridge 是 Linux 的虛擬網路橋接技術，將 Bridge 打開可以發現裡面包含兩個 Container，也就是我上一個章節建立的 Web_App 與 Web_Vol，IP 位置分別是 &lt;code>172.17.0.2&lt;/code>、&lt;code>172.17.0.3&lt;/code>，詳細網路架構圖如下：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511587_6458dfbfb3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>安裝 Docker 後會新增一個 Docker 網卡默認 IP 為 &lt;code>172.17.0.1/16&lt;/code> (host)，他會接收來自本網卡(eth0)的轉發封包。新建立的 Container 則是會自動生成 IP &lt;code>172.17.X.X&lt;/code> 依序排列下去。&lt;/p>
 &lt;h3 id="container-互相訪問">Container 互相訪問&lt;/h3>
@@ -806,6 +815,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="network-映射">Network 映射&lt;/h3>
 &lt;p>但是 Container 的 IP 為自動生成，我們的程式在部屬的時候不可能部屬上去後才改 IP。有一個好方法，做網路映射 &lt;code>--link&lt;/code>。&lt;/p>
@@ -844,6 +854,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>直接透過名稱抓抓看：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -861,6 +872,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>不過實務上也不會透過 &lt;code>--link&lt;/code> 的方式來建立 Network 映射。更常使用的會是 docker-compose。&lt;/p>
 &lt;hr>
@@ -1492,12 +1504,14 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>設定帳號密碼：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52660195346_c7fb46f15c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>準備好 Docker Compose 設定檔，REGISTRY_HTTP_TLS_CERTIFICATE 及 REGISTRY_HTTP_TLS_KEY 環境變數指向 mkcert 剛才製作的兩個 pem 檔名、REGISTRY_AUTH_HTPASSWD_PATH 指向密碼檔名；volumes 部分將 Docker 的 Image 資料、憑證、認證資料對應到 /var/registry 實體路徑保存，以免容器關閉後資料消失：&lt;/p>
 &lt;h5 id="docker-composeyml">docker-compose.yml&lt;/h5>
@@ -1547,18 +1561,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>檢查資料夾 &lt;code>/var/registry/data/docker/registry/v2/repositories/aspnetapp/_layers/sha256&lt;/code> 可看見上傳過程出現的四個 Layer ID，成功！&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52659697842_ef4b89b360_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>接下來試試從 Windows Docker Desktop 從 VM 的對外網域名稱下載容器 Image 執行，一樣輕鬆秒殺：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52660476229_bfa8528053_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>以上，一台自建 Docker Registry 便上線服役囉～&lt;/p>
 &lt;hr></description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" />&lt;style>

@@ -32,6 +32,7 @@ padding: 0 5px;
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="端對端測試-end-to-end-testing-e2e-testing">端對端測試 (End-to-end testing) (E2E testing)&lt;/h3>
 &lt;p>所謂的「端對端」(E2E) 是指從使用者的角度出發(一端)，對真實系統(另一端)進行測試。&lt;/p>
@@ -245,6 +246,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>Project name ⇒ 輸入自訂的專案名稱後按下 Enter&lt;/li>
@@ -333,6 +335,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>執行 &lt;code>cd {剛才專案名稱}&lt;/code> 切換到專案目錄底下&lt;/li>
@@ -407,6 +410,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>到這裡就算是成功安裝好囉，接下來我們會再把 &lt;code>Vitest Config&lt;/code> 初期需要設定的部分調整好後，建置的部分就完成了。&lt;/p>
 &lt;hr>
@@ -767,6 +771,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>若最終狀態符合我們的預期，對於開發者的含義來說，就是受測物符合了我們的期待。&lt;/p>
 &lt;p>但這點好處看似沒有做「測試」的必要，畢竟我們平時開發能驗收完成不就是符合了規格書的期待嗎？&lt;/p>
@@ -901,6 +906,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>現在可以看到當測試案例發生錯誤的時候，除了會回傳測試結果之外，還會多個錯誤提醒目前錯誤的原因了！&lt;/p>
 &lt;h3 id="寫測試案例">寫測試案例&lt;/h3>
@@ -1417,6 +1423,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>FAIL：發生斷言錯誤檔案路徑 + 情境描述 + 案例描述(視當下錯誤所屬的情境與案例)。&lt;/li>
@@ -1429,6 +1436,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>Test Files：總共測試了幾隻測試檔案，並顯示成功、失敗與跳過的數量。&lt;/li>
@@ -1957,6 +1965,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>許多人一看了紛紛表示中槍，心想這不就是我在寫的東西嗎？因此發文一出不少人就好奇那麼到底為什麼上方的用法會比較好呢？且讓我們從抽象光譜介紹起。&lt;/p>
 &lt;h3 id="抽象光譜the-spectrum-of-abstraction">抽象光譜(The Spectrum of Abstraction)&lt;/h3>
@@ -5457,6 +5466,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>&lt;a class="link" href="https://cn.vitest.dev/guide/ui.html" target="_blank" rel="noopener"
 >Vitest UI&lt;/a> 簡單來說，是另一種供我們查看測試與編寫測試的方式，它的特色在於基於 Vite 的 dev server 環境，讓我們可以直接在瀏覽器上直接觀看測試案例的測試結果，甚至支援直接在瀏覽器中編寫測試案例後同步更新測試檔案。&lt;/p>
@@ -5491,6 +5501,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="介面">介面&lt;/h3>
 &lt;p>在 Vitest UI 中，左側是所有測試案例的測試結果（Pass / Fail / Skip），我們可以透過上方的搜尋欄輸入檔名或路徑找到我們要觀察的測試。&lt;/p>
@@ -5498,18 +5509,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊左側的測試路徑後，右側會出現測試情境與測試案例的描述讓我們更好觀察當下檔案中的所有案例&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52593161251_c8b36c5b5e_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>除此之外，再往右側會看到四項資訊，分別為：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52593421784_8bdb3d761f_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>Report（預設顯示項目）&lt;/li>
@@ -5524,18 +5538,21 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>若有錯誤會顯示是哪一條測試案例發生錯誤：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52592678942_4d1f1140cd_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>我們甚至能點擊錯誤訊息右方的開啟視窗 Icon，Vitest UI 將會直接啟動系統預設的程式碼編輯器，開啟測試檔案後將輸入游標聚焦在錯誤的行數與位置。（e.g. 圖中的 &lt;code>toEqual&lt;/code> Assertion Matcher）&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52593161331_e16935173c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="module-graph">Module Graph&lt;/h3>
 &lt;p>接著是第二個頁籤的 &lt;code>Module Graph&lt;/code>，這頁的內容主要是透過檢測行內引入模組，呈現檔案之間依賴關係。&lt;/p>
@@ -5543,12 +5560,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>點擊圖中的節點可以看到該模組的 Source 檔與經由 Transformed 後的程式碼。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52593587155_3ee1de6d49_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>而這個圖表最大的用處在於，透過可視化的方式呈現出測試程式碼中受測物（SUT）與依賴物（DOC）的依賴狀況。&lt;/p>
 &lt;h3 id="console">Console&lt;/h3>
@@ -5557,6 +5576,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="code">Code&lt;/h3>
 &lt;p>最後壓軸介紹的部分，則是 Code 頁籤，你可能會覺得這有什麼特別的，不就是顯示測試檔案程式碼嗎？&lt;/p>
@@ -5564,6 +5584,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>然而，這裡的測試程式碼除了預覽之外，還能夠直接在瀏覽器中直接編寫並執行測試查看結果，更重要的是寫完的當下按下儲存它還能夠同步調整到實際的程式碼中！&lt;/p>
 &lt;p>比方在瀏覽器中的測試程式碼中加個註解，並儲存：&lt;/p>
@@ -5571,12 +5592,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>實際測試程式碼檔案也加上了註解！&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52593680043_347cf27fd6_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>如此一來，我們就可以直接在這個視窗內撰寫我們的測試案例，並且在瀏覽器中即時看到測試結果。&lt;/p>
 &lt;p>不過這裡有個小小缺點是，若在專案中有設定 eslint + prettier 的話，在程式編輯器撰寫測試時可以設定儲存當下的自動做格式化，但是瀏覽器中的編輯器環境不同，所以寫測試時會收到格式錯誤的警告，但在不考慮這點的情況下，這個工具是個用來檢視測試結果與依賴關係的好工具。&lt;/p>
@@ -5584,6 +5607,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="程式碼覆蓋率code-coverage">程式碼覆蓋率（Code Coverage）&lt;/h2>
@@ -5623,6 +5647,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>而 c8 覆蓋率報告總共有四種類型：&lt;/p>
 &lt;ul>
@@ -5637,6 +5662,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>倘若你覺得這種報告形式不方便觀看，或是希望將它製作成文件，則可以在 config.js 檔中設定 &lt;code>coverage.reporter&lt;/code> 的形式：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -5669,6 +5695,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>json： 以 JSON 格式產生覆蓋率報告。&lt;/li>
@@ -5677,6 +5704,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;ul>
 &lt;li>html： 產生一個可互動的 HTML 覆蓋率報告。&lt;/li>
@@ -5685,12 +5713,14 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>其中 HTML 的版本中，我們還可以點擊測試檔案來查看未覆蓋的行數有哪些，相較終端機的版本，我們就不必再拿著行數去對程式碼了：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52593422039_9e7c2cf245_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;h3 id="覆蓋率目標">覆蓋率目標&lt;/h3>
 &lt;p>而在瞭解怎麼查看覆蓋率報告後，那麼究竟覆蓋率目標要達到多少才是合理呢？&lt;/p>
@@ -5707,6 +5737,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;blockquote>
 &lt;p>引用自 Jeroen Mols 《The 100% code coverage problem》一文中的圖&lt;/p>
@@ -5831,6 +5862,7 @@ class="gallery-image"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Stryker Mutator 的概念就是透過替換不同的符號產生出突變的內容，而我們的測試程式碼應該要捕捉到那些不合理的情況，藉此來保證我們的測試案例有一定的穩固性。&lt;/p>
 &lt;p>然而，可惜的是 &lt;code>stryker-js&lt;/code> 目前僅支援到 Jest 環境，尚未支援 Vitest 的環境，因此我這邊就暫不做介紹了，有興趣者可以追蹤該 &lt;a class="link" href="https://github.com/stryker-mutator/stryker-js/issues/3465" target="_blank" rel="noopener"

@@ -65,12 +65,14 @@ Node.js 16 (LTS) 將在 2023 年 9 月達到生命週期結束，比原計劃 20
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>Node 16 於四月二十日發布，山月在第一時間下載了Node16 體驗了以下新特性。偶數號的版本為LTS 版本，這將是既Node14 之後的下一個長期支持版本，Node14 在2020-10-27 已進入 &lt;code>Active LTS&lt;/code> 階段，還沒有升級的同學要盡量更新呀。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52449191852_9b1c9c83d2_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
+loading="lazy"
 >&lt;/p>
 &lt;p>從 &lt;a class="link" href="https://github.com/nodejs/node/releases/tag/v16.0.0" target="_blank" rel="noopener"
 >Node 16 Release 官方文檔&lt;/a> 列出了此次它所有的新特性以及非常詳細的提交記錄。那它到底更新了哪些新特性，先讓我們一睹為快吧！&lt;/p>
