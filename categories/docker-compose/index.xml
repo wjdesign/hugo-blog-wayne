@@ -167,7 +167,24 @@ class="gallery-image"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume create &amp;lt;VolumeName&amp;gt;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;ul>
+&lt;/div>&lt;p>可以用 &lt;code>-d&lt;/code> 來指定位置&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume create &amp;lt;VolumeName&amp;gt; -d &amp;lt;外部絕對路徑&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>要是不 &lt;code>-d&lt;/code> 指定特定空間，系統會自動幫你生成空間，然而具體會在電腦的哪裡呢？&lt;/p>
+&lt;p>Windows 版會在 &lt;code>\\wsl$\docker-desktop-data\version-pack-data\community\docker\volumes&lt;/code>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664685473_2ee7860d66_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>Linux 版會在 &lt;code>/var/lib/docker/volumes/&lt;/code>&lt;/p>
+&lt;ul>
 &lt;li>&lt;strong>啟動 Container 並掛載 Volume 到指定路徑&lt;/strong>&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;div class="chroma">
