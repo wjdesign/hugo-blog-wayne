@@ -1,4 +1,1440 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/docker/</link><description>Recent content in docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 31 Jan 2023 00:00:05 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayneblog.ga/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_629b9ddf09_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/docker/</link><description>Recent content in docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://wayneblog.ga/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4df6e4bc0b_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://myapollo.com.tw/zh-tw/docker-volumes/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10241922" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://lufor129.medium.com/docker-%E4%B8%89-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9Cvolume-net-5f323965486" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://vincent.fishboneapps.com/2020/03/01/Docker-%E5%BF%AB%E9%80%9F%E5%AD%B8%E7%BF%92%E8%87%AA%E6%88%91%E6%8C%91%E6%88%B0-II-Day5/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://medium.com/@honglong/%E7%94%A8-docker-%E8%B7%91-mysql-d09c95c91da3" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://hub.docker.com/_/mysql" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>在預設的 Docker daemon 下，我們常會遇到幾種情況：&lt;/p>
+&lt;ol>
+&lt;li>當該容器不再存在時，數據將不會持久保存，並且如果另一個 Process 需要它，則可能很難從容器中取出數據。&lt;/li>
+&lt;li>容器的可寫層與運行容器的主機緊密耦合。您不能輕易地將數據移動到其他地方。&lt;/li>
+&lt;li>寫入容器的可寫層需要 存儲驅動程序來管理文件系統。存儲驅動程序使用 Linux 內核提供聯合文件系統。與使用直接寫入主機文件系統的數據卷相比，這種額外的抽象降低了性能。&lt;/li>
+&lt;/ol>
+&lt;p>Container 是在 Image 之上去創建的，Container 可以讀寫數據，而 Image 只能夠讀取，但是 Container 裡面所寫入的數據，只會存在 Container 裡面，如果刪除 Container，寫入的數據會全部消失。但是有一種需求，資料庫的 Container 會有數據的讀寫，在這種情況下，Docker 就需要數據持久化。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511452_6e029288d8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>為了解決這些問題就誕生了 &lt;strong>Docker Volume&lt;/strong>。&lt;/p>
+&lt;p>Container 裡面會有一個 Program，把檔案寫入 File System，這些檔案會存在 Container 的 Layer 中，我們把數據的部分，額外 Mount 一個 Volume，這樣一來，數據就會被永久保存；每個 Container 都是獨立且封閉的，但有時候我們會想要不透過進入 Container 就能改變內部的程式碼，或者是想要進行 Database 升級並保留原本資料，這時就需要Docker Volume 了。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664454885_356f278c04_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>Docker 持久化數據的方案：&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>基於本地文件系統的 Volume&lt;/strong>：可以在執行 docker create 或是 docker run 的時，通過 -v 參數將主機目錄作為 Container 的 Volume，這部分功能便是基於本地系統的 Volume 管理。&lt;/li>
+&lt;li>&lt;strong>基於外掛的 Volume&lt;/strong>：支持第三方的儲存方案，例如：&lt;strong>AWS&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;p>談到 Docker 容器的資料儲存(storage)問題，基本直覺就是透過掛載 &lt;a class="link" href="https://docs.docker.com/storage/volumes/" target="_blank" rel="noopener"
+>Volumes&lt;/a>，不過 Docker 的 Volumes 其實有 3 種不同類型(types)：&lt;/p>
+&lt;ol>
+&lt;li>tmpfsMount：主機的 memory。&lt;/li>
+&lt;li>BindMount：可以為主機路徑下任何地方。&lt;/li>
+&lt;li>Volume：Container 將 Volume 存放在 Docker area，以 Linux 來說預設為 /var/lib/docker/volume。&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664454855_3c8e7f6a8c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>大家常用的 &lt;code>-v &amp;lt;Host 路徑&amp;gt;:&amp;lt;Container 路徑&amp;gt;&lt;/code> 參數其實就是使用 &lt;strong>BindMount&lt;/strong>，例如以下指令：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it -v /home/user:/data debian /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>簡而言之，使用 &lt;strong>BindMount&lt;/strong> 的 volume 其實就是透過 host machine 的檔案系統(filesystem)提供容器儲存的能力。&lt;/p>
+&lt;hr>
+&lt;h2 id="tmpfsmount">tmpfsMount&lt;/h2>
+&lt;p>不同於 Volume、BindMound，tmpfsMount 不需要實體路徑將資料儲存，他是暫時性地儲存在主機的記憶體當中，當 Container 停止時，就會移除資料，通常用來儲存暫存性資料以及敏感資料。&lt;/p>
+&lt;h3 id="如何使用-tmpfsmount">如何使用 tmpfsMount？&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run --name &amp;lt;ContainerName&amp;gt; -d --mount &lt;span class="nv">type&lt;/span>&lt;span class="o">=&lt;/span>tmpfs,destination&lt;span class="o">=&lt;/span>&amp;lt;內部路徑&amp;gt; -p 8100:8100 &amp;lt;ImageName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>舉個例子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run --name &amp;lt;ContainerName&amp;gt; -d --tmpfs &amp;lt;內部路徑&amp;gt; -p 8100:8100 &amp;lt;ImageName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="bindmount">BindMount&lt;/h2>
+&lt;p>BindMount 就是做映射 &lt;code>docker run -v /home/aaa:/root/aaa&lt;/code>，可以將本地目錄和 Container 目錄做映射，如果本地目錄修改，Container 的數據內容也會修改，反之亦然。&lt;/p>
+&lt;h3 id="如何使用-bindmount">如何使用 BindMount？&lt;/h3>
+&lt;p>&lt;strong>舊版本 Window 版的坑&lt;/strong>&lt;/p>
+&lt;p>window 版不能直接掛載，要先調一下設定。&lt;/p>
+&lt;ol>
+&lt;li>選擇要掛載的目錄&lt;/li>
+&lt;li>打開 Docker Desktop&lt;/li>
+&lt;li>General &amp;gt; share dirve 掛載相應路徑，該路徑底下的資料夾才能被掛載&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511602_07a06821d8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>新版本 window desktop 可以直接掛載，指令：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -v &amp;lt;外部絕對路徑&amp;gt;:&amp;lt;內部路徑&amp;gt; &amp;lt;ImageName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>舉例來說，我在 windows 電腦 &lt;code>//e/program/Wayne/DockerExample&lt;/code> 底下放了 index.html，要映射給 &lt;code>/usr/local/apache2/htdocs&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it -d --name Web_Vol -p 8081:80 -v //e/program/Wayne/DockerExample:/usr/local/apache2/htdocs httpd:2.4
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>現在在外部修改就能直接影響到 Container 內部了。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511497_fd363c776a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>當使用 -v 在掛載路徑時，若該路徑不存在於本機，則會建立該路徑，如果將綁定到容器上的目錄不為空，那目錄現有的內容會被綁定的目錄給遮蓋。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="volume">Volume&lt;/h2>
+&lt;h3 id="volume-的優點">Volume 的優點&lt;/h3>
+&lt;p>前文簡單介紹 BindMount 後，接著來認識 Docker 官方更為推薦的 Volume 吧。&lt;/p>
+&lt;p>Volume 與 BindMount 最大的不同在於 Volume 是由 Docker 全權進行管理，因此 Volume 比起 BindMount 有幾個優點：&lt;/p>
+&lt;ul>
+&lt;li>Volumes 更好轉移(migration)與備份(backup)。&lt;/li>
+&lt;li>Volumes 能夠透過 Docker API 與 Docker CLI 進行管理與操作。&lt;/li>
+&lt;li>Volumes 可跨平台(Linux, Windows)。&lt;/li>
+&lt;li>Volumes 在 macOS 與 Windows 上效能表現較好。&lt;/li>
+&lt;li>Volumes 更加適合多個容器(Container)共享使用的情境。&lt;/li>
+&lt;li>Volumes 提供整合遠端或雲端儲存服務的能力（詳見 &lt;a class="link" href="https://docs.docker.com/engine/extend/" target="_blank" rel="noopener"
+>Docker plugin&lt;/a>），只要使用不同的 Volume driver 即可，例如可以安裝 &lt;code>vieux/sshfs&lt;/code> plugin 掛載遠端 SSH 伺服器的檔案系統。&lt;/li>
+&lt;/ul>
+&lt;p>基本上，如果你不知道用 Volume 比較好還是 BindMount 比較好，使用 Volume 就對了！&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://github.com/docker-library/mysql/blob/c4d585301408223c27b024ce442b9bcebf0b1855/8.0/Dockerfile" target="_blank" rel="noopener"
+>MySQL Docker file&lt;/a> 裡面有一行，&lt;code>VOLUME /var/lib/mysql&lt;/code> 就是將數據存到虛擬主機的目錄，實現數據持久化，讓數據不會因為 Container 消失而消失。&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="如何使用-volumes">如何使用 Volumes？&lt;/h3>
+&lt;blockquote>
+&lt;p>&lt;code>-v&lt;/code> or &lt;code>--mount&lt;/code>&lt;/p>
+&lt;/blockquote>
+&lt;ul>
+&lt;li>&lt;strong>創建一個 Volume&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume create &amp;lt;VolumeName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>啟動 Container 並掛載 Volume 到指定路徑&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run --name &amp;lt;ContainerName&amp;gt; -d -v &amp;lt;外部絕對路徑&amp;gt;:&amp;lt;內部路徑&amp;gt; -p 8100:8100 &amp;lt;ImageName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>舉個例子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it -v myvolume:/data nginx /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>進到容器內就可以發現路徑 &lt;code>/data&lt;/code> 可以使用：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">root@1630d3b4ffb8:~# touch /data/hello.txt
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root@1630d3b4ffb8:~# ls -alh /data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">total 8.0K
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">drwxr-xr-x &lt;span class="m">2&lt;/span> root root 4.0K Mar &lt;span class="m">18&lt;/span> 15:53 .
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">drwxr-xr-x &lt;span class="m">1&lt;/span> root root 4.0K Mar &lt;span class="m">18&lt;/span> 15:51 ..
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">-rw-r--r-- &lt;span class="m">1&lt;/span> root root &lt;span class="m">0&lt;/span> Mar &lt;span class="m">18&lt;/span> 15:53 hello.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如果有在 Volume 內新增任何資料的話，也可以在 Docker Desktop 內看到：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664454930_bbe8ff32c3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>前文提及 Volume 可以共享，因此可以打開一個新的容器並且掛載同一個 Volume 試試：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ docker run -it -v myvolume:/data debian /bin/bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">root@12fa2630f490:/# ls /data
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hello.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上述結果可以看到新啟動的容器內不僅有 &lt;code>/data&lt;/code> 資料夾，該資料夾底下也有先前在其他容器建立的檔案。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>若想列出所有 Volumes&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume ls
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>若想查看 Volume 詳細資訊&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume inspect &amp;lt;VolumeName&amp;gt;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;CreatedAt&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;2022-03-13T06:48:16Z&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Driver&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;local&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Labels&amp;#34;&lt;/span>: &lt;span class="o">{}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Mountpoint&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;/var/lib/docker/volumes/myvolume/_data&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Name&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;myvolume&amp;#34;&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Options&amp;#34;&lt;/span>: &lt;span class="o">{}&lt;/span>,
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;Scope&amp;#34;&lt;/span>: &lt;span class="s2">&amp;#34;local&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上述指令結果可以看到 Mountpoint，該資訊就是 Volume 實際儲存資料的路徑位置。&lt;/p>
+&lt;p>但如果是 macOS 的使用者就會發現找不到 &lt;code>/var/lib/docker/&lt;/code> (no such file or directory: /var/lib/docker)：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> /var/lib/docker/volumes/
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cd: no such file or directory: /var/lib/docker/volumes/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這是由於 macOS 的 Docker 是用 LinuxKit 模擬的，因此路徑又被包裝過一層，其大致在以下的路徑：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">$ &lt;span class="nb">cd&lt;/span> ~/Library/Containers/com.docker.docker/Data/vms/0/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可於上述資料夾內發現 1 個名稱為 tty 的檔案，用指令 &lt;code>screen tty&lt;/code> 就能夠進入 LinuxKit 內，然後就能發現 &lt;code>/var/lib/docker/volumes&lt;/code> 資料夾，然後就能順利找到相對應的 Volume 囉！&lt;/p>
+&lt;p>不過 Docker Desktop for Mac version 2.3.0.4 以後就沒有 &lt;code>tty&lt;/code> 檔案了，但還是可以使用以下指令進入 Docker 的 host machine 並且找到 &lt;code>/var/lib/docker/volumes&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it --privileged --pid&lt;span class="o">=&lt;/span>host debian nsenter -t &lt;span class="m">1&lt;/span> -m -u -n -i sh
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ls /var/lib/docker/volumes/
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>&lt;strong>若想移除 Volume&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume rm &amp;lt;VolumeName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h3 id="volume-的-2-種參數">Volume 的 2 種參數&lt;/h3>
+&lt;p>掛載 Volume 時，除了 &lt;code>-v&lt;/code> 參數可以使用之外，還有 &lt;code>--mount&lt;/code> 參數可以使用，基本上 2 者功能是相同的，但差別在於參數格式不一樣之外， &lt;code>--mount&lt;/code> 可設定的選項也相較多一點。&lt;/p>
+&lt;h4 id="-v-參數">-v 參數&lt;/h4>
+&lt;p>&lt;code>-v&lt;/code> 的參數值是以 &lt;code>:&lt;/code> 做為分隔的 3 個欄位值，分別是 &lt;code>&amp;lt;Volume名稱&amp;gt;:&amp;lt;容器內的掛載路徑&amp;gt;:&amp;lt;Volume選項&amp;gt;&lt;/code>。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>&amp;lt;Volume名稱&amp;gt;&lt;/code>： 可以是 Docker 的 Volume 名稱，該名稱可以用指令 docker volume ls 列出，其值對應的是 VOLUME NAME 一欄。如果這邊用的是實際系統路徑的話，Docker 就會自動轉為使用 bind mount，而非 Volume。&lt;/li>
+&lt;li>&lt;code>&amp;lt;容器內的掛載路徑&amp;gt;&lt;/code>： 容器(Container)內的路徑。&lt;/li>
+&lt;li>&lt;code>&amp;lt;Volume選項&amp;gt;&lt;/code> 例如 &lt;code>ro&lt;/code> 代表唯讀(read only)。&lt;/li>
+&lt;/ul>
+&lt;p>例如掛載唯讀(read only)的 Volume：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it -v myvolume:/data:ro debian /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="--mount-參數">&amp;ndash;mount 參數&lt;/h4>
+&lt;p>&lt;code>--mount&lt;/code> 參數則可以視為 &lt;code>-v&lt;/code> 參數的進階版。&lt;/p>
+&lt;p>&lt;code>--mount&lt;/code> 更加口語(verbose)化，在 Volumes 的設定上都會明確以 &lt;code>&amp;lt;key&amp;gt;=&amp;lt;value&amp;gt;&lt;/code> 的形式進行設定（當 &lt;code>&amp;lt;key&amp;gt;&lt;/code> 為 &lt;code>readonly&lt;/code> 時，可以直接省略 &lt;code>=&amp;lt;value&amp;gt;&lt;/code> 的部分），多個 key 值之間則以逗號(&lt;code>,&lt;/code>)進行分割，而且設定的順序上並不像 &lt;code>-v&lt;/code> 參數那般有順序上的要求。&lt;/p>
+&lt;p>目前可使用的 &lt;code>&amp;lt;key&amp;gt;&lt;/code> 值有：&lt;/p>
+&lt;ul>
+&lt;li>source&lt;/li>
+&lt;li>destination&lt;/li>
+&lt;li>type&lt;/li>
+&lt;li>readonly&lt;/li>
+&lt;li>volume-driver&lt;/li>
+&lt;li>volume-opt&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>source&lt;/strong>&lt;/p>
+&lt;p>&lt;code>source&lt;/code> 是欲掛載 Volume 的名稱，該名稱可以用指令 &lt;code>docker volume ls&lt;/code> 列出，其值對應的是 &lt;code>VOLUME NAME&lt;/code> 一欄。&lt;/p>
+&lt;p>&lt;strong>destination&lt;/strong>&lt;/p>
+&lt;p>&lt;code>destination&lt;/code> 是容器(Container)內掛載 Volume 內的路徑。&lt;/p>
+&lt;p>&lt;strong>type&lt;/strong>&lt;/p>
+&lt;p>其值可以是 &lt;code>bind&lt;/code>、&lt;code>volume&lt;/code>、&lt;code>tmpfs&lt;/code> 其中 1 個，一般使用 volume 即可，是 Docker 推薦的方式；如果使用 bind 則代表使用 bind mounts；最後 1 種 tmpfs 則代表 tmpfs mount，通常 tmpfs 用以儲存非持久性(non-persistent)的資料，例如暫存檔案、快取(cache)等等，也可用以提升容器的效能，也由於 tmpfs 是非持久性(non-persistent)的儲存，所以當容器(container)關閉後，該 volume 內的資料也會跟著消失。&lt;/p>
+&lt;blockquote>
+&lt;p>If your container generates non-persistent state data, consider using a &lt;a class="link" href="https://docs.docker.com/storage/tmpfs/" target="_blank" rel="noopener"
+>tmpfs mount&lt;/a> to avoid storing the data anywhere permanently, and to increase the container’s performance by avoiding writing into the container’s writable layer.&lt;/p>
+&lt;/blockquote>
+&lt;p>建立一個 tmpfs 的 Volume 指令如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume create -o &lt;span class="nv">type&lt;/span>&lt;span class="o">=&lt;/span>tmpfs -o &lt;span class="nv">device&lt;/span>&lt;span class="o">=&lt;/span>tmpfs &amp;lt;VolumeName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>例如以下指令建立 1 個名為 mytmpfs 的 tmpfs volume：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume create -o &lt;span class="nv">type&lt;/span>&lt;span class="o">=&lt;/span>tmpfs -o &lt;span class="nv">device&lt;/span>&lt;span class="o">=&lt;/span>tmpfs mytmpfs
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>除了新增 Volume 後掛載 tmpfs volume 之外，當然也可以直接以 &lt;code>--mount&lt;/code> 參數方式掛載 tmpfs volume：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it --mount &lt;span class="nv">type&lt;/span>&lt;span class="o">=&lt;/span>tmpfs,destination&lt;span class="o">=&lt;/span>/data debian /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上述指令其實等同於， Docker 也有提供 &lt;code>--tmpfs&lt;/code> 參數可以使用：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it --tmpfs /data debian /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>readonly&lt;/strong>&lt;/p>
+&lt;p>將 Volume 設定為唯讀(read only)。等同於 &lt;code>-v&lt;/code> 參數中的 &lt;code>ro&lt;/code> 選項。&lt;/p>
+&lt;p>以 &lt;code>--mount&lt;/code> 參數掛載唯讀 Volume 的範例：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it --mount &lt;span class="nv">source&lt;/span>&lt;span class="o">=&lt;/span>myvolume,destination&lt;span class="o">=&lt;/span>/data,readonly debian /bin/bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>volume-driver&lt;/strong>&lt;/p>
+&lt;p>Docker 將儲存(storage)的概念抽象化為 driver (或稱驅動器)，透過使用不同的 driver 可以介接各式各樣的檔案系統，例如 NFS(Network File System)、SSHFS(SSH Filesystem) 甚至是 AWS S3 等等，預設是使用 &lt;code>local&lt;/code> driver，也就是 &lt;code>volume-driver=local&lt;/code>。&lt;/p>
+&lt;p>如果想使用其他 driver 可以查看以下文件：&lt;/p>
+&lt;ol>
+&lt;li>&lt;a class="link" href="https://docs.docker.com/engine/extend/legacy_plugins/#volume-plugins" target="_blank" rel="noopener"
+>Docker volume plugins&lt;/a> 或 &lt;a class="link" href="https://hub.docker.com/search?q=&amp;amp;type=plugin&amp;amp;category=volume" target="_blank" rel="noopener"
+>Available volume plugins&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://docs.docker.com/engine/extend/" target="_blank" rel="noopener"
+>Docker engine managed plugin system&lt;/a>&lt;/li>
+&lt;/ol>
+&lt;p>這些文件列出第三方提供的各種 Volume plugin 的安裝與使用方式之外，也紀錄如何使用 Docker 官方提供的指令(&lt;code>docker plugin install &amp;lt;pluginName&amp;gt;&lt;/code>)安裝 Volume plugin 以及 Volume plugin 的開發方法。&lt;/p>
+&lt;p>&lt;strong>volume-opt&lt;/strong>&lt;/p>
+&lt;p>&lt;code>volume-opt&lt;/code> 用以設定 Volume 相關的選項，&lt;code>volume-opt&lt;/code> 的數量並沒有限制，端看 volume driver 提供哪些選項可以使用，詳細能夠使用的選項可以參考 &lt;a class="link" href="https://man7.org/linux/man-pages/man8/mount.8.html" target="_blank" rel="noopener"
+>FILESYSTEM-SPECIFIC MOUNT OPTIONS&lt;/a> 章節。&lt;/p>
+&lt;p>值得注意的是 tmpfs 並不支援 volume-opt 的用法，如果 2 者合用就會出現以下錯誤：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cannot mix &lt;span class="s1">&amp;#39;volume-*&amp;#39;&lt;/span> options with mount &lt;span class="nb">type&lt;/span> &lt;span class="s1">&amp;#39;tmpfs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="練習-用-docker-跑-mysql">練習： 用 Docker 跑 MySQL&lt;/h2>
+&lt;h3 id="目標">目標&lt;/h3>
+&lt;p>希望 Database 在 Container 刪除後，還能留下來被新建立的 Container 重新使用，不會一起消失不見。&lt;/p>
+&lt;h3 id="方法一-網路查找的標準步驟">方法一 (網路查找的標準步驟)&lt;/h3>
+&lt;ol>
+&lt;li>建立存放 MySQL &lt;code>/var/lib/mysql&lt;/code> 資料庫檔案的 &lt;strong>Persistent Volume&lt;/strong>，命名為 &lt;code>mysql-data&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker create -v /var/lib/mysql --name mysql-data mysql:5.7.18
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>以剛建立出來的 Volume &lt;code>mysql-data&lt;/code> 作為 storage 把 MySQL runner 跑起來。&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>指定 MySQL 版本為 5.7.18。&lt;/li>
+&lt;li>設定 &lt;code>MYSQL_RANDOM_ROOT_PASSWORD=yes&lt;/code> 環境變數，讓 MySQL Docker 自動產生 MySQL root 帳號的亂數密碼。&lt;/li>
+&lt;li>命名為 &lt;code>mysql-runner&lt;/code>。&lt;/li>
+&lt;/ul>
+&lt;p>指令如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -p 3306:3306 -v /var/lib/mysql --volumes-from mysql-data --name mysql-runner -d -e &lt;span class="nv">MYSQL_RANDOM_ROOT_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>yes mysql:5.7.18
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; d746048e41b7
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>以 Container ID 查詢 log 找到 MySQL 自動建立的亂數密碼。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker logs d746048e41b7
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Initializing database
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; ...
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; GENERATED ROOT PASSWORD: Aethov1phae2Ju5B
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; ...
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>再起一個臨時 Container 開 shell 跑 mysql-client，配合亂數密碼連進 mysql-runner 的 MySQL server，用完即丟。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -it --link mysql-runner:mysql --rm mysql sh -c &lt;span class="s1">&amp;#39;exec mysql -h &amp;#34;$MYSQL_PORT_3306_TCP_ADDR&amp;#34; -P &amp;#34;$MYSQL_PORT_3306_TCP_PORT&amp;#34; -u root -p &amp;#34;Aethov1phae2Ju5B&amp;#34;&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>也可以用 &lt;code>docker inspect&lt;/code> 找到 &lt;code>mysql-runner&lt;/code> Container 的 IP，從 host 連進去。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">mysql -h 172.17.0.20 -u root -P &lt;span class="m">3306&lt;/span> -p Aethov1phae2Ju5B
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="方法二-自行實驗的步驟過程">方法二 (自行實驗的步驟過程)&lt;/h3>
+&lt;blockquote>
+&lt;p>第 1 ~ 9 步驟皆於自行測試階段，可直接跳到第 10 步驟。&lt;/p>
+&lt;/blockquote>
+&lt;ol>
+&lt;li>創建一個 MySQL 的 Container，並使用沒有密碼的環境變數。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -d --name mysql1 -e MYSQL_ALLOW_EMPTY_PASSWORD mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>這時候用 &lt;code>docker ps&lt;/code> 查看 Container 會發現 &lt;strong>mysql1&lt;/strong> 沒有啟動成功，使用 &lt;code>docker logs mysql1&lt;/code> 查看，就會顯示要指定 &lt;strong>MYSQL_ROOT_PASSWORD&lt;/strong>。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker logs mysql1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; 2020-03-01 02:36:05+00:00 &lt;span class="o">[&lt;/span>Note&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>Entrypoint&lt;span class="o">]&lt;/span>: Entrypoint script &lt;span class="k">for&lt;/span> MySQL Server 8.0.19-1debian9 started.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; 2020-03-01 02:36:05+00:00 &lt;span class="o">[&lt;/span>Note&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>Entrypoint&lt;span class="o">]&lt;/span>: Switching to dedicated user &lt;span class="s1">&amp;#39;mysql&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; 2020-03-01 02:36:05+00:00 &lt;span class="o">[&lt;/span>Note&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>Entrypoint&lt;span class="o">]&lt;/span>: Entrypoint script &lt;span class="k">for&lt;/span> MySQL Server 8.0.19-1debian9 started.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; 2020-03-01 02:36:06+00:00 &lt;span class="o">[&lt;/span>ERROR&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>Entrypoint&lt;span class="o">]&lt;/span>: Database is uninitialized and password option is not specified
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; You need to specify one of MYSQL_ROOT_PASSWORD, MYSQL_ALLOW_EMPTY_PASSWORD and MYSQL_RANDOM_ROOT_PASSWORD
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>在創建 MySQL Container 的同時，也會新增一個 Volume，要將該 Volume 移除。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker rm mysql1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume rm &lt;span class="o">[&lt;/span>Volume id&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>再次創建一個 MySQL 的 Container。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -d --name mysql1 -e &lt;span class="nv">MYSQL_ALLOW_EMPTY_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>這時候我們可以去查看新增的 Volume 的細節，裡面就會看到這個 Volume 連結到本地的 &lt;code>/var/lib/docker/volumes/[Volume id]/_data&lt;/code> 這個位置。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume ls
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker volume inspect &lt;span class="o">[&lt;/span>Volume id&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>我們在創建第二個 MySQL 的 Container。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -d --name mysql2 -e &lt;span class="nv">MYSQL_ALLOW_EMPTY_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="7">
+&lt;li>
+&lt;p>這時候再 &lt;code>docker volume ls&lt;/code>，就會發現新增了一個新增的 Volume。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>把 Container 停止並刪除，再查看 Container 狀態就會發現沒有任何退出或在執行的 Container 了。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker stop mysql1 mysql2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker rm mysql1 mysql2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker ps -a
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="9">
+&lt;li>使用 &lt;code>docker volume ls&lt;/code> 查看 Volume，之前新增的都還在，但是會發現命名太複雜，我們可以自定義 Volume 名稱，先把所有的 Volume 移除。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker volume rm &lt;span class="o">[&lt;/span>volume1 id&lt;span class="o">]&lt;/span> &lt;span class="o">[&lt;/span>volume2 id&lt;span class="o">]&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="10">
+&lt;li>創建一個 MySQL 的 Container 並指定 Volume 名稱為 &lt;code>mysql&lt;/code>，路徑為 &lt;code>/var/lib/mysql&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -d -v mysql:/var/lib/mysql --name mysql1 -e &lt;span class="nv">MYSQL_ALLOW_EMPTY_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="11">
+&lt;li>
+&lt;p>使用 &lt;code>docker volume ls&lt;/code> 查看 Volume，就會看到新增的 &lt;code>mysql&lt;/code> Volume。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>為了驗證 MySQL 的數據持久，我們進去 &lt;code>mysql1&lt;/code> 的 Container 新增一個新的 database：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 進入 mysql1 container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it mysql1 /bin/bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 登入 MySQL&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysql -u root
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出 DB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">show databases&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 建立 DB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">create database docker&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">exit&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">exit&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="13">
+&lt;li>停止並刪除 Container：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker rm -f mysql1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="14">
+&lt;li>創建一個新的 MySQL 的 Container，並連結到之前的 Volume：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run -d -v mysql:/var/lib/mysql --name mysql2 -e &lt;span class="nv">MYSQL_ALLOW_EMPTY_PASSWORD&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="nb">true&lt;/span> mysql
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="15">
+&lt;li>進去 &lt;code>mysql2&lt;/code> 的 Container 查看 databases，會發現之前新增的 Database 還存在：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 進入 mysql2 container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it mysql2 /bin/bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 登入 MySQL&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">mysql -u root
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 列出 DB&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">show databases&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="docker-network">Docker Network&lt;/h2>
+&lt;h3 id="docker-network-原理">Docker Network 原理&lt;/h3>
+&lt;p>每個 Container 會包含一項服務，如前端、後端、資料庫，Container 之間能不能互相溝通藉此串聯起一個更大的服務應用呢？ 可以的，以下講解 Docker Network 的簡單原理。&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>docker network ls&lt;/code>： 查看所有網路。&lt;/li>
+&lt;li>&lt;code>docker network inspect &amp;lt;NetworkName&amp;gt;&lt;/code>： 檢視細部網路設定。&lt;/li>
+&lt;/ul>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664513188_671448435a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>查看所有網路可以發現默認有分成 host 與 bridge ，Bridge 是 Linux 的虛擬網路橋接技術，將 Bridge 打開可以發現裡面包含兩個 Container，也就是我上一個章節建立的 Web_App 與 Web_Vol，IP 位置分別是 &lt;code>172.17.0.2&lt;/code>、&lt;code>172.17.0.3&lt;/code>，詳細網路架構圖如下：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511587_6458dfbfb3_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>安裝 Docker 後會新增一個 Docker 網卡默認 IP 為 &lt;code>172.17.0.1/16&lt;/code> (host)，他會接收來自本網卡(eth0)的轉發封包。新建立的 Container 則是會自動生成 IP &lt;code>172.17.X.X&lt;/code> 依序排列下去。&lt;/p>
+&lt;h3 id="container-互相訪問">Container 互相訪問&lt;/h3>
+&lt;p>那 Container 的互相訪問很簡單，直接訪問 &lt;code>172.17.X.X&lt;/code> 的 IP 就好了，我們來實驗看看：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 進入container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it Web_APP bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看docker 網路&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /etc/hosts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安裝相關網路工具&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get update
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">apt-get install curl
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 測試去抓其他Container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl 172.17.0.3
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如下圖，本 Docker IP 為 &lt;code>172.17.0.2&lt;/code>，可以成功抓到其他 Container 的資料。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664513133_80dc1c8a93_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;h3 id="network-映射">Network 映射&lt;/h3>
+&lt;p>但是 Container 的 IP 為自動生成，我們的程式在部屬的時候不可能部屬上去後才改 IP。有一個好方法，做網路映射 &lt;code>--link&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker run --link &amp;lt;外部Container&amp;gt;:&amp;lt;內部Network名稱&amp;gt; &amp;lt;ImageName&amp;gt;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 建立新的有連結的 APP 叫做 Web_Network&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker run -it -d --name Web_Network -p 8082:80 --link Web_APP:Web_APP --link Web_Vol:Web_Vol httpd:2.4
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 進入 Container&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker &lt;span class="nb">exec&lt;/span> -it Web_Network bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 查看 Network&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">cat /etc/hosts
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以看到 Network 自動多了兩個網路 IP，Web_APP 與 Web_Vol。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52663511547_bcde120e6f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>直接透過名稱抓抓看：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">curl Web_APP
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">curl Web_Vol
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>成功獲得：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52664305944_6c11f2484f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+>&lt;/p>
+&lt;p>不過實務上也不會透過 &lt;code>--link&lt;/code> 的方式來建立 Network 映射。更常使用的會是 docker-compose。&lt;/p>
+&lt;hr>
+&lt;h2 id="docker-compose">Docker Compose&lt;/h2>
+&lt;h3 id="docker-compose-是什麼">Docker Compose 是什麼？&lt;/h3>
+&lt;ol>
+&lt;li>多 Container 的 App 太麻煩&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>要 docker build image 或是從 Docker Hub pull Image&lt;/li>
+&lt;li>要創建多個 container&lt;/li>
+&lt;li>要管理這些 container (啟動和刪除)&lt;/li>
+&lt;/ul>
+&lt;ol start="2">
+&lt;li>Docker Compose 是什麼&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Docker Compose 是一個工具(基於 Docker 的命令列工具)&lt;/li>
+&lt;li>這個工具可以透過 &lt;strong>YAML&lt;/strong> 定義多 Container 的 Docker 應用&lt;/li>
+&lt;li>通過一條命令就可以根據 &lt;strong>YAML 文件&lt;/strong>的定義去創建或管理多個 Container&lt;/li>
+&lt;/ul>
+&lt;ol start="3">
+&lt;li>默認文件：&lt;strong>docker-compose.yml&lt;/strong>，三大概念：Services、Networks、Volumes&lt;/li>
+&lt;li>Services&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>一個 Service 代表一個 Container，這個 Container 可以從 Docker Hub Image 來創建，或是從本地的 Dockerfile build 出來的 Image 來創建&lt;/li>
+&lt;li>Services 的啟動類似 docker run，我們可以給其指定 Network 和 Volume&lt;/li>
+&lt;li>以下用 docker-compose 的 &lt;strong>service&lt;/strong> 和 &lt;strong>docker run&lt;/strong> 產生同樣的容器&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Docker Compose&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">db&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">postgres:9.4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;db-data:/var/lib/postgresql/data&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">networks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">back-tier&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># docker run&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># docker run -d --network back-tier -v db-data:/var/lib/postgresql/data postgres:9.4&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>Volumes 和 Networks&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>在跟 services 一樣的級別底下會有 volumes 和 networks&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Docker Compose&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="l">db-data&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">networks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">front-tier&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">driver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bridge&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">back-tier&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">driver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bridge&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># docker volume 與 docker network&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># docker volume create db-data&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># docker network create -d bridge back-tier&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>範例：新增一個 WordPress 的 docker-compose.yml&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="c"># docker-compose 版本&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s1">&amp;#39;3&amp;#39;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">wordpress&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">wordpress&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">8080&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">WORDPRESS_DB_HOST&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysql&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">WORDPRESS_DB_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">root&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">networks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">my-bridge&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mysql&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">mysql:5.7&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">MYSQL_ROOT_PASSWORD&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">root&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">MYSQL_DATABASE&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">wordpress&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">mysql-data:/var/lib/mysql&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">networks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">my-bridge&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">mysql-data&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">networks&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">my-bridge&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">driver&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">bridge&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="使用-docker-composeyml">使用 docker-compose.yml&lt;/h3>
+&lt;ol>
+&lt;li>在虛擬機上安裝 docker-compose，按照&lt;a class="link" href="https://docs.docker.com/compose/install/" target="_blank" rel="noopener"
+>官方文件&lt;/a>進行安裝。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 下載 Docker Compose&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo curl -L &lt;span class="s2">&amp;#34;https://github.com/docker/compose/releases/download/1.25.4/docker-compose-&lt;/span>&lt;span class="k">$(&lt;/span>uname -s&lt;span class="k">)&lt;/span>&lt;span class="s2">-&lt;/span>&lt;span class="k">$(&lt;/span>uname -m&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> -o /usr/local/bin/docker-compose
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 給予權限&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo chmod +x /usr/local/bin/docker-compose
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>在剛剛建立 wordpress.yml 的資料夾啟動 Container，這邊的 -f 預設就是 docker-compose.yml，可以不填。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose -f docker-compose.yml up
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># docker-compose up&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>
+&lt;p>如果執行 &lt;code>docker-compose up&lt;/code> 之後再使用 Command + C 退出會直接停止服務，所以可以讓指令在後台執行 &lt;code>docker-compose up -d&lt;/code>，如果想要 debug 看 log，才會使用 &lt;code>docker-compose up&lt;/code>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>docker-composer 相關指令：&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>&lt;code>docker-compose stop&lt;/code>： 會停止服務&lt;/li>
+&lt;li>&lt;code>docker-compose down&lt;/code>： 會刪除所有服務(包含 Cotainers、Images、Volumes 和 Networks)&lt;/li>
+&lt;li>&lt;code>docker-compose start&lt;/code>： 可以啟動服務&lt;/li>
+&lt;li>&lt;code>docker-compose ps&lt;/code>： 查看服務狀態&lt;/li>
+&lt;li>&lt;code>docker-compose images&lt;/code>： 查看所有 Images&lt;/li>
+&lt;li>&lt;code>docker-compose exec&lt;/code>： 對 Container 執行指令&lt;/li>
+&lt;/ul>
+&lt;ol start="5">
+&lt;li>&lt;code>docker-compose exec&lt;/code> 和 &lt;code>docker exec&lt;/code> 基本上是一樣的，執行以下指令可以直接進去 Container 裡：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose &lt;span class="nb">exec&lt;/span> mysql bash
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose &lt;span class="nb">exec&lt;/span> wordpress bash
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>將 wordpress 服務停止並刪除：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose down
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="7">
+&lt;li>新增 docker-compose.yml。&lt;/li>
+&lt;/ol>
+&lt;h5 id="docker-composeyml">docker-compose.yml&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">redis&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">web&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">context&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">dockerfile&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Dockerfile&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">8080&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">5000&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REDIS_HOST&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="8">
+&lt;li>新增 Dockerfile。&lt;/li>
+&lt;/ol>
+&lt;h5 id="dockerfile">Dockerfile&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-dockerfile" data-lang="dockerfile">&lt;span class="line">&lt;span class="cl">&lt;span class="k">FROM&lt;/span>&lt;span class="s"> python:2.7&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">LABEL&lt;/span> &lt;span class="nv">maintaner&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;xxx@gmail.com&amp;#34;&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">COPY&lt;/span> . /app&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">WORKDIR&lt;/span>&lt;span class="s"> /app&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">RUN&lt;/span> pip install flask redis&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">EXPOSE&lt;/span>&lt;span class="s"> 5000&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">CMD&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="s2">&amp;#34;python&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;app.py&amp;#34;&lt;/span> &lt;span class="p">]&lt;/span>&lt;span class="err">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="9">
+&lt;li>新增 app.py。&lt;/li>
+&lt;/ol>
+&lt;h5 id="apppy">app.py&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">flask&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Flask&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">redis&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">Redis&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">os&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kn">import&lt;/span> &lt;span class="nn">socket&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">app&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Flask&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="vm">__name__&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">redis&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Redis&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="n">os&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">environ&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;REDIS_HOST&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;127.0.0.1&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">6379&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nd">@app.route&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;/&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">hello&lt;/span>&lt;span class="p">():&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">redis&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">incr&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hits&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="s1">&amp;#39;Hello Container World! I have been seen &lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1"> times and my hostname is &lt;/span>&lt;span class="si">%s&lt;/span>&lt;span class="s1">.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s1">&amp;#39;&lt;/span> &lt;span class="o">%&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">redis&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;hits&amp;#39;&lt;/span>&lt;span class="p">),&lt;/span>&lt;span class="n">socket&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">gethostname&lt;/span>&lt;span class="p">())&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="vm">__name__&lt;/span> &lt;span class="o">==&lt;/span> &lt;span class="s2">&amp;#34;__main__&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">app&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">run&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">host&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s2">&amp;#34;0.0.0.0&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">port&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="mi">5000&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">debug&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="kc">True&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="10">
+&lt;li>使用 &lt;code>docker-compose up&lt;/code> 就可以啟動服務了，這時候打開本地的瀏覽器就可以看到 flask 的頁面了。&lt;/li>
+&lt;/ol>
+&lt;h3 id="水平擴展和附載均衡附載平衡">水平擴展和附載均衡(附載平衡)&lt;/h3>
+&lt;ol>
+&lt;li>用 docker-compose 的 &lt;code>--scale&lt;/code> 啟動三個 web，但是會出現錯誤，會顯示 8080 已被佔用：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up --scale&lt;span class="o">=&lt;/span> &lt;span class="nv">web&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>修改 docker-compose.yml 把 &lt;code>port&lt;/code> 刪除。&lt;/li>
+&lt;/ol>
+&lt;h5 id="docker-composeyml-1">docker-compose.yml&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">redis&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">web&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">context&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">dockerfile&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Dockerfile&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REDIS_HOST&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="3">
+&lt;li>這時候在分別執行以下命令，Container 就會被啟動：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up -d
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">docker-compose up --scale &lt;span class="nv">web&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="4">
+&lt;li>關閉所有的 Contaienr：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose down
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="5">
+&lt;li>修改 docker-compose.yml，加上 &lt;code>loadbalancer&lt;/code>。&lt;/li>
+&lt;/ol>
+&lt;h5 id="docker-composeyml-2">docker-compose.yml&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;3&amp;#34;&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">services&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">redis&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">web&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">build&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">context&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">dockerfile&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Dockerfile&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">environment&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">REDIS_HOST&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">redis&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">lb&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">dockercloud/haproxy&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">web&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">ports&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="m">8080&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="m">80&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">volumes&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="l">/var/run/docker.sock:/var/run/docker.sock &lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="6">
+&lt;li>啟動 docker-compose：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="7">
+&lt;li>把網頁內容讀取出來 &lt;code>curl 127.0.0.1:8080&lt;/code> 會返回 Container 的 ID：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">1&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 5620b14f864a.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="8">
+&lt;li>然後把 web 服務擴展成 3 個：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up --scale &lt;span class="nv">web&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="9">
+&lt;li>再把網頁內容讀出來，會發現有 3 個 Container id 會輪流出現：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">2&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 5620b14f864a.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">3&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 923de444e90d.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">4&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 1fde842de3f1.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">5&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 5620b14f864a.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">6&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 923de444e90d.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">7&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 1fde842de3f1.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">8&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 5620b14f864a.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">9&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 923de444e90d.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="10">
+&lt;li>我們也可以把服務擴展成 5 台：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up --scale &lt;span class="nv">web&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">5&lt;/span> -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="11">
+&lt;li>這時候直接 curl 10 次：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> i in &lt;span class="sb">`&lt;/span>seq 10&lt;span class="sb">`&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">do&lt;/span> curl 127.0.0.1:8080&lt;span class="p">;&lt;/span> &lt;span class="k">done&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">10&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 5620b14f864a.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">11&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 923de444e90d.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">12&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 1fde842de3f1.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">13&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 37c3b132c4bd.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">14&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is c2e3df63ddec.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">15&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 5620b14f864a.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">16&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 923de444e90d.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">17&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 1fde842de3f1.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">18&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is 37c3b132c4bd.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; Hello Container World! I have been seen &lt;span class="m">19&lt;/span> &lt;span class="nb">times&lt;/span> and my hostname is c2e3df63ddec.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="12">
+&lt;li>同樣地，也可以減少擴展：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">docker-compose up --scale &lt;span class="nv">web&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> -d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="13">
+&lt;li>Docker Compose 是用於本地開發的一個工具，並不適合用於 Production，它就是為了方便在本地看部署的結果。&lt;/li>
+&lt;/ol>
+&lt;hr></description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayneblog.ga/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_629b9ddf09_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

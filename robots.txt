@@ -1,8 +1,24 @@
 User-agent: *
 
-Allow: /2023-02-01/line-front-end-framework-v2/
+Allow: /2023-02-02/docker-persistent-volume/
 
 Allow: /categories/
+
+Allow: /tags/docker/
+
+Allow: /categories/docker/
+
+Allow: /categories/docker-compose/
+
+Allow: /tags/docker-compose/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2023-02-01/line-front-end-framework-v2/
 
 Allow: /tags/javascript/
 
@@ -14,21 +30,7 @@ Allow: /categories/line/
 
 Allow: /tags/line-front-end-framework/
 
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
-
 Allow: /2023-01-31/docker-private-registry/
-
-Allow: /tags/docker/
-
-Allow: /categories/docker/
-
-Allow: /categories/docker-compose/
-
-Allow: /tags/docker-compose/
 
 Allow: /tags/private-registry/
 
