@@ -2,6 +2,8 @@ User-agent: *
 
 Allow: /2023-02-02/docker-persistent-volume/
 
+Allow: /2023-02-02/mysql-1251-error/
+
 Allow: /categories/
 
 Allow: /tags/docker/
@@ -11,6 +13,10 @@ Allow: /categories/docker/
 Allow: /categories/docker-compose/
 
 Allow: /tags/docker-compose/
+
+Allow: /tags/mysql/
+
+Allow: /categories/mysql/
 
 Allow: /post/
 
@@ -217,10 +223,6 @@ Allow: /2022-10-24/nodejs-v19-release/
 Allow: /tags/release/
 
 Allow: /tags/db/
-
-Allow: /tags/mysql/
-
-Allow: /categories/mysql/
 
 Allow: /2022-10-21/nodejs-express-mysql/
 
