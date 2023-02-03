@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Windows Subsystem for Linux on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/wsl/</link><description>Recent content in Windows Subsystem for Linux on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 03 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/wsl/index.xml" rel="self" type="application/rss+xml"/><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://officeguide.cc/linux-sed-find-and-replace-text-in-file-tutorial-examples/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://github.com/adamreisnz/replace-in-file" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.npmjs.com/package/replace-in-file" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://man7.org/linux/man-pages/man1/sed.1.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.miniasp.com/post/2023/02/02/How-to-search-and-replace-using-regex-in-3-ways" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>在整理開發環境的時候，經常會有批次調整檔案內容的需求，我今天特別整理了 3 種不同的解決方案，這些方法都可以看情況使用！&lt;/p>
+&lt;hr>
+&lt;h2 id="linux--wsl">Linux / WSL&lt;/h2>
+&lt;p>在 Linux 環境下使用 &lt;code>find&lt;/code> 與 &lt;code>sed&lt;/code> 幾乎是標準方案，這套組合拳確實快速又強大！👍&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find src -name &lt;span class="s1">&amp;#39;*.ts&amp;#39;&lt;/span> -type f -exec sed -i &lt;span class="s1">&amp;#39;s/pattern\([s]\)/replacement\1/g&amp;#39;&lt;/span> &lt;span class="s1">&amp;#39;{}&amp;#39;&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>透過 &lt;code>sed&lt;/code> 來取代內容的話，在 &lt;strong>Regex&lt;/strong> 語法上稍微有點不同，左邊的小括弧要加上反斜線跳脫 ( &lt;code>\(&lt;/code> 或 &lt;code>\)&lt;/code> )，而 backreference 也要用反斜線來表達 ( &lt;code>\1&lt;/code>、&lt;code>\2&lt;/code>、&amp;hellip; )&lt;/p>
+&lt;hr>
+&lt;h2 id="windows-powershell">Windows (PowerShell)&lt;/h2>
+&lt;p>在 Windows 上面使用 PowerShell 來寫腳本，可讀性會比較好！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-sh" data-lang="sh">&lt;span class="line">&lt;span class="cl">Get-ChildItem -Path &lt;span class="s1">&amp;#39;src&amp;#39;&lt;/span> -Include &lt;span class="s1">&amp;#39;*.ts&amp;#39;&lt;/span> -Recurse -Exclude reparsepoint &lt;span class="p">|&lt;/span> ForEach-Object &lt;span class="o">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$current_file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>&lt;span class="nv">$_&lt;/span>.FullName&lt;span class="k">)&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nv">$replace_file&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="k">$(&lt;/span>&lt;span class="nv">$_&lt;/span>.FullName&lt;span class="k">)&lt;/span>&lt;span class="s2">.new&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1"># 這裡 Get-Content 前後的小括弧很重要，一定要加上才能得到 String 的結果，指定 utf8 編碼也十分重要！&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="o">(&lt;/span>Get-Content -LiteralPath &lt;span class="nv">$current_file&lt;/span> -Encoding utf8&lt;span class="o">)&lt;/span> -replace &lt;span class="s1">&amp;#39;pattern([s])&amp;#39;&lt;/span>, &lt;span class="s1">&amp;#39;replacement$1&amp;#39;&lt;/span> &lt;span class="p">|&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Out-File -Encoding utf8 -LiteralPath &lt;span class="nv">$replace_file&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> Move-Item -LiteralPath &lt;span class="nv">$replace_file&lt;/span> -Destination &lt;span class="nv">$current_file&lt;/span> -Force
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="nodejs">Node.js&lt;/h2>
+&lt;p>如果我們要在前端專案中整合字串取代的工作，在 &lt;strong>package.json&lt;/strong> 的 &lt;strong>scripts&lt;/strong> 直接取代檔案，同時又要兼顧跨平台的話，採用既有的 npm 套件就會來的方便許多。這裡我找了個 &lt;a class="link" href="https://www.npmjs.com/package/replace-in-file" target="_blank" rel="noopener"
+>replace-in-file&lt;/a> 套件還不錯！👍&lt;/p>
+&lt;ol>
+&lt;li>先安裝到專案中：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npm install -D replace-in-file
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>取代內容可以這樣寫，也可以使用超好用的 Glob 語法(e.g. &lt;code>src/**/*.ts&lt;/code>)：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx replace-in-file &lt;span class="s2">&amp;#34;/pattern([s])/g&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;replacement&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> src/**/*.ts --isRegex --encoding&lt;span class="o">=&lt;/span>utf-8
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div></description></item></channel></rss>

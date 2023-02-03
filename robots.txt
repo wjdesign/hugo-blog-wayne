@@ -1,10 +1,38 @@
 User-agent: *
 
+Allow: /2023-02-03/replace-using-regex-in-3-ways/
+
+Allow: /categories/
+
+Allow: /tags/linux/
+
+Allow: /categories/linux/
+
+Allow: /categories/windows/
+
+Allow: /tags/nodejs/
+
+Allow: /categories/nodejs/
+
+Allow: /categories/npm-plugins/
+
+Allow: /tags/npm-plugins/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /tags/windows/
+
+Allow: /categories/wsl/
+
+Allow: /tags/wsl/
+
 Allow: /2023-02-02/docker-persistent-volume/
 
 Allow: /2023-02-02/mysql-1251-error/
-
-Allow: /categories/
 
 Allow: /tags/docker/
 
@@ -17,12 +45,6 @@ Allow: /tags/docker-compose/
 Allow: /tags/mysql/
 
 Allow: /categories/mysql/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /2023-02-01/line-front-end-framework-v2/
 
@@ -48,15 +70,7 @@ Allow: /2023-01-31/windows-chocolatey-scoop-winget/
 
 Allow: /tags/dotnet-core/
 
-Allow: /categories/windows/
-
 Allow: /tags/server-sent-event/
-
-Allow: /tags/windows/
-
-Allow: /categories/npm-plugins/
-
-Allow: /tags/npm-plugins/
 
 Allow: /categories/web-worker/
 
@@ -129,10 +143,6 @@ Allow: /2022-12-15/tampermonkey-userscript-tutorial/
 Allow: /tags/tampermonkey/
 
 Allow: /categories/tampermonkey/
-
-Allow: /tags/nodejs/
-
-Allow: /categories/nodejs/
 
 Allow: /tags/open-ai/
 
