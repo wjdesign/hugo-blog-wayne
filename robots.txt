@@ -1,14 +1,12 @@
 User-agent: *
 
-Allow: /2023-02-03/replace-using-regex-in-3-ways/
-
 Allow: /categories/
 
-Allow: /tags/linux/
-
-Allow: /categories/linux/
-
 Allow: /categories/windows/
+
+Allow: /tags/mongodb/
+
+Allow: /categories/mongodb/
 
 Allow: /tags/nodejs/
 
@@ -25,6 +23,14 @@ Allow: /tags/
 Allow: /
 
 Allow: /tags/windows/
+
+Allow: /2023-02-06/nodejs-using-mongodb/
+
+Allow: /2023-02-03/replace-using-regex-in-3-ways/
+
+Allow: /tags/linux/
+
+Allow: /categories/linux/
 
 Allow: /categories/wsl/
 
