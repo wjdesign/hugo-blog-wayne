@@ -1304,6 +1304,12 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="scoop-windows">scoop (Windows)&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://scoop.sh/" target="_blank" rel="noopener"
+>scoop&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://scoop.sh/#/apps?q=hugo&amp;amp;s=0&amp;amp;d=1&amp;amp;o=true" target="_blank" rel="noopener"
+>chocolatey - Hugo&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
@@ -1318,6 +1324,9 @@ padding: 0 5px;
 &lt;/span>&lt;span class="lnt">10
 &lt;/span>&lt;span class="lnt">11
 &lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 若未安裝過 Scoop，需先：&lt;/span>
@@ -1330,8 +1339,40 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 透過 Scoop 安裝 Hugo&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scoop install hugo
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># or 安裝擴展版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># scoop install hugo-extended&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如需安裝指定版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scoop install hugo@0.100.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安裝擴展版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scoop install hugo-extended
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="chocolatey">Chocolatey&lt;/h3>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://chocolatey.org/" target="_blank" rel="noopener"
+>chocolatey&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://community.chocolatey.org/packages/hugo/" target="_blank" rel="noopener"
+>chocolatey - Hugo&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 透過 Chocolatey 安裝 Hugo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install hugo
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如需安裝指定版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install hugo --version&lt;span class="o">=&lt;/span>0.100.2
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安裝擴展版本&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install hugo-extended
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;h3 id="apt-get-linux">apt-get (Linux)&lt;/h3>
