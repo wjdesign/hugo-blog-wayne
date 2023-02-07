@@ -19,6 +19,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10186324" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
+&lt;p>資料庫的連結對於網頁是不可或缺的，無論是 MongoDB 或是 Django，這種 NoSQL 的資料庫構建套件都十分的受程式設計師的歡迎，由於其不用再去學 SQL 格外的構築語法，NoSQL 就成為了廣為人知的開源資料庫，最近專案正好使用到 MongoDB，本篇來介紹一下 MongoDB、MongoDB 的安裝方式，以及使用 Node.js 串接 MongoDB 的 CRUD。&lt;/p>
 &lt;hr>
 &lt;h2 id="mongodb-資料庫簡介">MongoDB 資料庫簡介&lt;/h2>
 &lt;p>&lt;a class="link" href="https://www.mongodb.com/" target="_blank" rel="noopener"
