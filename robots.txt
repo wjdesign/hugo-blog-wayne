@@ -1,6 +1,26 @@
 User-agent: *
 
+Allow: /categories/dotnet-core/
+
+Allow: /2023-02-07/dotnet-core-google-recaptcha/
+
+Allow: /categories/csharp/
+
 Allow: /categories/
+
+Allow: /tags/csharp/
+
+Allow: /tags/dotnet-core/
+
+Allow: /tags/gcp/
+
+Allow: /categories/gcp/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
 
 Allow: /categories/windows/
 
@@ -15,12 +35,6 @@ Allow: /categories/nodejs/
 Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /tags/windows/
 
@@ -68,13 +82,9 @@ Allow: /2023-01-31/docker-private-registry/
 
 Allow: /tags/private-registry/
 
-Allow: /categories/dotnet-core/
-
 Allow: /2023-01-31/web-wait-for-qrcode-scan/
 
 Allow: /2023-01-31/windows-chocolatey-scoop-winget/
-
-Allow: /tags/dotnet-core/
 
 Allow: /tags/server-sent-event/
 
@@ -156,17 +166,9 @@ Allow: /categories/open-ai/
 
 Allow: /2022-12-12/nodejs-create-openai-line-bot/
 
-Allow: /tags/gcp/
-
-Allow: /categories/gcp/
-
 Allow: /2022-12-10/use-google-sheet-as-db/
 
 Allow: /2022-12-09/dotnet-core-docker-note-4/
-
-Allow: /categories/csharp/
-
-Allow: /tags/csharp/
 
 Allow: /2022-12-08/dotnet-core-docker-note-3/
 
