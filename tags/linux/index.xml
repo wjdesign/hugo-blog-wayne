@@ -1,4 +1,229 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/linux/</link><description>Recent content in linux on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 03 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>linux on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/linux/</link><description>Recent content in linux on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/linux/index.xml" rel="self" type="application/rss+xml"/><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayneblog.ga/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="http://www.52im.net/thread-610-1-3.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="http://www.52im.net/thread-145-1-1.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/45110873" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675459897_504da451b5_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>老於網絡編程熟手來說，在測試和部署網絡通信應用（比如IM聊天、實時音視頻等）時，如果發現網絡連接超時，第一時間想到的就是使用&lt;strong>Ping&lt;/strong>命令，Ping一下服務器看看通不通。甚至在有些情況下通過圖形化的Ping命令工具對目標網絡進行長測（比如：《&lt;a class="link" href="http://www.52im.net/thread-610-1-3.html" target="_blank" rel="noopener"
+>兩款增強型Ping工具：持續統計、圖形化展式網絡狀況[附件下載]&lt;/a>》、《&lt;a class="link" href="http://www.52im.net/thread-145-1-1.html" target="_blank" rel="noopener"
+>網絡測試：Android版多路ping命令工具EnterprisePing[附件下載]&lt;/a>》），可以得出當前網絡通信的&lt;code>網絡延遲&lt;/code>、&lt;code>網絡丟包率&lt;/code>、&lt;code>網絡抖動&lt;/code>等等有價值信息。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676399005_8f1afb4ba8_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>Ping命令很簡單，但作為為數不多的網絡檢測工具，卻非常有用，是開發網絡應用時最常用到的命令。雖然Ping這個動作這麼簡單，但你知道Ping命令背後後的邏輯嗎？跟著本篇文章瞭解一下！&lt;/p>
+&lt;hr>
+&lt;h2 id="ping命令的作用和原理">Ping命令的作用和原理&lt;/h2>
+&lt;p>簡單來說，「&lt;strong>ping&lt;/strong>」是用來探測本機與網絡中另一主機之間是否可達的命令，如果兩台主機之間ping不通，則表明這兩台主機不能建立起連接。ping是定位網絡通不通的一個重要手段。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675459902_abcb6f9909_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>ping 命令是基於 &lt;strong>ICMP 協議&lt;/strong>來工作的，「&lt;strong>ICMP&lt;/strong>」全稱為Internet 控制報文協議（&lt;a class="link" href="https://tools.ietf.org/html/rfc792" target="_blank" rel="noopener"
+>Internet Control Message Protocol&lt;/a>）。ping 命令會發送一份ICMP回顯請求報文給目標主機，並等待目標主機返回ICMP回顯應答。因為ICMP協議會要求目標主機在收到消息之後，必須返回ICMP應答消息給源主機，如果源主機在一定時間內收到了目標主機的應答，則表明兩台主機之間網絡是可達的。&lt;/p>
+&lt;p>&lt;strong>舉一個例子來描述「ping」命令的工作過程：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>假設有兩個主機，主機A（192.168.0.1）和主機B（192.168.0.2），現在我們要監測主機A和主機B之間網絡&lt;strong>是否可達&lt;/strong>，那麼我們在主機A上輸入命令：&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ping 192.168.0.2。
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol start="2">
+&lt;li>
+&lt;p>此時，ping 命令會在主機A上構建一個&lt;strong>ICMP&lt;/strong>的&lt;strong>請求數據包&lt;/strong>（數據包裡的內容後面再詳述），然後ICMP協議會將這個&lt;strong>數據包&lt;/strong>以及&lt;strong>目標IP&lt;/strong>（192.168.0.2）等信息一同交給IP層協議。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IP層協議得到這些信息後，將&lt;strong>源地址&lt;/strong>（即本機IP）、&lt;strong>目標地址&lt;/strong>（即目標IP：192.168.0.2）、再加上一些其它的&lt;strong>控制信息&lt;/strong>，構建成一個&lt;strong>IP數據包&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>IP數據包構建完成後，還不夠，還需要加上&lt;code>MAC地址&lt;/code>，因此，還需要通過ARP映射表找出&lt;strong>目標IP所對應的MAC地址&lt;/strong>。當拿到了&lt;strong>目標主機的MAC地址&lt;/strong>和&lt;strong>本機MAC&lt;/strong>後，一併交給數據鏈路層，組裝成一個&lt;strong>數據幀&lt;/strong>，依據以太網的介質訪問規則，將它們傳送出出去。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>當主機B收到這個數據幀之後，會首先檢查它的&lt;strong>目標MAC地址是不是本機&lt;/strong>，如果是，就接收下來處理，接收之後會檢查這個數據幀，將數據幀中的&lt;strong>IP數據包&lt;/strong>取出來，交給本機的&lt;strong>IP層協議&lt;/strong>，然後IP層協議檢查完之後，再將&lt;strong>ICMP數據包&lt;/strong>取出來交給&lt;strong>ICMP協議&lt;/strong>處理，當這一步也處理完成之後，就會構建一個&lt;strong>ICMP應答數據包&lt;/strong>，回發給主機A。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>在一定的時間內，如果主機A收到了應答包，則說明它與主機B之間網絡可達；如果沒有收到，則說明網絡不可達。除了監測是否可達以外，還可以利用&lt;strong>應答時間&lt;/strong>和&lt;strong>發起時間&lt;/strong>之間的差值，計算出數據包的&lt;strong>延遲耗時&lt;/strong>。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>通過 ping 的流程可以發現，ICMP協議是這個過程的基礎，是非常重要的，下面的章節會把ICMP協議再詳細解釋一下，請繼續往下讀。&lt;/p>
+&lt;hr>
+&lt;h2 id="正確理解icmp協議">正確理解ICMP協議&lt;/h2>
+&lt;p>&lt;strong>Ping命令所基於的ICMP協議所處的網絡模型層級：&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969646_55ce44a2f4_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>（▲ 上圖來自《&lt;a class="link" href="http://www.52im.net/thread-180-1-1.html" target="_blank" rel="noopener"
+>計算機網絡通訊協議關係圖（中文珍藏版）[附件下載]&lt;/a>》，您可下載此圖的完整清晰版）&lt;/p>
+&lt;p>Ping 命令這麼簡單，在任何系統上上手就能使用，很多人可能想當然的認為 Ping 命令使用的&lt;strong>ICMP協議&lt;/strong>應該是基於傳輸層的TCP或UDP協議的吧？&lt;/p>
+&lt;p>正如上圖所示，&lt;strong>ICMP協議&lt;/strong>既&lt;strong>不是基於TCP&lt;/strong>，也&lt;strong>不是基於UDP&lt;/strong>，而是&lt;code>直接基於網絡層的IP協議&lt;/code>，在整個網絡協議棧中屬於相當底層的協議了。這也從側面證明了它的重要性，因為根據ICMP的&lt;a class="link" href="https://tools.ietf.org/html/rfc792" target="_blank" rel="noopener"
+>RFC手冊&lt;/a>規定：&lt;strong>ICMP協議是任何支持IP協議的系統必須實現的&lt;/strong>，沒有餘地。而IP協議是整個互聯網的基石，ICMP協議雖簡單，但重要性不言而喻。&lt;/p>
+&lt;p>所以，以後面試的時候，如果碰到&amp;quot;ICMP協議是基於什麼實現的？&amp;ldquo;這樣的問題，請一定要記往此節所講的內容。&lt;/p>
+&lt;hr>
+&lt;h2 id="深入icmp協議">深入ICMP協議&lt;/h2>
+&lt;p>我們知道，ping 命令是基於&lt;strong>ICMP協議&lt;/strong>來實現的。那麼我們再來看下圖，就明白了ICMP協議又是通過IP協議來發送的，即ICMP報文是封裝在IP包中（如下圖所示）。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969706_f406206ed8_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>IP協議是一種無連接的，不可靠的數據包協議，它並不能保證數據一定被送達，那麼我們要保證數據送到，就需要通過其它模塊來協助實現，這裡就引入的是&lt;strong>ICMP協議&lt;/strong>。&lt;/p>
+&lt;p>當傳送的IP數據包發送異常的時候，ICMP就會將異常信息封裝在包內，然後回傳給源主機。&lt;/p>
+&lt;p>&lt;strong>將上圖再細拆一下可見：&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969701_5ca4982b3b_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>繼續將ICMP協議模塊細拆：&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676462808_8cfe4e9fdd_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>由圖可知，&lt;code>ICMP數據包&lt;/code>由&lt;strong>8bit的類型字段&lt;/strong>和&lt;strong>8bit的代碼字段&lt;/strong>以及&lt;strong>16bit的校驗字段&lt;/strong>再加上&lt;strong>選項數據&lt;/strong>組成。&lt;/p>
+&lt;p>&lt;strong>ICMP協議大致可分為兩類：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>查詢報文類型&lt;/li>
+&lt;li>差錯報文類型&lt;/li>
+&lt;/ol>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;td class="text-center">ICMP報文類型&lt;/td>
+&lt;td class="text-center">類型的值&lt;/td>
+&lt;td class="text-center">ICMP的報文類型&lt;/td>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td rowspan="5" class="text-center">差錯報文類型&lt;/td>
+&lt;td class="text-center">3&lt;/td>
+&lt;td class="text-center">終點不可達&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">4&lt;/td>
+&lt;td class="text-center">源點抑制&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">11&lt;/td>
+&lt;td class="text-center">時間超過&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">12&lt;/td>
+&lt;td class="text-center">參數問題&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">5&lt;/td>
+&lt;td class="text-center">改變路由&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td rowspan="4" class="text-center">詢問報文&lt;/td>
+&lt;td class="text-center">8&lt;/td>
+&lt;td class="text-center">回送請求&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">0&lt;/td>
+&lt;td class="text-center">回送回答&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">13&lt;/td>
+&lt;td class="text-center">時間戳請求&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td class="text-center">14&lt;/td>
+&lt;td class="text-center">時間戳會帶&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;ul>
+&lt;li>&lt;strong>【關於查詢報文類型】：&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>查詢報文主要應用於：&lt;code>ping 查詢&lt;/code>、&lt;code>子網掩碼查詢&lt;/code>、&lt;code>時間戳查詢&lt;/code>等等。&lt;/p>
+&lt;p>上面講到的 ping 命令的流程其實就對應ICMP協議查詢報文類型的一種使用。在主機A構建ICMP請求數據包的時候，其ICMP的類型字段中使用的是8 （回送請求），當主機B構建ICMP應答包的時候，其ICMP類型字段就使用的是0 （回送應答），更多類型值參考上表。&lt;/p>
+&lt;p>對查詢報文類型的理解可參考一下文章最開始講的 ping 流程，這裡就不做贅述。&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>【關於差錯報文類型】：&lt;/strong>&lt;/li>
+&lt;/ul>
+&lt;p>差錯報文主要產生於當數據傳送發送錯誤的時候。&lt;/p>
+&lt;p>它包括：&lt;code>目標不可達&lt;/code>（網絡不可達、主機不可達、協議不可達、端口不可達、禁止分片等）、&lt;code>超時&lt;/code>、&lt;code>參數問題&lt;/code>、&lt;code>重定向&lt;/code>（網絡重定向、主機重定向等）等等。&lt;/p>
+&lt;p>差錯報文通常包含了引起錯誤的IP數據包的第一個分片的IP首部，加上該分片數據部分的前8個字節。&lt;/p>
+&lt;p>當傳送IP數據包發生錯誤的時候（例如主機不可達），ICMP協議就會把錯誤信息封包，然後傳送回源主機，那麼源主機就知道該怎麼處理了。&lt;/p>
+&lt;hr>
+&lt;h2 id="icmp差錯報文的妙用">ICMP差錯報文的妙用&lt;/h2>
+&lt;p>正如上一節所介紹的那樣，ICMP協議主要有：&lt;strong>查詢報文類型&lt;/strong>和&lt;strong>差錯報文類型&lt;/strong>兩種。對於差錯報文來說，是不是只有遇到錯誤的時候才能使用呢？&lt;strong>不是&lt;/strong>！&lt;/p>
+&lt;p>基於這個特性，Linux 下的 &lt;strong>Traceroute&lt;/strong> 指令（Windows 下的對等指令是 &lt;strong>tracert&lt;/strong>）利於ICMP的差錯報文可以實現&lt;strong>遍歷到數據包傳輸路徑上的所有路由器&lt;/strong>！這真是個有用的命令！&lt;/p>
+&lt;p>&lt;strong>百度百科上關於 traceroute 命令的用途：&lt;/strong>&lt;/p>
+&lt;blockquote>
+&lt;p>traceroute (Windows 系統下是 tracert) 命令利用 ICMP 協議定位您的計算機和目標計算機之間的所有路由器。TTL 值可以反映數據包&lt;strong>經過的路由器&lt;/strong>或&lt;strong>網關的數量&lt;/strong>，通過操縱獨立 ICMP 呼叫報文的 TTL 值和觀察該報文被拋棄的返回信息，&lt;strong>traceroute 命令能夠遍歷到數據包傳輸路徑上的所有路由器&lt;/strong>。&lt;/p>
+&lt;/blockquote>
+&lt;p>ICMP 的差錯報文的使用，使得 &lt;strong>Traceroute&lt;/strong> 成為用來&lt;strong>偵測源主機到目標主機之間所經過路由情況&lt;/strong>的常用工具。&lt;strong>Traceroute&lt;/strong> 的原理就是利用ICMP的規則，製造一些錯誤的事件出來，然後根據錯誤的事件來評估網絡路由情況。&lt;/p>
+&lt;p>&lt;strong>traceroute 的基本原理如下圖所示：&lt;/strong>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676399055_bc21725b99_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969651_8fcea78cf5_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>具體做法就是：&lt;/strong>&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Traceroute&lt;/strong> 會設置特殊的 TTL 值，來追踪源主機和目標主機之間的路由數。首先它給目標主機發送一個 TTL=1 的UDP數據包，那麼這個數據包一旦在路上遇到一個路由器，TTL 就變成了 0（TTL規則是每經過一個路由器都會減1），因為 TTL=0 了，所以路由器就會把這個數據包丟掉，然後產生一個錯誤類型（超時）的ICMP數據包回發給源主機，也就是差錯包。這個時候源主機就拿到了第一個路由節點的IP和相關信息了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>接著，源主機再給目標主機發一個 TTL=2 的UDP數據包，依舊上述流程走一遍，就知道第二個路由節點的IP和耗時情況等信息了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>如此反復進行，&lt;strong>Traceroute&lt;/strong> 就可以拿到從主機A到主機B之間所有路由器的信息了。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;p>但是有個問題是，如果數據包到達了目標主機的話，即使目標主機接收到 TTL 值為 1 的IP數據包，它也是不會丟棄該數據包的，也不會產生一份超時的ICMP回發數據包的，因為數據包已經達到了目的地嘛。那我們應該怎麼認定數據包是否達到了目標主機呢？&lt;/p>
+&lt;p>&lt;strong>Traceroute&lt;/strong> 的方法是在源主機發送UDP數據包給目標主機的時候，會設置一個&lt;strong>不可能達到的目標端口號&lt;/strong>（例如大於30000的端口號），那麼當這個數據包真的到達目標主機的時候，目標主機發現沒有對應的端口號，因此會產生一份&lt;code>端口不可達&lt;/code>的錯誤ICMP報文返回給源主機。&lt;/p>
+&lt;p>可見 &lt;strong>Traceroute&lt;/strong> 的原理確實很取巧，很有趣。如您對 &lt;strong>Traceroute&lt;/strong> 感興趣，可以深入讀一讀《&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004762" target="_blank" rel="noopener"
+>從 Traceroute 看網絡問題&lt;/a>》一文。&lt;/p>
+&lt;hr></description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

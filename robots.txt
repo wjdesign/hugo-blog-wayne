@@ -1,12 +1,36 @@
 User-agent: *
 
+Allow: /categories/
+
+Allow: /tags/linux/
+
+Allow: /categories/linux/
+
+Allow: /tags/macos/
+
+Allow: /categories/macos/
+
+Allow: /categories/windows/
+
+Allow: /tags/mis/
+
+Allow: /categories/mis/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /tags/windows/
+
+Allow: /2023-02-08/what-is-ping/
+
 Allow: /categories/dotnet-core/
 
 Allow: /2023-02-07/dotnet-core-google-recaptcha/
 
 Allow: /categories/csharp/
-
-Allow: /categories/
 
 Allow: /tags/csharp/
 
@@ -15,14 +39,6 @@ Allow: /tags/dotnet-core/
 Allow: /tags/gcp/
 
 Allow: /categories/gcp/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
-
-Allow: /categories/windows/
 
 Allow: /tags/mongodb/
 
@@ -36,15 +52,9 @@ Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
 
-Allow: /tags/windows/
-
 Allow: /2023-02-06/nodejs-using-mongodb/
 
 Allow: /2023-02-03/replace-using-regex-in-3-ways/
-
-Allow: /tags/linux/
-
-Allow: /categories/linux/
 
 Allow: /categories/wsl/
 
@@ -281,10 +291,6 @@ Allow: /categories/reverse-proxy/
 Allow: /2022-09-26/ngrok-basic/
 
 Allow: /tags/indexeddb/
-
-Allow: /tags/mis/
-
-Allow: /categories/mis/
 
 Allow: /2022-09-12/use-indexeddb/
 
