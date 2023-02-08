@@ -24,7 +24,11 @@ Allow: /
 
 Allow: /tags/windows/
 
+Allow: /2023-02-08/different-in-localhost-ip/
+
 Allow: /2023-02-08/what-is-ping/
+
+Allow: /categories/others/
 
 Allow: /categories/dotnet-core/
 
@@ -133,8 +137,6 @@ Allow: /2023-01-14/nuxt-try-nuxt3/
 Allow: /tags/others/
 
 Allow: /2023-01-07/single-multi-thread/
-
-Allow: /categories/others/
 
 Allow: /2022-12-30/npm-vueuse/
 

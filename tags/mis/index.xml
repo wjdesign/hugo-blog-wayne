@@ -1,4 +1,214 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mis on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/mis/</link><description>Recent content in mis on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/mis/index.xml" rel="self" type="application/rss+xml"/><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayneblog.ga/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>mis on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/mis/</link><description>Recent content in mis on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/mis/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayneblog.ga/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="http://www.52im.net/thread-3590-1-1.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="http://www.52im.net/topic-tcpipvol1.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="http://www.52im.net/thread-2928-1-1.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="前言">前言&lt;/h2>
+&lt;p>對於工程師來說，127.0.0.1 與 0.0.0.0 這兩個IP地址再熟悉不過了，看起來好像就那麼回事，但真正較起真來，這兩個IP地址到底有什麼作用以及到底有什麼不同？貌似誰可以輕鬆回答，但張嘴卻又不知從何說起&amp;hellip;(這要是面試，估計真會被這搞砸&amp;hellip;)&lt;/p>
+&lt;p>本文將系統地總結 127.0.0.1 和 0.0.0.0 這兩個IP地址的作用，以及它們之間的區別，希望能為你解惑。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676713038_5475fa3a18_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="ip地址分類">IP地址分類&lt;/h2>
+&lt;p>我們先回顧一下IP地址的基礎知識（本節內容僅作快速概覽，如您對IP地址知識一無所知，建議首先閱讀《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+>IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a>》）。&lt;/p>
+&lt;h3 id="ip地址表示">IP地址表示&lt;/h3>
+&lt;p>IP地址由兩個部分組成，&lt;strong>net-id&lt;/strong> 和 &lt;strong>host-id&lt;/strong>，即&lt;code>網絡號&lt;/code>和&lt;code>主機號&lt;/code>：&lt;/p>
+&lt;ol>
+&lt;li>net-id： 表示 ip 地址所在的&lt;strong>網絡號&lt;/strong>。&lt;/li>
+&lt;li>host-id： 表示 ip 地址所在網絡中的某個&lt;strong>主機號碼&lt;/strong>。&lt;/li>
+&lt;/ol>
+&lt;p>即：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">IP-address ::&lt;span class="o">=&lt;/span> &lt;span class="o">{&lt;/span> &amp;lt;Network-ID&amp;gt;, &amp;lt;Host-ID&amp;gt;&lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>就像下圖這樣：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676220246_ff6aacfcdf_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="ip地址分類-1">IP地址分類&lt;/h3>
+&lt;p>IP地址一共分為5類，即&lt;code>A～E&lt;/code>，它們分類的依據是其 &lt;strong>net-id&lt;/strong> 所佔的字節長度以及網絡號前幾位。&lt;/p>
+&lt;p>大致分類如下：&lt;/p>
+&lt;ol>
+&lt;li>A類地址： 網絡號佔1個字節，網絡號的第一位固定為0。&lt;/li>
+&lt;li>B類地址： 網絡號佔2個字節，網絡號的前兩位固定為10。&lt;/li>
+&lt;li>C類地址： 網絡號佔3個字節，網絡號的前三位固定位110。&lt;/li>
+&lt;li>D類地址： 前四位是1110，用於多播(multicast)，即一對多通信。&lt;/li>
+&lt;li>E類地址： 前四位是1111，保留為以後使用。&lt;/li>
+&lt;/ol>
+&lt;p>其中，A、B、C 三類地址為&lt;code>單播地址&lt;/code>（unicast)，用於一對一通信，是最常用的。&lt;/p>
+&lt;p>&lt;strong>IP地址分類&lt;/strong>看下面這張圖，可能更直接一些：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676649305_568b686eb1_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>（上圖來源於《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+>IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a>》）&lt;/p>
+&lt;p>這裡還有一張&lt;strong>IP地址分類的思維導圖&lt;/strong>：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676649285_5e12904ba4_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>（上圖來源於《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+>IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a>》）&lt;/p>
+&lt;h3 id="特殊ip地址">特殊IP地址&lt;/h3>
+&lt;p>&lt;strong>特殊IP地址&lt;/strong>就是用來做一些特殊的事情。&lt;a class="link" href="https://datatracker.ietf.org/doc/rfc1700/" target="_blank" rel="noopener"
+>RFC1700&lt;/a>中定義了以下特殊IP地址：&lt;/p>
+&lt;ol>
+&lt;li>&lt;code>{0,0}&lt;/code>： 網絡號和主機號都全部為0，表示&amp;quot;&lt;strong>本網絡上的本主機&lt;/strong>&amp;quot;，只能用作源地址。&lt;/li>
+&lt;li>&lt;code>{0，host-id}&lt;/code>： 本網絡上的某台主機。只能用作源地址。&lt;/li>
+&lt;li>&lt;code>{-1,-1}&lt;/code>： 表示網絡號和主機號的所有位上都是 1（二進制），用於本網絡上的廣播，只能用作目的地址，發到該地址的數據包不能轉發到源地址所在網絡之外。&lt;/li>
+&lt;li>&lt;code>{net-id,-1}&lt;/code>： 直接廣播到指定的網絡上。只能用作目的地址。&lt;/li>
+&lt;li>&lt;code>{net-id,subnet-id,-1}&lt;/code>： 直接廣播到指定網絡的指定子網絡上。只用作目的地址。&lt;/li>
+&lt;li>&lt;code>{net-id,-1,-1}&lt;/code>： 直接廣播到指定網絡的所有子網絡上。只能用作目的地址。&lt;/li>
+&lt;li>&lt;code>{127,}&lt;/code>： 即網絡號為 127 的任意 ip 地址。都是內部主機&lt;strong>回環地址&lt;/strong>(loopback)，永遠都不能出現在主機外部的網絡中。&lt;/li>
+&lt;/ol>
+&lt;p>具體來說，特殊的IP地址，主要是以下這些：&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;code>0.0.0.0&lt;/code>：&lt;br>
+嚴格說來，0.0.0.0 已經不是一個真正意義上的IP地址了。它表示的是這樣一個&lt;strong>集合&lt;/strong>：&lt;strong>所有不清楚的主機和目的網絡&lt;/strong>。這裡的&amp;quot;&lt;strong>不清楚&lt;/strong>&amp;ldquo;是指在本機的路由表裡沒有特定條目指明如何到達。對本機來說，它就是一個&amp;rdquo;&lt;strong>收容所&lt;/strong>&amp;quot;，所有不認識的&amp;quot;三無&amp;quot;人員，一律送進去。如果你在網絡設置中設置了缺省網關，那麼 Windows 系統會自動產生一個目的地址為 0.0.0.0 的缺省路由。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>255.255.255.255&lt;/code>：&lt;br>
+&lt;strong>限制廣播地址&lt;/strong>。對本機來說，這個地址指本網段內(同一廣播域)的所有主機。如果翻譯成人類的語言，應該是這樣：&amp;ldquo;這個房間裡的所有人都注意了！&amp;quot;，這個地址不能被路由器轉發。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>127.0.0.1&lt;/code>：&lt;br>
+&lt;strong>本機地址&lt;/strong>，主要用於測試。用漢語表示，就是&amp;rdquo;&lt;strong>我自己&lt;/strong>&amp;quot;。在 Windows 系統中，這個地址有一個別名&amp;quot;&lt;strong>Localhost&lt;/strong>&amp;quot;。尋址這樣一個地址，是不能把它發到網絡接口的。除非出錯，否則在傳輸介質上永遠不應該出現目的地址為 &amp;ldquo;127.0.0.1&amp;rdquo; 的數據包。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>224.0.0.1&lt;/code>：&lt;br>
+&lt;strong>組播地址&lt;/strong>，注意它和廣播的區別。從 224.0.0.0 到 239.255.255.255 都是這樣的地址。224.0.0.1 特指&lt;strong>所有主機&lt;/strong>，224.0.0.2 特指&lt;strong>所有路由器&lt;/strong>。這樣的地址多用於一些特定的程序以及多媒體程序。如果你的主機開啟了 IRDP (Internet路由發現協議，使用組播功能)功能，那麼你的主機路由表中應該有這樣一條路由。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>169.254.xx&lt;/code>：&lt;br>
+如果你的主機使用了 DHCP 功能自動獲得一個IP地址，那麼當你的 &lt;strong>DHCP 服務器發生故障&lt;/strong>，或響應時間太長而超出了一個系統規定的時間，Windows 系統會為你分配這樣一個地址。如果你發現你的主機IP地址是一個諸如此類的地址，很不幸，十有八九是你的網絡不能正常運行了。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;code>10.xxx&lt;/code>、&lt;code>172.16.xx～172.31.xx&lt;/code>、&lt;code>192.168.xx&lt;/code>：&lt;br>
+&lt;strong>私有地址&lt;/strong>，這些地址被大量用於企業內部網絡中。一些寬帶路由器，也往往使用 192.168.1.1 作為&lt;strong>缺省地址&lt;/strong>。私有網絡由於不與外部互連，因而可能使用隨意的IP地址。保留這樣的地址供其使用是為了避免以後接入公網時引起地址混亂。使用私有地址的私有網絡在接入 Internet 時，要使用&lt;strong>地址翻譯&lt;/strong>(NAT)，將私有地址翻譯成公用合法地址。在 Internet 上，這類地址是不能出現的。&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="127001-和-0000-的區別">127.0.0.1 和 0.0.0.0 的區別&lt;/h2>
+&lt;h3 id="基本情況">基本情況&lt;/h3>
+&lt;p>通過上節基礎知識的回顧，我們回到正題：&lt;code>127.0.0.1 與 0.0.0.0 地址的區別是什麼？&lt;/code>&lt;/p>
+&lt;p>我們先來看下共同點：&lt;/p>
+&lt;ol>
+&lt;li>都屬於&lt;strong>特殊地址&lt;/strong>。&lt;/li>
+&lt;li>都屬於&lt;strong>A類地址&lt;/strong>。&lt;/li>
+&lt;li>都是&lt;strong>IPV4&lt;/strong>地址。&lt;/li>
+&lt;/ol>
+&lt;p>接下來我們分別看下這兩個地址的具體作用，就一目了解了。&lt;/p>
+&lt;h3 id="0000">0.0.0.0&lt;/h3>
+&lt;h4 id="說明">說明&lt;/h4>
+&lt;p>IPV4中，&lt;strong>0.0.0.0&lt;/strong> 地址被用於表示一個&lt;strong>無效的&lt;/strong>、&lt;strong>未知的&lt;/strong>或者&lt;strong>不可用的&lt;/strong>目標：&lt;/p>
+&lt;ol>
+&lt;li>在服務器中： 0.0.0.0 指的是本機上的所有IPV4地址，如果一個主機有兩個IP地址，192.168.1.1 和 10.1.2.1，並且該主機上的一個服務監聽的地址是 0.0.0.0 ，那麼&lt;strong>通過兩個ip地址都能夠訪問該服務&lt;/strong>。&lt;/li>
+&lt;li>在路由中： 0.0.0.0 表示的是&lt;strong>默認路由&lt;/strong>，即當&lt;strong>路由表中沒有找到完全匹配的路由的時候&lt;/strong>所對應的路由。&lt;/li>
+&lt;/ol>
+&lt;h4 id="用途總結">用途總結&lt;/h4>
+&lt;ol>
+&lt;li>當一台主機&lt;strong>還沒有被分配&lt;/strong>一個IP地址的時候，用於表示主機本身（DHCP 分配IP地址的時候）。&lt;/li>
+&lt;li>用作&lt;strong>默認路由&lt;/strong>，表示&amp;quot;&lt;strong>任意IPV4主機&lt;/strong>&amp;quot;。&lt;/li>
+&lt;li>用來表示&lt;strong>目標機器不可用&lt;/strong>。&lt;/li>
+&lt;li>用作服務端，表示本機上的&lt;strong>任意IPV4地址&lt;/strong>。&lt;/li>
+&lt;/ol>
+&lt;h3 id="127001">127.0.0.1&lt;/h3>
+&lt;h4 id="說明-1">說明&lt;/h4>
+&lt;p>127.0.0.1 屬於 &lt;code>{127,}&lt;/code> 集合中的一個，而所有網絡號為 127 的地址都被稱之為&lt;strong>回環地址&lt;/strong>，所以&lt;strong>回環地址&lt;/strong>不等於 127.0.0.1，它們是&lt;code>包含&lt;/code>關係，即回環地址包含 127.0.0.1。&lt;/p>
+&lt;h4 id="用途總結-1">用途總結&lt;/h4>
+&lt;ol>
+&lt;li>回環測試： 通過使用 &lt;code>ping 127.0.0.1&lt;/code> 測試某台機器上的網絡設備，操作系統或者 TCP/IP 實現是否工作正常。&lt;/li>
+&lt;li>DDos攻擊防禦： 網站收到 DDos 攻擊之後，將域名A記錄到 127.0.0.1，即讓攻擊者自己攻擊自己。&lt;/li>
+&lt;li>程序測試： 大部分 Web 容器測試的時候綁定的本機地址。&lt;/li>
+&lt;/ol>
+&lt;h4 id="回環地址的定義">回環地址的定義&lt;/h4>
+&lt;p>所有發往該類地址的數據包都應該被 loop back。&lt;/p>
+&lt;h3 id="bonus127001-與-localhost-的關係">BONUS：127.0.0.1 與 localhost 的關係&lt;/h3>
+&lt;p>相比 127.0.0.1，localhost 具有更多的意義。&lt;/p>
+&lt;p>localhost 是個&lt;strong>域名&lt;/strong>，而不是一個ip地址。之所以我們經常把 localhost 與 127.0.0.1 認為是同一個是因為我們使用的大多數電腦上都講 localhost &lt;strong>指向&lt;/strong>了 127.0.0.1 這個地址。&lt;/p>
+&lt;p>在 ubuntu 系統中，&lt;code>/ets/hosts&lt;/code> 文件中都會有如下內容：&lt;/p>
+&lt;h5 id="etshosts">/ets/hosts&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.1.1 52im-aliyun
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># The following lines are desirable for IPv6 capable hosts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 ip6-localhost ip6-loopback
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fe00::0 ip6-localnet
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff00::0 ip6-mcastprefix
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::1 ip6-allnodes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::2 ip6-allrouters
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上面第一行是幾乎每台電腦上都會有的默認配置。但是 localhost 的意義並不局限於 127.0.0.1。&lt;/p>
+&lt;p>localhost 是一個&lt;strong>域名&lt;/strong>，用於指代 &lt;strong>this computer&lt;/strong> 或者 &lt;strong>this host&lt;/strong>，可以用它來獲取運行在本機上的網絡服務。&lt;/p>
+&lt;p>在大多數系統中，localhost 被指向了 IPV4 的 &lt;code>127.0.0.1&lt;/code> 和 IPV6 的&lt;code>::1&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 localhost
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>所以，在使用的時候要注意確認IPV4還是IPV6。&lt;/p>
+&lt;hr>
+&lt;h2 id="結語">結語&lt;/h2>
+&lt;p>&lt;code>127.0.0.1&lt;/code> 是一個&lt;strong>環回地址&lt;/strong>，並不表示&amp;quot;&lt;strong>本機&lt;/strong>&amp;quot;。&lt;/p>
+&lt;p>&lt;code>0.0.0.0&lt;/code> 才是真正表示&amp;quot;&lt;strong>本網絡中的本機&lt;/strong>&amp;quot;。&lt;/p>
+&lt;p>在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code>0.0.0.0&lt;/code>，這樣我的服務訪問方就可以通過我的&lt;strong>多個ip地址&lt;/strong>訪問我的服務。&lt;/p>
+&lt;p>比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code>0.0.0.0&lt;/code>，那麼通過內網地址或外網地址&lt;strong>都可以訪問&lt;/strong>我的應用。&lt;/p>
+&lt;p>但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code>0.0.0.0&lt;/code>，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p>
+&lt;hr></description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayneblog.ga/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
