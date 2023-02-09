@@ -2,19 +2,13 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /tags/linux/
+Allow: /tags/golang/
 
-Allow: /categories/linux/
+Allow: /categories/golang/
 
-Allow: /tags/macos/
-
-Allow: /categories/macos/
+Allow: /tags/gvm/
 
 Allow: /categories/windows/
-
-Allow: /tags/mis/
-
-Allow: /categories/mis/
 
 Allow: /post/
 
@@ -23,6 +17,24 @@ Allow: /tags/
 Allow: /
 
 Allow: /tags/windows/
+
+Allow: /categories/wsl/
+
+Allow: /tags/wsl/
+
+Allow: /2023-02-09/golang-dev-box-in-windows/
+
+Allow: /tags/linux/
+
+Allow: /categories/linux/
+
+Allow: /tags/macos/
+
+Allow: /categories/macos/
+
+Allow: /tags/mis/
+
+Allow: /categories/mis/
 
 Allow: /2023-02-08/different-in-localhost-ip/
 
@@ -59,10 +71,6 @@ Allow: /tags/npm-plugins/
 Allow: /2023-02-06/nodejs-using-mongodb/
 
 Allow: /2023-02-03/replace-using-regex-in-3-ways/
-
-Allow: /categories/wsl/
-
-Allow: /tags/wsl/
 
 Allow: /2023-02-02/docker-persistent-volume/
 
