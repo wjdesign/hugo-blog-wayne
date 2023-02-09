@@ -41,11 +41,19 @@ ${warningText}`)}})</script><style>:root{--zh-font-family:"Microsoft JhengHei", 
 </span></span><span class=line><span class=cl>gvm implode
 </span></span></code></pre></td></tr></table></div></div><hr><h2 id=安裝-go-執行環境>安裝 Go 執行環境</h2><h3 id=先安裝-gvm-所需的必要套件>先安裝 gvm 所需的必要套件</h3><p>因為 gvm 可能會用到建置下個版本的 Go 執行環境，所以建議你安裝一些建置工具。</p><h4 id=如果你採用-ubuntudebian-系統請安裝以下套件>如果你採用 Ubuntu/Debian 系統，請安裝以下套件：</h4><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt-get install binutils bison gcc make build-essential -y
-</span></span></code></pre></td></tr></table></div></div><p>如果有遇到不能執行上述安裝的情況，請用以下命令修復，修復後再重新安裝一次即可！</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><ul><li>如果有遇到不能執行上述安裝的情況，請用以下命令修復，修復後再重新安裝一次即可！</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo sed -i -r -e <span class=s1>&#39;s/^(set -e)$/#\1/&#39;</span> /var/lib/dpkg/info/libc6<span class=se>\:</span>amd64.postinst
 </span></span><span class=line><span class=cl>sudo apt --fix-broken install -y
-</span></span></code></pre></td></tr></table></div></div><p>如果有遇到安裝 gcc 時報 404 Not Found 的錯誤，請先升級你的 apt 後再進行安裝：</p><p>錯誤訊息：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></span></code></pre></td></tr></table></div></div><ul><li>如果跳出 Colud not find bison、binutils、gcc、make，手動一一安裝吧！</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo apt-get install bison
+</span></span><span class=line><span class=cl>sudo apt-get install binutils
+</span></span><span class=line><span class=cl>sudo apt-get install gcc
+</span></span><span class=line><span class=cl>sudo apt-get install make
+</span></span></code></pre></td></tr></table></div></div><ul><li>如果有遇到安裝 gcc 時報 404 Not Found 的錯誤，請先升級你的 apt 後再進行安裝：</li></ul><p>錯誤訊息：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
 </span><span class=lnt>4
