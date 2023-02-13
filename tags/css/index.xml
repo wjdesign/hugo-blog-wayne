@@ -1,4 +1,441 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>css on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/css/</link><description>Recent content in css on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 21 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/css/index.xml" rel="self" type="application/rss+xml"/><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>css on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/css/</link><description>Recent content in css on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 13 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/css/index.xml" rel="self" type="application/rss+xml"/><item><title>學習 CSS 中的 :where() 與 :is() 函式</title><link>https://wayneblog.ga/2023-02-13/css-where-function/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-13/css-where-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52685546952_5615aa17bf_o.jpg" alt="Featured image of post 學習 CSS 中的 :where() 與 :is() 函式" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:where" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://dev.to/mustapha/where-is-css-20nk" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>&lt;code>:where()&lt;/code> 函式接受一個選擇器列表作為參數，允許你編寫更少的代碼並同時設置它們的樣式。本篇文章我們來討論 &lt;code>:where()&lt;/code> 的偽類函式，並示範如何在生產環境中使用它。我們將回顧與 &lt;code>:where()&lt;/code> 函式相關的疊加、優先級和安全性；另外我們還研究一些特定的範例，並討論它與 &lt;code>:is()&lt;/code> 函式的差別！&lt;/p>
+&lt;hr>
+&lt;h2 id="where">&lt;code>:where()&lt;/code>？&lt;/h2>
+&lt;p>根據&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:where" target="_blank" rel="noopener"
+>MDN&lt;/a>，&lt;code>:where()&lt;/code> 是一個CSS 偽類函數選擇器，它接受一個選擇器列表作為參數，並將給定的樣式應用於該列表中的任何元素，因此 &lt;code>:where()&lt;/code> 對於縮短一個較長的選擇器列表非常有用。&lt;/p>
+&lt;p>在 CSS 中，當多個元素同時應用相同的樣式規則時，我們通常會編寫一長串以逗號分隔的選擇器。&lt;/p>
+&lt;p>下面是一個例子，我們將相同的樣式應用到 &lt;strong>header&lt;/strong>、&lt;strong>main&lt;/strong> 元素和 &lt;strong>footer&lt;/strong> 元素中的所有 &lt;strong>a&lt;/strong> 標籤：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">header&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">main&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">footer&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">green&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">text-decoration&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">underline&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在上面的代碼片段中，我們只選擇了三個元素，但是如果有大量的元素和選擇器，代碼將開始看起來不整潔，並且可能變得難以閱讀和理解。這就是 &lt;code>:where()&lt;/code> 偽類函數發揮作用的地方。&lt;/p>
+&lt;p>下面是上面的例子使用 &lt;code>:where()&lt;/code> 函數的樣子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">main&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">footer&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">red&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">text-decoration&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">underline&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>當瀏覽器到達該代碼片段時，該代碼指示瀏覽器查找 &lt;strong>header&lt;/strong>、&lt;strong>main&lt;/strong> 和 &lt;strong>footer&lt;/strong> 選擇器，並定位這些選擇器中的所有 a 標籤。&lt;/p>
+&lt;p>當用戶將鼠標懸停在任何這些 &lt;strong>a&lt;/strong> 標籤上時，瀏覽器應該應用指定的樣式，在本例中為文字顏色紅色與下劃線。這個偽類函數使我們能夠以更短、更容易理解的方式編寫一個很長的選擇器列表。&lt;/p>
+&lt;hr>
+&lt;h2 id="組合分割與疊加-where-函數">組合、分割與疊加 &lt;code>:where()&lt;/code> 函數&lt;/h2>
+&lt;p>使用 &lt;code>:where()&lt;/code> 函數，我們可以以多種方式和組合對元素進行分組。&lt;/p>
+&lt;p>我們可以將 &lt;code>:where()&lt;/code> 函數放在選擇器的開頭、中間或結尾。&lt;/p>
+&lt;p>下面是一個有多個選擇器和樣式的例子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* first list */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">header&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">main&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">footer&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">green&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">text-decoration&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">underline&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* second list */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">article&lt;/span> &lt;span class="nt">header&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">p&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">article&lt;/span> &lt;span class="nt">footer&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">p&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">gray&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* third list */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">dark-theme&lt;/span> &lt;span class="nt">button&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">dark-theme&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">dim-theme&lt;/span> &lt;span class="nt">button&lt;/span>&lt;span class="o">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">dim-theme&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">purple&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>下面是相同的代碼，用 &lt;code>:where()&lt;/code> 函數重寫：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* first list */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">main&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">footer&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">hover&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">red&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">text-decoration&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">underline&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* second list */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">article&lt;/span> &lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">footer&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nt">p&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">gray&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* third list */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">dark-theme&lt;/span> &lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">purple&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">dim-theme&lt;/span> &lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">purple&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在第一個列表中，我們指定「紅色」和「下劃線」樣式應應用於懸停時的 &lt;strong>header&lt;/strong> 元素、&lt;strong>main&lt;/strong> 元素和 &lt;strong>footer&lt;/strong> 元素。在第二個列表中，我們指定 &lt;strong>article&lt;/strong>元素、&lt;strong>header&lt;/strong>元素 和 &lt;strong>footer&lt;/strong> 元素應該使用灰色樣式。&lt;/p>
+&lt;p>為了更清晰，我們將第三個列表分為兩個 &lt;code>:where()&lt;/code> 函數。在這個列表中，我們指定 &lt;strong>.dark-theme&lt;/strong>、&lt;strong>.dim-theme&lt;/strong> 裡的 &lt;strong>button&lt;/strong> 和 &lt;strong>a&lt;/strong> 元素的樣式應該是紫色。&lt;/p>
+&lt;p>現在，我們將進一步減少第三個列表函數，將它們變成一個 &lt;code>:where()&lt;/code> 函數：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="c">/* 堆疊 */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nc">dark-theme&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="p">.&lt;/span>&lt;span class="nc">dim-theme&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">button&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">a&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">purple&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這種減少複雜選擇器列表的方式稱為疊加。&lt;/p>
+&lt;hr>
+&lt;h2 id="where-選擇器的優先級">&lt;code>:where()&lt;/code> 選擇器的優先級&lt;/h2>
+&lt;p>&lt;code>:where()&lt;/code> 函數選擇器的優先級總是零。&lt;/p>
+&lt;p>因此，以該函數為目標的任何元素也會自動獲得 0 的優先級。這使我們能夠輕鬆地取消任何元素的樣式。&lt;/p>
+&lt;p>下面是一個 HTML 有序列表的例子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>First list no class&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>List Item 1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>List Item 2&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Second list with class&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ol&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;second-list&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>List Item 1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>List Item 2&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>Third list with class&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">h2&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">ol&lt;/span> &lt;span class="na">class&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;third-list&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>List Item 1&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>List Item 2&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">li&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">div&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在上面的代碼片段中，有三個有序列表，每個列表中有兩個項。第二個和第三個列表有一個給定的類，而第一個列表沒有。&lt;/p>
+&lt;p>沒有任何樣式，我們可以看到每個列表是按數字順序排列的：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686059791_209a982e27_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>現在讓我們添加一些樣式：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="nt">class&lt;/span>&lt;span class="o">])&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">list-style-type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在上面的代碼片段中，我們使用 &lt;code>:where()&lt;/code> 偽類函數來選擇應用了類的所有 &lt;strong>ol&lt;/strong> 標籤。&lt;/p>
+&lt;p>下面，我們看到第二個和第三個列表，它們都有一個類，被 &lt;code>:where()&lt;/code> 函數作為目標，並刪除了它們的 &lt;strong>list-style-type&lt;/strong>：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52685546972_88382db600_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>現在，讓我們添加一些額外的樣式：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="nt">class&lt;/span>&lt;span class="o">])&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">list-style-type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">second-list&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">list-style-type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">disc&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>只針對使用類名的第二個列表，我們可以看到它現在顯示為項目符號，而第三個列表仍然沒有列表樣式類型：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686486100_8f4028e3c6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>你可能會想，&amp;ldquo;這不應該是這樣嗎，因為新的樣式寫在 &lt;code>:where()&lt;/code> 函數樣式下面？&amp;ldquo;不，它不是，我們一會兒就會看到。&lt;/p>
+&lt;p>讓我們看看當我們把剛剛添加的代碼移到代碼塊的頂部，並把 &lt;code>:where()&lt;/code> 函數部分移到底部時，會發生什麼：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">.&lt;/span>&lt;span class="nc">second-list&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">list-style-type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">disc&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">ol&lt;/span>&lt;span class="o">[&lt;/span>&lt;span class="nt">class&lt;/span>&lt;span class="o">])&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">list-style-type&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">none&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>注意樣式仍然沒有改變：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686486110_d15aca98e1_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>記住：&lt;code>:where()&lt;/code> 函數的優先級為零。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="where-選擇器的安全性">&lt;code>:where()&lt;/code> 選擇器的安全性&lt;/h2>
+&lt;p>對於選擇器列表，如果瀏覽器不能識別列表中的一個選擇器，則整個選擇器列表將被視為無效，並且它們的樣式將不會被應用。然而對於 &lt;code>:where()&lt;/code> 偽類函數就不是這樣了。&lt;/p>
+&lt;p>如果 &lt;code>:where()&lt;/code> 函數中的元素是無效選擇器的目標，則該元素將不會獲得任何樣式。其餘的元素仍然會被設置樣式。&lt;code>:where()&lt;/code> 函數將跳過無效的選擇器到下一個（有效）選擇器。&lt;/p>
+&lt;p>這就是為什麼 &lt;code>:where()&lt;/code> 被稱為安全的選擇器。&lt;/p>
+&lt;p>在下面的例子中，&lt;code>:unsupported&lt;/code> 對於許多瀏覽器來說是無效的選擇器。下面的代碼將被正確解析，並且仍然會匹配 &lt;code>:valid&lt;/code> 選擇器，即使在不支持 &lt;code>:unsupported&lt;/code> 選擇器的瀏覽器中，如下所示：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="nd">valid&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="p">:&lt;/span>&lt;span class="nd">unsupported&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">/* ... */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>而在不支持 &lt;code>:unsupported&lt;/code> 選擇器的瀏覽器中，以下代碼將被忽略，即使它們支持 &lt;code>:valid&lt;/code> 選擇器：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">valid&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="p">:&lt;/span>&lt;span class="nd">unsupported&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c">/* ... */&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="where-函數的特殊用例">&lt;code>:where()&lt;/code> 函數的特殊用例&lt;/h2>
+&lt;p>在一些特殊的用例中，&lt;code>:where()&lt;/code> 函數可能是一個有用的工具，但也有一些情況下應該避免使用它。&lt;/p>
+&lt;p>使用 &lt;code>:where()&lt;/code> 偽類函數時出現的幾乎所有問題都歸結為優先級。&lt;/p>
+&lt;p>因為 &lt;code>:where()&lt;/code> 的優先級為&lt;code>零&lt;/code>，我們需要非常小心地選擇何時何地使用這個函數。&lt;/p>
+&lt;p>首先，讓我們看看幾個用例，在這些用例中 &lt;code>:where()&lt;/code> 可能特別有用。&lt;/p>
+&lt;h3 id="改進-css-重置">改進 CSS 重置&lt;/h3>
+&lt;ul>
+&lt;li>CSS 重置是指在任何其他樣式之前加載一組樣式規則，以清除瀏覽器的內置樣式。&lt;/li>
+&lt;li>CSS 重置通常放置在 CSS 樣式表的頂部或開始，所以它們首先加載。&lt;/li>
+&lt;li>開發人員通常使用它們來刪除瀏覽器最初給幾個元素的默認樣式，然後才開始實際設計他們的元素和網站。&lt;/li>
+&lt;li>CSS 重置還可以幫助消除不同瀏覽器之間的不一致。&lt;/li>
+&lt;li>CSS 重置是臨時的樣式，稍後會在樣式化過程中更改。&lt;/li>
+&lt;/ul>
+&lt;p>然而，根據 CSS 重置中使用的元素或元素組的選擇器的簡單性或複雜性，稍後在代碼中可能很難覆蓋初始樣式。&lt;/p>
+&lt;p>例如，假設我們將網站上的所有的 &lt;strong>a&lt;/strong> 標籤設置為&lt;strong>綠色&lt;/strong>。&lt;/p>
+&lt;p>然後我們稍後決定將所有 &lt;strong>header&lt;/strong> 裡的 &lt;strong>a&lt;/strong> 標籤的樣式設置為&lt;strong>灰色&lt;/strong>。&lt;/p>
+&lt;p>由於在 CSS 重置中選擇的複雜性，新的（灰色）樣式不會被應用。&lt;/p>
+&lt;p>重置中的選擇器比後面代碼中僅針對 &lt;strong>header&lt;/strong> 裡的 &lt;strong>a&lt;/strong> 標籤使用的選擇器具有更高階的優先級，因此沒有應用灰色樣式。&lt;/p>
+&lt;p>現在，如果我們將 &lt;code>:where()&lt;/code> 偽類函數添加到 CSS 重置中，這將自動為重置中的所有元素賦予零的優先級。&lt;/p>
+&lt;p>這使得我們以後更容易更改樣式，而不必擔心優先級衝突。&lt;/p>
+&lt;h3 id="刪除樣式">刪除樣式&lt;/h3>
+&lt;p>如果想要刪除或取消樣式或降低一個或一組元素的優先級，則 &lt;code>:where()&lt;/code> 函數非常有用。&lt;/p>
+&lt;h3 id="保持樣式">保持樣式&lt;/h3>
+&lt;p>如果要確保一個元素或元素集的樣式或優先級在未來的任何時候都不會改變，那麼不要使用 &lt;code>:where()&lt;/code> 偽類。&lt;/p>
+&lt;hr>
+&lt;h2 id="is">&lt;code>:is()&lt;/code>？&lt;/h2>
+&lt;p>&lt;code>:is()&lt;/code> 函數的運行方式幾乎與 &lt;code>:where()&lt;/code> 函數相同。&lt;/p>
+&lt;p>你可以用它來簡化複雜的選擇器，也可以把它放在選擇器的開頭、中間或結尾，就像 &lt;code>:where()&lt;/code> 函數一樣。&lt;/p>
+&lt;p>它也是安全的，就像 &lt;code>:where()&lt;/code> 函數一樣。因此，當其中一個選擇器無效時，瀏覽器將忽略該選擇器，但有效選擇器的樣式將添加到所選元素中。&lt;/p>
+&lt;hr>
+&lt;h2 id="where-和-is-函數的區別">&lt;code>:where()&lt;/code> 和 &lt;code>:is()&lt;/code> 函數的區別？&lt;/h2>
+&lt;p>這兩個函數的區別在於 &lt;code>:where()&lt;/code> 函數的優先級總是&lt;code>零&lt;/code>，則 &lt;code>:is()&lt;/code> 函數的優先級取決於其&lt;code>最特定參數的優先級&lt;/code>。&lt;/p>
+&lt;p>例如，讓我們看看 &lt;strong>header&lt;/strong> 元素中的段落文本：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>This is a paragraph text.&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>然後，讓我們嘗試使用四種不同的選擇器來改變文本顏色：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-css" data-lang="css">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">header&lt;/span> &lt;span class="nt">p&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">blue&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">is&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">section&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">p&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">green&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nt">p&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">blue&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">:&lt;/span>&lt;span class="nd">where&lt;/span>&lt;span class="o">(&lt;/span>&lt;span class="nt">header&lt;/span>&lt;span class="o">,&lt;/span> &lt;span class="nt">section&lt;/span>&lt;span class="o">)&lt;/span> &lt;span class="nt">p&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">color&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">blue&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>第一個選擇器將文本的顏色設置為藍色。使用 &lt;code>:is()&lt;/code> 的第二個選擇器與第一個選擇器具有相同的優先級，但由於它位於第一個選擇器之後，因此它將文本顏色從藍色更改為綠色。第三個選擇器的優先級低於第一個和第二個選擇器，對文本沒有影響。最後是第四個，它使用 &lt;code>:where()&lt;/code> 函數對文本沒有影響，因為它的零優先級。&lt;/p>
+&lt;hr>
+&lt;h2 id="瀏覽器兼容性">瀏覽器兼容性&lt;/h2>
+&lt;p>所有瀏覽器，無論是桌面瀏覽器還是移動瀏覽器，都完全支持 &lt;code>:where()&lt;/code> 函數，包括對其安全特性的支持。因此，你不必擔心你的樣式是否會在瀏覽器中正確呈現。&lt;/p>
+&lt;hr></description></item><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

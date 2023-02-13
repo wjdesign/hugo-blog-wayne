@@ -2,17 +2,23 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /tags/golang/
+Allow: /tags/css/
 
-Allow: /categories/golang/
-
-Allow: /2023-02-10/golang-beginner-tutorial/
+Allow: /categories/css/
 
 Allow: /post/
 
 Allow: /tags/
 
 Allow: /
+
+Allow: /2023-02-13/css-where-function/
+
+Allow: /tags/golang/
+
+Allow: /categories/golang/
+
+Allow: /2023-02-10/golang-beginner-tutorial/
 
 Allow: /tags/gvm/
 
@@ -219,10 +225,6 @@ Allow: /tags/vscode/
 Allow: /categories/vscode/
 
 Allow: /2022-11-22/create-own-vscode-extension/
-
-Allow: /tags/css/
-
-Allow: /categories/css/
 
 Allow: /tags/html/
 
