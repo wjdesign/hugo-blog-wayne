@@ -230,7 +230,7 @@ text-align: center !important;
 &lt;/div>
 &lt;/div>&lt;p>在上面的代碼片段中，有三個有序列表，每個列表中有兩個項。第二個和第三個列表有一個給定的類，而第一個列表沒有。&lt;/p>
 &lt;p>沒有任何樣式，我們可以看到每個列表是按數字順序排列的：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686059791_209a982e27_o.png"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686059791_c20452ee31_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
@@ -251,7 +251,7 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>在上面的代碼片段中，我們使用 &lt;code>:where()&lt;/code> 偽類函數來選擇應用了類的所有 &lt;strong>ol&lt;/strong> 標籤。&lt;/p>
 &lt;p>下面，我們看到第二個和第三個列表，它們都有一個類，被 &lt;code>:where()&lt;/code> 函數作為目標，並刪除了它們的 &lt;strong>list-style-type&lt;/strong>：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52685546972_88382db600_o.png"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52685546972_34be7975b7_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
@@ -279,7 +279,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>只針對使用類名的第二個列表，我們可以看到它現在顯示為項目符號，而第三個列表仍然沒有列表樣式類型：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686486100_8f4028e3c6_o.png"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686486100_59b573bfa2_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
@@ -308,7 +308,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>注意樣式仍然沒有改變：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686486110_d15aca98e1_o.png"
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52686486110_3a95de0793_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
