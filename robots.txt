@@ -284,6 +284,10 @@ Allow: /tags/xss/
 
 Allow: /2022-10-21/svelte-quick-start/
 
+Allow: /tags/firebase/
+
+Allow: /categories/firebase/
+
 Allow: /tags/pwa/
 
 Allow: /categories/pwa/
@@ -447,8 +451,6 @@ Allow: /2019-03-05/emoji-support/
 Allow: /2014-10-28/docker-10-qa/
 
 Allow: /tags/ci/cd/
-
-Allow: /categories/firebase/
 
 Allow: /%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/
 
