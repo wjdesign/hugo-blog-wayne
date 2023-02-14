@@ -1,12 +1,26 @@
 User-agent: *
 
+Allow: /2023-02-14/vscode-plugin-polacode/
+
+Allow: /categories/
+
+Allow: /tags/polacode/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /tags/vscode/
+
+Allow: /categories/vscode/
+
+Allow: /
+
 Allow: /categories/dotnet-core/
 
 Allow: /2023-02-13/dotnet-core-debounce/
 
 Allow: /categories/csharp/
-
-Allow: /categories/
 
 Allow: /tags/csharp/
 
@@ -17,12 +31,6 @@ Allow: /categories/css/
 Allow: /tags/debounce/
 
 Allow: /tags/dotnet-core/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /2023-02-13/css-where-function/
 
@@ -223,10 +231,6 @@ Allow: /2022-12-05/js-7-killer-one-liners/
 Allow: /2022-12-04/docker-compose-link-external-comtainer/
 
 Allow: /2022-11-28/ts-string-type-vs-class/
-
-Allow: /tags/vscode/
-
-Allow: /categories/vscode/
 
 Allow: /2022-11-22/create-own-vscode-extension/
 

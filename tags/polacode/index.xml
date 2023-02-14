@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>polacode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/polacode/</link><description>Recent content in polacode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/polacode/index.xml" rel="self" type="application/rss+xml"/><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>常常會在社群中看到有些開發者在問問題或是在做討論時，會有需要展示程式碼的部分，這時候如果直接講程式碼貼出來，在沒有排版的情況下，光是要了解對方的程式碼可能就需要一段時間，更何況是要從中找出問題，這樣其實是非常浪費時間的，所以今天來介紹一個相當好用的 VSCode 套件 - 【Polacode】，這個套件可以輕鬆將程式碼做美美的截圖！&lt;/p>
+&lt;hr>
+&lt;h2 id="如何使用">如何使用？&lt;/h2>
+&lt;p>到 VSCode 的 Extensions，輸入關鍵字： Polacode。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52688643623_8fb445d732_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>然後把第一個安裝起來，我們就可以開始截圖啦！&lt;/p>
+&lt;p>使用快捷鍵：「ctrl + shift + p」 (Mac 系統用 command + shift + p )，找到「Polacode📸」並執行。&lt;/p>
+&lt;p>你的畫面應該會出現這樣：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52687630667_ea8196e7aa_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>接著就照著上面的步驟去操作：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;0. Run command `Polacode 📸`&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;1. Copy some code&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;2. Paste into Polacode view&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;3. Click the button 📸&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ol>
+&lt;li>複製你要截圖的程式碼區塊。&lt;/li>
+&lt;li>在 Polacode 的 file 裡貼上。&lt;/li>
+&lt;li>點擊按鈕截圖。&lt;/li>
+&lt;/ol>
+&lt;p>完整流程如下：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52687630752_f25af09209_o.gif"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="注意事項">注意事項&lt;/h2>
+&lt;ol>
+&lt;li>Polacode 會連你的主題一起截取。&lt;/li>
+&lt;li>Polacode 的 file 會影響你的成品，因此 file 內因為擠壓而換行，儲存出來的成品也會換行。&lt;/li>
+&lt;/ol>
+&lt;p>介紹這個套件是希望在跟其他開發者討論程式碼，或是自己有撰寫部落格與文章的習慣時，可以讓對方或讀者有個良好的閱讀體驗，閱讀起來會更加順暢！&lt;/p>
+&lt;hr></description></item></channel></rss>
