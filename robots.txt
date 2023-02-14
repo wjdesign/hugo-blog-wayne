@@ -4,6 +4,14 @@ Allow: /2023-02-14/vscode-plugin-polacode/
 
 Allow: /categories/
 
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /tags/nodejs/
+
+Allow: /categories/nodejs/
+
 Allow: /tags/polacode/
 
 Allow: /post/
@@ -15,6 +23,8 @@ Allow: /tags/vscode/
 Allow: /categories/vscode/
 
 Allow: /
+
+Allow: /2023-02-14/what-is-nodejs/
 
 Allow: /categories/dotnet-core/
 
@@ -80,10 +90,6 @@ Allow: /tags/mongodb/
 
 Allow: /categories/mongodb/
 
-Allow: /tags/nodejs/
-
-Allow: /categories/nodejs/
-
 Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
@@ -109,10 +115,6 @@ Allow: /tags/mysql/
 Allow: /categories/mysql/
 
 Allow: /2023-02-01/line-front-end-framework-v2/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/line/
 

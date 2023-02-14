@@ -1,4 +1,98 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 06 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>簡單扼要的介紹什麼是 Node.js？</title><link>https://wayneblog.ga/2023-02-14/what-is-nodejs/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/what-is-nodejs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688618360_3d146e4e7b_o.png" alt="Featured image of post 簡單扼要的介紹什麼是 Node.js？" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>本文整理自我初學 Node.js 時的筆記，用於對 Node.js 這門語言有興趣的讀者簡單扼要的介紹 Node.js 是什麼，以及該如何學習這門語言。&lt;/p>
+&lt;hr>
+&lt;h2 id="什麼是-nodejs">什麼是 Node.js？&lt;/h2>
+&lt;p>Node.js 是 Ryan Dahl 在 2009 年為了解決 Web 服務器&lt;strong>高併發問題&lt;/strong>而開發的基於 Chrome V8 引擎的 JavaScript 運行時環境。&lt;/p>
+&lt;p>從這個定義中，可以看到 Node.js 的三個關鍵特徵：&lt;/p>
+&lt;ol>
+&lt;li>目的：為了解決Web 服務器高並發問題。&lt;/li>
+&lt;li>底層：使用的是 Chrome V8 引擎。&lt;/li>
+&lt;li>本質：一個 Javascript 運行時環境(runtime environment)。&lt;/li>
+&lt;/ol>
+&lt;p>因此，要搞清楚什麼是 Node.js，首先就要搞清楚以上三個關鍵特徵。&lt;/p>
+&lt;h3 id="nodejs-三個關鍵特徵">Node.js 三個關鍵特徵&lt;/h3>
+&lt;h4 id="為了解決-web-服務器高並發問題">為了解決 Web 服務器高並發問題&lt;/h4>
+&lt;p>Ryan Dahl 在設計 Node.js 之前，一直致力於解決 Web 服務器&lt;strong>高併發&lt;/strong>引起的性能問題，根據工作經驗，他認為性能問題的瓶頸在於&lt;strong>阻塞的 I/O 操作&lt;/strong>。恰逢 Chrome 推出了高性能的 V8 引擎，Ryan Dahl 認為 JavaScript 天然的異步、事件委託機制以及 JavaScript 語言在服務端無歷史包袱的特性，非常適合通過異步流程控制的方式提升大型分佈式系統性能。於是 Node.js 應運而生。&lt;/p>
+&lt;p>儘管現在 Node.js 已經被應用於各種各樣的場景。但是我們始終應該認識到，理解 Node.js 的&lt;strong>異步流程控制原理&lt;/strong>才算是掌握了 Node.js 的核心。&lt;/p>
+&lt;h4 id="chrome-v8-引擎">Chrome V8 引擎&lt;/h4>
+&lt;p>Chrome 內核基於 WebKit，分為以下兩個引擎：&lt;/p>
+&lt;ul>
+&lt;li>渲染引擎： Web Core&lt;/li>
+&lt;li>JavaScript 解釋引擎： JavaScript Core&lt;/li>
+&lt;/ul>
+&lt;p>而 Google 由於不滿意 JavaScript Core 的性能，於是自主研發了性能更好的 V8 引擎予以取代。&lt;/p>
+&lt;p>作為 JavaScript 的解釋引擎，V8 引擎的主要作用在於：&lt;/p>
+&lt;ol>
+&lt;li>解釋與編譯JavaScript；&lt;/li>
+&lt;li>堆管理；&lt;/li>
+&lt;li>處理內存垃圾回收；&lt;/li>
+&lt;li>處理內存分配；&lt;/li>
+&lt;li>&amp;hellip;&lt;/li>
+&lt;/ol>
+&lt;p>可以說，V8 引擎提供了一個高性能的 JavaScript 執行環境，因而 JavaScript 能夠有充足的底氣在各平台（瀏覽器，服務端，桌面端）運行。&lt;/p>
+&lt;h4 id="javascript-運行時環境">Javascript 運行時環境&lt;/h4>
+&lt;p>Node.js 既不是一門語言（JavaScript），也不是一個框架（React、Vue、Koa），而是一個 JavaScript 運行時環境(runtime environment)。&lt;/p>
+&lt;p>那，什麼是 JavaScript 運行時環境(runtime environment) 呢？&lt;/p>
+&lt;p>顧名思義，是一個可以運行 JavaScript 的環境。&lt;/p>
+&lt;p>那麼這裡的環境是指什麼呢？主要包含以下兩個方面：&lt;/p>
+&lt;ol>
+&lt;li>提供了解釋，編譯 JavaScript 的底層能力。&lt;/li>
+&lt;li>提供了一系列接口，使開發者可以通過 JavaScirpt 調用系統底層能力（例如網絡，文件讀寫等）。&lt;/li>
+&lt;/ol>
+&lt;p>前者是由 Chrome V8 引擎提供的，而後者則是由一個底層由 C、C++ 編寫的高性能的事件驅動的異步 I/O 庫 &lt;code>libuv&lt;/code> 所提供。&lt;/p>
+&lt;h3 id="libuv">libuv&lt;/h3>
+&lt;p>&lt;code>libuv&lt;/code> 是一個跨平台的事件驅動的&lt;strong>異步 I/O 庫&lt;/strong>，為 Node 提供了 CPU 和操作系統層面的功能。&lt;/p>
+&lt;p>我們知道不同的操作系統調度硬件的方式不同，CPU 的指令集也各有差異。&lt;code>libuv&lt;/code> 則抹平了這一差異，通過名為 &lt;code>Node Bindings&lt;/code> 的模塊，向用戶暴露了統一的系統操作接口。&lt;/p>
+&lt;p>因此現在我們可以說，Node 實際上由兩部分組成：&lt;code>Chrome V8 引擎&lt;/code>以及 &lt;code>libuv&lt;/code>。這兩層隱藏在 &lt;code>Node Bindings&lt;/code> 之下，而用戶面向 &lt;code>Node Bindings&lt;/code> 進行編程。&lt;/p>
+&lt;p>至此你應該理解了什麼是 Node.js。&lt;/p>
+&lt;p>它是一個跨平台的 JavaScript 可執行環境，在這個環境中你可以使用 JavaScript 充分調動操作系統的能力，做你想做的任何事！&lt;/p>
+&lt;hr>
+&lt;h2 id="nodejs-的哲學">Node.js 的哲學&lt;/h2>
+&lt;p>要充分的理解 Node.js，除了前文提到的異步流程控制原理之外，我們還需要了解下 Node.js 從創始到發展所彰顯的設計哲學，這有利於我們更喜歡 Node.js 生態。&lt;/p>
+&lt;p>我認為 Node.js 有以下三大特點：&lt;/p>
+&lt;h3 id="開放">開放&lt;/h3>
+&lt;p>Node.js 在設計之初，就堅持將核心庫做的足夠小，以便讓充分發揮社區的創造性，讓所有搭建大型系統的構建都盡可能來源於社區，因此每個構件都可以快速試錯和迭代。不得不說，這種做法雖然有顯得有些偷懶，但是事實證明這種對社區的信賴，和開放的態度收穫了巨大的回報：Node.js 擁有了全世界最活躍也是最大的社區和包管理平台 &lt;code>npm&lt;/code>。&lt;/p>
+&lt;h3 id="專注">專注&lt;/h3>
+&lt;p>Node.js 社區的開發者始終保留著一個默契，將 package 的功能約束的足夠窄，最好一次只做好一件事(單一職責原則)，並對外暴露單一的接口。這樣 package 的開發，設計，測試就會變得更加簡單，package 也就更加可靠。這種專注，也同時表現了開發者們的謙遜以及效率至上。&lt;/p>
+&lt;h3 id="簡約">簡約&lt;/h3>
+&lt;p>Node.js package 通常只暴露單一模塊和接口，並繼承了 JavaScript 的簡約特點，使用簡單的數據結構。這使得 Node.js 包易於閱讀和理解。&lt;/p>
+&lt;hr>
+&lt;h2 id="前端開發者如何學習-nodejs">前端開發者如何學習 Node.js？&lt;/h2>
+&lt;p>對於從未涉足過服務端開發的前端開發者而言，以下幾點是學習 Node.js 過程中必須補足的知識：&lt;/p>
+&lt;ol>
+&lt;li>對 JavaScript 語言特性（特別是 ESNext），語法的深入理解。&lt;/li>
+&lt;li>數據庫知識與數據表設計能力。&lt;/li>
+&lt;li>系統架構能力。&lt;/li>
+&lt;/ol>
+&lt;p>而學習 Node.js 則可以分為兩個部分：&lt;/p>
+&lt;ol>
+&lt;li>學習 Node.js 的核心庫的使用。&lt;/li>
+&lt;li>學習相關 Web 框架的使用。&lt;/li>
+&lt;/ol>
+&lt;p>在整個學習過程中，建議採用以下四步學習：&lt;/p>
+&lt;ol>
+&lt;li>閱讀官方文檔。&lt;/li>
+&lt;li>撰寫 Demo 熟悉語法驗證思路。&lt;/li>
+&lt;li>在此過程中不斷地問自己問題，並深入調研得到答案。&lt;/li>
+&lt;li>通過對外輸出，分享所得加深自己的印象。&lt;/li>
+&lt;/ol>
+&lt;hr>
+&lt;h2 id="小結">小結&lt;/h2>
+&lt;p>Node.js 在如今已經是每一位前端開發者必須掌握的技術，它通過 &lt;code>libuv&lt;/code> 向前端開發者開放了操作系統層面的底層能力，讓開發者能夠全面使用計算機的算力和功能。並用一種語言解決 Web 應用開發的所有問題的想法成為可能。希望通過本文的介紹，您能夠對 Node.js 產生好奇，祝您在未來的探索旅途中，過得愉快。&lt;/p>
+&lt;hr></description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
