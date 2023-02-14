@@ -24,6 +24,12 @@ Allow: /categories/vscode/
 
 Allow: /
 
+Allow: /categories/web-browser/
+
+Allow: /tags/web-browser/
+
+Allow: /2023-02-14/js-navigator-share-api/
+
 Allow: /2023-02-14/what-is-nodejs/
 
 Allow: /categories/dotnet-core/
@@ -187,10 +193,6 @@ Allow: /2022-12-29/vitest-unit-test/
 Allow: /2022-12-26/js-rebuild-common-function/
 
 Allow: /2022-12-21/js-map-set-difference/
-
-Allow: /categories/web-browser/
-
-Allow: /tags/web-browser/
 
 Allow: /2022-12-19/browser-http1.0-http1.1-http2.0-difference/
 

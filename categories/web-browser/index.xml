@@ -1,4 +1,136 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/web-browser/</link><description>Recent content in Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 19 Dec 2022 00:10:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/web-browser/</link><description>Recent content in Web Browser on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/web-browser/index.xml" rel="self" type="application/rss+xml"/><item><title>用 Navigator.share() API 實作分享功能</title><link>https://wayneblog.ga/2023-02-14/js-navigator-share-api/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/js-navigator-share-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688657055_cb1b8e38df_o.jpg" alt="Featured image of post 用 Navigator.share() API 實作分享功能" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.youtube.com/watch?v=zJQNQmE6_UI" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;br>
+&lt;a class="link" href="https://web.dev/web-share/" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;br>
+&lt;a class="link" href="https://pjchender.blogspot.com/2019/11/webapis-web-share-api-navigatorshare.html" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;br>
+&lt;a class="link" href="https://huanyichuang.com/blog/navigator-share-api/" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;br>
+&lt;a class="link" href="https://shubo.io/web-share-api/" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;/p>
+&lt;p>Web Share API 是現代瀏覽器提供的最新功能之一，它讓網頁的使用者能夠體驗到和原生 app 完全相同的分享體驗。這篇文章將會教你 &lt;code>navigator.share()&lt;/code> 的使用方法。&lt;/p>
+&lt;hr>
+&lt;h2 id="web-share-api-是什麼">Web Share API 是什麼？&lt;/h2>
+&lt;p>原生的 Android 和 iOS app 如果要做分享，通常會使用原生的分享介面，類似的介面相信大家一定不陌生：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52688234706_78f43d8cdb_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>然而手機網頁要達到一樣的效果就沒有那麼容易了，網頁的分享通常體驗會比原生 app 差一點，且如果要讓使用者用得習慣，可能得必須針對不同的平台去盡量模仿原生的介面，這種做法的實作成本相對是高的。這時候 &lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/share" target="_blank" rel="noopener"
+>Web Share API&lt;/a> 就能派上用場了！&lt;/p>
+&lt;p>&lt;a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Navigator/share" target="_blank" rel="noopener"
+>Web Share API&lt;/a> 是比較新的瀏覽器 API，可以讓使用者輕鬆地用作業系統原生的介面分享至其他 app、分享給你的朋友等；就像是使用原生 app 一樣。網頁端實作這隻 API，就等於同時實作了 &lt;strong>Share to Facebook&lt;/strong>、&lt;strong>Share to Twitter&lt;/strong>、&lt;strong>Share to XXX&amp;hellip;&lt;/strong> 等各種分享至第三方平台的功能了！&lt;/p>
+&lt;blockquote>
+&lt;p>另外 Google Chrome Developers 的&lt;a class="link" href="https://www.youtube.com/watch?v=zJQNQmE6_UI" target="_blank" rel="noopener"
+>影片&lt;/a>也有對 Web Share API 簡單的介紹 (0:18 ~ 1:00)&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="web-share-api-的使用限制">Web Share API 的使用限制&lt;/h2>
+&lt;p>要使用 Web Share API 有幾個限制：&lt;/p>
+&lt;ul>
+&lt;li>你的網站必須支援 &lt;strong>https&lt;/strong>。&lt;/li>
+&lt;li>只能經由使用者所產生的事件觸發，例如 &lt;strong>click&lt;/strong> 事件。&lt;/li>
+&lt;li>能夠分享的種類有：&lt;strong>文字&lt;/strong>、&lt;strong>URLs&lt;/strong>、&lt;strong>檔案&lt;/strong>。&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="navigatorshare">Navigator.share()&lt;/h2>
+&lt;p>&lt;code>navigator.share()&lt;/code> 使用方法如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">navigator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">share&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">navigator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">share&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">title&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;標題&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;文字描述&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">url&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;https://wayneblog.ga/&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(()&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;成功！&amp;#39;&lt;/span>&lt;span class="p">))&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="k">catch&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">error&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;發生錯誤&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">error&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>首先我們要判斷瀏覽器是否支援這個功能，所以需要加上 &lt;code>if (navigator.share) { // ... }&lt;/code> 的判斷。&lt;/p>
+&lt;p>接著我們呼叫 &lt;code>navigator.share()&lt;/code> function，它的參數是一個物件，支援 title、text、url 及 files 四個 key。&lt;/p>
+&lt;p>最後這個 function 回傳值是一個 promise，所以我們可以分別對成功或是失敗的情況做額外處理。&lt;/p>
+&lt;hr>
+&lt;h2 id="canonical-url">Canonical URL&lt;/h2>
+&lt;p>有個小細節需要注意，如果你的網站有&lt;strong>不同的網址指向同樣的內容&lt;/strong>（例如：電腦版網頁 &lt;a class="link" href="www.example.com" >www.example.com&lt;/a> 用手機瀏覽時會跳轉到手機版網頁 &lt;a class="link" href="m.example.com" >m.example.com&lt;/a>），那麼你可能應該分享 &lt;strong>canonical URL&lt;/strong> (標準版的 URL)，而不是 &lt;strong>document.location.href&lt;/strong>。&lt;/p>
+&lt;p>為什麼呢？因為如果你在手機上瀏覽這個網站，分享出去的會是 &lt;a class="link" href="m.example.com" >m.example.com&lt;/a>，而如果手機版沒有做跳轉的話，桌機的使用者就會看到手機版的排版 (感覺這狀況在 FB 挺常見的&amp;hellip;)。&lt;/p>
+&lt;p>如何解決呢？一般來說，這種情況為了 SEO 的緣故會在 HTML head 裡面標記 &lt;code>&amp;lt;link rel=&amp;quot;canonical href=&amp;quot;xxxxx&amp;quot;&amp;gt;&lt;/code>，讓搜尋引擎不要重複 index。因此我們可以用幾行簡單的程式碼抓出 &lt;strong>canonical URL&lt;/strong>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">canonicalElement&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">querySelector&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;link[rel=canonical]&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">canonicalElement&lt;/span> &lt;span class="o">&amp;amp;&amp;amp;&lt;/span> &lt;span class="nx">canonicalElement&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">href&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="nb">document&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">location&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">href&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">navigator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">share&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">url&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="nx">url&lt;/span> &lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="瀏覽器支援度-browser-support">瀏覽器支援度 Browser Support&lt;/h2>
+&lt;p>這是一個相對較新的標準，截至寫這篇文章為止 (2023 年 2 月)，從 &lt;a class="link" href="https://caniuse.com/?search=navigator.share" target="_blank" rel="noopener"
+>Navigator Share API - caniuse.com&lt;/a> 可以看到目前支援 Web Share API 的瀏覽器只有 Safari、Edge、iOS Safari、Chrome for Android 與 Firefox for Android，並沒有受到廣泛地支持。&lt;/p>
+&lt;p>雖然目前瀏覽器支援度不佳，不過很明顯 Web Share API 的使用情境主要集中在手機上，所以我個人認為只要做好 feature detection，搭配原本習慣的分享方式使用應該不成問題。&lt;/p>
+&lt;hr>
+&lt;h2 id="寫個範例">寫個範例&lt;/h2>
+&lt;p>來看一下範例程式碼吧，也可以直接看 CodePen。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// navigator.share 會回傳一個 Promise
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 下面的欄位可以不用全部填寫，可以只分享網址，也可以只分享文字
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">const&lt;/span> &lt;span class="nx">sharePromise&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">navigator&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">share&lt;/span>&lt;span class="p">({&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">url&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;https://wayneblog.ga/2023-02-14/js-navigator-share-api/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 要分享的 URL
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">title&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;Wayne&amp;#39; blog&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 要分享的標題
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">text&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;偉恩的部落格文章好豐富阿&amp;#34;&lt;/span> &lt;span class="c1">// 要分享的文字內容
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">});&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;iframe height="300" style="width: 100%;" scrolling="no" title="Web Share API example" src="https://codepen.io/WJDesign/embed/MWqWeYM?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+See the Pen &lt;a href="https://codepen.io/WJDesign/pen/MWqWeYM">
+Web Share API example&lt;/a> by wjdesign (&lt;a href="https://codepen.io/WJDesign">@WJDesign&lt;/a>)
+on &lt;a href="https://codepen.io">CodePen&lt;/a>.
+&lt;/iframe>
+&lt;hr></description></item><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
