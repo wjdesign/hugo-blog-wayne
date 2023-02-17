@@ -1,5 +1,19 @@
 User-agent: *
 
+Allow: /2023-02-17/js-about-this/
+
+Allow: /categories/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
 Allow: /2023-02-16/aws-sns-lambda-telegram-bot/
 
 Allow: /categories/aws/
@@ -10,19 +24,7 @@ Allow: /tags/aws-lambda/
 
 Allow: /tags/aws-sns/
 
-Allow: /categories/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
-
 Allow: /2023-02-14/vscode-plugin-polacode/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/nodejs/
 
