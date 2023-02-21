@@ -1,6 +1,6 @@
 User-agent: *
 
-Allow: /2023-02-17/js-about-this/
+Allow: /2023-02-21/ts-express-server/
 
 Allow: /categories/
 
@@ -8,11 +8,25 @@ Allow: /tags/javascript/
 
 Allow: /categories/javascript/
 
+Allow: /tags/nodejs/
+
+Allow: /categories/nodejs/
+
+Allow: /categories/npm-plugins/
+
+Allow: /tags/npm-plugins/
+
 Allow: /post/
 
 Allow: /tags/
 
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
 Allow: /
+
+Allow: /2023-02-17/js-about-this/
 
 Allow: /2023-02-16/aws-sns-lambda-telegram-bot/
 
@@ -25,10 +39,6 @@ Allow: /tags/aws-lambda/
 Allow: /tags/aws-sns/
 
 Allow: /2023-02-14/vscode-plugin-polacode/
-
-Allow: /tags/nodejs/
-
-Allow: /categories/nodejs/
 
 Allow: /tags/polacode/
 
@@ -108,10 +118,6 @@ Allow: /tags/mongodb/
 
 Allow: /categories/mongodb/
 
-Allow: /categories/npm-plugins/
-
-Allow: /tags/npm-plugins/
-
 Allow: /2023-02-06/nodejs-using-mongodb/
 
 Allow: /2023-02-03/replace-using-regex-in-3-ways/
@@ -173,10 +179,6 @@ Allow: /2023-01-16/nuxt-nuxt3-practice-project/
 Allow: /tags/nuxt/
 
 Allow: /categories/nuxt/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
 
 Allow: /tags/vue/
 
