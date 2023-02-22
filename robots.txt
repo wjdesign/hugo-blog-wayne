@@ -1,6 +1,6 @@
 User-agent: *
 
-Allow: /2023-02-21/ts-express-server/
+Allow: /2023-02-22/js-require-vs-import/
 
 Allow: /categories/
 
@@ -12,19 +12,21 @@ Allow: /tags/nodejs/
 
 Allow: /categories/nodejs/
 
-Allow: /categories/npm-plugins/
-
-Allow: /tags/npm-plugins/
-
 Allow: /post/
 
 Allow: /tags/
 
+Allow: /
+
+Allow: /2023-02-21/ts-express-server/
+
+Allow: /categories/npm-plugins/
+
+Allow: /tags/npm-plugins/
+
 Allow: /tags/typescript/
 
 Allow: /categories/typescript/
-
-Allow: /
 
 Allow: /2023-02-17/js-about-this/
 

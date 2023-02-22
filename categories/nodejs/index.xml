@@ -1,4 +1,203 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/nodejs/</link><description>Recent content in Nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 22 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>【Javascript】Require 與 Import 的區別</title><link>https://wayneblog.ga/2023-02-22/js-require-vs-import/</link><pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-22/js-require-vs-import/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52703536702_73aed5647c_o.jpg" alt="Featured image of post 【Javascript】Require 與 Import 的區別" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/31354559/using-node-js-require-vs-es6-import-export" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/143412753" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://zhuanlan.zhihu.com/p/43249121" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10298939?sc=iThelpR" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.niclin.tw/2019/10/03/nodejs-require-vs-es6-import-export/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.zhihu.com/question/56820346" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>你有想過，我們在 javascript 要引入其他文件，有的時候使用 require，有的時候使用 import，這兩個方式有什麼差別？效能上又有什麼差別呢？本篇就來說明一下！&lt;/p>
+&lt;hr>
+&lt;h2 id="遵循的模塊化規範不同">遵循的模塊化規範不同&lt;/h2>
+&lt;blockquote>
+&lt;p>&lt;a class="link" href="https://zhuanlan.zhihu.com/p/143412753" target="_blank" rel="noopener"
+>模塊化規範&lt;/a>：意思是 javascript 提供一種模塊編寫、模塊依賴、模塊運行的方案 —— 全局變數就是他的模塊化規範。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;code>require/exports&lt;/code> 在 2010 年左右出現於野生規範中，什麼是野生規範？就是由 javascript 社群內的開發者們自己擬定並被大家承認、廣泛使用的規範，遵循 CommonJS 規範為的是伺服器端開發設計的，而 node.js 則是 CommonJS 規範的實現，CommonJS 規範以同步的方式載入模組(Module)，也就是要載入完成後，才能執行後面的程式。&lt;/p>
+&lt;p>而 &lt;code>import/export&lt;/code> 則是名門正派透過 TC39 制定的新 ECMAScript 版本，即為 ES6 (ES2015) 中包含進來的，靜態編譯，在編譯過程中執行，如果遇到不支援 ES6 的情況下，就會需要 webpack + babel 來轉譯成 &lt;code>require/exports&lt;/code>。&lt;/p>
+&lt;hr>
+&lt;h2 id="出現的時間不同">出現的時間不同&lt;/h2>
+&lt;p>隨著 node.js 的流行與 Browsersify 的興起，運行時異步逐漸被 &lt;code>require/exports&lt;/code> 建構時模塊合併分塊所替代，Wrapper 函數再也不需要了，2014 年 Webpack 還是個新玩意兒，現在已經是前端必備神器了。&lt;/p>
+&lt;blockquote>
+&lt;p>Browsersify、Webpack 一開始的目的就是用來打包 CommonJS 模塊。&lt;/p>
+&lt;/blockquote>
+&lt;p>CommonJS 作為 node.js 的規範一直沿用至今。由於 npm 上的 CommonJS 的庫眾多，以及 CommonJS 與 ES6 之間的差異， node.js 無法直接兼容 ES6，所以現階段 &lt;code>require/exports&lt;/code> 仍然是&lt;strong>必要&lt;/strong>的。&lt;/p>
+&lt;p>&lt;code>import/export&lt;/code> 相對就晚了許多，被大家所熟知與使用也是 2015 年之後的事了，這其實多虧了 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/43249121" target="_blank" rel="noopener"
+>babel&lt;/a> (原項目為 6to5，後來更名為 babel) 這個神項目。由於有了 babel，將還未被各瀏覽器、node.js 直接支持的 ES6 Module 編譯為 ES5 的 CommonJS —— 也就是 &lt;code>require/exports&lt;/code> 這種寫法，Webpack 安上 &lt;a class="link" href="https://www.npmjs.com/package/babel-loader" target="_blank" rel="noopener"
+>babel-loader&lt;/a> 這個翅膀才開始高飛，大家也才可以稱自己在使用 ES6！&lt;/p>
+&lt;blockquote>
+&lt;p>這也就是為什麼上面說到：require/exports 是必要的，因為目前你編寫的 import/export，最終都是編譯為 require/exports 來執行！&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="寫法與使用方式不同">寫法與使用方式不同&lt;/h2>
+&lt;p>&lt;code>require/exports&lt;/code> 只有以下簡單的寫法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">component&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;component&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">exports&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">component&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">component&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">module&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">exports&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">component&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>而 &lt;code>import/export&lt;/code> 的寫法就相當多樣了：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">fs&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="nx">as&lt;/span> &lt;span class="nx">fs&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">as&lt;/span> &lt;span class="nx">fs&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">readFile&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">readFile&lt;/span> &lt;span class="nx">as&lt;/span> &lt;span class="nx">read&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">fs&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">readFile&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="k">default&lt;/span> &lt;span class="nx">fs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kr">const&lt;/span> &lt;span class="nx">fs&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="kd">function&lt;/span> &lt;span class="nx">readFile&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">readFile&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">read&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">export&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;fs&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>import 屬於靜態編譯，所以沒辦法動態加載，但 require 就可以了：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">url&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="s2">&amp;#34;b&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="nx">url&lt;/span> &lt;span class="c1">// =&amp;gt; 噴錯
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">url&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1">//=&amp;gt; OK
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>雖然在 node.js v9 以上版本就可以使用 ES6 了，但是還是需要設定一些東西，避免麻煩，大家多半還是用 &lt;code>webpack + babel&lt;/code> 解決。&lt;/p>
+&lt;hr>
+&lt;h2 id="本質上的不同">本質上的不同&lt;/h2>
+&lt;ol>
+&lt;li>CommonJS 還是 ES6 Module，輸出都可以看成是一個具備多個屬性或方法的對象。&lt;/li>
+&lt;li>&lt;strong>default&lt;/strong> 是 ES6 Module 所獨有的關鍵字，&lt;strong>export default fs&lt;/strong> 輸出默認的對象，&lt;strong>import fs from &amp;lsquo;fs&amp;rsquo;&lt;/strong> 可以直接導入這個對象。&lt;/li>
+&lt;li>ES6 Module 中導入模塊的屬性或方法是強綁定的，包括基礎類型；而 CommonJS 則是普通的值傳遞或是引用傳遞，舉個例子：&lt;/li>
+&lt;/ol>
+&lt;h5 id="counterjs">counter.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">exports&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">count&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;increase count to&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="o">++&lt;/span>&lt;span class="nx">exports&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">count&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s1">&amp;#39;in counter.js after 500ms&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">},&lt;/span> &lt;span class="mi">500&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="commonjsjs">commonjs.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">count&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">require&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;./counter&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;read count after 1000ms in commonjs is&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">count&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">},&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h5 id="es6js">es6.js&lt;/h5>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">import&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">count&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="nx">from&lt;/span> &lt;span class="s1">&amp;#39;./counter&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">setTimeout&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;read count after 1000ms in es6 is&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">count&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">},&lt;/span> &lt;span class="mi">1000&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上，分別運行 common.js 與 es6.js：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">node common.js
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; increase count to &lt;span class="m">1&lt;/span> in counter.js after 500ms
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; &lt;span class="nb">read&lt;/span> count after 1000ms in commonjs is &lt;span class="m">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">babel-node es6.js
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; increase count to &lt;span class="m">1&lt;/span> in counter.js after 500ms
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt; &lt;span class="nb">read&lt;/span> count after 1000ms in es6 is &lt;span class="m">1&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="小結">小結&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52704479080_48c6747d87_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="效能的差異">效能的差異&lt;/h3>
+&lt;p>ES6 的 import 是編譯中執行；CommonJS 的 require 是同步加載，import 無論在 node.js 或是瀏覽器都不能直接使用，透過 Babel 轉譯後還是使用 CommonJS 加載，所以兩者其實透過轉譯後是一樣的，只是遵循的規範及出現的時間點不同而已。&lt;/p>
+&lt;p>在效能上基本上沒區別，因為轉譯過後還是一樣的東西。&lt;/p>
+&lt;ul>
+&lt;li>基本上現在能用 ES6 寫 import 就用吧！&lt;/li>
+&lt;li>有用 webpacker/babel 的話，不用在意 import 與 require 的效能，因為最後都會轉為 CommonJS。&lt;/li>
+&lt;li>需要動態加載時才使用 require。&lt;/li>
+&lt;/ul>
+&lt;hr></description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
