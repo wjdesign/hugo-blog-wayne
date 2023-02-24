@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>設計模式 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/design-pattern/</link><description>Recent content in 設計模式 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 24 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/design-pattern/index.xml" rel="self" type="application/rss+xml"/><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://kevintsengtw.blogspot.com/2013/07/aspnet-mvc.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="http://fanli7.net/a/bianchengyuyan/ASP/20130728/402562.html" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://shunnien.github.io/2017/07/29/3-tier-and-mvc-introduction/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://raychiutw.github.io/2019/%E9%9A%A8%E6%89%8B-Design-Pattern-2-%E8%BB%9F%E9%AB%94%E5%88%86%E5%B1%A4%E8%A8%AD%E8%A8%88%E6%A8%A1%E5%BC%8F-Software-Layered-Architecture-Pattern/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://sunnyday0932.github.io/2020/%E4%B8%89%E5%B1%A4%E5%BC%8F%E6%9E%B6%E6%A7%8B/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>軟體分層設計模式是我這幾年專案必會使用的架構，它的效益在多人團隊分工上有極大的效益，且能有效專注修改區域，提高共用性。&lt;/p>
+&lt;p>&lt;strong>三層式架構&lt;/strong> (Three-Tier) 是很常見的架構，可以應用在&lt;strong>實體機器架構&lt;/strong>上，也可以應用在&lt;strong>邏輯架構&lt;/strong>上，可以按照&lt;strong>實體&lt;/strong>與&lt;strong>邏輯&lt;/strong>上去進行區分。&lt;/p>
+&lt;hr>
+&lt;h2 id="為甚麼要分層">為甚麼要分層？&lt;/h2>
+&lt;p>如果程式全部一條龍寫到底，後續會產生很多問題，難以維護、難以閱讀、更甚至是萬一人家要接手你的程式碼，這時候改Ａ壞Ｂ，耦合度過高的情況下，你只能祈禱接手的人不知道你住哪&amp;hellip;&lt;/p>
+&lt;p>這種情況下只有自己寫可能還好，那如果需要跟人合作呢？&lt;/p>
+&lt;p>大家可能容易出現重複的 Code，也難以說明誰該負責寫哪部分。&lt;/p>
+&lt;p>這時候有一個好的架構，就很重要了，分層設計時，遵循了面向介面設計的思想，那麼這種向下的依賴也應該是一種弱依賴關係。因而在不改變介面定義的前提下，理想的分層式架構，應該是一個支持可抽取、可替換的「抽屜」式架構。&lt;/p>
+&lt;hr>
+&lt;h2 id="webapi-的三層式架構">WebAPI 的三層式架構&lt;/h2>
+&lt;p>WebAPI 的三層式架構顧名思義，主要分為了三層：&lt;/p>
+&lt;ol>
+&lt;li>Controller： 控制層，作為接口。&lt;/li>
+&lt;li>Service： 商業邏輯層，只要有關商業邏輯部分的處理全部放在這一層。&lt;/li>
+&lt;li>Repository： 倉儲層，作為資料存儲的一層。&lt;/li>
+&lt;li>Common： 共用層，作為存放各層會用到的相同東西。&lt;/li>
+&lt;/ol>
+&lt;p>他們之間的關係如下圖：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52708148648_5f464fec5b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="優缺點">優缺點&lt;/h3>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>優點&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1、較好形成一個規範，可做為標準化流程。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2、提高重用性，透過分層將相同類型的程式碼放在一塊。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3、團體合作的時候，能夠分層進行；開發人員只需專注於自己開發的那一層即可。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>4、具有好的開放性、可擴充性優點。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>5、降低程式碼之間的依賴，每層溝通是透過介面。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>6、提高系統安全性，因為使用者需要透過 Service 層才有機會與下一層 Repository 撈取資料。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>缺點&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>1、增加了開發成本，傳統一個人負責寫到底；分層下需要多人進行合作。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>2、調整程式可能會出現連動性；有的時候修改一個地方，會導致其他層也需要跟著調整。&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>3、相較於一條龍開發系統性能下降，原本程式可以直接透過 DB 撈取資料，現在需要透過中間層的轉介才能夠拿到。&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="controller">Controller&lt;/h3>
+&lt;p>在我們 WebAPI 中，Controller 就屬於『&lt;strong>接口&lt;/strong>』，負責處理 Router，如常見的：&lt;strong>Get&lt;/strong>、&lt;strong>Post&lt;/strong>、&lt;strong>Patch&lt;/strong>&amp;hellip;等，都會是在這層負責接應相對應的路由。&lt;/p>
+&lt;p>Controller 接收的是 &lt;code>Parameter&lt;/code>，輸出的是 &lt;code>ViewModel&lt;/code>。&lt;/p>
+&lt;h3 id="service">Service&lt;/h3>
+&lt;p>在我們程式中最重要的就屬於『&lt;strong>商業邏輯&lt;/strong>』了，這一層是會特別關注的一層；這邊大家可能會問，那商業邏輯是指哪些呢？&lt;/p>
+&lt;p>我自己認為最簡單分辨的方式，舉凡任何需要對資料特別處理的地方都會是放在這一層，如常見的：&lt;strong>登入驗證&lt;/strong>、&lt;strong>加減法運算&lt;/strong>、&lt;strong>確認是否驗證成功&lt;/strong>&amp;hellip;等。&lt;/p>
+&lt;p>Service 接收的是 &lt;code>InfoModel&lt;/code>，輸出的是 &lt;code>Dto&lt;/code>。&lt;/p>
+&lt;h3 id="repository">Repository&lt;/h3>
+&lt;p>資料倉儲層，這層主要處理『&lt;strong>有關資料串接&lt;/strong>』的部分，如：&lt;strong>資料庫連接&lt;/strong>、&lt;strong>下 SQL 取 Table 資料&lt;/strong>&amp;hellip;等，都會是在 Repository 處理。&lt;/p>
+&lt;p>這邊有個特別的地方，如果我們程式需要透過別人的 API 取的資料回來做處理呢？&lt;/p>
+&lt;p>那與對方 API 串接的地方就會是 Repository，所以 Repository 是處理『&lt;strong>有關資料串接&lt;/strong>』的地方，而這資料當然並不只限於從 DB 撈取的資料。&lt;/p>
+&lt;p>Repository 接收的是 &lt;code>Condition&lt;/code>，輸出的是 &lt;code>DataModel&lt;/code>。&lt;/p>
+&lt;h3 id="common">Common&lt;/h3>
+&lt;p>共用層相對單純，存放各層間會用到的『&lt;strong>共同&lt;/strong>』東西，最常見的例如：&lt;strong>Enum&lt;/strong>&amp;hellip;等，就會放在這一層。&lt;/p>
+&lt;hr>
+&lt;h2 id="常見問題">常見問題&lt;/h2>
+&lt;ol>
+&lt;li>三層式架構與傳統 MVC 有甚麼不同呢？&lt;/li>
+&lt;/ol>
+&lt;p>傳統 MVC 分成，&lt;strong>View&lt;/strong>(展示層)、&lt;strong>Model&lt;/strong>(資料層)、&lt;strong>Controller&lt;/strong>(控制層)，這邊與三層式架構最大的區別在於傳統 MVC 並沒有特別把『&lt;strong>商業邏輯&lt;/strong>』抽出來；常會看到傳統 MVC 可能會把商業邏輯附加在 Controller，所以 MVC 與三層式架構是不同的。&lt;/p>
+&lt;ol start="2">
+&lt;li>各層間溝通一定要透過 Model 嗎？&lt;/li>
+&lt;/ol>
+&lt;p>這個答案就我個人使用的理解是，『&lt;strong>不一定要透過 Model&lt;/strong>』，如果只是要回傳簡單的 bool 、或是一兩個參數，直接傳就可以了；那做成 Model 的用意呢？當然也是為了提高重用性，例如 ResultModel。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">class&lt;/span> &lt;span class="nc">ResultModel&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// 結果&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="kt">bool&lt;/span> &lt;span class="n">Result&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">get&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">set&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// 提示訊息&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="cs">/// &amp;lt;/summary&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">public&lt;/span> &lt;span class="kt">string&lt;/span> &lt;span class="n">Message&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="k">get&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="k">set&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>雖然只有兩個變數，但還是把它包成了 Model ，因為有很多個地方會需要用到，當然就可以包起來給大家共同使用。&lt;/p>
+&lt;ol start="3">
+&lt;li>Service 層可以呼叫其他 Service 層的程式嗎？&lt;/li>
+&lt;/ol>
+&lt;p>可以，三層式架構的優點就是要提供重用性，當然如果相同的事情在其他地方已經有做過了，直接拿來使用，就不用做重複的事情。&lt;/p>
+&lt;ol start="4">
+&lt;li>Model 的名稱分了這麼多？不能直接一個通到底嗎？&lt;/li>
+&lt;/ol>
+&lt;p>這問題也是我一開始不太能夠理解的部分，如果是一個人寫程式的時候都會為了方便，就一個 Model 通到底吧；這時候肯定會有人問就算多人合作也可以啊？&lt;/p>
+&lt;p>真的可以嗎？&lt;/p>
+&lt;p>各層間的職責都不同，從 Reoisitory 取出來的資料丟給 Service 做處理，有可能不需要全部完整的資料回傳給 Controller，為了避免這種情況當然是分開會比較妥當，自己使用自己的 Model；多人合作的時候只需要定義說好相互要傳遞的參數就可以分層開發了，也不會因為一個 Model 而影響對方。&lt;/p>
+&lt;hr>
+&lt;h2 id="小結">小結&lt;/h2>
+&lt;p>當我是一個人開發的時候，分層設計真的感受不深，更多的是為何要弄得這麼複雜，但隨著工作團隊的擴展，多人合作開發的時候，分層設計就發揮出了它的價值，各個成員專注各自的層發開，不會被其他成員影響，當需要修改或擴充時，若是要改 UI，只需要異動展示層，若是新增商業邏輯則只需專注業務層，而是為要換第三方配合廠商或者更換資料庫，則只需專注在資料層去修改，而各層的物件又可以依不同情境做重用，不需重複開發，可謂好處多多。&lt;/p>
+&lt;p>效益：&lt;/p>
+&lt;ul>
+&lt;li>適合多人團隊分工時不互相影響 (一條龍開發時感受不深)&lt;/li>
+&lt;li>分層專注，可以專注修改，不會牽一髮動全身&lt;/li>
+&lt;/ul>
+&lt;p>但真的能達到這樣的效益，其實還有一些必要前提：&lt;/p>
+&lt;ul>
+&lt;li>物件設計須符合 SOLID 原則&lt;/li>
+&lt;li>各層依賴介面 (Interface)，不依賴實作&lt;/li>
+&lt;li>專案需導入 DI Framework，做到依賴注入，達成控制反轉 (IoC)&lt;/li>
+&lt;li>撰寫單元測試 (Unit Test) 保護每次修改&lt;/li>
+&lt;li>合理的設計各層職責物件，業務層更為重要&lt;/li>
+&lt;/ul>
+&lt;hr></description></item></channel></rss>

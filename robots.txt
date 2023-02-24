@@ -1,8 +1,28 @@
 User-agent: *
 
-Allow: /2023-02-22/js-require-vs-import/
+Allow: /categories/dotnet-core/
+
+Allow: /2023-02-24/webapi-3-tier-introduction/
+
+Allow: /categories/csharp/
 
 Allow: /categories/
+
+Allow: /tags/csharp/
+
+Allow: /tags/design-pattern/
+
+Allow: /tags/dotnet-core/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /categories/design-pattern/
+
+Allow: /2023-02-22/js-require-vs-import/
 
 Allow: /tags/javascript/
 
@@ -11,12 +31,6 @@ Allow: /categories/javascript/
 Allow: /tags/nodejs/
 
 Allow: /categories/nodejs/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /2023-02-21/ts-express-server/
 
@@ -56,21 +70,13 @@ Allow: /2023-02-14/js-navigator-share-api/
 
 Allow: /2023-02-14/what-is-nodejs/
 
-Allow: /categories/dotnet-core/
-
 Allow: /2023-02-13/dotnet-core-debounce/
-
-Allow: /categories/csharp/
-
-Allow: /tags/csharp/
 
 Allow: /tags/css/
 
 Allow: /categories/css/
 
 Allow: /tags/debounce/
-
-Allow: /tags/dotnet-core/
 
 Allow: /2023-02-13/css-where-function/
 
