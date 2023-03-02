@@ -1,25 +1,213 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/reverse-proxy/</link><description>Recent content in reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 26 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/reverse-proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://wayneblog.ga/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/reverse-proxy/</link><description>Recent content in reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/reverse-proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnel 介紹</title><link>https://wayneblog.ga/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.sakamoto.blog/cloudflare-tunnel/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.cloudflare.com/argo-tunnels-that-live-forever/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://editor.leonh.space/2021/cloudflare-tunnel/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>以前曾經寫過一篇「&lt;a class="link" href="https://wayneblog.ga/2022-09-26/ngrok-basic/" >透過 ngrok 產生臨時用的網址到指定機器&lt;/a>」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+>Cloudflare Tunnel&lt;/a>，他們有著共同的功能：&lt;/p>
+&lt;ol>
+&lt;li>我們有個本機的服務跑在 http://localhost:5000，想讓外部訪問&lt;/li>
+&lt;li>Cloudflare Tunnel 產生公共網址以及 Cloudflare 節點與本機間的「tunnel」&lt;/li>
+&lt;li>訪客訪問網址，Cloudflare 節點把請求透過 tunnel 轉送到我們本機的服務，並且把服務的回覆也透過 tunnel 反向的回傳&lt;/li>
+&lt;/ol>
+&lt;p>&lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+>Cloudflare Tunnel&lt;/a>（也稱為 Argo Tunnel）除了名字太長這個問題外，有著這些優勢：&lt;/p>
+&lt;ul>
+&lt;li>Cloudflare Tunnel 與 ngrok 一樣是免費增值型服務，上述基本的 Cloudflare Tunnel 功能完全免費，進階的 Argo 則是收費的&lt;/li>
+&lt;li>Cloudflare Tunnel 可以搭配 Cloudflare 自家的 DNS 服務使用，也就是可以用自有的網址，而這在 ngrok 是要收費的&lt;/li>
+&lt;li>Cloudflare Tunnel 的服務會自動就近分配節點位置，而 ngrok 需要手動指定&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="安裝-cloudflare-tunnel">安裝 Cloudflare Tunnel&lt;/h2>
+&lt;p>使用 Cloudflare Tunnel 的前提當然是要有 Cloudflare 帳號，以及以 Cloudflare DNS 託管的網域，除這兩點外，我們得在主機上安裝 Cloudflare Tunnel 的代理程式 &lt;code>cloudflared&lt;/code>，安裝檔參見 &lt;a class="link" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation" target="_blank" rel="noopener"
+>cloudflared 的下載頁&lt;/a>。&lt;/p>
+&lt;hr>
+&lt;h2 id="登入">登入&lt;/h2>
+&lt;p>初次使用時，須執行一次登入，讓 &lt;code>cloudflared&lt;/code> 取得我們帳號的授權：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel login
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>執行後會開啟授權網頁，選擇我們要授權 &lt;code>cloudflared&lt;/code> 操作的網域，授權成功後，會獲得一個代表我們帳號的憑證檔在 &lt;code>~/.cloudflared/cert.pem&lt;/code>，後續的操作 &lt;code>cloudflared&lt;/code> 會自動以此為證與 Cloudflare 服務互動。&lt;/p>
+&lt;p>為了方便後續說明，在此我們假設授權的網域是 &lt;code>cccc.ws&lt;/code>。&lt;/p>
+&lt;p>如果 &lt;code>cccc.ws&lt;/code> 上面已經有既有的 DNS 紀錄，並不會因為此動作而有被改掉的危機，不用擔心。&lt;/p>
+&lt;hr>
+&lt;h2 id="建立-tunnel">建立 Tunnel&lt;/h2>
+&lt;p>幫 tunnel 取個名字，這裡叫 local：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel create &lt;span class="nb">local&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這只是在 Cloudflare 建一個空的 tunnel 紀錄在案，還沒有真正可以連線的 tunnel。&lt;/p>
+&lt;p>要檢視自身旗下所有 tunnel，使用命令 &lt;code>list&lt;/code>：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel list
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>會看到如下的輸出：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> You can obtain more detailed information &lt;span class="k">for&lt;/span> each tunnel with &lt;span class="sb">`&lt;/span>cloudflared tunnel info &amp;lt;name/uuid&amp;gt;&lt;span class="sb">`&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> ID NAME CREATED CONNECTIONS
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> e6b1ea74-e6ad-4e36-b8b5-0f8f81ccafec &lt;span class="nb">local&lt;/span> 2023-02-05T16:29:33Z
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 9ea66384-6ec7-4b6c-9a05-e57c08a32526 soda 2022-05-26T01:46:42Z
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="綁定-tunnel-與網址">綁定 Tunnel 與網址&lt;/h2>
+&lt;p>目前 tunnel 還沒有網址，給它一個：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel route dns &lt;span class="nb">local&lt;/span> local.cccc.ws
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>那 Cloudflare 會阻止我們這麼做：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> Failed to add route: code: 1003, reason: An A, AAAA, or CNAME record with that host already exists.
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="連接本地服務">連接本地服務&lt;/h2>
+&lt;p>有了 tunnel、有了網址，只剩把服務連上 tunnel 了。&lt;/p>
+&lt;p>假設我們的機台上有個服務跑在 &lt;code>http://localhost:1111&lt;/code>，想要利用 Cloudflare Tunnel 讓外部人士用 &lt;code>https://local.cccc.ws&lt;/code> 訪問，最簡單的一行指令如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel run --url http://localhost:1111 &lt;span class="nb">local&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>執行後下面會跑出一堆嘰哩呱啦的訊息，只要沒有紅字就是正常：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection e4fe5a22-1e6e-4a05-b24c-95fc3ec62501 registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.200.23 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>TPE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection 57570b20-0c60-472b-bfac-eeebe45912ff registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.192.227 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>HKG
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection 02f8e0ad-dfca-499b-af48-21a8bbfa1b47 registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.200.43 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>TPE
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection 39c656ce-e08d-49a7-9cfb-1d05d92228fc registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.192.27 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>NRT
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>照紀錄看起來，我們分配到的節點分別位於&lt;strong>台北（TPE）&lt;/strong>、&lt;strong>東京（NRT）&lt;/strong>、&lt;strong>香港（HKG）&lt;/strong>，如同最開始所說的，Cloudflare 會自動就近分配 tunnel 節點位置。&lt;/p>
+&lt;p>跑起來後在 Cloudflare DNS 頁面的確有多了一筆 &lt;code>local.cccc.ws&lt;/code> 的紀錄。&lt;/p>
+&lt;hr>
+&lt;h2 id="關閉-tunnel">關閉 Tunnel&lt;/h2>
+&lt;p>對剛剛在跑著 &lt;code>cloudflared&lt;/code> 的 terminal（或 console，不論怎麼叫）按下 &lt;code>CTRL+C&lt;/code> 即可中斷 tunnel。&lt;/p>
+&lt;p>此時若去看 Cloudflare DNS 會發現那筆 &lt;code>local.cccc.ws&lt;/code> 還是在，但是確實已經連不到了，此時需要手動砍掉這筆遺留的紀錄（或者射後不理也無妨）。&lt;/p>
+&lt;hr>
+&lt;h2 id="其他花式玩法">其他花式玩法&lt;/h2>
+&lt;p>前文所提的命令列用法較適合臨時性的應用，例如開發中的專案需要給手機測試、對外展示等，從 &lt;code>cloudflared&lt;/code> 的名字可以推測的出來，字尾的「d」是 &lt;strong>daemon&lt;/strong> 的意思，因此它也可以是服務，配合 tunnel 配置文件，讓開機完就把 tunnel 跑起來，除此之外，除了最典型的轉送給本地 HTTP 服務外，Cloudflare Tunnel 也可以轉送給本地 Unix socket 或者 IP，對 Cloudflare Tunnel 的其他花式玩法有興趣的朋友可參閱〈&lt;a class="link" href="https://blog.cloudflare.com/argo-tunnels-that-live-forever/" target="_blank" rel="noopener"
+>Argo Tunnels that live forever&lt;/a>〉一文。&lt;/p>
+&lt;hr>
+&lt;h2 id="clouflare-tunnel-的安全優勢">Clouflare Tunnel 的安全優勢&lt;/h2>
+&lt;p>對於展示、測試開發中專案來說，搭建的 tunnel 往往是臨時性的，可能不用太在意安全性的部份，但 Cloudflare Tunnel 的野心不僅於此，他們希望可以將此技術應用在真實的服務上，帶給服務更多的安全保護，因為覺得滿好的所以也順帶寫一下。&lt;/p>
+&lt;p>下面的示意圖是未使用 Cloudflare Tunnel 前的一個典型的 DNS A record 訪問模型：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52719965022_7233b2692f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>正常的訪客透過 example.com 訪問我們的服務，並且透過 Cloudflare 節點對我們後端的 1.2.3.4 做到基本的防護。&lt;/p>
+&lt;p>但我們服務的 IP 1.2.3.4 仍然是暴露在公網的，所以有心人士有可能透過一些手段擷取到我們的真實 IP 1.2.3.4，進而展開攻擊。&lt;/p>
+&lt;p>而在 Cloudflare Tunnel 的連線模型中，一切的傳輸只透過 tunnel，我們的服務始終都是封閉的，不曾暴露於公網，壞人大猩猩最多只能攻擊到 Cloudflare 節點，碰不到我們機台的真身，這可以為我們帶來額外的安全優勢：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52720750069_7ab47cd607_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>另一方面，Cloudflare 有著全球廣佈的快取節點，訪客會查詢到離他所在位置較近的 Cloudflare 節點，藉此加快訪問速度，而 Cloudflare 節點與我們 tunnel 節點間的流量，則由 Cloudflare 自行導引，就像 Cloudflare 自我宣傳的那樣：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52719964857_4ec5556f0e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;hr></description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://wayneblog.ga/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
 padding: 0 5px;
 }
 &lt;/style>
-&lt;h3 id="參考文章">參考文章&lt;/h3>
+&lt;h2 id="參考文章">參考文章&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a class="link" href="https://blog.alantsai.net/posts/2018/04/devtooltips-5-ngrok-allow-public-to-access-localhost-website-and-sql-server" target="_blank" rel="noopener"
->Alan Tsai 的學習筆記&lt;/a>&lt;/li>
+>參考網址&lt;/a>&lt;/li>
 &lt;li>&lt;a class="link" href="https://noob.tw/ngrok/" target="_blank" rel="noopener"
->Ngrok：讓本機測試時也能有 HTTPS 憑證&lt;/a>&lt;/li>
+>參考網址&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://editor.leonh.space/2021/ngrok/" target="_blank" rel="noopener"
+>參考網址&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;h3 id="前言">前言&lt;/h3>
+&lt;h2 id="前言">前言&lt;/h2>
 &lt;ul>
 &lt;li>在開發的過程中，有時候會需要從另外一臺機器測試在local的網站及服務。最常見的情況就是當要測試網站在手機上看起來長什麽樣子的時候，或者有時候要讓別人連到自己local的sql serer的時候。&lt;/li>
 &lt;li>&lt;code>ngrok&lt;/code> 就是讓這一切變得容易的工具，而且很佛心的是，免費版就夠一般使用。&lt;/li>
 &lt;/ul>
 &lt;hr>
-&lt;h3 id="運作模式">運作模式&lt;/h3>
+&lt;h2 id="特性">特性&lt;/h2>
+&lt;ul>
+&lt;li>綁定本機的埠號並接受外部連入。&lt;/li>
+&lt;li>可穿透 NAT 或防火牆讓外部連入。&lt;/li>
+&lt;li>會拿到一個 ngork 的網址方便貼到信件或訊息內。&lt;/li>
+&lt;li>ngrok 產生的網址支援 HTTP / HTTPS。&lt;/li>
+&lt;li>有 web 界面讓我們可以監看連入的請求內容。&lt;/li>
+&lt;li>可加設 HTTP 帳密認證，避免被不必要的人亂連。&lt;/li>
+&lt;li>除了支援 HTTP 外，也支援 WebSocket 和 SSH。&lt;/li>
+&lt;li>可同時發布多個服務。&lt;/li>
+&lt;li>還支援 API，可以用 API 操控 ngork。&lt;/li>
+&lt;li>付費方案可以自定網址。&lt;/li>
+&lt;/ul>
+&lt;h2 id="運作模式">運作模式&lt;/h2>
 &lt;ul>
 &lt;li>ngrok 就是一個 reverse proxy 的工具，透過把 local 的 port map 到一個 public 的地址，讓外部能夠透過這個 public 地址連到，然後工具用 reverse proxy 和 local 實際的 port 取得資料。&lt;/li>
 &lt;/ul>
@@ -33,9 +221,10 @@ loading="lazy"
 &lt;li>因此有個缺點，就是&lt;span class="focus">速度相對較慢&lt;/span>，尤其是 &lt;code>ngrok&lt;/code> 的伺服器在美國因此也會減少一些速度。不過如果是爲了開發測試用，這個就不算缺點。&lt;/li>
 &lt;li>&lt;code>ngrok&lt;/code> 免費版本提供了一個動態的地址，需要進階功能或者同時map多個服務就需要付費。&lt;/li>
 &lt;/ul>
+&lt;p>其實 ngrok 並未真正的穿透 NAT，它只是接受 ngork cloud 機台轉發來的請求並做出回應，而那個 ngrok 的網址其實也就是連到 ngrok cloud 的網址。&lt;/p>
 &lt;hr>
-&lt;h3 id="安裝與使用">安裝與使用&lt;/h3>
-&lt;h4 id="需先安裝-unzip-解壓縮用">需先安裝 &lt;code>unzip&lt;/code> (解壓縮用)&lt;/h4>
+&lt;h2 id="安裝與使用">安裝與使用&lt;/h2>
+&lt;h3 id="需先安裝-unzip-解壓縮用">需先安裝 &lt;code>unzip&lt;/code> (解壓縮用)&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -44,8 +233,8 @@ loading="lazy"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">yum install zip unzip
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h4 id="步驟-1---到官網httpsngrokcomdownload下載相對應系統的-ngrok-安裝包">步驟 1 - 到&lt;a class="link" href="https://ngrok.com/download" target="_blank" rel="noopener"
->官網&lt;/a>下載相對應系統的 &lt;code>ngrok&lt;/code> 安裝包&lt;/h4>
+&lt;/div>&lt;h3 id="步驟-1---到官網httpsngrokcomdownload下載相對應系統的-ngrok-安裝包">步驟 1 - 到&lt;a class="link" href="https://ngrok.com/download" target="_blank" rel="noopener"
+>官網&lt;/a>下載相對應系統的 &lt;code>ngrok&lt;/code> 安裝包&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -56,7 +245,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h4 id="步驟-2---解壓縮安裝包並搬移到-usrbin-中">步驟 2 - 解壓縮安裝包並搬移到 &lt;code>/usr/bin/&lt;/code> 中&lt;/h4>
+&lt;/div>&lt;h3 id="步驟-2---解壓縮安裝包並搬移到-usrbin-中">步驟 2 - 解壓縮安裝包並搬移到 &lt;code>/usr/bin/&lt;/code> 中&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -73,9 +262,9 @@ loading="lazy"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">mv ngrok /usr/bin/.
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;h4 id="步驟-3---到-ngrok-官網httpsdashboardngrokcomusersignup註冊一個免費帳號">步驟 3 - 到 &lt;code>ngrok&lt;/code> &lt;a class="link" href="https://dashboard.ngrok.com/user/signup" target="_blank" rel="noopener"
->官網&lt;/a>註冊一個免費帳號&lt;/h4>
-&lt;h4 id="步驟-4---將-dashboard-上顯示的-token-設定至本機">步驟 4 - 將 dashboard 上顯示的 token 設定至本機&lt;/h4>
+&lt;/div>&lt;h3 id="步驟-3---到-ngrok-官網httpsdashboardngrokcomusersignup註冊一個免費帳號">步驟 3 - 到 &lt;code>ngrok&lt;/code> &lt;a class="link" href="https://dashboard.ngrok.com/user/signup" target="_blank" rel="noopener"
+>官網&lt;/a>註冊一個免費帳號&lt;/h3>
+&lt;h3 id="步驟-4---將-dashboard-上顯示的-token-設定至本機">步驟 4 - 將 dashboard 上顯示的 token 設定至本機&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -91,7 +280,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;h4 id="步驟-5---假設服務跑在本機的-port-3000則執行以下指令">步驟 5 - 假設服務跑在本機的 port 3000，則執行以下指令&lt;/h4>
+&lt;h3 id="步驟-5---假設服務跑在本機的-port-3000則執行以下指令">步驟 5 - 假設服務跑在本機的 port 3000，則執行以下指令&lt;/h3>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
@@ -109,8 +298,8 @@ loading="lazy"
 >&lt;/p>
 &lt;h5 id="直到-ngrok-關掉或-ngrok-session-過期之前這兩個-url-都可以被公開存取">直到 ngrok 關掉或 ngrok session 過期之前，這兩個 URL 都可以被公開存取。&lt;/h5>
 &lt;hr>
-&lt;h3 id="進階使用">進階使用&lt;/h3>
-&lt;h4 id="外連的-web-服務加密">外連的 web 服務加密&lt;/h4>
+&lt;h2 id="進階使用">進階使用&lt;/h2>
+&lt;h3 id="外連的-web-服務加密">外連的 web 服務加密&lt;/h3>
 &lt;ul>
 &lt;li>有時候給別人測試的鏈接不希望任意的人都能夠開啓，ngrok非常貼心的提供了這個服務。&lt;/li>
 &lt;li>只需要在 mapping 的時候加上 &lt;code>auth&lt;/code> 這個參數就可以設定密碼保護。例如：&lt;/li>
@@ -130,7 +319,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;h4 id="重寫-hostname">重寫 hostname&lt;/h4>
+&lt;h3 id="重寫-hostname">重寫 hostname&lt;/h3>
 &lt;ul>
 &lt;li>有些服務會使用到 &lt;code>hostname&lt;/code> 的值，這個時候重寫 &lt;code>hostname&lt;/code> 的功能就變得很重要。可以使用 &lt;code>host-header&lt;/code> 做設定。&lt;/li>
 &lt;/ul>
