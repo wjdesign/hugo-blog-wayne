@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>find on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/find/</link><description>Recent content in find on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 03 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/find/index.xml" rel="self" type="application/rss+xml"/><item><title>【find】在 Linux 使用 find 指令尋找目錄或檔案的速查筆記</title><link>https://wayneblog.ga/2023-03-03/linux-find/</link><pubDate>Fri, 03 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-03/linux-find/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52722272752_8d023c0dc1_o.jpg" alt="Featured image of post 【find】在 Linux 使用 find 指令尋找目錄或檔案的速查筆記" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://help.ubuntu.com/community/find" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://linuxize.com/post/how-to-find-files-in-linux-using-the-command-line/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.miniasp.com/post/2010/08/27/Linux-find-command-tips-and-notice" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>在 Linux 平台下找檔案不外乎使用威力強大的 &lt;a class="link" href="https://help.ubuntu.com/community/find" target="_blank" rel="noopener"
+>find&lt;/a> 命令，威力強大的背後就是有一點點學習曲線，不過整體上來說還算簡單，因此想寫一篇文章留下備忘，讓自己日後可以快速查閱參考。&lt;/p>
+&lt;hr>
+&lt;h2 id="基本語法">基本語法&lt;/h2>
+&lt;p>查詢檔案名稱 (也可以查詢「目錄名稱」，&lt;strong>其中 * 是萬用字元&lt;/strong>)&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -name &lt;span class="s1">&amp;#39;*.mp3&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>&lt;span class="focus">註：$HOME 是 Linux 下的一個環境變數，預設指向執行帳號的 HOME 目錄&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="查詢檔案名稱-不區分大小寫">查詢檔案名稱 (不區分大小寫)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /etc -iname &lt;span class="s1">&amp;#39;Network&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="指定只要搜尋檔案名稱">指定只要搜尋「&lt;strong>檔案&lt;/strong>」名稱&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /var/log -iname &lt;span class="s1">&amp;#39;*.log&amp;#39;&lt;/span> -type f
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="指定只要搜尋目錄名稱">指定只要搜尋「&lt;strong>目錄&lt;/strong>」名稱&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /etc -iname &lt;span class="s1">&amp;#39;apache2&amp;#39;&lt;/span> -type d
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>補充說明：可用的 &lt;code>-type&lt;/code> 參數值如下&lt;/strong>&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>指令參數&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>b&lt;/td>
+&lt;td>block (buffered) special&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>c&lt;/td>
+&lt;td>character (unbuffered) special&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>d&lt;/td>
+&lt;td>&lt;strong>directory (一般目錄)&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>p&lt;/td>
+&lt;td>named pipe (FIFO)&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>f&lt;/td>
+&lt;td>&lt;strong>regular file (一般檔案)&lt;/strong>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>l&lt;/td>
+&lt;td>symbolic link&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>s&lt;/td>
+&lt;td>socket&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>D&lt;/td>
+&lt;td>door (Solaris)&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;h3 id="找尋所有檔案大小大於-50mb-的檔案">找尋所有檔案大小&lt;strong>大於 50MB&lt;/strong> 的檔案&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /var -type f -size +50M
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;blockquote>
+&lt;p>&lt;span class="focus">註：不加上 -name 參數即代表搜尋所有檔案&lt;/span>&lt;/p>
+&lt;/blockquote>
+&lt;h3 id="找尋所有檔案大小小於-50mb-的檔案">找尋所有檔案大小&lt;strong>小於 50MB&lt;/strong> 的檔案&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /var -type f -size -50M
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="尋找超過-7-天沒有被存取或修改過的檔案-判斷檔案存取時間">尋找&lt;strong>超過 7 天沒有被存取或修改過&lt;/strong>的檔案 (判斷檔案存取時間)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -type f -atime +7
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="尋找曾經在-7-天內被存取或修改過的檔案-判斷檔案存取時間">尋找&lt;strong>曾經在 7 天內被存取或修改過&lt;/strong>的檔案 (判斷檔案存取時間)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -type f -atime -7
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="尋找超過-10-分鐘沒有被存取或修改過的檔案-判斷檔案存取時間">尋找&lt;strong>超過 10 分鐘沒有被存取或修改過&lt;/strong>的檔案 (判斷檔案存取時間)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -type f -amin +10
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="尋找曾經在-10-分鐘內被存取或修改過的檔案-判斷檔案存取時間">尋找&lt;strong>曾經在 10 分鐘內被存取或修改過&lt;/strong>的檔案 (判斷檔案存取時間)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -type f -amin -10
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="尋找檔案span-classfocus建立時間span已超過-30-天的檔案">尋找&lt;strong>檔案&lt;span class="focus">建立時間&lt;/span>已超過 30 天&lt;/strong>的檔案&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -type f -ctime +30
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="尋找特定使用者的檔案-以帳號名稱-wayne-為例">尋找&lt;strong>特定使用者&lt;/strong>的檔案 (以帳號名稱 wayne 為例)&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -type f -user wayne
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="進階應用">進階應用&lt;/h2>
+&lt;h3 id="刪除-30-天以上未經存取過的暫存檔案">&lt;strong>刪除 30 天以上未經存取過&lt;/strong>的暫存檔案&lt;/h3>
+&lt;p>&lt;strong>注意：以下指令最後一個分號(&lt;span class="focus">;&lt;/span>)前一定要加上反斜線&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /tmp -type f -atime +30 -print -exec rm -f &lt;span class="s1">&amp;#39;{}&amp;#39;&lt;/span> &lt;span class="se">\;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>加上 &lt;strong>-print&lt;/strong> 是為了讓被刪除的檔案檔名一併顯示在畫面上，這個參數可以省略&lt;/li>
+&lt;li>使用 &lt;strong>-exec&lt;/strong> 會讓查詢到的每一個檔案路徑代入 &lt;strong>{}&lt;/strong> 位置，一個檔案會執行一遍 &lt;strong>rm&lt;/strong> 命令&lt;/li>
+&lt;/ul>
+&lt;h3 id="刪除-30-天以上未經存取過的暫存檔案-1">&lt;strong>刪除 30 天以上未經存取過&lt;/strong>的暫存檔案&lt;/h3>
+&lt;p>&lt;strong>使用 &lt;span class="focus">xargs&lt;/span> 當成單一命令的參數&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /tmp -type f -print0 &lt;span class="p">|&lt;/span> xargs -0 rm -v
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;ul>
+&lt;li>加上 &lt;strong>-print0&lt;/strong> 是為了讓輸出的結果不以「斷行字元」分隔，而改以 &lt;strong>null&lt;/strong> 為結果的分隔字元&lt;/li>
+&lt;li>使用 &lt;strong>xargs&lt;/strong> 命令加上 &lt;strong>-0&lt;/strong> 是為了讓傳入的資料以 &lt;strong>null&lt;/strong> 字元當成參數的分隔&lt;/li>
+&lt;li>使用 &lt;strong>rm&lt;/strong> 命令加上 &lt;strong>-v&lt;/strong> 是為了能顯示出被刪除的檔案名稱，這個參數可以省略&lt;/li>
+&lt;li>使用 &lt;strong>xargs&lt;/strong> 會將所有 &lt;strong>find&lt;/strong> 命令查到的檔案轉換成 &lt;strong>rm&lt;/strong> 的參數列，如果檔案過多可能會執行失敗!&lt;/li>
+&lt;li>使用 &lt;strong>xargs&lt;/strong> 可確保後面的程式 (&lt;strong>rm&lt;/strong>) 只執行一次，所以理論上執行速度較快！&lt;/li>
+&lt;/ul>
+&lt;p>相同參數需輸入多筆並且以「或」邏輯運算時要用 &lt;strong>-o&lt;/strong> 參數串接起來。&lt;/p>
+&lt;p>例(一)：同時找兩種檔名樣式的檔案&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -name &lt;span class="s1">&amp;#39;*.mp3&amp;#39;&lt;/span> -o -name &lt;span class="s1">&amp;#39;*.ogg&amp;#39;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>例(二)：同時找兩個擁有者的檔案&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find /usr/local -user user1 -o -user user2
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="注意事項">注意事項&lt;/h2>
+&lt;p>&lt;strong>使用萬用字元時務必加上單引號( &lt;span class="focus">&amp;rsquo;&lt;/span> )&lt;/strong>&lt;/p>
+&lt;p>&lt;span class="focus">！！！以下是錯誤示範！！！&lt;/span>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">find &lt;span class="nv">$HOME&lt;/span> -name *.txt
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr></description></item></channel></rss>

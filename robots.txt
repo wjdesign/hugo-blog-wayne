@@ -1,6 +1,20 @@
 User-agent: *
 
+Allow: /2023-03-03/linux-find/
+
 Allow: /categories/
+
+Allow: /tags/find/
+
+Allow: /tags/linux/
+
+Allow: /categories/linux/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
 
 Allow: /tags/cloudflare/
 
@@ -10,13 +24,7 @@ Allow: /2023-03-02/cloudflare-tunnel-introduction/
 
 Allow: /tags/cloudflare-tunnel/
 
-Allow: /post/
-
 Allow: /categories/reverse-proxy/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /categories/dotnet-core/
 
@@ -107,10 +115,6 @@ Allow: /categories/wsl/
 Allow: /tags/wsl/
 
 Allow: /2023-02-09/golang-dev-box-in-windows/
-
-Allow: /tags/linux/
-
-Allow: /categories/linux/
 
 Allow: /tags/macos/
 
