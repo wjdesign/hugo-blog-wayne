@@ -1,4 +1,1226 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Typescript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/typescript/</link><description>Recent content in Typescript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/typescript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Typescript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/typescript/</link><description>Recent content in Typescript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 07 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/typescript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Typescript】tsconfig.json 的設定與資料型別介紹筆記</title><link>https://wayneblog.ga/2023-03-07/ts-config-and-type/</link><pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-07/ts-config-and-type/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52731863500_76db7b3738_o.png" alt="Featured image of post 【Typescript】tsconfig.json 的設定與資料型別介紹筆記" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://magiclen.org/typescript-advanced-type/" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/users/20131472/ironman/4100" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>本篇來簡單說明一下 typescript 的 tsconfig.json，並記錄一下 typescript 各個資料型別。&lt;/p>
+&lt;hr>
+&lt;h2 id="typescript-是什麼">TypeScript 是什麼？&lt;/h2>
+&lt;p>❓這個應該是大家都有犯的錯誤，下面這張圖你看到錯誤了嗎？&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52731704254_7f1b416099_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>.&lt;br>
+.&lt;br>
+.&lt;/p>
+&lt;p>🅰️：就是寫錯字，record 少了個 &lt;code>s&lt;/code>，有時候即使報 error 了，你還找不到。&lt;/p>
+&lt;p>JavaScript 就是一個自由的靈魂，你永遠不知道你接了什麼物件，寫的時候很爽，debug 的時候黑人問號。&lt;/p>
+&lt;p>✅ 而下面這張就引用了 TypeScript 的 &lt;code>interface&lt;/code> 來定義物件的型別，讓你在開發的時候就可以馬上知道錯誤，減少了很多 debug 的時間。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52731938133_3ca827cf65_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="tsconfigjson">tsconfig.json&lt;/h2>
+&lt;p>tsconfig.json 是 typescript 編譯設定的文件。&lt;/p>
+&lt;p>在目錄下執行以下指令，產生 tsconfig.json：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">tsc --init
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tsconfigjson-的預設">tsconfig.json 的預設&lt;/h3>
+&lt;p>一開始我們拿到的 tsconfig 檔， 裡面的預設就有這些：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;compilerOptions&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;target&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;es5&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定編譯生成的JS版本
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;module&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;commonjs&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定生成哪種模組
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;strict&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用所有嚴格類型檢查選項
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;esModuleInterop&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 兼容模組導入的方式
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;skipLibCheck&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 不會檢查引入的函式庫檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;forceConsistentCasingInFileNames&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c1">// 確保檔案的大小寫一致
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tsconfigjson-還有哪些設定">tsconfig.json 還有哪些設定？&lt;/h3>
+&lt;p>除了預設 compilerOptions 的設定外， 還有：&lt;/p>
+&lt;ul>
+&lt;li>compileOnSave： 在最上層設定 compileOnSave 屬性，可以讓 IDE 編輯器在儲存檔案的時候根據 tsconfig.json 重新產生編譯檔案。&lt;/li>
+&lt;li>compilerOptions： 所有的編譯設定都會寫在 compilerOptions 裡， 我們一開始取得的預設設定就在 compilerOptions。&lt;/li>
+&lt;li>include： 指定編譯需要編譯的文件或目錄。&lt;/li>
+&lt;li>exclude： 指定編譯器需要排除的文件或文件夾。如默認排除 node_modules 文件夾。
+&lt;ul>
+&lt;li>include 及 exclude 最常見的萬用字元包括：&lt;/li>
+&lt;li>&lt;code>*&lt;/code>： 表示匹配0至多個字元(不包含分隔符號)&lt;/li>
+&lt;li>&lt;code>?&lt;/code>： 匹配一個相符字元(不包含分隔符號)&lt;/li>
+&lt;li>&lt;code>**/&lt;/code>： 表示匹配所有子資料夾&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>extends： 引入其他配置檔案，繼承配置。default 包含當前目錄和子目錄下所有 TypeScript 文件。&lt;/li>
+&lt;li>files： files 的值為包含相對或絕對文件路徑的 list，表示需要編譯的文件。default 包含當前目錄和子目錄下所有 TypeScript 文件。若指定 files，則只會編譯指定的檔案。&lt;/li>
+&lt;li>references： 指定要引用的專案。有時候為了方便將前端項目和後端 node 項目放在同一個目錄下開發，兩個項目依賴同一個配置文件和通用文件。&lt;/li>
+&lt;li>typeAcquisition： 設置自動引入函式庫相關定義文件。包含 3 個子屬性：
+&lt;ul>
+&lt;li>enable： 布林類型，是否開啟自動引入庫類型定義文件(.d.ts)，默認為 false；&lt;/li>
+&lt;li>include： 數組類型，允許自動引入的函式庫名，如：[&amp;ldquo;jquery&amp;rdquo;, &amp;ldquo;lodash&amp;rdquo;]；&lt;/li>
+&lt;li>exculde： 數組類型，排除的函式庫名；&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;p>&lt;strong>概括&lt;/strong>&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;span class="lnt">47
+&lt;/span>&lt;span class="lnt">48
+&lt;/span>&lt;span class="lnt">49
+&lt;/span>&lt;span class="lnt">50
+&lt;/span>&lt;span class="lnt">51
+&lt;/span>&lt;span class="lnt">52
+&lt;/span>&lt;span class="lnt">53
+&lt;/span>&lt;span class="lnt">54
+&lt;/span>&lt;span class="lnt">55
+&lt;/span>&lt;span class="lnt">56
+&lt;/span>&lt;span class="lnt">57
+&lt;/span>&lt;span class="lnt">58
+&lt;/span>&lt;span class="lnt">59
+&lt;/span>&lt;span class="lnt">60
+&lt;/span>&lt;span class="lnt">61
+&lt;/span>&lt;span class="lnt">62
+&lt;/span>&lt;span class="lnt">63
+&lt;/span>&lt;span class="lnt">64
+&lt;/span>&lt;span class="lnt">65
+&lt;/span>&lt;span class="lnt">66
+&lt;/span>&lt;span class="lnt">67
+&lt;/span>&lt;span class="lnt">68
+&lt;/span>&lt;span class="lnt">69
+&lt;/span>&lt;span class="lnt">70
+&lt;/span>&lt;span class="lnt">71
+&lt;/span>&lt;span class="lnt">72
+&lt;/span>&lt;span class="lnt">73
+&lt;/span>&lt;span class="lnt">74
+&lt;/span>&lt;span class="lnt">75
+&lt;/span>&lt;span class="lnt">76
+&lt;/span>&lt;span class="lnt">77
+&lt;/span>&lt;span class="lnt">78
+&lt;/span>&lt;span class="lnt">79
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;compileOnSave&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 編輯器在儲存檔案的時候根據 tsconfig.json 重新產生編譯檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;compilerOptions&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">基本選項&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;target&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;es5&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定編譯生成的 JS 版本: &amp;#39;ES3&amp;#39; (default), &amp;#39;ES5&amp;#39;, &amp;#39;ES6&amp;#39;/&amp;#39;ES2015&amp;#39;, &amp;#39;ES2016&amp;#39;, &amp;#39;ES2017&amp;#39;, or &amp;#39;ESNEXT&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;module&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;commonjs&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定生成哪種模組: &amp;#39;commonjs&amp;#39;, &amp;#39;amd&amp;#39;, &amp;#39;system&amp;#39;, &amp;#39;umd&amp;#39; or &amp;#39;es2015&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;lib&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span> &lt;span class="c1">// 編譯需要引入的特定函式庫檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;allowJs&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 允許編譯 javascript 文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;checkJs&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 報告 javascript 文件中的錯誤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;jsx&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;preserve&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定 jsx 代碼的生成: &amp;#39;preserve&amp;#39;, &amp;#39;react-native&amp;#39;, or &amp;#39;react&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;declaration&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 生成相應的 &amp;#39;.d.ts&amp;#39; 文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;declarationMap&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 生成宣告檔案的 sourceMap
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;sourceMap&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 生成相應的 &amp;#39;.map&amp;#39; 文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;outFile&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 將輸出文件合併為一個文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;outDir&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定輸出目錄
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;rootDir&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 檔案應該要被放置的位置
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;composite&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 是否編譯構建引用項目
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;tsBuildInfoFile&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定文件存儲增量編譯信息，默認為 tsconfig.tsbuildinfo
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;removeComments&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 刪除編譯後的所有的註釋
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noEmit&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 不產生輸出檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;importHelpers&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 從 tslib 導入輔助工具函數
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;isolatedModules&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 將每個文件做為單獨的 module(與 &amp;#39;ts.transpileModule&amp;#39; 類似)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">嚴格的類型檢查選項&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;strict&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用所有嚴格類型檢查選項
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noImplicitAny&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 在表達式和聲明上有隱含的 any 類型時報錯
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;strictNullChecks&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用嚴格的 null 檢查
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;strictFunctionTypes&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用檢查 function 型別
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;strictBindCallApply&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用對 bind、call、apply 更嚴格的型別檢查
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;strictPropertyInitialization&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用 class 實例屬性的賦值檢查
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noImplicitThis&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 當 this 表達式值為 any 類型的時候，生成一個錯誤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;alwaysStrict&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 以嚴格模式檢查每個 module，並在每個文件裡加入 &amp;#39;use strict&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">額外的檢查&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;noUnusedLocals&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 有未使用的變數時，拋出錯誤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noUnusedParameters&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 有未使用的參數時，拋出錯誤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noImplicitReturns&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 並不是所有 function 裡的代碼都有返回值時，拋出錯誤
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noFallthroughCasesInSwitch&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 報告 switch 語句的 fallthrough 錯誤。 (即不允許 switch 的 case 語句貫穿)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noUncheckedIndexedAccess&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 檢查 index signature 屬性是否是 undefined
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">模組選項&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;moduleResolution&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;node&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 選擇模組解析策略： &amp;#39;node&amp;#39; (Node.js) or &amp;#39;classic&amp;#39; (TypeScript pre-1.6)
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;baseUrl&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 用於解析非相對模組名稱的基目錄
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;paths&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{},&lt;/span> &lt;span class="c1">// 模組名到基於 baseUrl 的路徑映射的列表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;rootDirs&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span> &lt;span class="c1">// 根文件夾列表，其組合內容表示項目運行時的結構內容
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;typeRoots&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span> &lt;span class="c1">// 包含類型聲明的文件列表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;types&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[],&lt;/span> &lt;span class="c1">// 需要包含的類型聲明文件名列表
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;allowSyntheticDefaultImports&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 允許從沒有設置默認導出的模組中默認導入
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">Source&lt;/span> &lt;span class="err">Map&lt;/span> &lt;span class="err">Options&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;sourceRoot&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定調試器應該找到 TypeScript 文件而不是源文件的位置
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;mapRoot&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 指定調試器應該找到映射文件而不是生成文件的位置
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;inlineSourceMap&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 生成單個 soucemaps 文件，而不是將 sourcemaps 生成不同的文件
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;inlineSources&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 將代碼與 sourcemaps 生成到一個文件中，要求同時設置了 --inlineSourceMap 或 --sourceMap 屬性
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">其他選項&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;experimentalDecorators&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 啟用裝飾器
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;emitDecoratorMetadata&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 為裝飾器提供元數據的支持
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="err">/*&lt;/span> &lt;span class="err">進階選項&lt;/span> &lt;span class="err">*/&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;skipLibCheck&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 不會檢查引入的函式庫檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;forceConsistentCasingInFileNames&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span> &lt;span class="c1">// 確保檔案的大小寫一致
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">},&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;files&amp;#34;&lt;/span>&lt;span class="p">:[&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s2">&amp;#34;hello.ts&amp;#34;&lt;/span> &lt;span class="c1">// 若指定 files，則只會編譯指定的 hello.ts 檔案
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;exclude&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="c1">// 指定編譯器需要排除的文件或文件夾
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="s2">&amp;#34;node_modules&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;extends&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./tsconfig.base.json&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="c1">// 把基礎配置抽離成 tsconfig.base.json 檔案，然後引入
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;references&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span> &lt;span class="c1">// 指定依賴的程式路徑
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nt">&amp;#34;path&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;./common&amp;#34;&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;typeAcquisition&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="c1">// 自動引入函式庫相關定義文件(.d.ts)。
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;enable&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;exclude&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;jquery&amp;#34;&lt;/span>&lt;span class="p">],&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;include&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;jest&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr>
+&lt;h2 id="typescript-資料型別整理表">TypeScript 資料型別整理表&lt;/h2>
+&lt;p>先總結一些資料型別，接著再來詳細介紹各個型別。&lt;/p>
+&lt;table>
+&lt;thead>
+&lt;tr>
+&lt;th>Type&lt;/th>
+&lt;th>型別分類&lt;/th>
+&lt;th>說明&lt;/th>
+&lt;th>Example&lt;/th>
+&lt;/tr>
+&lt;/thead>
+&lt;tbody>
+&lt;tr>
+&lt;td>string&lt;/td>
+&lt;td>primitive&lt;/td>
+&lt;td>字串型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731704259_188fe1572c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>number&lt;/td>
+&lt;td>primitive&lt;/td>
+&lt;td>數值型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731863540_1f3f39805f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>boolean&lt;/td>
+&lt;td>primitive&lt;/td>
+&lt;td>布林型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731704274_615a1bdab7_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>null&lt;/td>
+&lt;td>primitive&lt;/td>
+&lt;td>空值型別，亦可賦值給所有型別(嚴謹模式則無法)&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731938303_797f881193_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>undefined&lt;/td>
+&lt;td>primitive&lt;/td>
+&lt;td>undefined 型別，亦可賦值給所有型別(嚴謹模式則無法)&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731863640_7493690d7e_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>object&lt;/td>
+&lt;td>object&lt;/td>
+&lt;td>物件型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731456346_116c1f8f8a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>array&lt;/td>
+&lt;td>object&lt;/td>
+&lt;td>可使用「型別 + 方括號」或陣列泛型來表示陣列&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731704389_93f8c568a4_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>function&lt;/td>
+&lt;td>object&lt;/td>
+&lt;td>一個函式有輸入和輸出，可以針對參數(輸入)及返回值(輸出)進行型別規範&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52730928457_291947b335_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>any&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>允許賦值為任意型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731704369_2d177dd98d_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>unknown&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>unknown 和 any 一樣可以接受任何型別賦值，但 any 可以賦值給任何型別，unknown 只能賦值給 any 和自己&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731704349_3ab9a8994b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>void&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>沒有任何返回值的函式&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52730928442_efd0f011f6_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>never&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>表示不應該存在的狀態的型別，一般用於錯誤處理函式&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52730928422_5b2f105386_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>union types&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>聯合型別(union type) 使用 &lt;code>｜&lt;/code> 表示其定義的值可以為多種型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731863615_58dfd0dd6c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>intersection types&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>交集型別(intersection type) 使用 &lt;code>&amp;amp;&lt;/code> 表示其定義的值都必須符合多種型別&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52730928402_4a68dd5366_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>literal types&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>某些特殊的&amp;quot;值&amp;quot;可以當作&amp;quot;型別&amp;quot;來使用&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52731938213_966b7fe5f5_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>tuple&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>tuple 就是合併了不同型別的物件&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52730928392_f63e3b028c_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;tr>
+&lt;td>enum&lt;/td>
+&lt;td>ts&lt;/td>
+&lt;td>列舉(enum)型別可以用來管理多個同系列的常數，作為狀態判斷使用&lt;/td>
+&lt;td>&lt;img src="https://live.staticflickr.com/65535/52730928382_7d0475016b_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/td>
+&lt;/tr>
+&lt;/tbody>
+&lt;/table>
+&lt;blockquote>
+&lt;p>primitive： 原始型別
+ts： typescript 的特殊型別&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="typescript-的特殊型別">typescript 的特殊型別&lt;/h2>
+&lt;h3 id="any">any&lt;/h3>
+&lt;p>如果你不希望某些值出現型別檢查錯誤，可以使用 any，他是用來表示允許賦值為任意型別。&lt;/p>
+&lt;p>❌ 假設我們設定 favoriteNumber 變數的值的型別為 string，若使用數字則會報錯。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">favoriteNumber&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;seven&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">favoriteNumber&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//error : Cannot assign to &amp;#39;favoriteNumber&amp;#39; because it is a constant.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>✅ 這時候使用 any， 則允許任何型別。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">favoriteNumber&lt;/span>: &lt;span class="kt">any&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;seven&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">favoriteNumber&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>宣告一個變數為任意值之後，對它的任何操作，返回的內容的型別都是任意值。在 any 型別下，可以賦值給任何型別，使用任何屬性和方法，都是被允許的。&lt;/p>
+&lt;p>但這樣是非常危險，&lt;code>非必要都不會使用 any&lt;/code>，要慎用！&lt;/p>
+&lt;h4 id="未宣告型別的變數及參數也視為-any-型別">未宣告型別的變數及參數也視為 any 型別&lt;/h4>
+&lt;p>變數如果在宣告的時候，未指定其型別，那麼它會被識別為 any 型別：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">something&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// something: any
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">something&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">something&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;seven&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="用-noimplicitany來提醒我使用了-any">用 noImplicitAny，來提醒我使用了 any&lt;/h4>
+&lt;p>如上面所述，未指定型別則被識為 any，如果你想避免這種情況，可以在 tsconfig 設定 &lt;code>noImplicitAny = true&lt;/code>，或是打開 &amp;ldquo;strict&amp;rdquo;: true 開啟所有嚴謹模式。他就會提醒你使用了 any 型別。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nt">&amp;#34;noImplicitAny&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// ...
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="unknown">unknown&lt;/h3>
+&lt;p>unknow 可以接受任何型別賦值， 有點類似 any 類型， 但使用上比 any 安全，來看下面例子：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">f1&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>: &lt;span class="kt">any&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">f2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>: &lt;span class="kt">unknown&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">a&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">b&lt;/span>&lt;span class="p">();&lt;/span> &lt;span class="c1">// error: Property &amp;#39;b&amp;#39; does not exist on type &amp;#39;unknown&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>使用 unknow 會報錯，沒有 b 函式的屬性，而 any 則會不會告訴你。&lt;/p>
+&lt;p>雖然 unknown 和 any 一樣可以接受任何型別賦值，但 any 可以賦值給任何型別，unknown 只能賦值給 any 和自己。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">value&lt;/span>: &lt;span class="kt">unknown&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">value1&lt;/span>: &lt;span class="kt">unknown&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value2&lt;/span>: &lt;span class="kt">any&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value3&lt;/span>: &lt;span class="kt">boolean&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value4&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value5&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value6&lt;/span>: &lt;span class="kt">object&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value7&lt;/span>: &lt;span class="kt">any&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">let&lt;/span> &lt;span class="nx">value8&lt;/span>: &lt;span class="kt">Function&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">value&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="void">void&lt;/h3>
+&lt;p>JavaScript 沒有空值(void)的概念，在 TypeScript 中，可以用 void 表示沒有任何返回值的函式，如以下例子，這個函式只有 alert，不會 return 任何值。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">alertName&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">alert&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;My name is iris&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="never">never&lt;/h3>
+&lt;p>表示不應該存在的狀態的型別，一般用於錯誤處理函式。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">message&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="kt">never&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">throw&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="nb">Error&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">message&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>此外，以下面例子，參數使用 Union Types(聯合型別)，當參數被判斷沒有其他型別時，也會被視為 never。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">fn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>: &lt;span class="kt">string&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">number&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">x&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;string&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// do something
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">x&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;number&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// do something else
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">x&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// has type &amp;#39;never&amp;#39;!
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="union-types-聯合型別">Union Types (聯合型別)&lt;/h3>
+&lt;p>聯合型別(Union Types)表示取值可以為多種型別中的其中一種。跟JavaScript &lt;code>||&lt;/code> or 的概念是一樣的。&lt;/p>
+&lt;p>✅ 聯合型別使用 &lt;code>|&lt;/code> 分隔每個型別。&lt;/p>
+&lt;p>允許 id 的型別是 string 或者 number，但是不能是其他型別。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Your ID is: &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">101&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;202&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>❌ 若使用 boolean 值，就會報錯。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">false&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// error : Argument of type &amp;#39;false&amp;#39; is not assignable to parameter of type &amp;#39;string | number&amp;#39;.Type &amp;#39;false&amp;#39; is not assignable to type &amp;#39;number&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="存取聯合型別的屬性或方法">存取聯合型別的屬性或方法&lt;/h4>
+&lt;p>當 TypeScript 不確定一個聯合型別的變數到底是哪個型別的時候，我們只能存取此聯合型別的所有型別裡共有的屬性或方法。&lt;/p>
+&lt;p>✅ 使用兩種型別都有的屬性時，沒問題。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toString&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>❌ 如果使用不同屬性，則會報錯，&lt;code>toUpperCase&lt;/code> 屬性無法適用於數值型別。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toUpperCase&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// error: Property &amp;#39;toUpperCase&amp;#39; does not exist on type &amp;#39;string | number&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Property &amp;#39;toUpperCase&amp;#39; does not exist on type &amp;#39;number&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若要解決不同情境，可以使用 &lt;code>typeof&lt;/code> 去做判斷。官網將這些情況限縮某個具體型別上的行為，稱作為 &lt;code>Narrowing&lt;/code>。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printId2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">typeof&lt;/span> &lt;span class="nx">id&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;string&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 型別為字串才 toUpperCase
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">toUpperCase&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// 其他自動判定為 number 型別
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">printId2&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;ABC&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>若是陣列型別與其他型別聯合，可以使用 &lt;code>Array.isArray()&lt;/code> 來檢查傳入的值是否為一個 Array。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">welcomePeople&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">[]&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nb">Array&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">isArray&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">))&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello, &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">join&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34; and &amp;#34;&lt;/span>&lt;span class="p">));&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span> &lt;span class="k">else&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Welcome lone traveler &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">welcomePeople&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="s2">&amp;#34;a&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;b&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="s2">&amp;#34;c&amp;#34;&lt;/span>&lt;span class="p">]);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="intersection-types-交集型別">Intersection Types (交集型別)&lt;/h3>
+&lt;p>Intersection Types (交集型別) 跟 JavaScript 的 &lt;code>&amp;amp;&amp;amp;&lt;/code> and 概念相同， 使用 &lt;code>&amp;amp;&lt;/code> 表示其定義的值都必須同時符合兩種型別。&lt;/p>
+&lt;p>❌ 以下面的例子，Intersection 在 primitive type(原始型別)中使用，是無法同時滿足兩種型別的，會被認定為 &lt;code>never&lt;/code> 型別。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">id&lt;/span>: &lt;span class="kt">number&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Your ID is: &amp;#34;&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">id&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">101&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">printId&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;202&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// error: Argument of type &amp;#39;number&amp;#39; is not assignable to parameter of type &amp;#39;never&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>✅ 主要用來組合現有的型別，若都沒符合兩種型別，則會報錯提醒。而且像下面的例子，ColorfulCircle 需滿足 Colorful 及 Circle 型別。 而且 TS 很聰明，radius 寫錯字寫成 raidus，complier 也會報錯提醒！&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">interface&lt;/span> &lt;span class="nx">Colorful&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">color&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kr">interface&lt;/span> &lt;span class="nx">Circle&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">radius&lt;/span>: &lt;span class="kt">number&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//用 type aliases 宣告 ColorfulCircle 型別，需滿足 Colorful 及 Circle 型別
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kr">type&lt;/span> &lt;span class="nx">ColorfulCircle&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Colorful&lt;/span> &lt;span class="o">&amp;amp;&lt;/span> &lt;span class="nx">Circle&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">//帶入的參數需滿足 ColorfulCircle 型別
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="nx">draw&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">circle&lt;/span>: &lt;span class="kt">ColorfulCircle&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`Color was &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">circle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">color&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`Radius was &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">circle&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">radius&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">draw&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;blue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">radius&lt;/span>: &lt;span class="kt">42&lt;/span> &lt;span class="p">});&lt;/span> &lt;span class="c1">// ok
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">draw&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">color&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;red&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">raidus&lt;/span>: &lt;span class="kt">42&lt;/span> &lt;span class="p">});&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// error: Argument of type &amp;#39;{ color: string; raidus: number; }&amp;#39; is not assignable to parameter of type &amp;#39;Colorful &amp;amp; Circle&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Object literal may only specify known properties, but &amp;#39;raidus&amp;#39; does not exist in type &amp;#39;Colorful &amp;amp; Circle&amp;#39;. Did you mean to write &amp;#39;radius&amp;#39;?
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="literal-types-字面值型別">Literal Types 字面值型別&lt;/h3>
+&lt;h4 id="string-literal-types">string literal types&lt;/h4>
+&lt;p>就是值的表現方式，**某些特殊的&amp;quot;值&amp;quot;可以當作&amp;quot;型別&amp;quot;**來使用，用來約束取值只能是某幾個字串中的一個。如下方讓 x 變數的字面值為&amp;quot;hello&amp;quot;。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">x&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;hello&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">x&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;howdy&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// Type &amp;#39;&amp;#34;howdy&amp;#34;&amp;#39; is not assignable to type &amp;#39;&amp;#34;hello&amp;#34;&amp;#39;
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>但很少情況會使用到一個變數只有一個值，我們可以將想要的值結合起來， 如 alignment 給予 3 個字面值，其參數要符合其中一個。如果不符合這 3 個值的其中一個或寫錯字，都會報錯。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">printText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">s&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">alignment&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s2">&amp;#34;left&amp;#34;&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="s2">&amp;#34;right&amp;#34;&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="s2">&amp;#34;center&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">s&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb"> placed at the &lt;/span>&lt;span class="si">${&lt;/span>&lt;span class="nx">alignment&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="sb">`&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">printText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Hello, world&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;left&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">printText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;G&amp;#39;day, mate&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;centre&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// error
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// error: Argument of type &amp;#39;&amp;#34;centre&amp;#34;&amp;#39; is not assignable to parameter of type &amp;#39;&amp;#34;left&amp;#34; | &amp;#34;right&amp;#34; | &amp;#34;center&amp;#34;&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="numeric-literal-types">numeric literal types&lt;/h4>
+&lt;p>除了文字上，數字的操作也一樣。&lt;/p>
+&lt;p>執行 compare 函式的回傳值只能 -1、0 和 1：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">compare&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">b&lt;/span>: &lt;span class="kt">string&lt;/span>&lt;span class="p">)&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="mi">0&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="nx">0&lt;/span> : &lt;span class="kt">a&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="nx">b&lt;/span> &lt;span class="o">?&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">:&lt;/span> &lt;span class="o">-&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="non-literal-types">non-literal types&lt;/h4>
+&lt;p>非字面值型別也可以結合操作：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">interface&lt;/span> &lt;span class="nx">Options&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">width&lt;/span>: &lt;span class="kt">number&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">function&lt;/span> &lt;span class="nx">configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>: &lt;span class="kt">Options&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="s2">&amp;#34;auto&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">configure&lt;/span>&lt;span class="p">({&lt;/span> &lt;span class="nx">width&lt;/span>: &lt;span class="kt">100&lt;/span> &lt;span class="p">});&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;auto&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;automatic&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 不符 Options 及 &amp;#34;auto&amp;#34;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// error： Argument of type &amp;#39;&amp;#34;automatic&amp;#34;&amp;#39; is not assignable to parameter of type &amp;#39;Options | &amp;#34;auto&amp;#34;&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="tuple-元組">Tuple 元組&lt;/h3>
+&lt;p>Tuple 就是合併了不同型別的物件。&lt;/p>
+&lt;p>定義一對值分別為 string 和 number 的元組：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">wayne&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">number&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;wayne&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">18&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>可以針對型別有的屬性進行使用、賦值。但當直接對元組型別的變數進行初始化或者賦值，需提供所有項目。如果要新增不同型別的項目也是無法的：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">wayne&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="kt">number&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">wayne&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;wayne&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">18&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// 如果只有宣告 wayne 沒賦值，會是undefined，tsconfig strictNullChecks 打開的話會報錯提醒
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wayne&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s1">&amp;#39;wayne&amp;#39;&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wayne&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">25&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wayne&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wayne&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">].&lt;/span>&lt;span class="nx">toFixed&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wayne&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;male&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// success
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">wayne&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s1">&amp;#39;wayne lin&amp;#39;&lt;/span>&lt;span class="p">];&lt;/span> &lt;span class="c1">// error: Property &amp;#39;1&amp;#39; is missing in type &amp;#39;[string]&amp;#39; but required in type &amp;#39;[string, number]&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">wayne&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">push&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// error: Argument of type &amp;#39;true&amp;#39; is not assignable to parameter of type &amp;#39;string | number&amp;#39;.
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="enum">enum&lt;/h3>
+&lt;p>列舉(Enums)型別用於取值被限定在一定範圍內的場景，可以用來管理多個同系列的常數，作為狀態判斷使用。比如一週只能有七天，顏色限定為紅綠藍等。也可以自定義來表示每一個值。&lt;/p>
+&lt;h4 id="numeric-enums">Numeric Enums&lt;/h4>
+&lt;p>使用 &lt;code>enum&lt;/code> 關鍵字來定義：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">Days&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Sun&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Mon&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Tue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Wed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Thu&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Fri&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Sat&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這時候我們來看編譯後，列舉成員會被賦值為從 0 開始自動遞增的數字，同時也會對列舉值到列舉名進行反向對映：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">Days&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Mon&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Mon&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Tue&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Tue&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Thu&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Thu&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Fri&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Fri&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sat&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sat&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})(&lt;/span>&lt;span class="nx">Days&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{}));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="手動賦值">手動賦值&lt;/h4>
+&lt;p>可以手動去定義不同的值。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">Days&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Sun&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Mon&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Tue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Wed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Thu&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Fri&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Sat&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>編譯後：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">Days&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Mon&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Mon&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Tue&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Tue&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Thu&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Thu&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Fri&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Fri&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sat&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sat&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})(&lt;/span>&lt;span class="nx">Days&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{}));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="要小心覆蓋的情況">要小心覆蓋的情況&lt;/h4>
+&lt;p>如果中間突然指定了了一個值，那他會從當前的值從新開始計算。如下， &lt;code>Days[3]&lt;/code> 的值先是 &amp;ldquo;Sun&amp;rdquo;，而後又被 &amp;ldquo;Wed&amp;rdquo; 覆蓋了。這個 TypeScript 是不會報錯的，所以要特別注意。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">Days&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Sun&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Mon&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Tue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Wed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Thu&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Fri&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Sat&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// false
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="mi">3&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">===&lt;/span> &lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// true
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="可使用型別斷言type-assertion來定義">可使用型別斷言(Type Assertion)來定義&lt;/h4>
+&lt;p>手動賦值的列舉項其中一個不想是數字，此時可以使用 any 型別斷言來讓 TypeScript 無視型別檢查。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">Days&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Sun&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Mon&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Tue&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Wed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Thu&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Fri&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Sat&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">any&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="s2">&amp;#34;S&amp;#34;&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>編譯後：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">Days&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">7&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sun&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Mon&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">8&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Mon&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Tue&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">9&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Tue&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">10&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Wed&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Thu&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">11&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Thu&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Fri&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">12&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Fri&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">Days&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;Sat&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;S&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;Sat&amp;#34;&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">})(&lt;/span>&lt;span class="nx">Days&lt;/span> &lt;span class="o">||&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">Days&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">{}));&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="string-enums-字串列舉">String Enums 字串列舉&lt;/h4>
+&lt;p>字串 enums 沒有 number enums 可以自動遞增的行為，但字串 enum 自行定義是有他的語意在的。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">Direction&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Up&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;UP&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Down&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;DOWN&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Left&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;LEFT&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Right&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;RIGHT&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="heterogeneous-enums-異構列舉">Heterogeneous Enums 異構列舉&lt;/h4>
+&lt;p>雖然 enum 可以混合數字與字串，但盡量不要寫這種寫法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">BooleanLikeHeterogeneousEnum&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">No&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Yes&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;YES&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="computed-and-constant-members-常數項和計算所得項">Computed and constant members 常數項和計算所得項&lt;/h4>
+&lt;p>列舉項有兩種型別：&lt;code>常數項&lt;/code>(constant member)和&lt;code>計算所得項&lt;/code>(computed member)。&lt;/p>
+&lt;p>前面我們所舉的例子都是常數項，一個典型的計算所得項的例子如下，&amp;ldquo;blue&amp;rdquo;.length 就是一個計算所得項：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">Color&lt;/span> &lt;span class="p">{&lt;/span> &lt;span class="nx">Red&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Green&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Blue&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;blue&amp;#34;&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">Color&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Blue&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 4
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>如何定義是常數項，可參考&lt;a class="link" href="https://www.typescriptlang.org/docs/handbook/enums.html#computed-and-constant-members" target="_blank" rel="noopener"
+>官網&lt;/a>。&lt;/p>
+&lt;p>像是二元運算子 &lt;code>&amp;lt;&amp;lt;&lt;/code>、&lt;code>|&lt;/code>、&lt;code>&amp;amp;&lt;/code> 等都歸為常數項：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">enum&lt;/span> &lt;span class="nx">FileAccess&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// constant members
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">None&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Read&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Write&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="o">&amp;lt;&amp;lt;&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">ReadWrite&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">Read&lt;/span> &lt;span class="o">|&lt;/span> &lt;span class="nx">Write&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// computed member
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span> &lt;span class="nx">G&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;123&amp;#34;&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="const-enums-常數列舉">Const Enums 常數列舉&lt;/h4>
+&lt;p>可以使用 const enum 定義的列舉型別：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="kr">enum&lt;/span> &lt;span class="nx">Directions&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Up&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Down&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Right&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">directions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Up&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Down&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>常數列舉與普通列舉的區別是，它會在編譯階段被刪除，並且不能包含 computed member (計算成員)，只能是常數項 (constant member)。&lt;/p>
+&lt;p>編譯後：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">directions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">0&lt;/span> &lt;span class="cm">/* Up */&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">1&lt;/span> &lt;span class="cm">/* Down */&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span> &lt;span class="cm">/* Left */&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span> &lt;span class="cm">/* Right */&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h4 id="ambient-enums-外部列舉">Ambient Enums 外部列舉&lt;/h4>
+&lt;p>外部列舉 (Ambient Enums) 是使用 &lt;code>declare enum&lt;/code> 定義的列舉型別：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-typescript" data-lang="typescript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">declare&lt;/span> &lt;span class="kr">enum&lt;/span> &lt;span class="nx">Directions&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Up&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Down&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">Right&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">let&lt;/span> &lt;span class="nx">directions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Up&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Down&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>declare 定義的型別只會用於編譯時的檢查，編譯結果中會被刪除。&lt;/p>
+&lt;p>編譯後：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">directions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Up&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Down&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr></description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

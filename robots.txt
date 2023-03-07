@@ -1,20 +1,26 @@
 User-agent: *
 
-Allow: /2023-03-03/linux-find/
+Allow: /2023-03-07/ts-config-and-type/
 
 Allow: /categories/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
+Allow: /
+
+Allow: /2023-03-03/linux-find/
 
 Allow: /tags/find/
 
 Allow: /tags/linux/
 
 Allow: /categories/linux/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /tags/cloudflare/
 
@@ -55,10 +61,6 @@ Allow: /2023-02-21/ts-express-server/
 Allow: /categories/npm-plugins/
 
 Allow: /tags/npm-plugins/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
 
 Allow: /2023-02-17/js-about-this/
 
