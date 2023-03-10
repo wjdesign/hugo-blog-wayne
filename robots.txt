@@ -1,8 +1,14 @@
 User-agent: *
 
-Allow: /2023-03-07/ts-config-and-type/
+Allow: /2023-03-10/petite-vue-introduction/
 
 Allow: /categories/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /tags/petite-vue/
 
 Allow: /post/
 
@@ -12,7 +18,13 @@ Allow: /tags/typescript/
 
 Allow: /categories/typescript/
 
+Allow: /tags/vue/
+
+Allow: /categories/vue/
+
 Allow: /
+
+Allow: /2023-03-07/ts-config-and-type/
 
 Allow: /2023-03-03/linux-find/
 
@@ -47,10 +59,6 @@ Allow: /tags/dotnet-core/
 Allow: /categories/design-pattern/
 
 Allow: /2023-02-22/js-require-vs-import/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/nodejs/
 
@@ -203,10 +211,6 @@ Allow: /2023-01-16/nuxt-nuxt3-practice-project/
 Allow: /tags/nuxt/
 
 Allow: /categories/nuxt/
-
-Allow: /tags/vue/
-
-Allow: /categories/vue/
 
 Allow: /2023-01-14/nuxt-try-nuxt3/
 
