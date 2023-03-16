@@ -1,18 +1,26 @@
 User-agent: *
 
-Allow: /2023-03-10/petite-vue-introduction/
+Allow: /2023-03-16/css-21-tricks/
 
 Allow: /categories/
+
+Allow: /tags/css/
+
+Allow: /categories/css/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2023-03-10/petite-vue-introduction/
 
 Allow: /tags/javascript/
 
 Allow: /categories/javascript/
 
 Allow: /tags/petite-vue/
-
-Allow: /post/
-
-Allow: /tags/
 
 Allow: /tags/typescript/
 
@@ -21,8 +29,6 @@ Allow: /categories/typescript/
 Allow: /tags/vue/
 
 Allow: /categories/vue/
-
-Allow: /
 
 Allow: /2023-03-07/ts-config-and-type/
 
@@ -99,10 +105,6 @@ Allow: /2023-02-14/js-navigator-share-api/
 Allow: /2023-02-14/what-is-nodejs/
 
 Allow: /2023-02-13/dotnet-core-debounce/
-
-Allow: /tags/css/
-
-Allow: /categories/css/
 
 Allow: /tags/debounce/
 
