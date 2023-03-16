@@ -1,5 +1,7 @@
 User-agent: *
 
+Allow: /2023-03-16/js-function-currying/
+
 Allow: /2023-03-16/python-decorator-tutorial/
 
 Allow: /2023-03-16/css-21-tricks/
@@ -12,6 +14,12 @@ Allow: /categories/css/
 
 Allow: /tags/decorator/
 
+Allow: /tags/function-currying/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
 Allow: /post/
 
 Allow: /tags/python/
@@ -23,10 +31,6 @@ Allow: /tags/
 Allow: /
 
 Allow: /2023-03-10/petite-vue-introduction/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /tags/petite-vue/
 
