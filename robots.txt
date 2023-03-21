@@ -1,5 +1,7 @@
 User-agent: *
 
+Allow: /2023-03-21/python-pyenv-introduction/
+
 Allow: /categories/
 
 Allow: /tags/design-pattern/
@@ -7,6 +9,8 @@ Allow: /tags/design-pattern/
 Allow: /tags/oop/
 
 Allow: /post/
+
+Allow: /tags/pyenv/
 
 Allow: /tags/python/
 
