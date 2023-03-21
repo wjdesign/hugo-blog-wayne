@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/page/</link><description>Recent content in Pages on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 20 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/page/index.xml" rel="self" type="application/rss+xml"/><item><title>關於本站</title><link>https://wayneblog.ga/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/%E9%97%9C%E6%96%BC%E6%9C%AC%E7%AB%99/</guid><description>&lt;h2 id="介紹">介紹&lt;/h2>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Pages on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/page/</link><description>Recent content in Pages on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 20 Jul 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/page/index.xml" rel="self" type="application/rss+xml"/><item><title>關於本站</title><link>https://wayneblog.ga/about/</link><pubDate>Wed, 20 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/about/</guid><description>&lt;h2 id="介紹">介紹&lt;/h2>
 &lt;p>本站僅為技術性分享網站，資料來源多為網路收集、課程學習、自行領悟而來，經由本站做為個人紀錄筆記使用，以便需要時查詢，若文章內容有誤或有不當引用敬請告知本人，感謝。&lt;/p>
 &lt;hr>
 &lt;h2 id="免責聲明">免責聲明&lt;/h2>
@@ -8,30 +8,4 @@
 &lt;li>經由本網站取得訊息或進行交易。&lt;/li>
 &lt;li>第三人在本網站上之陳述或作為。&lt;/li>
 &lt;li>其他與本網站服務有關之事項。&lt;/li>
-&lt;/ol></description></item><item><title>文章卷宗</title><link>https://wayneblog.ga/archives/</link><pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/archives/</guid><description/></item><item><title>相關連結</title><link>https://wayneblog.ga/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/%E7%9B%B8%E9%97%9C%E9%80%A3%E7%B5%90/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
-&lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;span class="lnt">9
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub is the world&amp;#39;s largest software development platform.&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.com&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TypeScript&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://www.typescriptlang.org&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ts-logo-128.jpg&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>搜尋檢索</title><link>https://wayneblog.ga/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/search/</guid><description/></item></channel></rss>
+&lt;/ol></description></item><item><title>文章卷宗</title><link>https://wayneblog.ga/archives/</link><pubDate>Wed, 01 Jan 2020 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/archives/</guid><description/></item><item><title>相關連結</title><link>https://wayneblog.ga/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/links/</guid><description>&lt;p>關於 Wayne&amp;rsquo;s、Wayne&amp;rsquo;s blog 的所有相關連結。&lt;/p></description></item><item><title>搜尋檢索</title><link>https://wayneblog.ga/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/search/</guid><description/></item></channel></rss>
