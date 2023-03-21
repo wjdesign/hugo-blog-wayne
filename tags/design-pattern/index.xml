@@ -1,4 +1,411 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>design-pattern on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/design-pattern/</link><description>Recent content in design-pattern on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 24 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/design-pattern/index.xml" rel="self" type="application/rss+xml"/><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>design-pattern on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/design-pattern/</link><description>Recent content in design-pattern on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/design-pattern/index.xml" rel="self" type="application/rss+xml"/><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://wayneblog.ga/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://zh.wikipedia.org/zh-tw/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://hackmd.io/@yuaninjapan/BJiucEWjo" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="物件導向">物件導向&lt;/h2>
+&lt;h3 id="請問物件導向程式語言有哪些特點能簡單說明給我聽嗎">請問物件導向程式語言有哪些特點，能簡單說明給我聽嗎？&lt;/h3>
+&lt;p>物件導向程式語言 (&lt;code>Object-Oriented Programming&lt;/code>，OOP) 的特點有：&lt;/p>
+&lt;ol>
+&lt;li>物件導向：OOP 程式語言是以物件 (Object) 為基礎建構程式，物件具有狀態 (state) 和行為 (behavior)。&lt;/li>
+&lt;li>繼承 (Inheritance)：OOP 程式語言允許一個類別 (class) 從另一個類別繼承屬性和行為。&lt;/li>
+&lt;li>多型 (Polymorphism)：OOP 程式語言允許物件在不同的情況下具有不同的行為。&lt;/li>
+&lt;li>封裝 (Encapsulation)：OOP 程式語言允許將物件的狀態和行為封裝在一起，保護物件內部狀態不被外界直接存取。&lt;/li>
+&lt;li>抽象 (Abstraction) ，OOP 程式語言將物件的實作細節與使用者分開，使用者只需要知道物件的公開介面而無需知道其實作。&lt;/li>
+&lt;/ol>
+&lt;h3 id="請問物件具有狀態-state-和行為-behavior這句話是什麼意思能用-python-舉例嗎">請問物件具有狀態 (state) 和行為 (behavior)。這句話是什麼意思？能用 python 舉例嗎？&lt;/h3>
+&lt;p>物件具有狀態 (state) 和行為 (behavior) 意思是物件具有兩種不同的特性，狀態代表物件的屬性，行為代表物件的方法。&lt;/p>
+&lt;p>舉例來說，若我們有一個類別叫做 &lt;code>Car&lt;/code>，那麼這個類別可能有一些狀態屬性如 &amp;ldquo;color&amp;rdquo;、&amp;ldquo;speed&amp;rdquo;、&amp;ldquo;brand&amp;rdquo;，而行為可能有 &amp;ldquo;drive&amp;rdquo;、&amp;ldquo;brake&amp;rdquo;、&amp;ldquo;turn&amp;rdquo; 等方法。&lt;/p>
+&lt;p>用 python 程式碼來實現這個類別可能長得像下面這樣：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">Car&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">color&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">color&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">speed&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">brand&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">brand&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">brake&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">turn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">direction&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">f&lt;/span>&lt;span class="s2">&amp;#34;The car is turning &lt;/span>&lt;span class="si">{&lt;/span>&lt;span class="n">direction&lt;/span>&lt;span class="si">}&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">Car&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;red&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Tesla&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">turn&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;left&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 10&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>上面這個例子中，類別 &lt;code>Car&lt;/code> 有三個狀態屬性 color、speed、brand 以及三個行為方法 drive()、brake()、turn()。&lt;/p>
+&lt;p>透過創建一個實體物件 &lt;code>my_car = Car(&amp;quot;red&amp;quot;, 0, &amp;quot;Tesla&amp;quot;)&lt;/code> 來使用這些方法及屬性。&lt;/p>
+&lt;h3 id="請問你能用上面的-car-class-寫一個繼承的範例給我看嗎">請問你能用上面的 Car class 寫一個繼承的範例給我看嗎？&lt;/h3>
+&lt;p>當然可以，我們可以創建一個新的類別來繼承 Car 類別，讓新類別繼承 Car 類別的屬性和方法。&lt;/p>
+&lt;p>例如我們可以創建一個新的類別 &lt;code>ElectricCar&lt;/code> 繼承 Car 類別，並且在 ElectricCar 類別中加入新的屬性和方法。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">battery_size&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">battery_size&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">charge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The electric car is charging...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The battery is empty, please charge the car.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_electric_car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;blue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Tesla&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 60&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 70&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在這個例子中，&lt;code>ElectricCar&lt;/code> 類別繼承了 &lt;code>Car&lt;/code> 類別的所有屬性和方法，並且定義了新的屬性 &lt;code>battery_size&lt;/code> 和方法 &lt;code>charge()&lt;/code>。&lt;/p>
+&lt;p>透過使用 &lt;code>super()&lt;/code> 函式可以繼承 Car 類別的 &lt;code>init&lt;/code> 方法。&lt;/p>
+&lt;p>使用 &lt;code>my_electric_car = ElectricCar(&amp;quot;blue&amp;quot;, 0, &amp;quot;Tesla&amp;quot;, 100)&lt;/code> 來創建實體物件，可以使用 ElectricCar 類別的新屬性及方法。&lt;/p>
+&lt;h3 id="請問你能用上面的程式碼繼續舉例多型的用法給我看嗎">請問你能用上面的程式碼繼續舉例多型的用法給我看嗎？&lt;/h3>
+&lt;p>當然可以，&lt;code>多型 (Polymorphism)&lt;/code> 是指物件在不同的情況下具有不同的行續。 一般來說我們可以使用繼承的類別來實現多型。&lt;/p>
+&lt;p>以上面程式碼為例，我們可以用 &lt;code>ElectricCar&lt;/code> 類別繼承 &lt;code>Car&lt;/code> 類別，並重新實現 &lt;code>drive&lt;/code> 方法來實現多型的用法。&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">battery_size&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">battery_size&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">charge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The electric car is charging...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">battery_size&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The battery is empty, please charge the car.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">GasCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">gas_level&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">gas_level&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">gas_level&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">fill_gas&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">gas_level&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">100&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">gas_level&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">15&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">gas_level&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The gas is empty, please fill the gas.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_electric_car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;blue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Tesla&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_gas_car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">GasCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;black&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Ford&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">60&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">def&lt;/span> &lt;span class="nf">drive_car&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">drive_car&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_electric_car&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">drive_car&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_gas_car&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_gas_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="c1"># 15&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在這個例子中，我們在 ElectricCar 和 GasCar 類別中都重新實現了 &lt;code>drive&lt;/code> 方法，並且在 &lt;code>drive_car&lt;/code> 函數中只接受 &lt;code>Car&lt;/code> 的類別，可以看到在 &lt;code>drive_car&lt;/code> 函數中傳入不同類別的實體物件會執行&lt;code>不同的 drive 行為&lt;/code>。&lt;/p>
+&lt;p>這就是多型的用法，可以讓同一個函數或方法支援多種類別的物件，而不需要為每一種類別都寫一個不同的函數或方法。這樣可以增加程式碼的彈性和可讀性。&lt;/p>
+&lt;p>我們可以在設計類別時統一實現某些方法，並讓類別可以自行選擇如何實現該方法，這樣就可以讓程式碼更具彈性和靈活性。&lt;/p>
+&lt;h3 id="請問你能用上面的程式碼繼續舉例封裝的用法給我看嗎">請問你能用上面的程式碼繼續舉例封裝的用法給我看嗎？&lt;/h3>
+&lt;p>當然可以，&lt;code>封裝 (Encapsulation)&lt;/code> 是指將物件的狀態和行為封裝在一起，保護物件內部狀態不被外界直接存取。&lt;/p>
+&lt;p>在 Python 中，我們可以使用 &lt;code>_&lt;/code> 或 &lt;code>__&lt;/code> 來表示&lt;code>私有變數和方法&lt;/code>，這樣的變數和方法&lt;strong>只能在類別內部存取&lt;/strong>。&lt;/p>
+&lt;p>例如，我們可以把 &lt;code>ElectricCar&lt;/code> 類別中的 &lt;code>battery_size&lt;/code> 屬性改成私有變數：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">battery_size&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">color&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">speed&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">brand&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_size&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">battery_size&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">charge&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The electric car is charging...&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_size&lt;/span> &lt;span class="o">&amp;gt;&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">speed&lt;/span> &lt;span class="o">+=&lt;/span> &lt;span class="mi">20&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_size&lt;/span> &lt;span class="o">-=&lt;/span> &lt;span class="mi">10&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>&lt;span class="p">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;The battery is empty, please charge the car.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">get_battery_size&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_size&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">my_electric_car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;blue&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;Tesla&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">100&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">my_electric_car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">get_battery_size&lt;/span>&lt;span class="p">())&lt;/span> &lt;span class="c1">#100&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在這個例子中，&lt;code>ElectricCar&lt;/code> 類別的 &lt;code>battery_size&lt;/code> 屬性被定義為&lt;code>私有變數&lt;/code>，只能在類別內部存取。如果外部直接存取該變數的話會產生錯誤。&lt;/p>
+&lt;p>而我們可以使用私有變數所對應的公有方法 &lt;code>get_battery_size()&lt;/code> 來存取私有變數。這樣可以保護類別內部狀態不被外部直接存取，也可以通過公有方法給外部提供適當的存取權限。&lt;/p>
+&lt;h3 id="你說在-python-中我們可以使用-_-或-__-來表示私有變數和方法請問-_-跟-__-差在哪裡">你說在 Python 中，我們可以使用 &lt;strong>_&lt;/strong> 或 &lt;strong>__&lt;/strong> 來表示私有變數和方法，請問 &lt;strong>_&lt;/strong> 跟 &lt;strong>__&lt;/strong> 差在哪裡？&lt;/h3>
+&lt;p>用一個底線 &lt;code>_&lt;/code> 表示&lt;strong>私有變數和方法並不會真正的阻止外部存取&lt;/strong>，只是約定俗成的寫法。&lt;br>
+而使用兩個底線 &lt;code>__&lt;/code> 來表示&lt;strong>私有變數和方法會真正的封裝，阻止外部存取&lt;/strong>，並且子類別也無法存取，更能保證封裝性。&lt;/p>
+&lt;h3 id="請問你能用上面的程式碼繼續舉例抽象的用法給我看嗎">請問你能用上面的程式碼繼續舉例抽象的用法給我看嗎？&lt;/h3>
+&lt;p>可以，以下是之前提到的 Car、ElectricCar、GasCar 程式碼使用抽象類別和抽象方法的寫法：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;span class="lnt">24
+&lt;/span>&lt;span class="lnt">25
+&lt;/span>&lt;span class="lnt">26
+&lt;/span>&lt;span class="lnt">27
+&lt;/span>&lt;span class="lnt">28
+&lt;/span>&lt;span class="lnt">29
+&lt;/span>&lt;span class="lnt">30
+&lt;/span>&lt;span class="lnt">31
+&lt;/span>&lt;span class="lnt">32
+&lt;/span>&lt;span class="lnt">33
+&lt;/span>&lt;span class="lnt">34
+&lt;/span>&lt;span class="lnt">35
+&lt;/span>&lt;span class="lnt">36
+&lt;/span>&lt;span class="lnt">37
+&lt;/span>&lt;span class="lnt">38
+&lt;/span>&lt;span class="lnt">39
+&lt;/span>&lt;span class="lnt">40
+&lt;/span>&lt;span class="lnt">41
+&lt;/span>&lt;span class="lnt">42
+&lt;/span>&lt;span class="lnt">43
+&lt;/span>&lt;span class="lnt">44
+&lt;/span>&lt;span class="lnt">45
+&lt;/span>&lt;span class="lnt">46
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="kn">from&lt;/span> &lt;span class="nn">abc&lt;/span> &lt;span class="kn">import&lt;/span> &lt;span class="n">ABC&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">abstractmethod&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">Car&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">ABC&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__year_model&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__make&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__speed&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nd">@abstractmethod&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">pass&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">ElectricCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">set_battery_type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">battery_type&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">battery_type&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">get_battery_type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__battery_type&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Electric car is driving.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">class&lt;/span> &lt;span class="nc">GasCar&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">Car&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="fm">__init__&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">super&lt;/span>&lt;span class="p">()&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="fm">__init__&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__fuel_type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="s2">&amp;#34;&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">set_fuel_type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">fuel_type&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__fuel_type&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">fuel_type&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">get_fuel_type&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="bp">self&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">__fuel_type&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">def&lt;/span> &lt;span class="nf">drive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="bp">self&lt;/span>&lt;span class="p">):&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nb">print&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;Gas car is driving.&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">#create object&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">ElectricCar&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">car&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="n">GasCar&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">car&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">drive&lt;/span>&lt;span class="p">()&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在這個範例中，Car 類別是一個抽象類別，它定義了一個抽象方法 &lt;code>drive()&lt;/code>。ElectricCar 和 GasCar 類別都繼承自 Car 類別，並實現了 &lt;code>drive()&lt;/code> 方法。&lt;/p>
+&lt;p>這樣的設計可以達到封裝的目的，同時也可以達到多型的目的。並且因為 Car 類別是抽象類別，所以不能直接建立 Car 類別的物件，只能用它的子類別來建立物件。&lt;/p>
+&lt;h3 id="有了繼承的特點為何還需要抽象感覺不出這兩者有何差別">有了繼承的特點為何還需要抽象？感覺不出這兩者有何差別？&lt;/h3>
+&lt;p>繼承的作用是&lt;strong>讓子類別可以繼承父類別的屬性和方法&lt;/strong>，使得子類別可以共用父類別的程式碼，達到代碼重用的目的。這樣可以讓程式碼更簡潔，並且可以讓子類別擁有父類別的特徵。&lt;/p>
+&lt;p>而抽象則是讓&lt;strong>類別有共同的特徵和行為&lt;/strong>，抽象類別&lt;strong>不能被實例化&lt;/strong>，而是用來被其他類別繼承。抽象類別中可以定義&lt;code>抽象方法(abstract method)&lt;/code>和&lt;code>普通方法&lt;/code>，抽象方法&lt;strong>只有定義，沒有實現&lt;/strong>。在子類別中必須實現抽象方法。這樣可以確保所有子類別都有相同的行為，但實現可能不同。&lt;/p>
+&lt;p>在車的例子中，我們可以用繼承的方式，讓 ElectricCar 和 GasCar 繼承 Car 的屬性，例如 make、model、year_model。而用抽象的方式，我們可以在父類別 Car 中定義一個 drive 方法，並在子類別中實現 drive 方法，這樣可以確保所有車子都有 drive 這個行為。&lt;/p>
+&lt;h3 id="實際業務上來說何時會想用繼承何時會想用抽象">實際業務上來說，何時會想用繼承何時會想用抽象？&lt;/h3>
+&lt;p>實際業務上，繼承和抽象會根據實際需求而使用。&lt;/p>
+&lt;ul>
+&lt;li>繼承：&lt;/li>
+&lt;/ul>
+&lt;p>要繼承另一個類別的特徵和行為時，就可以使用繼承。例如，你有一個車類別，並且你需要創建一個電動車和汽油車類別，這兩個類別都有許多相同的特徵和行為，那麼你可以使用繼承，將車類別的特徵和行為繼承到電動車和汽油車類別中。&lt;/p>
+&lt;ul>
+&lt;li>抽象：&lt;/li>
+&lt;/ul>
+&lt;p>當你有一些類別需要共用同一個介面或行為時，就可以使用抽象。例如，你有一個車類別，並且你需要創建多種不同類型的車，例如電動車、汽油車、柴油車等，這些車都需要有 drive 這個行為，那麼你可以使用抽象類別來定義一個 drive 方法，並在電動車、汽油車、柴油車等類別中實現 drive 方法，這樣就可以確保所有車都有 drive 這個行為。&lt;/p>
+&lt;p>總結來說，繼承是用來繼承父類別的特徵和行為，而抽象則是用來確保類別具有共同的特徵和行為。&lt;/p>
+&lt;h3 id="請問你說的特徵具體來說是指什麼東西">請問你說的特徵具體來說是指什麼東西？&lt;/h3>
+&lt;p>特徵是指類別所具有的&lt;strong>屬性&lt;/strong>和&lt;strong>行為&lt;/strong>，包括&lt;strong>資料&lt;/strong>和&lt;strong>函式&lt;/strong>。&lt;/p>
+&lt;p>屬性是指類別中的&lt;strong>變數&lt;/strong>，它們用來儲存類別中的資料。例如在之前的例子中，Car 類別中的屬性有 make、model、year_model。&lt;/p>
+&lt;p>而行為是指類別中的&lt;strong>函式&lt;/strong>，它們用來定義類別的動作。例如在之前的例子中，Car 類別中的行為有 drive、get_make、get_model 等。&lt;/p>
+&lt;p>這些屬性和行為就是類別的特徵。&lt;/p>
+&lt;h3 id="請問物件導向為何叫做物件導向">請問物件導向為何叫做物件導向？&lt;/h3>
+&lt;p>物件導向程式語言之所以叫做物件導向是因為&lt;strong>它重視物件 (Object) 這個概念&lt;/strong>。在物件導向程式語言中，程式設計師可以使用類別 (Class) 來定義物件的共性，並使用物件來實例化類別。&lt;/p>
+&lt;p>物件具有&lt;code>狀態 (state)&lt;/code> 和&lt;code>行為 (behavior)&lt;/code>，並且可以互相之間進行溝通和互動。透過物件導向程式設計，可以更加形象地模擬實際世界中的事物，並且更加容易維護和擴展程式碼。&lt;/p>
+&lt;hr></description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
