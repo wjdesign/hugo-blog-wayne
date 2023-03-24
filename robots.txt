@@ -1,24 +1,34 @@
 User-agent: *
 
-Allow: /2023-03-21/python-pyenv-introduction/
+Allow: /categories/dotnet-core/
+
+Allow: /categories/csharp/
 
 Allow: /categories/
+
+Allow: /tags/csharp/
+
+Allow: /tags/dotnet-core/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /
+
+Allow: /2023-03-24/dotnet-core-v7-launch-profile/
+
+Allow: /2023-03-21/python-pyenv-introduction/
 
 Allow: /tags/design-pattern/
 
 Allow: /tags/oop/
-
-Allow: /post/
 
 Allow: /tags/pyenv/
 
 Allow: /tags/python/
 
 Allow: /categories/python/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /2023-03-21/python-oop-qa/
 
@@ -74,15 +84,7 @@ Allow: /tags/cloudflare-tunnel/
 
 Allow: /categories/reverse-proxy/
 
-Allow: /categories/dotnet-core/
-
 Allow: /2023-02-24/webapi-3-tier-introduction/
-
-Allow: /categories/csharp/
-
-Allow: /tags/csharp/
-
-Allow: /tags/dotnet-core/
 
 Allow: /2023-02-22/js-require-vs-import/
 
