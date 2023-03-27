@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>functional-programming on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/functional-programming/</link><description>Recent content in functional-programming on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 27 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/functional-programming/index.xml" rel="self" type="application/rss+xml"/><item><title>【Javascript】關於 Functional Programming 函數式編程</title><link>https://wayneblog.ga/2023-03-27/js-functional-programming/</link><pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-27/js-functional-programming/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52774306416_350deb7178_o.png" alt="Featured image of post 【Javascript】關於 Functional Programming 函數式編程" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10233399" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://totoroliu.medium.com/javascript-functional-programming-%E5%87%BD%E5%BC%8F%E7%B7%A8%E7%A8%8B%E6%A6%82%E5%BF%B5-e8f4e778fc08" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>在軟體工程開發的領域中，我們為了解決不同的問題，因此衍生出許多不同的程式設計(Programming paradigm)方式，這些設計方法彼此之間並沒有所謂的好壞、優劣，只有解決問題適合度高低的差異。&lt;/p>
+&lt;p>&lt;code>函數式編程&lt;/code>(&lt;code>Functional Programming&lt;/code>，以下簡稱 FP)是眾多程式設計(Programming Paradigm) 方式的其中一種，有別於老早就大紅大紫的物件導向編成(object-oriented Programming，OOP) 方式(OO還衍伸出許多設計模式)，FP 則是近年來較為熱門的程式設計方式。像是 React 這套 JavaScript 框架就是使用 FP 來開發程式，因此若想學習 React.js 勢必也要熟悉 FP 的基本概念，而 JavaScript 程式語言也需要符合 FP 的編程理念。本篇將以 JavaScript 作為出發，解釋 JavaScript 函數式編程的重要概念。&lt;/p>
+&lt;p>本篇皆以 JavaScript 為範例。&lt;/p>
+&lt;hr>
+&lt;h2 id="first-class--higher-order-functions">First-class &amp;amp; higher-order functions&lt;/h2>
+&lt;h3 id="first-class一等公民">First-class(一等公民)&lt;/h3>
+&lt;p>我們可以想像成對待函式(Functions) 如同&lt;strong>對待其他資料型別一樣&lt;/strong>。&lt;/p>
+&lt;p>例如：&lt;strong>可以直接賦予值&lt;/strong>或者&lt;strong>存至陣列中當作參數傳遞&lt;/strong>。&lt;/p>
+&lt;p>例如，我們可以宣告：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">1&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>1&lt;/strong> 的值也就指定給 &lt;strong>a&lt;/strong>。&lt;/p>
+&lt;p>因此我們也可以直接將函式(Functions) 指定給任一變數：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kr">const&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">,&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">x&lt;/span> &lt;span class="o">*&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>a 也就變成 &lt;strong>(x * y) Function&lt;/strong> 的變數，呼叫 &lt;strong>a(2, 4)&lt;/strong> 則會返回值 &lt;strong>8&lt;/strong>。&lt;/p>
+&lt;h3 id="higher-order-functions高階函式">higher-order functions(高階函式)&lt;/h3>
+&lt;p>在維基百科中高階函式至少會滿足下列其中一項條件：&lt;/p>
+&lt;ol>
+&lt;li>可以將函式(至少一個)&lt;strong>當成參數&lt;/strong>傳入&lt;strong>另一個函式&lt;/strong>。&lt;/li>
+&lt;li>可以將函式當成&lt;strong>另一個函式的回傳值&lt;/strong>。&lt;/li>
+&lt;/ol>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">x&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">y&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">x&lt;/span> &lt;span class="o">+&lt;/span> &lt;span class="nx">y&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">addFive&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">5&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">addTen&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="nx">add&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">10&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">addFive&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 7
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">addTen&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">2&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// 12
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>由上述範例我們可以得知，&lt;strong>add&lt;/strong> 函式接收參數 &lt;strong>(x)&lt;/strong>，並且回傳一個函式 &lt;strong>( x + y )&lt;/strong> 作為回傳值。&lt;/p>
+&lt;p>因此在宣告 &lt;strong>addFive&lt;/strong> 變數時，同時給定 &lt;strong>x = 5&lt;/strong> 至 &lt;strong>add&lt;/strong> 函式，往後使用 &lt;strong>addFive&lt;/strong> 變數(函式變數)皆會從 &lt;strong>5&lt;/strong> 開始加減。&lt;/p>
+&lt;p>上述則是符合 &lt;strong>higher-order functions&lt;/strong> 的例子，&lt;strong>add&lt;/strong> 函式(Functions) 接收參數並且回傳一個函式(Functions) 作為回傳值。&lt;/p>
+&lt;blockquote>
+&lt;p>函數柯里化文章可參考之前撰寫的(【Function Currying】Javascript 函數柯里化)[/2023-03-16/js-function-currying/]&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="pure-functions">Pure Functions&lt;/h2>
+&lt;p>&lt;strong>Pure Functions&lt;/strong>(純函式)，意指將相同的 input 丟入函式，永遠會回傳相同的 output 結果，而且在過程中完全沒有任何的&lt;strong>副作用&lt;/strong>。此處的&lt;strong>副作用&lt;/strong>通常意味著「&lt;strong>避免狀態改變&lt;/strong>」、「&lt;strong>避免資料改變&lt;/strong>」，我們可以想成&lt;strong>不與函式區塊域(block) 以外的變數做互動(最典型的例子，修改全域變數的值)&lt;/strong>，或者&lt;strong>不論函式以外做了什麼，函式(Functions) 內的運算依舊不受改變&lt;/strong>。換句話說，&lt;strong>Pure Functions&lt;/strong> 擅於純運算，而不做其他事情(ex. 讀取外部資料)。&lt;/p>
+&lt;p>範例如下：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// slice: Pure Function
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">arr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// output = [1, 2, 3], arr = [1, 2, 3, 4, 5, 6]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">slice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// output = [1, 2, 3], arr = [1, 2, 3, 4, 5, 6]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// splice: not Pure Function
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">arr&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">6&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">splice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// output = [1, 2, 3], arr = [4, 5, 6]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">splice&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// output = [4, 5, 6], arr = []
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>在 Functional Programming 中，&lt;strong>slice&lt;/strong> 函式(Functions) 就符合我們 Pure Functions 的規範，相同 input，永遠回傳相同 output 且無副作用。而 &lt;strong>splice&lt;/strong> 函式(Functions) 則是每次呼叫，output 以及原始資料皆會不相同，因此不算是 Pure Functions。&lt;/p>
+&lt;h3 id="副作用">副作用&lt;/h3>
+&lt;p>以 JavaScript 為例， 副作用還包括：&lt;/p>
+&lt;ul>
+&lt;li>更改外部變數或者物件屬性(例如：全域變數、父類別範圍內的變數等)&lt;/li>
+&lt;li>寫入 console.log、檔案&lt;/li>
+&lt;li>觸發外部流程&lt;/li>
+&lt;li>呼叫任何有副作用的函式(Functions)&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="declarative-vs-imperative">Declarative vs Imperative&lt;/h2>
+&lt;p>函數式編程(Functional Programming) 屬於&lt;strong>宣告式編程(Declarative Paradigm)&lt;/strong> 的一種。&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>宣告式編程(Declarative Paradigm)&lt;/strong>： 較為抽象的程式碼，可以藉由自然語言直觀的理解該行程式碼想要達到什麼樣的結果。描述&lt;strong>該在哪做什麼&lt;/strong>(what to do)以及&lt;strong>資料流程&lt;/strong>(data flow)。&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>指令式編程(Imperative Paradigm)&lt;/strong>： 程式碼具體表達需要做什麼來達到目標。描述&lt;strong>該做什麼&lt;/strong>(how to do)以及&lt;strong>流程控制&lt;/strong>(flow control)。&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">a&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="mi">1&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">2&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">3&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">4&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Declarative Programming
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">declarativeSquare&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">map&lt;/span>&lt;span class="p">((&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">val&lt;/span>&lt;span class="o">*&lt;/span>&lt;span class="nx">val&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">declarativeSquare&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [1, 4, 9, 16, 25]
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Imperative Programming
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">imperativeSquare&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="nx">arr&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">for&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="kd">var&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span> &lt;span class="o">&amp;lt;&lt;/span> &lt;span class="nx">arr&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">length&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="nx">i&lt;/span>&lt;span class="o">++&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">arr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="o">*=&lt;/span> &lt;span class="nx">arr&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="nx">i&lt;/span>&lt;span class="p">];&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="nx">arr&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">imperativeSquare&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">a&lt;/span>&lt;span class="p">);&lt;/span> &lt;span class="c1">// [1, 4, 9, 16, 25]
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;strong>宣告式編程(Declarative Paradigm)&lt;/strong> 較依賴表達式(expression)，表達式是一個單純的運算過程，並且總是會返回值。屬於宣告式編程的程式語言有：HTML、SQL、LINQ。&lt;/p>
+&lt;p>&lt;strong>指令式編程(Imperative Paradigm)&lt;/strong> 的程式碼經常使用程式語言基本的語句(statement)，例如：for、while、if、switch&amp;hellip;等等。屬於指令式編程的程式語言有：C、JAVA。&lt;/p>
+&lt;hr>
+&lt;h2 id="總結">總結&lt;/h2>
+&lt;p>&lt;strong>函數式編程(Functional Programming)&lt;/strong> 誕生了五十多年後，終於獲得程式開發者大量的關注，目前 ML 非常紅的 &lt;strong>Python&lt;/strong> 以及前後端 &lt;strong>JavaScript&lt;/strong> 等語言，對於&lt;strong>函數式編程(Functional Programming)&lt;/strong> 的支持都很強。本篇文章整理 JavaScript 符合&lt;strong>函數式編程(Functional Programming)&lt;/strong> 概念的幾個元素(First-class、higher-order functions、Pure Functions)，希望透過 JavaScript 的實例理解函數式編程所講述的核心理念為何。最後比較&lt;strong>宣告式編程(Declarative Paradigm)&lt;strong>以及&lt;/strong>指令式編程(Imperative Paradigm)&lt;/strong>，對自己過去在軟體開發這塊領域所學的做個整理，理清並梳理已有的知識。&lt;/p>
+&lt;hr></description></item></channel></rss>

@@ -1,14 +1,16 @@
 User-agent: *
 
-Allow: /categories/dotnet-core/
-
-Allow: /categories/csharp/
+Allow: /2023-03-27/js-functional-programming/
 
 Allow: /categories/
 
-Allow: /tags/csharp/
+Allow: /tags/design-pattern/
 
-Allow: /tags/dotnet-core/
+Allow: /tags/functional-programming/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
 
 Allow: /post/
 
@@ -16,11 +18,19 @@ Allow: /tags/
 
 Allow: /
 
+Allow: /categories/design-pattern/
+
+Allow: /categories/dotnet-core/
+
+Allow: /categories/csharp/
+
+Allow: /tags/csharp/
+
+Allow: /tags/dotnet-core/
+
 Allow: /2023-03-24/dotnet-core-v7-launch-profile/
 
 Allow: /2023-03-21/python-pyenv-introduction/
-
-Allow: /tags/design-pattern/
 
 Allow: /tags/oop/
 
@@ -31,8 +41,6 @@ Allow: /tags/python/
 Allow: /categories/python/
 
 Allow: /2023-03-21/python-oop-qa/
-
-Allow: /categories/design-pattern/
 
 Allow: /2023-03-16/js-function-currying/
 
@@ -47,10 +55,6 @@ Allow: /categories/css/
 Allow: /tags/decorator/
 
 Allow: /tags/function-currying/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /2023-03-10/petite-vue-introduction/
 
