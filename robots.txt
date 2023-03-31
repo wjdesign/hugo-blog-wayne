@@ -1,16 +1,10 @@
 User-agent: *
 
-Allow: /2023-03-27/js-functional-programming/
-
 Allow: /categories/
 
+Allow: /tags/ddd/
+
 Allow: /tags/design-pattern/
-
-Allow: /tags/functional-programming/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /post/
 
@@ -19,6 +13,24 @@ Allow: /tags/
 Allow: /
 
 Allow: /categories/design-pattern/
+
+Allow: /2023-03-31/ddd-introduction/
+
+Allow: /2023-03-31/reset-vscode-settings-cloud-data/
+
+Allow: /tags/vscode/
+
+Allow: /categories/vscode/
+
+Allow: /tags/vscode-settings/
+
+Allow: /2023-03-27/js-functional-programming/
+
+Allow: /tags/functional-programming/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
 
 Allow: /categories/dotnet-core/
 
@@ -117,10 +129,6 @@ Allow: /tags/aws-sns/
 Allow: /2023-02-14/vscode-plugin-polacode/
 
 Allow: /tags/polacode/
-
-Allow: /tags/vscode/
-
-Allow: /categories/vscode/
 
 Allow: /categories/web-browser/
 

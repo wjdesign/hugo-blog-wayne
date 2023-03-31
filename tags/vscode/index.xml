@@ -1,4 +1,108 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vscode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/vscode/</link><description>Recent content in vscode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 14 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vscode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/vscode/</link><description>Recent content in vscode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 31 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://wayneblog.ga/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://stackoverflow.com/questions/36108515/how-to-reset-settings-in-visual-studio-code" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://code.visualstudio.com/docs/editor/settings-sync" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://blog.miniasp.com/post/2023/03/27/Visual-Studio-Code-Settings-Sync-Clear-Cloud-Data" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>Visual Studio Code 的「擴充套件」裝太多，而且啟用了「設定同步」功能，不好移除。「設定同步」功能會幫我在多台電腦之間自動同步所有使用者設定、自訂快速鍵定義、擴充套件、設定檔(Profile)等等；直接砍掉重裝，會因為「設定同步」功能而自動從雲端同步設定回來。這篇文章就來說明如何清空雲端資料的過程。&lt;/p>
+&lt;hr>
+&lt;h2 id="問題發生過程">問題發生過程&lt;/h2>
+&lt;p>原本的需求其實很簡單，就是單純想把擴充套件全部移除重新安裝，但又不想一個一個移除；所以我這樣移除：&lt;/p>
+&lt;ol>
+&lt;li>關閉 Visual Studio Code。&lt;/li>
+&lt;li>開啟檔案總管，進入 &lt;code>%USERPROFILE%\.vscode\extensions&lt;/code> 資料夾。&lt;/li>
+&lt;li>直接刪除 &lt;code>%USERPROFILE%\.vscode\extensions&lt;/code> 整個資料夾。&lt;/li>
+&lt;li>重新啟動 Visual Studio Code。&lt;/li>
+&lt;/ol>
+&lt;p>這樣就可以移除所有的 Visual Studio Code 擴充套件！👍&lt;/p>
+&lt;p>但是我啟用了 Visual Studio Code 的「設定同步」功能，使用這個功能需要登入 GitHub 或 Microsoft 帳戶，而只要你登入之後，發現本地沒有任何擴充套件，他就會開始從雲端同步設定回來！&lt;/p>
+&lt;hr>
+&lt;h2 id="正確的操作步驟說明">正確的操作步驟說明&lt;/h2>
+&lt;p>為了解決我的問題，正確的操作步驟應該是：&lt;/p>
+&lt;ol>
+&lt;li>備份目前的設定檔&lt;/li>
+&lt;/ol>
+&lt;p>由於設定檔可以匯出匯入，所以預先匯出已經設定好的設定檔，日後匯入就會很方便。&lt;/p>
+&lt;ol start="2">
+&lt;li>清除雲端中的資料&lt;/li>
+&lt;/ol>
+&lt;p>這裡對我來說最難的地方在於找到「清除雲端中的資料」這個功能，官網文件的 &lt;a class="link" href="https://code.visualstudio.com/docs/editor/settings-sync#_how-do-i-delete-my-data" target="_blank" rel="noopener"
+>How do I delete my data?&lt;/a> 章節描述&lt;code>完全是錯誤&lt;/code>的。&lt;/p>
+&lt;ol start="3">
+&lt;li>刪除所有擴充套件&lt;/li>
+&lt;/ol>
+&lt;p>此時就可以用上個段落所寫的技巧快速刪除所有擴充套件。&lt;/p>
+&lt;ol start="4">
+&lt;li>重新開啟設定同步&lt;/li>
+&lt;/ol>
+&lt;p>重新登入「設定同步」的帳號即可重新開始同步設定！&lt;/p>
+&lt;hr>
+&lt;h2 id="如何清除雲端中的資料">如何清除雲端中的資料&lt;/h2>
+&lt;p>其正確的清除方法步驟如下：&lt;/p>
+&lt;ol>
+&lt;li>先確定設定同步已開啟&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52782930730_a6b71d8522_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;ol start="2">
+&lt;li>按下 &lt;code>F1&lt;/code> ➡️ 搜尋 &lt;code>Settings Sync: Show Synced Data&lt;/code> 命令&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52781983792_639275ba68_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;ol start="3">
+&lt;li>在設定同步視窗的右上角點擊 &lt;code>...&lt;/code> 並點選 &lt;strong>清除雲端中的資料&amp;hellip;&lt;/strong> 選項&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;ol start="4">
+&lt;li>點擊「&lt;strong>重設&lt;/strong>」即可清除雲端中資料，並在你所有的裝置上停止同步&lt;/li>
+&lt;/ol>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52781983797_e2304fa242_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="重設-vscode-設定同步認證">重設 VSCode 設定同步認證&lt;/h2>
+&lt;p>如果每次開啟 Visual Studio Code 都需要登入一次設定同步的話，可能代表你的認證資訊已經亂掉了，需要參考官方文件的 &lt;a class="link" href="https://code.visualstudio.com/docs/editor/settings-sync#_troubleshooting-keychain-issues" target="_blank" rel="noopener"
+>Troubleshooting keychain issues&lt;/a> 章節來修復這個問題。&lt;/p>
+&lt;p>如果是 Windows 的話，透過 PowerShell 執行以下命令即可：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cmdkey /list &lt;span class="p">|&lt;/span> Select-String -Pattern &lt;span class="s2">&amp;#34;LegacyGeneric:target=(vscode.+)&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> ForEach-Object &lt;span class="o">{&lt;/span> cmdkey.exe /delete &lt;span class="nv">$_&lt;/span>.Matches.Groups&lt;span class="o">[&lt;/span>1&lt;span class="o">]&lt;/span>.Value &lt;span class="o">}&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;hr></description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

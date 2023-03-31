@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ddd on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/ddd/</link><description>Recent content in ddd on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 31 Mar 2023 00:00:01 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/ddd/index.xml" rel="self" type="application/rss+xml"/><item><title>關於領域驅動設計 (Domain-Driven-Design)</title><link>https://wayneblog.ga/2023-03-31/ddd-introduction/</link><pubDate>Fri, 31 Mar 2023 00:00:01 +0000</pubDate><guid>https://wayneblog.ga/2023-03-31/ddd-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782974405_1186eabd11_o.jpg" alt="Featured image of post 關於領域驅動設計 (Domain-Driven-Design)" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="http://www.informit.com/articles/article.aspx?p=1944876&amp;amp;seqNum=2" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://zh.wikipedia.org/zh-tw/%E9%A0%98%E5%9F%9F%E9%A9%85%E5%8B%95%E8%A8%AD%E8%A8%88" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10216645" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;/p>
+&lt;p>軟體的核心是他為使用者解決領域相關問題的能力。隨著許多如金融、電商、社交等行業提供的服務越來越強大，軟體需求的複雜度也跟著起飛。身為一名工程師已經不能單純只做好自己的螺絲釘就能完成任務。&lt;/p>
+&lt;p>大多時候，程式設計的重點並不在於使用哪個框架技術或優化幾個百分比，而是在於&lt;strong>是否能忠實解決業務的需求&lt;/strong>。&lt;/p>
+&lt;p>Eric Evans 發明了領域驅動設計 (Domain-Driven Design ，之後簡稱 DDD) ，提倡開發人員也需要與領域專家合作以獲取足夠的業務知識 (business knowledge)，接著將領域知識與業務邏輯注入進程式碼模型之中，達成「程式即設計、設計即程式」的境界。&lt;/p>
+&lt;p>運用了這套模式，一來程式碼功能一目瞭然，二來可以有效保護我們的業務邏輯不被竄改，甚至可以適應未來業務邏輯的變化與成長。&lt;/p>
+&lt;p>&lt;strong>DDD 最大的價值之一就是把將商業領域的知識映照到程式碼中，解放「程式歸程式，業務歸業務」的傳統思維&lt;/strong>，在過程中甚至可以打破商業團隊與工程團隊間的藩籬，甚至會讓人感覺到：&lt;/p>
+&lt;blockquote>
+&lt;p>開發其實是一場學習的過程，程式碼只是過程的副產物。&lt;/p>
+&lt;/blockquote>
+&lt;hr>
+&lt;h2 id="ddd-是什麼">DDD 是什麼？&lt;/h2>
+&lt;p>介紹 DDD 是什麼之前，我們先定義領域 (Domain) 是什麼。廣泛來說， domain (knowledge) 是指「&lt;strong>一塊知識的範圍&lt;/strong>」。實務上，就是指「&lt;strong>你工作上所需的一切知識集合&lt;/strong>」，包含「&lt;strong>問題&lt;/strong>」以及「&lt;strong>解決方案&lt;/strong>」。&lt;/p>
+&lt;p>由此可見， DDD 是一種基於領域知識來解決複雜業務問題的軟體開發方法論。&lt;/p>
+&lt;p>它有以下三個重點：&lt;/p>
+&lt;ol>
+&lt;li>跟領域專家 (domain expert) 密切合作來定義出 domain 的範圍及相關解決的方案。&lt;/li>
+&lt;li>切分領域出數個子領域，並專注在核心子領域。&lt;/li>
+&lt;li>透過一系列設計模式，將領域知識注入進程式模型 (model) 中。&lt;/li>
+&lt;/ol>
+&lt;h3 id="用通用語言ubiquitous-language溝通">用通用語言(Ubiquitous Language)溝通&lt;/h3>
+&lt;p>現代軟體的複雜特性，沒有一個人或是團隊可以單獨掌握所有的知識細節，甚至連領域專家的理解都可能有所缺漏。為了要盡可能獲取知識的全貌，我們會將溝通所得到的知識提煉出來達成共識後，建立 &lt;strong>Ubiquitous Language (通用語言)&lt;/strong>，減少溝通的成本。&lt;/p>
+&lt;p>在神話故事巴別塔中，上帝分化人類的語言讓他們彼此無法溝通以懲罰他們的自大。有趣的是，在應用 DDD 的過程，不同團隊藉由溝通形塑出 Ubiquitous Language ，讓彼此互相理解，進而開發正確的軟體。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52782572056_b12a04df54_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;blockquote>
+&lt;p>例：開發與商業團隊交流後，發現其實系統需要的是訂單、商品與會員管理三個功能，並且規定大家要用 Ubiquitous Language 互相溝通。&lt;/p>
+&lt;/blockquote>
+&lt;p>整個過程可以參考這張圖：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52782028092_917c2f37dc_o.jpg"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;h3 id="兩大設計模式類別">兩大設計模式類別&lt;/h3>
+&lt;p>與領域專家討論出 Ubiquitous Language 後，就可以開始套用 DDD 的各種設計模式，而這些模式大致上可以分為兩類：&lt;strong>Strategic Design&lt;/strong> (戰略設計) 與 &lt;strong>Tactical Design&lt;/strong> (戰術設計)。&lt;/p>
+&lt;ul>
+&lt;li>Strategic Design 戰略設計：利用與領域專家溝通的結果，拆分問題成數個子領域後，定義解決方案(系統)的邊界與關係。&lt;/li>
+&lt;li>Tactical Design 戰術設計：又稱 Model-Driven Design，在 Strategic Design 的一個個解決方案邊界內，用一系列設計模式寫程式實踐業務邏輯。&lt;/li>
+&lt;/ul>
+&lt;p>簡單來說，Strategic Design 打嘴砲設計大架構與方向，Tactical Design 捲起袖口開始寫程式。&lt;/p>
+&lt;hr>
+&lt;h2 id="ddd-帶來的改變">DDD 帶來的改變&lt;/h2>
+&lt;p>說了很多抽象的概念後，讓我們來看看在實作上，應用了 DDD 的程式碼會帶來什麼樣的改變？&lt;/p>
+&lt;h3 id="向貧血模式anemic-model說不">向貧血模式(Anemic Model)說不&lt;/h3>
+&lt;p>開始前想先跟大家介紹一個有名的反模式：&lt;a class="link" href="https://martinfowler.com/bliki/AnemicDomainModel.html" target="_blank" rel="noopener"
+>貧血模型 (Anemic Model)&lt;/a>，這個反模式泛指那些只有 &lt;code>getter&lt;/code> 與 &lt;code>setter&lt;/code> 的 model。這些 model 缺乏行為能力，導致使用者每次都要自己組合出自己要的功能。&lt;/p>
+&lt;p>因此貧血模型看似什麼都可以透過資料設定去做到，但因為沒有具有行為敘述的 method function ，所以難以應用於複雜的操作中。總體而言能力十分受限，就像貧血一樣。&lt;/p>
+&lt;blockquote>
+&lt;p>貧血模型用起來像在教小孩子一樣，一個指令一個動作還很容易忘掉；具有行為能力的模型則像跟大人溝通一樣，一次行動就能完成許多指令。&lt;/p>
+&lt;/blockquote>
+&lt;p>再舉個例子，相信很多人都知道快打旋風、小朋友齊打交等格鬥遊戲。遊戲中角色若是要發動招式，就需要透過組合按鍵如「上跳攻」、「上上下下左右左右 BA」等等。&lt;/p>
+&lt;p>沒有行為能力的程式模型，就像這段組合鍵的程式碼一樣：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Role&lt;/span> &lt;span class="n">person&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Person&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 組合按鍵開始&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">up&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">down&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">left&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">right&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">press&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sc">&amp;#39;A&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">press&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sc">&amp;#39;B&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 組合按鍵結束&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>但當我們了解業務邏輯後，就可以將這段程式封裝成有行為能力的 function：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Role&lt;/span> &lt;span class="n">person&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Person&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">person&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">dragonFist&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>這樣的優勢非常明顯，一來程式易懂好維護，二來要修改也很簡單。重點是程式碼從組合碎片式的資訊轉而關注程式的行為能力。&lt;/p>
+&lt;p>這時可能就會有人有疑問：「封裝的好處我懂，但如果濫用了程式碼一樣會亂啊！而且只是把程式封裝為什麼需要 DDD？」&lt;/p>
+&lt;h3 id="配合業務語言封裝程式的行為">配合業務語言封裝程式的行為&lt;/h3>
+&lt;p>DDD 注重將業務語言注入程式模型之中，所以&lt;strong>只會對重點業務行為進行封裝&lt;/strong>。如此一來，與其隨意封裝程式碼，DDD 將程式模型與業務邏輯綁在一起，不但可以緊隨業務的變化做修改，而且利用業務語言做封裝也解決了&lt;a class="link" href="https://martinfowler.com/bliki/TwoHardThings.html" target="_blank" rel="noopener"
+>兩大程式難題&lt;/a>之一：命名。&lt;/p>
+&lt;p>大家可以嘗試看看用業務行為為程式碼命名。最常見就是將原先 CRUD 的貧血命名法更改為充滿業務含義的命名方式。比如說一個 user 的 CRUD 操作可能就變成 &lt;code>register&lt;/code>、&lt;code>getProfile&lt;/code>、&lt;code>getActivityHistory&lt;/code>、&lt;code>updateProfile&lt;/code>、&lt;code>changePassword&lt;/code>、&lt;code>deactivateAccount&lt;/code>、&lt;code>deleteAccount&lt;/code> 等等。&lt;/p>
+&lt;p>這種做法會在跨模型的情境下發揮更大的優勢，舉個咖啡廳的例子，假如一個正常流程包括點餐、製作、送餐，可以寫出以下程式碼：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;span class="lnt">17
+&lt;/span>&lt;span class="lnt">18
+&lt;/span>&lt;span class="lnt">19
+&lt;/span>&lt;span class="lnt">20
+&lt;/span>&lt;span class="lnt">21
+&lt;/span>&lt;span class="lnt">22
+&lt;/span>&lt;span class="lnt">23
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">customer&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Customer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">Bill&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">order&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">Order&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">create&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">customer&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">Coffee&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Staff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">9527&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cashier&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Cashier&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 結帳&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">order&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setStaff&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">staff&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setCashier&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cashier&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setOrders&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cashier&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">addOrder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 泡咖啡&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cup&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Cup&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setCup&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setFilterCone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">FilterCone&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">cup&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setCoffeeGround&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">new&lt;/span> &lt;span class="n">Coffee&lt;/span>&lt;span class="p">());&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">brew&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">cup&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">wait&lt;/span>&lt;span class="p">();&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setFilterCone&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="k">null&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 送餐&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">staff&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setCoffeeTo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">customer&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">customer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">setCoffee&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>以上的程式碼可以明顯看出幾個問題：&lt;/p>
+&lt;ul>
+&lt;li>所有屬性都可異動&lt;/li>
+&lt;li>難讀、業務意圖不明顯&lt;/li>
+&lt;li>難以應付未來的修改&lt;/li>
+&lt;/ul>
+&lt;p>導入 DDD 並與領域專家不斷溝通形成 Ubiquitous Language 後，讓我們修改一下程式碼：&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">barista&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Barista&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="m">9527&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">customer&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Customer&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="n">Bill&lt;/span>&lt;span class="err">&amp;#39;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">order&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">customer&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">placeOrder&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 處理結帳&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">barista&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">processPayment&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 處理餐點&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">barista&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">make&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// 處理送餐&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">barista&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">serveOrderTo&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">order&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">customer&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>修改後可以發現，程式的行為都十分貼近現時使用情境，讓即使不會寫程式碼的人都可以看懂了！&lt;/p>
+&lt;hr>
+&lt;h2 id="總結-ddd-的優缺點">總結 DDD 的優缺點&lt;/h2>
+&lt;p>使用 DDD 有以下優點：&lt;/p>
+&lt;ol>
+&lt;li>促進跨團隊的溝通、理解領域知識。&lt;/li>
+&lt;li>專注在核心業務上&lt;/li>
+&lt;li>保護業務邏輯，不會因技術細節 (如 db 、框架、基礎設施)而影響。&lt;/li>
+&lt;li>開發時更靈活彈性、重用程式更方便，能夠面對未來的變化與成長。&lt;/li>
+&lt;li>更好的模組化 = 更容易測試 (完美搭配 &lt;strong>TDD&lt;/strong>)。&lt;/li>
+&lt;li>出現 Bug 時更快找到原因 (已經將&lt;strong>關注點分離&lt;/strong>，查出哪邊出問題很快)。&lt;/li>
+&lt;li>有利用拆分與設計 microservice (這也是最近幾年紅的原因)&lt;/li>
+&lt;/ol>
+&lt;p>不過也有以下幾點需注意：&lt;/p>
+&lt;ol>
+&lt;li>較難快速建立產品 (戰術實作部分)&lt;/li>
+&lt;li>沒有領域專家會很難開頭 (新創需注意)&lt;/li>
+&lt;li>要導入溝通文化、學習成本高&lt;/li>
+&lt;li>對於高度科技(數學)專業的專案不一定合適&lt;/li>
+&lt;/ol>
+&lt;p>如果還不確定團隊是否該引入，可以參考這張 DDD 適合度計分卡：&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/52782815789_357368a3c9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;hr>
+&lt;h2 id="faqs">FAQs&lt;/h2>
+&lt;ol>
+&lt;li>那不就代表我必須離開電腦先跟業務人員開一堆會嗎？&lt;/li>
+&lt;/ol>
+&lt;p>沒錯，乍聽之下增加了開發人員不少的負擔，但如果這節省了未來讀 spec 、改需求、維護、 debug 的時間，我相信仍是超值的。&lt;/p>
+&lt;ol start="2">
+&lt;li>我只是個小/新創團隊&lt;/li>
+&lt;/ol>
+&lt;p>很多人會把 DDD 看似繁重的設計當成敏捷開發的絆腳石。老實說，對於只是要開發 CRUD 的早期專案來說，是有點殺雞焉用牛刀。&lt;/p>
+&lt;p>但是 DDD 仍可以帶來幾項巨大的優勢，詳細可以參考這支影片 &lt;a class="link" href="https://www.youtube.com/watch?v=E8QAa55tCtw" target="_blank" rel="noopener"
+>Turn your startup in a stayup with DDD — Marijn Huizendveld&lt;/a>。&lt;/p>
+&lt;ul>
+&lt;li>加深對於領域的理解&lt;/li>
+&lt;li>更加專注在核心領域上&lt;/li>
+&lt;/ul>
+&lt;p>另外新創也常遇到「但我們沒有領域專家啊」的問題。這部分上面提到的影片講者也有遇到，他的解決方法是實際與使用者合作獲取領域知識，再運用 DDD 的技術開發。&lt;/p>
+&lt;p>不過也是有社群的朋友分享即使是小專案，他也會利用 DDD 的部分 pattern 來快速建立模型。所以這部分其實見仁見智，對於 DDD 相當熟悉的人其實反而能在開發上更快速、正確的開發。&lt;/p>
+&lt;ol start="3">
+&lt;li>DDD 是萬能的嗎？&lt;/li>
+&lt;/ol>
+&lt;p>沒有什麼方法是銀子彈，只是各取所需罷了。 DDD 的強項在於解決複雜的業務邏輯以及拆分他們。因此搭上了 Microservice 的熱潮。很多人想引用 Microservice 卻不知如何正確拆分他們， DDD 此時提供了絕佳的切入點。&lt;/p>
+&lt;p>最後我必須強調， DDD 是一種設計方法，而設計本身沒有對錯，實作方法也有很多，不要只想著追求正確答案與完美設計，動手開始做才能做中學！&lt;/p>
+&lt;ol start="4">
+&lt;li>Ubiquitous Language 跟商業(業務)語言到底有什麼差別？&lt;/li>
+&lt;/ol>
+&lt;p>Ubiquitous Language 的意涵其實很簡單，可以視為一個&lt;strong>被系統所需要且開發團隊與商業團隊都能理解&lt;/strong>的單字庫。以電商來說，「&lt;strong>下訂單&lt;/strong>」這個詞兩邊都能理解且被系統需要，那個詞就可以被放進 Ubiquitous Language 中，而「&lt;strong>顧客轉換率&lt;/strong>」、「&lt;strong>公司營收&lt;/strong>」等商業用語若是與系統無關，就不在 Ubiquitous Language。&lt;/p>
+&lt;hr></description></item></channel></rss>
