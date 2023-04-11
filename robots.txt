@@ -1,16 +1,28 @@
 User-agent: *
 
+Allow: /2023-04-11/k6-introduction/
+
 Allow: /categories/
 
-Allow: /tags/ddd/
+Allow: /tags/golang/
 
-Allow: /tags/design-pattern/
+Allow: /categories/golang/
+
+Allow: /tags/javascript/
+
+Allow: /categories/javascript/
+
+Allow: /tags/k6/
 
 Allow: /post/
 
 Allow: /tags/
 
 Allow: /
+
+Allow: /tags/ddd/
+
+Allow: /tags/design-pattern/
 
 Allow: /categories/design-pattern/
 
@@ -27,10 +39,6 @@ Allow: /tags/vscode-settings/
 Allow: /2023-03-27/js-functional-programming/
 
 Allow: /tags/functional-programming/
-
-Allow: /tags/javascript/
-
-Allow: /categories/javascript/
 
 Allow: /categories/dotnet-core/
 
@@ -143,10 +151,6 @@ Allow: /2023-02-13/dotnet-core-debounce/
 Allow: /tags/debounce/
 
 Allow: /2023-02-13/css-where-function/
-
-Allow: /tags/golang/
-
-Allow: /categories/golang/
 
 Allow: /2023-02-10/golang-beginner-tutorial/
 
