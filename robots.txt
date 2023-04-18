@@ -1,8 +1,20 @@
 User-agent: *
 
-Allow: /2023-04-11/k6-introduction/
+Allow: /2023-04-18/ts-v5-introduction/
 
 Allow: /categories/
+
+Allow: /post/
+
+Allow: /tags/
+
+Allow: /tags/typescript/
+
+Allow: /categories/typescript/
+
+Allow: /
+
+Allow: /2023-04-11/k6-introduction/
 
 Allow: /tags/golang/
 
@@ -13,12 +25,6 @@ Allow: /tags/javascript/
 Allow: /categories/javascript/
 
 Allow: /tags/k6/
-
-Allow: /post/
-
-Allow: /tags/
-
-Allow: /
 
 Allow: /tags/ddd/
 
@@ -79,10 +85,6 @@ Allow: /tags/function-currying/
 Allow: /2023-03-10/petite-vue-introduction/
 
 Allow: /tags/petite-vue/
-
-Allow: /tags/typescript/
-
-Allow: /categories/typescript/
 
 Allow: /tags/vue/
 
