@@ -3560,7 +3560,7 @@ loading="lazy"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-vue" data-lang="vue">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">p&lt;/span> &lt;span class="nt">v-if&lt;/span>&lt;span class="s">=&amp;#34;false&amp;#34; class=&amp;#34;dog&amp;#34;&amp;gt;科基&amp;lt;/p&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;p v-show=&amp;#34;true&amp;#34; class=&amp;#34;orange-cat&amp;#34;&amp;gt;橘貓&amp;lt;/p&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;p v-show=&amp;#34;false&amp;#34; class=&amp;#34;black-cat&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="err">黑黑&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;p v-show=&amp;#34;false&amp;#34; class=&amp;#34;black-cat&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>&lt;span class="na">黑黑&lt;/span>&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">p&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">template&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>

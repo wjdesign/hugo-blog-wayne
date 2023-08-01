@@ -3485,10 +3485,10 @@ padding: 0 5px;
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-go" data-lang="go">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">Microsoft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">2.1.2&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="err">或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="nx">或&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">Microsoft&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">1.1.4&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="err">或&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">#&lt;/span> &lt;span class="nx">或&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">dotnet&lt;/span> &lt;span class="nx">add&lt;/span> &lt;span class="kn">package&lt;/span> &lt;span class="nx">System&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Data&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">SqlClient&lt;/span> &lt;span class="o">--&lt;/span>&lt;span class="nx">version&lt;/span> &lt;span class="mf">4.8.5&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
