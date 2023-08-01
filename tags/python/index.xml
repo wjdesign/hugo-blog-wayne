@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>python on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/python/</link><description>Recent content in python on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>【Pyenv】輕鬆管理 Python 版本的好工具！</title><link>https://wayneblog.ga/2023-03-21/python-pyenv-introduction/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-21/python-pyenv-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52760880532_9a3e6169b0_o.jpg" alt="Featured image of post 【Pyenv】輕鬆管理 Python 版本的好工具！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>python on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/python/</link><description>Recent content in python on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/python/index.xml" rel="self" type="application/rss+xml"/><item><title>【Pyenv】輕鬆管理 Python 版本的好工具！</title><link>https://wayne-blog.com/2023-03-21/python-pyenv-introduction/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-21/python-pyenv-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52760880532_9a3e6169b0_o.jpg" alt="Featured image of post 【Pyenv】輕鬆管理 Python 版本的好工具！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -312,7 +312,7 @@ text-align: center !important;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">pyenv rehash
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://wayneblog.ga/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://wayne-blog.com/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -719,7 +719,7 @@ text-align: center !important;
 &lt;h3 id="請問物件導向為何叫做物件導向">請問物件導向為何叫做物件導向？&lt;/h3>
 &lt;p>物件導向程式語言之所以叫做物件導向是因為&lt;strong>它重視物件 (Object) 這個概念&lt;/strong>。在物件導向程式語言中，程式設計師可以使用類別 (Class) 來定義物件的共性，並使用物件來實例化類別。&lt;/p>
 &lt;p>物件具有&lt;code>狀態 (state)&lt;/code> 和&lt;code>行為 (behavior)&lt;/code>，並且可以互相之間進行溝通和互動。透過物件導向程式設計，可以更加形象地模擬實際世界中的事物，並且更加容易維護和擴展程式碼。&lt;/p>
-&lt;hr></description></item><item><title>【Python】裝飾子 (decorator) 教學</title><link>https://wayneblog.ga/2023-03-16/python-decorator-tutorial/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-16/python-decorator-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52749963857_07e09e156b_o.png" alt="Featured image of post 【Python】裝飾子 (decorator) 教學" />&lt;style>
+&lt;hr></description></item><item><title>【Python】裝飾子 (decorator) 教學</title><link>https://wayne-blog.com/2023-03-16/python-decorator-tutorial/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-16/python-decorator-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52749963857_07e09e156b_o.png" alt="Featured image of post 【Python】裝飾子 (decorator) 教學" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1423,7 +1423,7 @@ loading="lazy"
 &lt;p>Decorator 是一個非常實用的模式/功能，它可以讓我們輕鬆地在既有基礎上疊加額外的功能，除了使程式碼更加簡潔、易讀之外，還可以增加複用性。&lt;/p>
 &lt;p>不過由於 Decorator 可以不斷疊加的特性，甚至是可以多重包裝一個函式，有時候會適得其反，造成程式碼閱讀困難，使用上還是建議盡量保持單純為佳。&lt;/p>
 &lt;p>如果你還沒有在 Python 專案中使用 decorator，現在是時候了！&lt;/p>
-&lt;hr></description></item><item><title>智慧商業Python數據分析與應用班(版本3.*)</title><link>https://wayneblog.ga/2020-03-15/python-beginner-tutorial/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2020-03-15/python-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52283398446_ed21ce37f2_o.png" alt="Featured image of post 智慧商業Python數據分析與應用班(版本3.*)" />&lt;style>
+&lt;hr></description></item><item><title>智慧商業Python數據分析與應用班(版本3.*)</title><link>https://wayne-blog.com/2020-03-15/python-beginner-tutorial/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2020-03-15/python-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52283398446_ed21ce37f2_o.png" alt="Featured image of post 智慧商業Python數據分析與應用班(版本3.*)" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -2134,7 +2134,7 @@ padding: 0 5px;
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;.*&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;h3&amp;gt;大家好&amp;lt;/h3&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="k">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;.*&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;h3&amp;gt;大家好&amp;lt;/h3&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">h3&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>&lt;span class="n">大家好&lt;/span>&lt;span class="o">&amp;lt;/&lt;/span>&lt;span class="n">h3&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
@@ -2147,7 +2147,7 @@ padding: 0 5px;
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;.*?&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;h3&amp;gt;大家好&amp;lt;/h3&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="k">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="sa">r&lt;/span>&lt;span class="s2">&amp;#34;&amp;lt;.*?&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;&amp;lt;h3&amp;gt;大家好&amp;lt;/h3&amp;gt;&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">h3&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
@@ -2203,9 +2203,9 @@ padding: 0 5px;
 &lt;/span>&lt;span class="lnt">3
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;yahoo&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;yahoo.com.tw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="k">match&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;yahoo&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;yahoo.com.tw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Match&lt;/span> &lt;span class="nb">object&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">span&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">match&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;yahoo&amp;#39;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Match&lt;/span> &lt;span class="nb">object&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">span&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="k">match&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;yahoo&amp;#39;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>
@@ -2220,7 +2220,7 @@ padding: 0 5px;
 &lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-python" data-lang="python">&lt;span class="line">&lt;span class="cl">&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">search&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s2">&amp;#34;yahoo&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="s2">&amp;#34;yahoo.com.tw&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Match&lt;/span> &lt;span class="nb">object&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">span&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="n">match&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;yahoo&amp;#39;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">&amp;gt;&amp;gt;&amp;gt;&lt;/span> &lt;span class="o">&amp;lt;&lt;/span>&lt;span class="n">re&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">Match&lt;/span> &lt;span class="nb">object&lt;/span>&lt;span class="p">;&lt;/span> &lt;span class="n">span&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="mi">0&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="mi">5&lt;/span>&lt;span class="p">),&lt;/span> &lt;span class="k">match&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s1">&amp;#39;yahoo&amp;#39;&lt;/span>&lt;span class="o">&amp;gt;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;ul>

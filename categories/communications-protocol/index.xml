@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>通訊協定 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/communications-protocol/</link><description>Recent content in 通訊協定 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 28 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/communications-protocol/index.xml" rel="self" type="application/rss+xml"/><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://wayneblog.ga/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>通訊協定 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/communications-protocol/</link><description>Recent content in 通訊協定 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 28 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/communications-protocol/index.xml" rel="self" type="application/rss+xml"/><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -196,7 +196,7 @@ loading="lazy"
 &lt;p>任何一方都可以在數據傳送結束後發出連接釋放的通知，待對方確認後進入&lt;strong>半關閉狀態&lt;/strong>。當另一方也沒有數據再發送的時候，則發出連接釋放通知，對方確認後就&lt;strong>完全關閉&lt;/strong>了 TCP 連接。&lt;/p>
 &lt;p>&lt;strong>通俗的來說，兩次握手就可以釋放一端到另一端的 TCP 連接，完全釋放連接一共需要四次握手。&lt;/strong>&lt;/p>
 &lt;p>舉個例子： A 和 B 打電話，通話即將結束後，A 說&amp;quot;&lt;strong>我沒啥要說的了&lt;/strong>&amp;quot;，B 回答&amp;quot;&lt;strong>我知道了&lt;/strong>&amp;quot;，於是 A 向 B 的連接釋放了。但是 B 可能還會有要說的話，於是 B 可能又巴拉巴拉說了一通，最後 B 說&amp;quot;&lt;strong>我說完了&lt;/strong>&amp;quot;，A 回答&amp;quot;&lt;strong>知道了&lt;/strong>&amp;quot;，於是 B 向 A 的連接釋放了，這樣整個通話就結束了。&lt;/p>
-&lt;hr></description></item><item><title>網站前端打 API 時把密碼加密，有意義嗎？</title><link>https://wayneblog.ga/2023-01-17/why-encrypt-in-client/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-17/why-encrypt-in-client/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52634831533_259566b84f_o.jpg" alt="Featured image of post 網站前端打 API 時把密碼加密，有意義嗎？" />&lt;style>
+&lt;hr></description></item><item><title>網站前端打 API 時把密碼加密，有意義嗎？</title><link>https://wayne-blog.com/2023-01-17/why-encrypt-in-client/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-17/why-encrypt-in-client/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52634831533_259566b84f_o.jpg" alt="Featured image of post 網站前端打 API 時把密碼加密，有意義嗎？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -715,7 +715,7 @@ padding: 0 5px;
 &lt;/ol>
 &lt;p>若是對這個結論有不同意見，或是有在文章中發現哪些邏輯錯誤或技術錯誤，歡迎留言指正與討論，感恩。&lt;/p>
 &lt;p>補充一下，這篇大多數從技術面來看，除此之外還可以從法遵面或是資安的實務經驗來看，但這些面向我就零經驗了。許願一下有相關經驗的人出來指點迷津，或許會有不同觀點。&lt;/p>
-&lt;hr></description></item><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" />&lt;style>
+&lt;hr></description></item><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://wayne-blog.com/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -764,7 +764,7 @@ padding: 0 5px;
 &lt;p>在 HTTP/2 之前因為安全性問題，多數不會對標頭的訊息進行壓縮，主要是過去的採用的演算法可能遭受 CRIME 攻擊。在 HTTP/2 中，使用 HPACK 算法來避免攻擊，進而能壓縮標頭。因為壓縮標頭，讓傳輸時能大幅減少傳輸的訊息量，進而減少頻寬負擔，也增快傳輸速度。具體上 HPACK 使用一份索引表來定義常用的 http header，並把 http header 存放在表裡，請求的時候只需要發送在表裡的索引位置即可，不須用傳完整的標頭。&lt;/p>
 &lt;h3 id="伺服器主動推送server-push">伺服器主動推送(Server push)&lt;/h3>
 &lt;p>HTTP/2 允許伺服器端主動向客戶端推送數據，這能協助減少客戶端的請求次數。舉例來說，瀏覽器在過去要請求 &lt;code>index.html&lt;/code> 與 &lt;code>style.css&lt;/code> 來渲染完整的畫面；透過 Server Push，可以在瀏覽器請求 &lt;code>index.html&lt;/code> 時，也由伺服器主動發送 &lt;code>style.css&lt;/code> ，這樣只需要一輪 HTTP 的請求，就可以拿到所需的所有資源。&lt;/p>
-&lt;hr></description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>https://wayneblog.ga/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" />&lt;style>
+&lt;hr></description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>https://wayne-blog.com/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

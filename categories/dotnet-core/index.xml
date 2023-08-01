@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>.NET Core on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/dotnet-core/</link><description>Recent content in .NET Core on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/dotnet-core/index.xml" rel="self" type="application/rss+xml"/><item><title>關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)</title><link>https://wayneblog.ga/2023-03-24/dotnet-core-v7-launch-profile/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-24/dotnet-core-v7-launch-profile/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52767686731_8692b4f919_o.jpg" alt="Featured image of post 關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>.NET Core on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/dotnet-core/</link><description>Recent content in .NET Core on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 24 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/dotnet-core/index.xml" rel="self" type="application/rss+xml"/><item><title>關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)</title><link>https://wayne-blog.com/2023-03-24/dotnet-core-v7-launch-profile/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-24/dotnet-core-v7-launch-profile/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52767686731_8692b4f919_o.jpg" alt="Featured image of post 關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -583,7 +583,7 @@ text-align: center !important;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
+&lt;/div></description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayne-blog.com/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -758,7 +758,7 @@ loading="lazy"
 &lt;li>撰寫單元測試 (Unit Test) 保護每次修改&lt;/li>
 &lt;li>合理的設計各層職責物件，業務層更為重要&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>【C#】實作 Debounced Job</title><link>https://wayneblog.ga/2023-02-13/dotnet-core-debounce/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-13/dotnet-core-debounce/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52686405784_425f5b6fca_o.png" alt="Featured image of post 【C#】實作 Debounced Job" />&lt;style>
+&lt;hr></description></item><item><title>【C#】實作 Debounced Job</title><link>https://wayne-blog.com/2023-02-13/dotnet-core-debounce/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-13/dotnet-core-debounce/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52686405784_425f5b6fca_o.png" alt="Featured image of post 【C#】實作 Debounced Job" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -778,7 +778,7 @@ padding: 0 5px;
 &lt;hr>
 &lt;h2 id="前言">前言&lt;/h2>
 &lt;p>&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10222749" target="_blank" rel="noopener"
->Debounce (去抖動)&lt;/a>是前端開發時很常用的技巧，經典應用是整合 AJAX 的欄位輸入自動完成。原始設計是每敲一個字元查一次，當使用者連續輸入 w a y n e b 便會發出 &amp;ldquo;w&amp;rdquo;、&amp;ldquo;wa&amp;rdquo;、&amp;ldquo;way&amp;rdquo;、&amp;ldquo;wayn&amp;rdquo;、&amp;ldquo;wayne&amp;rdquo;、&amp;ldquo;wayneb&amp;rdquo; 等六次 AJAX 查詢，而使用者期望的是用 wayneb 帶出 wayneblog 提示，因此前面五次純屬無效查詢，平白浪費頻寬跟主機資源。有效的改善方法是改成每次敲完一個字元先稍待 0.5 秒或 1 秒，確認沒有要輸入其他字元，最後一次送出 &amp;ldquo;wayneb&amp;rdquo;。這在網頁上用 JavaScript setTimeout/clearTimeout 即可輕易實現，這個做法有個術語叫 - Debounce。&lt;/p>
+>Debounce (去抖動)&lt;/a>是前端開發時很常用的技巧，經典應用是整合 AJAX 的欄位輸入自動完成。原始設計是每敲一個字元查一次，當使用者連續輸入 w a y n e b 便會發出 &amp;ldquo;w&amp;rdquo;、&amp;ldquo;wa&amp;rdquo;、&amp;ldquo;way&amp;rdquo;、&amp;ldquo;wayn&amp;rdquo;、&amp;ldquo;wayne&amp;rdquo;、&amp;ldquo;wayne-b&amp;rdquo; 等六次 AJAX 查詢，而使用者期望的是用 wayne-b 帶出 wayne-blog 提示，因此前面五次純屬無效查詢，平白浪費頻寬跟主機資源。有效的改善方法是改成每次敲完一個字元先稍待 0.5 秒或 1 秒，確認沒有要輸入其他字元，最後一次送出 &amp;ldquo;wayneb&amp;rdquo;。這在網頁上用 JavaScript setTimeout/clearTimeout 即可輕易實現，這個做法有個術語叫 - Debounce。&lt;/p>
 &lt;p>伺服器端有類似的應用情境嗎？有。&lt;/p>
 &lt;p>提到系統自動通知，經常是一筆記錄發一次通知(運作最簡單，系統內建提供不需客製)，而某些事件一旦發生會噴出數十上百筆通知，短短幾秒收件匣或 LINE/Slack 就被暴力洗版。更理想的做法是把短時間內的連續訊息彙整成一封，而這類似前面說的「彙整多個輸入字元再一次發出 AJAX 請求」，可以靠 Debounce 機制改善。而我們要做的就是用 C# 實現類似邏輯，收到第一則通知時先不要馬上轉發，若一段時間內接連還有其他訊息進來都先存起來，等到 30 秒內沒有新訊息，再將累積的訊息彙整成一筆送出。&lt;/p>
 &lt;hr>
@@ -898,7 +898,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;title&amp;gt;DebouncedJob&amp;lt;/title&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;/head&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;body&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;form action=https://wayneblog.ga/alert method=post target=result id=frm &amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;form action=https://wayne-blog.com/alert method=post target=result id=frm &amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;input type=hidden name=msg id=msg /&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;/form&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;iframe name=result style=display:none&amp;gt;&amp;lt;/iframe&amp;gt;
@@ -1143,7 +1143,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能</title><link>https://wayneblog.ga/2023-02-07/dotnet-core-google-recaptcha/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-07/dotnet-core-google-recaptcha/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52674631510_d9525c3729_o.png" alt="Featured image of post ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能</title><link>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52674631510_d9525c3729_o.png" alt="Featured image of post ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1831,7 +1831,7 @@ loading="lazy"
 &lt;/ol>
 &lt;p>另外，我想補充說明的是，&lt;a class="link" href="https://www.google.com/recaptcha/about/" target="_blank" rel="noopener"
 >reCAPTCHA Enterprise&lt;/a> 有&lt;strong>每月 100 萬次免費使用額度&lt;/strong>，這些次數主要是「後端」對 &lt;code>reCAPTCHA Enterprise API&lt;/code> 發送驗證 &lt;code>Assessment&lt;/code> (評估) 的次數，對許多網站來說，這個數量應該是綽綽有餘了，所以我才考慮直接使用這個服務。&lt;/p>
-&lt;hr></description></item><item><title>【Server-Sent Event】在網頁等待手機端完成操作</title><link>https://wayneblog.ga/2023-01-31/web-wait-for-qrcode-scan/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/web-wait-for-qrcode-scan/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52659620952_80251bfcbf_o.jpg" alt="Featured image of post 【Server-Sent Event】在網頁等待手機端完成操作" />&lt;style>
+&lt;hr></description></item><item><title>【Server-Sent Event】在網頁等待手機端完成操作</title><link>https://wayne-blog.com/2023-01-31/web-wait-for-qrcode-scan/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/web-wait-for-qrcode-scan/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52659620952_80251bfcbf_o.jpg" alt="Featured image of post 【Server-Sent Event】在網頁等待手機端完成操作" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2305,7 +2305,7 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>瑣碎細節還不少，就不一一介紹了。範例專案已放上 &lt;a class="link" href="https://github.com/wjdesign/web-wait-for-qrcode-scan" target="_blank" rel="noopener"
 >Github&lt;/a>，大家如有興趣再下載回去研究。&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayne-blog.com/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2326,12 +2326,12 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="前言">前言&lt;/h2>
-&lt;p>發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+&lt;p>發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>已經提過，用 Docker / Docker-Compose 玩玩小網站還 OK，一旦涉及高可用性如備援、負載平衡，若不依賴現成管理架構，維運操作將複雜到會咬人。而 Kubernetes 正是目前容器管理框架的主流業界標準，尤其如打算將容器直接部署到雲端廠商(Azure、AWS、Google GCP)，不會 Kubernetes 更是寸步難行。故在次聲明以正視聽，在企業環境如需考量高可用性、負載平衡或想直接部署到廠商雲端，一般不會用 Docker-Compose 而會採用 Kubernetes，請大家注意。&lt;/p>
 &lt;p>這篇筆記是我將部落格網站移入 Docker 容器的經驗分享，將記錄 Miniblog.Core ASP.NET Core 網站搬進 Docker 過程遇到的一些眉角。&lt;/p>
 &lt;hr>
 &lt;h2 id="reverse-proxy-問題">Reverse Proxy 問題&lt;/h2>
-&lt;p>由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+&lt;p>由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
 >前一篇筆記&lt;/a>所說的「以 Compose 組合網站與 DB，網站對映 Host IP/Port，Nginx 另跑容器導向各網站 Port」策略。&lt;/p>
 &lt;hr>
 &lt;h2 id="目錄對應">目錄對應&lt;/h2>
@@ -2347,7 +2347,7 @@ padding: 0 5px;
 &lt;p>參考：&lt;a class="link" href="https://www.arthurtoday.com/2016/07/how-to-setup-docker-container-timezone-host.html" target="_blank" rel="noopener"
 >設定 Docker Container 與 Host 相同時區的方法&lt;/a>&lt;/p>
 &lt;h2 id="取得真實來源-ip-問題">取得真實來源 IP 問題&lt;/h2>
-&lt;p>Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p>Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 >ASP.NET Core + Nginx on CentOS 安裝筆記&lt;/a> 提過，當 ASP.NET Core 架設在 Reverse Proxy 後方，直接看到的是 Reverse Proxy 的 IP，要得到真實來源 IP，在 Nginx config 需加註 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for，透過 HTTP Header 傳遞內容。而 ASP.NET Core 程式也需修改：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -2515,7 +2515,7 @@ padding: 0 5px;
 &lt;/div>
 &lt;/div>&lt;p>Nginx 壓縮設定的意義可參考&lt;a class="link" href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html" target="_blank" rel="noopener"
 >官方文件&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2530,7 +2530,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="前言">前言&lt;/h2>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>介紹過使用 Docker Compose 設定關聯容器(Web、DB、Reverse Proxy)組成系統，容器被隔離在專用網段(Compose 自動建立的 Bridge)，並可透過容器名稱彼此溝通，Compose 也確保相關服務一起啟動一起關閉，是用多個容器建構系統最簡便的做法。&lt;/p>
 &lt;p>註：關於容器管理 &lt;a class="link" href="https://blog.gcp.expert/kubernetes-gke-introduction/" target="_blank" rel="noopener"
 >Kubernetes&lt;/a>，K8S 提供更強大的功能，支援 Cluster 高可用架構 (單一容器、主機掛掉系統不會死)，為當今在雲端掛載容器以及中大型企業實做容器架構的主流，K8S 無疑可取代 Docker Compose，但其複雜性較高。 目前我在單一 Linux 機跑 Docker 還用不到牛刀(雖然有單機版 &lt;a class="link" href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener"
@@ -2565,7 +2565,7 @@ padding: 0 5px;
 &lt;li>Ngnix&lt;/li>
 &lt;/ul>
 &lt;p>3 是我認為較可行且有效率的做法。&lt;/p>
-&lt;p>Nginx 包容器的做法在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>Nginx 包容器的做法在&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >第一篇筆記&lt;/a>已提過，這次我們將重點放在整合 Certbot 及 docker-compose.yml 定義。&lt;/p>
 &lt;p>原本想抓 Nginx 的 Docker Image 自行加裝 certbot 實現自動安裝與更新 &lt;a class="link" href="https://zh.wikipedia.org/wiki/Let%27s_Encrypt" target="_blank" rel="noopener"
 >Let&amp;rsquo;s Encrypt SSL 憑證&lt;/a>。&lt;/p>
@@ -2707,10 +2707,10 @@ padding: 0 5px;
 &lt;/ul>
 &lt;p>若為 &lt;strong>SELinux&lt;/strong> 記得要 &lt;code>chcon -Rt&lt;/code> &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 >參考&lt;/a>，另外 network_mode 指定 host 表示 Nginx 容器將直接使用 Host OS 網段，不另設 Bridge。&lt;/p>
-&lt;p>參考：&lt;a class="link" href="https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
+&lt;p>參考：&lt;a class="link" href="https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
 >Docker Compose 鏈接外部容器的幾種方式&lt;/a>&lt;/p>
 &lt;p>就醬，Nginx Reverse Proxy 準備好了，下一篇來再來分享我將 ASP.NET Core 搬進 Docker 的經驗。&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2726,7 +2726,7 @@ padding: 0 5px;
 &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
 &lt;hr>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >上篇文章&lt;/a>體驗過在 CentOS 用 Docker Container 分別跑 Nginx 跟 ASP.NET Core 網站，並建立 Reverse Proxy 關係，接著探討在實務上當需要多個 Container 協同運作時應如何規劃整合。&lt;/p>
 &lt;p>一個系統常可再拆解成多個服務。以線上購物網站為例，就可能是由 ASP.NET Core 網站(Kestrel)、MySQL 資料庫、Reverse Proxy、金流 Gateway&amp;hellip; 等多個服務組成，若要以 Docker Container 實現，有幾種策略：&lt;/p>
 &lt;h2 id="策略">策略&lt;/h2>
@@ -2739,7 +2739,7 @@ padding: 0 5px;
 &lt;li>當需要個別升級資料庫、ASP.NET Core 版本，或是想抽換服務組合時手續複雜，有違模組化精神。&lt;/li>
 &lt;/ul>
 &lt;h3 id="2-以個別-container-執行獨立控制">2. 以個別 Container 執行，獨立控制&lt;/h3>
-&lt;p>如同&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>如同&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>的做法，ASP.NET Core 網站跑 Cotainer 繫結到 Host OS 的 5000 Port，用 Container 跑 MySQL，再用 Container 跑 Ngnix 繫結到 Host OS 80 Port，再設定 Reverse Proxy 規則。&lt;/p>
 &lt;p>Container 間串接配置全靠人工，系統管理員需協助哪個 Container 聽哪個 Port，確保彼此不衝突。如此做有兩個缺點：&lt;/p>
 &lt;ul>
@@ -2764,10 +2764,10 @@ padding: 0 5px;
 &lt;p>以 ASP.NET Core Image 為基底，安裝 Nginx，設定 nginx.conf，複製 ASP.NET Core 網站檔案並設定 service nginx start 及 dotnet /app/web.dll 分別啟動 Nginx 及 Kestrel。&lt;/p>
 &lt;p>細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/24/nginx-reverse-proxy-to-asp-net-core-same-container/" target="_blank" rel="noopener"
 >Nginx Reverse Proxy to ASP.NET Core – Same Docker Container&lt;/a>&lt;/p>
-&lt;p>不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >前文&lt;/a>&lt;/p>
 &lt;h3 id="2-aspnet-corenginx-各自跑-container">2. ASP.NET Core、Nginx 各自跑 Container&lt;/h3>
-&lt;p>就是我們在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>就是我們在&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>採行的方式，但有一點要補充，除了直接對映到 Host OS IP 的 TCP Port，也可考慮自訂 Bridge，讓 Container 在隔離網段內溝通，例如：ASP.NET Core 的 5000 Port 只有 Nginx 看得到，從 Host OS 無法存取，如此可避免網路介面(網站、資料庫&amp;hellip;)外露到 Host OS，減少被攻擊的風險，這部分後面再找時間介紹。&lt;/p>
 &lt;h3 id="3-使用-docker-compose-串連">3. 使用 Docker Compose 串連&lt;/h3>
 &lt;p>ASP.NET Core 與 Nginx 各有自己的容器，使用 Docker Compose 組合串連，一次啟動兩個服務。&lt;/p>
@@ -2843,7 +2843,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;p>Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2858,7 +2858,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes1/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
-&lt;p>前面研究過&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p>前面研究過&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 >在 CentOS 安裝及設定 ASP.NET Core + Nginx&lt;/a>，習得徒手在 CentOS 安裝部署伺服器的技能，依循 Roadmap 來到下一階段 - 學習使用 Docker 簡化部署。&lt;/p>
 &lt;p>容器化及 Docker 這幾年熱到發燙，有些人甚至認為它已在軟體產業掀起一波革命。(我親身體驗的感想也是：Wow! 難怪會爆紅) 此刻才起步已算遲了，但也不是沒有好處，晚起鳥兒有更多蟲可以吃，Docker 相關的文章資源多如牛毛，這裡便不多花篇幅贅述觀念與基本操作，只簡單整理我對 Docker 的理解。&lt;/p>
 &lt;h2 id="docker-相關介紹">Docker 相關介紹&lt;/h2>
@@ -2884,7 +2884,7 @@ padding: 0 5px;
 &lt;p>基於 Linux Container 資源數量上的優勢，加上耗用資源較少，軟硬體成本低，我選擇 Linux Container。&lt;/p>
 &lt;p>雖然 Container 間共用底層作業系統，Docker Engine 為容器中的應用程式提供隔離不受干擾的空間（記憶體、檔案系統、網路 Port）。&lt;/p>
 &lt;p>例如：容器 A 寫入 /etc/aaa/default.conf 不影響容器 B /etc/aaa/default.conf 的內容、容器 A 與容器 B 都繫結到 80 Port 也不會衝突。&lt;/p>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
 >先前文章&lt;/a>提過將 Kestrel 轉為 Linux 服務、設定 www-data 執行權限&amp;hellip; 等步驟，改用 Docker 後簡單很多，生命週期由 Docker 控制，在容器內部權限一律為 root 不需額外規劃權限，直接跑 dotnet WebApp.dll 聽 5000 Port 就好。&lt;/p>
 &lt;p>參考資料：&lt;/p>
 &lt;ul>
@@ -2992,7 +2992,7 @@ loading="lazy"
 >&lt;/p>
 &lt;h3 id="將-nginx-設成-aspnet-core-網站的-reverse-proxy">將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy&lt;/h3>
 &lt;p>至此，我們做了兩個 Container，myginx 聽 Host OS 80 Port，myapp 聽 Host OS 的 5000 Port，下一步要將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy。&lt;/p>
-&lt;p>做法跟&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p>做法跟&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 >先前文章&lt;/a>介紹過的概念差不多，為求簡便我們直接修改 &lt;strong>conf.d/default.conf&lt;/strong> 將進入 80 Port 的請求導向 5000 Port。(正規做法建議一個網站開一個 conf 檔) Container 的檔案系統是隔離的，將設定檔保存在 Container 裡不是好主意 - 除非每次修改設定存檔就重新產生 Image 並要求未來一律改用新版 Image 建立 Container，否則一旦 Conatiner 被刪除，設定就會消失。同樣問題也會發生在資料庫檔、Log 檔等執行期間要動態更新的內容，這類檔案保存在 Host OS 檔案系統上比較合理，程式換版換了 Container Image 資料才不受影響。Docker 靠 Volume 解決資料保存及共用需求，docker run 有個 -v host-path:container-path 可將 Host OS 特定目錄或檔案對映到 Container，讓 Container 能讀寫 Host OS 的檔案。&lt;/p>
 &lt;p>對 Nginx Container 來說，Reverse Proxy 設定放在 &lt;strong>/etc/nginx/conf.d&lt;/strong>，我選擇在 Host OS 也建立相同路徑並將 Container 的 default.conf 複製出來(指令如下)，修改後在 docker run 加上 &lt;strong>-v /etc/nginx/conf.d:/etc/nginx/conf.d&lt;/strong> 對映回去：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -3072,7 +3072,7 @@ loading="lazy"
 >&lt;/p>
 &lt;p>經過以上練習，我們體驗了從 Docker Hub 下載 Image 建立 Docker Containter 跑 Nginx、用 Dockerfile 將 ASP.NET Core 網站包成 Container、用 Port 映對 Host OS TCP Port 到 Container、使用 -v(&amp;ndash;volume) 映對資料夾讓 Container 讀寫 Host OS 檔案。&lt;/p>
 &lt;p>而在實務應用上，相關的 Conatiner 需要組合在一起執行，例如一個 Container 跑網站，一個 Container 跑資料庫，此時可用 docker-compose 簡化管理；另外 Docker 也提供 Bridge 為相關 Container 建立專屬的隔離網段，防止外界接觸到不想對外公開的網路服務，也避免不相干的 Container 彼此干擾&amp;hellip; 這些議題就留待下一篇文章討論。&lt;/p>
-&lt;hr></description></item><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" />&lt;style>
+&lt;hr></description></item><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3419,7 +3419,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;hr></description></item><item><title>.NET SqlClient 安全漏洞 CVE-2022-41064 解讀</title><link>https://wayneblog.ga/2022-11-11/dotnet-cve-2022-41064/</link><pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-11/dotnet-cve-2022-41064/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52491745274_95b2fa11ec_o.jpg" alt="Featured image of post .NET SqlClient 安全漏洞 CVE-2022-41064 解讀" />&lt;style>
+&lt;hr></description></item><item><title>.NET SqlClient 安全漏洞 CVE-2022-41064 解讀</title><link>https://wayne-blog.com/2022-11-11/dotnet-cve-2022-41064/</link><pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-11/dotnet-cve-2022-41064/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52491745274_95b2fa11ec_o.jpg" alt="Featured image of post .NET SqlClient 安全漏洞 CVE-2022-41064 解讀" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3527,7 +3527,7 @@ padding: 0 5px;
 &lt;/div>
 &lt;/div>&lt;p>.NET Framework 請安裝 &lt;a class="link" href="https://devblogs.microsoft.com/dotnet/dotnet-framework-november-2022-security-and-quality-rollup-updates/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
 >November 2022 Security and Quality Rollup Updates for .NET Framework&lt;/a>。&lt;/p>
-&lt;hr></description></item><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" />&lt;style>
+&lt;hr></description></item><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://wayne-blog.com/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

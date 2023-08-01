@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/golang/</link><description>Recent content in Golang on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 11 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>【K6】壓力測試工具介紹</title><link>https://wayneblog.ga/2023-04-11/k6-introduction/</link><pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-04-11/k6-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52808880406_c06b18a888_o.png" alt="Featured image of post 【K6】壓力測試工具介紹" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/golang/</link><description>Recent content in Golang on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 11 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>【K6】壓力測試工具介紹</title><link>https://wayne-blog.com/2023-04-11/k6-introduction/</link><pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-04-11/k6-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52808880406_c06b18a888_o.png" alt="Featured image of post 【K6】壓力測試工具介紹" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1028,7 +1028,7 @@ loading="lazy"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>Golang 的超級初心者筆記</title><link>https://wayneblog.ga/2023-02-10/golang-beginner-tutorial/</link><pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-10/golang-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52680023246_4af5b0a8eb_o.jpg" alt="Featured image of post Golang 的超級初心者筆記" />&lt;style>
+&lt;hr></description></item><item><title>Golang 的超級初心者筆記</title><link>https://wayne-blog.com/2023-02-10/golang-beginner-tutorial/</link><pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-10/golang-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52680023246_4af5b0a8eb_o.jpg" alt="Featured image of post Golang 的超級初心者筆記" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1094,7 +1094,7 @@ Go 是一個高效、靜態類型，但是又具有解釋語言的動態類型�
 &lt;p>等等！Unix Like 的使用者先等等，有個更好用的東西可以讓各位使用，我們有 &lt;a class="link" href="https://github.com/moovweb/gvm" target="_blank" rel="noopener"
 >GVM&lt;/a> 可以用，&lt;a class="link" href="https://github.com/moovweb/gvm" target="_blank" rel="noopener"
 >GVM&lt;/a> 可以有效的管理 Go 的版本，連 GOPATH 都幫你設定好，超方便的！即時是最新的也都能馬上使用他下載安裝，真的是棒的沒話說，就讓我們來使用他吧！記得要先看一下 Requirements 喔，不然會裝不起來。&lt;/p>
-&lt;p>另外我的部落格有輕鬆搭建 Go 開發環境的教學 - &lt;a class="link" href="https://wayneblog.ga/2023-02-09/golang-dev-box-in-windows/" target="_blank" rel="noopener"
+&lt;p>另外我的部落格有輕鬆搭建 Go 開發環境的教學 - &lt;a class="link" href="https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/" target="_blank" rel="noopener"
 >在 Windows 平台打造完美的 Go 開發環境 (WSL 2)&lt;/a>，可以直接參考該篇文章進行搭建！(開發工具使用 Visual Studio Code)&lt;/p>
 &lt;hr>
 &lt;h2 id="go-指令">Go 指令&lt;/h2>
@@ -1456,7 +1456,7 @@ Go 是一個高效、靜態類型，但是又具有解釋語言的動態類型�
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// key value pairs
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">&lt;/span>&lt;span class="nx">kvs&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="kd">map&lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="kt">string&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;name&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;wayne blog&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;website&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;https://wayneblog.ga/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;website&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s">&amp;#34;https://wayne-blog.com/&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">for&lt;/span> &lt;span class="nx">key&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">value&lt;/span> &lt;span class="o">:=&lt;/span> &lt;span class="k">range&lt;/span> &lt;span class="nx">kvs&lt;/span> &lt;span class="p">{&lt;/span>
@@ -5540,7 +5540,7 @@ float64 在 Go 語言相當於 C 語言的 Double，且 float32 與 float64 是�
 &lt;/div>
 &lt;/div>&lt;p>這邊使用 Prepare 來使用 sql 指令，將值傳給 stmtIns ，操作簡單直覺！&lt;/p>
 &lt;p>以上，這篇先簡單介紹 Golang，待之後專案使用到時，再來繼續深入研究！&lt;/p>
-&lt;hr></description></item><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://wayneblog.ga/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" />&lt;style>
+&lt;hr></description></item><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vue on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/vue/</link><description>Recent content in vue on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 10 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/vue/index.xml" rel="self" type="application/rss+xml"/><item><title>【Petite-Vue】大小只有 ~6KB 的 mini Vue！</title><link>https://wayneblog.ga/2023-03-10/petite-vue-introduction/</link><pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-10/petite-vue-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52736941727_b3a1dcf3c3_o.jpg" alt="Featured image of post 【Petite-Vue】大小只有 ~6KB 的 mini Vue！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vue on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/vue/</link><description>Recent content in vue on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 10 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/vue/index.xml" rel="self" type="application/rss+xml"/><item><title>【Petite-Vue】大小只有 ~6KB 的 mini Vue！</title><link>https://wayne-blog.com/2023-03-10/petite-vue-introduction/</link><pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-10/petite-vue-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52736941727_b3a1dcf3c3_o.jpg" alt="Featured image of post 【Petite-Vue】大小只有 ~6KB 的 mini Vue！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -921,7 +921,7 @@ text-align: center !important;
 &lt;h2 id="總結">總結&lt;/h2>
 &lt;p>總結來說，&lt;a class="link" href="https://github.com/vuejs/petite-vue" target="_blank" rel="noopener"
 >Petite-Vue&lt;/a> 這個項目，挺適合「用不到 Vue、React 等這些偏大的前端框架的簡單頁面」，或是「既有的非前後端分離的歷史項目」來做使用的，有著 Vue 的開發體驗，也能不增加項目的複雜度，簡直是一個完美的體驗！&lt;/p>
-&lt;hr></description></item><item><title>【Nuxt3】實戰練習 - 實作部落格</title><link>https://wayneblog.ga/2023-01-16/nuxt-nuxt3-practice-project/</link><pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-16/nuxt-nuxt3-practice-project/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52630283696_c93e29e870_o.png" alt="Featured image of post 【Nuxt3】實戰練習 - 實作部落格" />&lt;style>
+&lt;hr></description></item><item><title>【Nuxt3】實戰練習 - 實作部落格</title><link>https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/</link><pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52630283696_c93e29e870_o.png" alt="Featured image of post 【Nuxt3】實戰練習 - 實作部落格" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -938,7 +938,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://ithelp.ithome.com.tw/users/20152617/ironman/5934" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
-&lt;p>大家經過 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，應該對於 Nuxt 3 有初步的理解，接下來我們將進入實戰部分，我將會以 Nuxt 3 來實作部落格網站，讓已經註冊的使用者可以在網站上發布文章，實作這個網站的程式碼可能不會講解得非常仔細，但一些實務開發上會需要注意的細節我會把個人經驗做一個紀錄，大家可以再參考看看，文末也都會附上完整的範例程式。接下來，讓我們開始吧！&lt;/p>
+&lt;p>大家經過 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，應該對於 Nuxt 3 有初步的理解，接下來我們將進入實戰部分，我將會以 Nuxt 3 來實作部落格網站，讓已經註冊的使用者可以在網站上發布文章，實作這個網站的程式碼可能不會講解得非常仔細，但一些實務開發上會需要注意的細節我會把個人經驗做一個紀錄，大家可以再參考看看，文末也都會附上完整的範例程式。接下來，讓我們開始吧！&lt;/p>
 &lt;hr>
 &lt;h2 id="資料庫與會員系統">資料庫與會員系統&lt;/h2>
 &lt;h3 id="資料庫-database">資料庫 (Database)&lt;/h3>
@@ -1254,7 +1254,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="nuxt-3-使用者註冊帳號">Nuxt 3 使用者註冊帳號&lt;/h3>
-&lt;p>我們將 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p>
+&lt;p>我們將 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p>
 &lt;p>&lt;code>./server/api/auth/google.post.js&lt;/code> 程式碼如下：&lt;/p>
 &lt;h5 id="serverapiauthgooglepostjs">server/api/auth/google.post.js&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -2198,7 +2198,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="取消或替換特定頁面的布局模板">取消或替換特定頁面的布局模板&lt;/h3>
-&lt;p>在&lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a> 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p>
+&lt;p>在&lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a> 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p>
 &lt;p>例如，我們想將登入與註冊頁面，取消套用預設的布局模板，我們就可以使用 &lt;code>definePageMeta()&lt;/code> 來傳入 &lt;code>layout: false&lt;/code> 屬性來取消布局模板的使用。&lt;/p>
 &lt;p>調整登入頁面 &lt;code>./pages/login.vue&lt;/code>&lt;/p>
 &lt;h5 id="pagesloginvue">pages/login.vue&lt;/h5>
@@ -3379,7 +3379,7 @@ loading="lazy"
 >範例程式碼 - Nuxt 3 - 設置導航守衛與頁面切換效果範例&lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="添加-html-meta-tag">添加 HTML Meta Tag&lt;/h2>
-&lt;p>詳細 Nuxt3 添加 HTML Meta Tag 的說明，可以參考 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e6%90%9c%e5%b0%8b%e5%bc%95%e6%93%8e%e6%9c%80%e4%bd%b3%e5%8c%96-seo-%e8%88%87-html-meta-tag" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - 搜尋引擎最佳化 (SEO) 與 HTML Meta Tag&lt;/a>，這邊我們說明為實作的部落格文章添加 Meta，調整 &lt;code>./pages/articles/[id].vue&lt;/code> 檔案，添加以下程式碼：&lt;/p>
+&lt;p>詳細 Nuxt3 添加 HTML Meta Tag 的說明，可以參考 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e6%90%9c%e5%b0%8b%e5%bc%95%e6%93%8e%e6%9c%80%e4%bd%b3%e5%8c%96-seo-%e8%88%87-html-meta-tag" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - 搜尋引擎最佳化 (SEO) 與 HTML Meta Tag&lt;/a>，這邊我們說明為實作的部落格文章添加 Meta，調整 &lt;code>./pages/articles/[id].vue&lt;/code> 檔案，添加以下程式碼：&lt;/p>
 &lt;h5 id="pagesarticlesidvue">pages/articles/[id].vue&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -4167,7 +4167,7 @@ loading="lazy"
 &lt;hr>
 &lt;p>&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/day24/nuxt-app-meta" target="_blank" rel="noopener"
 >範例程式碼 - Nuxt 3 - 搜尋引擎最佳化 (SEO) 之設定網頁 Meta 及 OG Tag 範例&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>【Nuxt3】開箱即用的 Nuxt3 玩轉筆記</title><link>https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/</link><pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52616698791_b7b8bbce05_o.jpg" alt="Featured image of post 【Nuxt3】開箱即用的 Nuxt3 玩轉筆記" />&lt;style>
+&lt;hr></description></item><item><title>【Nuxt3】開箱即用的 Nuxt3 玩轉筆記</title><link>https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/</link><pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52616698791_b7b8bbce05_o.jpg" alt="Featured image of post 【Nuxt3】開箱即用的 Nuxt3 玩轉筆記" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -7680,9 +7680,9 @@ loading="lazy"
 &lt;/ul>
 &lt;p>目前在 Vue 3 你仍可以繼續使用 Vue 2 的 Options API，但隨著程式碼邏輯的增加，看似有條理的分類，其實對於理解及維護上沒有想像中便利。&lt;/p>
 &lt;p>Vue 3 提出的&lt;strong>組合式 API (Composition API)&lt;/strong> 則是以邏輯功能來進行分類，你可以將所有與某個功能的 &lt;strong>data&lt;/strong>、&lt;strong>computed&lt;/strong>、&lt;strong>methods&lt;/strong> 與 &lt;strong>watch&lt;/strong> &amp;hellip;等，寫在同一個段落行程一個區塊。&lt;/p>
-&lt;p>詳細說明可閱讀先前撰寫的&lt;a class="link" href="https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/" >圖解 Option API vs Composition API&lt;/a>文章。&lt;/p>
+&lt;p>詳細說明可閱讀先前撰寫的&lt;a class="link" href="https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/" >圖解 Option API vs Composition API&lt;/a>文章。&lt;/p>
 &lt;h3 id="mixins-與-composables">Mixins 與 Composables&lt;/h3>
-&lt;p>在 Options API 可以使用 &lt;code>mixin&lt;/code> 來引入可以重複使用的程式碼，讓不同的元件可以共用函數方法，但隨著專案變大，同一個元件可能使用 mixin 同時來引用許多的共用函數，這將導致容易產生命名衝突、元件間的耦合與來源不夠清晰等問題（詳細原因請參考&lt;a class="link" href="https://wayneblog.ga/2022-12-30/why-use-hooks/" >淺談為什麼 Vue 和 React 都選擇了 Hooks？&lt;/a>）。&lt;/p>
+&lt;p>在 Options API 可以使用 &lt;code>mixin&lt;/code> 來引入可以重複使用的程式碼，讓不同的元件可以共用函數方法，但隨著專案變大，同一個元件可能使用 mixin 同時來引用許多的共用函數，這將導致容易產生命名衝突、元件間的耦合與來源不夠清晰等問題（詳細原因請參考&lt;a class="link" href="https://wayne-blog.com/2022-12-30/why-use-hooks/" >淺談為什麼 Vue 和 React 都選擇了 Hooks？&lt;/a>）。&lt;/p>
 &lt;p>Vue 3 為我們帶來了組合式 API，實現了更乾淨的程式碼編排與高效的邏輯重用，**組合式函數 (Composables)**也基於組合式 API 來進行封裝這些可複用的邏輯，更解決了使用 mixin 實現共用函數的缺點。&lt;/p>
 &lt;h3 id="組合式函數-composables-1">組合式函數 (Composables)&lt;/h3>
 &lt;p>在 Nuxt 3 中要建立一個&lt;code>組合式函數 (Composables)&lt;/code> 我們可以在 &lt;code>composables&lt;/code> 目錄下編寫，這些常用的函數，將會被 Nuxt 3 自動載入做使用，實現在各個元件使用這些函數方法。&lt;/p>
@@ -7893,7 +7893,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>不論在 Nuxt 3 或是 Vue 3，組合式函數 (Composables) 都是能幫助你在整個網站可以共用函數的方法，目前也有專案 &lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
->VueUse&lt;/a> 提供了常用與實用的組合式函數集合，能幫我們省去不少開發時間與提升重複使用性，&lt;a class="link" href="https://wayneblog.ga/2022-12-30/npm-vueuse/" >VueUse的介紹請點我前往&lt;/a>。&lt;/p>
+>VueUse&lt;/a> 提供了常用與實用的組合式函數集合，能幫我們省去不少開發時間與提升重複使用性，&lt;a class="link" href="https://wayne-blog.com/2022-12-30/npm-vueuse/" >VueUse的介紹請點我前往&lt;/a>。&lt;/p>
 &lt;hr>
 &lt;h2 id="插件-plugins">插件 (Plugins)&lt;/h2>
 &lt;p>在開發時，為了不重複造輪子，我們可能會在網路上找看看有沒有現成的套件可以做使用，如果這個套件在 Nuxt 3 沒有專用的模組或插件，那麼我們就只能依照套件的支援與安裝方式嘗試添加至 Nuxt 中使用。這邊將會介紹在 Nuxt 插件的規則與特性，如何建立自己的插件及安裝 Vue 的插件。&lt;/p>
@@ -8111,7 +8111,7 @@ loading="lazy"
 &lt;p>Nuxt 模組與 Nuxt 插件的差異在於，&lt;code>模組載入執行的時間點更早&lt;/code>，意思是 Nuxt 在啟動伺服器後，首先會&lt;code>依序的載入模組並執行&lt;/code>，接續建立 Nuxt 的環境 (Context) 與 Vue 的實例 (Instance)，最後才開始執行 Nuxt 的插件。&lt;/p>
 &lt;p>因此，Nuxt 模組可以做更多的事情，包含在使用 &lt;code>nuxi dev&lt;/code>、&lt;code>nuxi build&lt;/code> 啟動或建構 Nuxt 時，可以透過模組來覆蓋模板、配置 webpack 及配置插件等許多任務。&lt;/p>
 &lt;h3 id="nuxt-3-安裝使用模組">Nuxt 3 安裝使用模組&lt;/h3>
-&lt;p>Nuxt 模組是一個導出異步函數的 JavaScript 檔案，當安裝使用模組時，通常會配置在 &lt;code>nuxt.config.ts&lt;/code> 檔案的 &lt;code>modules&lt;/code> 中，例如&lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e4%bd%bf%e7%94%a8-nuxt-tailwind-%e6%a8%a1%e7%b5%84" >使用 Nuxt Tailwind 模組&lt;/a> 會添加上 &lt;strong>&amp;rsquo;@nuxtjs/tailwindcss&amp;rsquo;&lt;/strong>。&lt;/p>
+&lt;p>Nuxt 模組是一個導出異步函數的 JavaScript 檔案，當安裝使用模組時，通常會配置在 &lt;code>nuxt.config.ts&lt;/code> 檔案的 &lt;code>modules&lt;/code> 中，例如&lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e4%bd%bf%e7%94%a8-nuxt-tailwind-%e6%a8%a1%e7%b5%84" >使用 Nuxt Tailwind 模組&lt;/a> 會添加上 &lt;strong>&amp;rsquo;@nuxtjs/tailwindcss&amp;rsquo;&lt;/strong>。&lt;/p>
 &lt;p>通常模組的開發人員會提供這些模組應該如何在 &lt;strong>modules&lt;/strong> 屬性來做配置，甚至一些可選用的參數來配置這些模組。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -12210,7 +12210,7 @@ loading="lazy"
 &lt;h3 id="網站的-open-graph-og">網站的 Open Graph (OG)&lt;/h3>
 &lt;p>&lt;strong>OG&lt;/strong> 是由 Facebook 所提出的設定，全名為 &lt;strong>Open Graph Protocol&lt;/strong>，官方翻譯為「&lt;strong>開放社交關係圖&lt;/strong>」，在設定網站的 &lt;strong>Meta&lt;/strong> 時通常也稱 &lt;strong>OG Tag&lt;/strong>，Facebook 提供了&lt;a class="link" href="https://developers.facebook.com/docs/sharing/webmasters" target="_blank" rel="noopener"
 >網站管理員分享指南&lt;/a>，當初設計的目的是，當網頁中設定了 &lt;strong>OG Tag&lt;/strong>，能讓網頁被分享至社群媒體時，能有呈現更為豐富的內容，例如標題、描述及縮圖等。&lt;/p>
-&lt;p>舉例來說，當&lt;a class="link" href="https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/" target="_blank" rel="noopener"
+&lt;p>舉例來說，當&lt;a class="link" href="https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/" target="_blank" rel="noopener"
 >網頁&lt;/a>設定了 &lt;strong>OG Tag&lt;/strong>，以連結形式被分享至 Facebook，會呈現如下的資訊，Facebook 會解析網頁內的 &lt;strong>OG Tag&lt;/strong> 將對應的如標題及縮圖等資訊顯示出來。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52618326446_7205784c15_o.png"
 max-width="100%"
@@ -12741,7 +12741,7 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>&lt;code>generate&lt;/code> 指令會觸發 &lt;code>build&lt;/code> 的指令並帶有 &lt;strong>prerender&lt;/strong> 為 &lt;code>true&lt;/code> 的參數，最終產生出來的目錄可以直接進行部署，不需要再執行一次 &lt;code>build&lt;/code> 的指令。&lt;/p>
 &lt;h3 id="使用預設配置進行建構---建構通用渲染-universal-rendering-的網站">使用預設配置進行建構 - 建構通用渲染 (Universal Rendering) 的網站&lt;/h3>
-&lt;p>這邊我們以 &lt;a class="link" href="https://wayneblog.ga/2023-01-16/nuxt-nuxt3-practice-project/" >【Nuxt3】實戰練習 - 實作部落格&lt;/a> 所建立的&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/nuxt-app-blog" target="_blank" rel="noopener"
+&lt;p>這邊我們以 &lt;a class="link" href="https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/" >【Nuxt3】實戰練習 - 實作部落格&lt;/a> 所建立的&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/nuxt-app-blog" target="_blank" rel="noopener"
 >部落格&lt;/a>作為範例，來嘗試以預設的配置進行建構，目前 Nuxt 3 預設 &lt;code>nuxt.config.ts&lt;/code> 中 &lt;code>ssr&lt;/code> 屬性為 &lt;code>true&lt;/code>，也就使用&lt;strong>通用渲染 (Universal Rendering)&lt;/strong>。&lt;/p>
 &lt;p>我們進入專案目錄，執行下列指令：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -13426,7 +13426,7 @@ loading="lazy"
 &lt;/ul>
 &lt;p>這邊主要與大家分享幾種 Nuxt 的部署方式，不管是部署在自己的機房主機或雲端，大家可以在挑選合適的解決方案，Nitro 也支援無伺服器 (Serverless) 等部署方式非常的方便，只是要特別注意到 Serverless 執行一些 binary 的問題，再挑選自己適合的部署與服務方式。&lt;/p>
 &lt;p>經過本篇文章，大家應該都對於 Nuxt 3 有初步的理解，接下來下一篇文章我們將會進入實戰練習，將會以 Nuxt 3 來實作一個部落格網站！&lt;/p>
-&lt;hr></description></item><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://wayneblog.ga/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" />&lt;style>
+&lt;hr></description></item><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://wayne-blog.com/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -13815,7 +13815,7 @@ loading="lazy"
 &lt;p>例子太多，就不再一一介紹了，但大家應該已經有了一個初步的概念，知道了此庫的作用，一言以蔽之：&lt;strong>助力摸鱼，提前下班&lt;/strong>。&lt;/p>
 &lt;p>它沒辦法做到你之前做不到的事情。&lt;/p>
 &lt;p>它只能做到讓你更輕鬆的完成工作！願你今天也能按時下班。&lt;/p>
-&lt;hr></description></item><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://wayneblog.ga/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" />&lt;style>
+&lt;hr></description></item><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://wayne-blog.com/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -14409,7 +14409,7 @@ loading="lazy"
 &lt;/ul>
 &lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>Vue 2 升級 Vue 3 之全域元件註冊問題</title><link>https://wayneblog.ga/2022-11-10/vue-2to3-global-component/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-10/vue-2to3-global-component/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489820266_b81b766288_o.png" alt="Featured image of post Vue 2 升級 Vue 3 之全域元件註冊問題" />&lt;style>
+&lt;hr></description></item><item><title>Vue 2 升級 Vue 3 之全域元件註冊問題</title><link>https://wayne-blog.com/2022-11-10/vue-2to3-global-component/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-10/vue-2to3-global-component/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489820266_b81b766288_o.png" alt="Featured image of post Vue 2 升級 Vue 3 之全域元件註冊問題" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -14787,7 +14787,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>https://wayneblog.ga/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
+&lt;hr></description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>https://wayne-blog.com/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -15430,7 +15430,7 @@ vue多次更新數據，最終會進行批處理更新。內部調用的就是ne
 &lt;li>splitChunks抽離公共文件&lt;/li>
 &lt;li>sourceMap優化&lt;/li>
 &lt;/ol>
-&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>https://wayneblog.ga/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
+&lt;hr></description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>https://wayne-blog.com/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -15823,7 +15823,7 @@ loading="lazy"
 >&lt;/p>
 &lt;p>接下來到了重頭戲，&lt;code>Vue3&lt;/code> 的招牌特性，&lt;code>Composition API&lt;/code>。&lt;/p>
 &lt;p>關於 &lt;code>Composition API&lt;/code> 這裡有圖解演示，極力推薦。&lt;/p>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/@wayne-lin/vue3-option-vs-composition" >圖解 Option API vs Composition API&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/@wayne-lin/vue3-option-vs-composition" >圖解 Option API vs Composition API&lt;/a>&lt;/p>
 &lt;ul>
 &lt;li>&lt;code>Composition API&lt;/code> 可以更方便的抽取共通邏輯，但是不要過於在意邏輯程式碼複用，以功能提取程式碼也是一種思路。&lt;/li>
 &lt;/ul>
@@ -17877,7 +17877,7 @@ loading="lazy"
 &lt;li>&lt;a class="link" href="https://juejin.cn/post/6891640356543627278" target="_blank" rel="noopener"
 >那個忙了一夜的Vue3動畫很好，就是太短了&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>圖解 Option API vs Composition API</title><link>https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" />&lt;style>
+&lt;hr></description></item><item><title>圖解 Option API vs Composition API</title><link>https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -18533,7 +18533,7 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>&lt;a class="link" href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fvuejs%2Frfcs%2Fblob%2Fsfc-improvements%2Factive-rfcs%2F0000-sfc-script-setup.md" target="_blank" rel="noopener"
 >具體看這裡&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>Vue-cli plugin：使用套件將圖片自動轉檔為webp格式</title><link>https://wayneblog.ga/2022-08-10/vue-cli-use-webp/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-10/vue-cli-use-webp/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282467469_7cf86509a9_o.jpg" alt="Featured image of post Vue-cli plugin：使用套件將圖片自動轉檔為webp格式" />&lt;style>
+&lt;hr></description></item><item><title>Vue-cli plugin：使用套件將圖片自動轉檔為webp格式</title><link>https://wayne-blog.com/2022-08-10/vue-cli-use-webp/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-10/vue-cli-use-webp/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282467469_7cf86509a9_o.jpg" alt="Featured image of post Vue-cli plugin：使用套件將圖片自動轉檔為webp格式" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -18790,7 +18790,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://wayneblog.ga/2022-07-17/atguigu-vue3-note/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-07-17/atguigu-vue3-note/</guid><description>&lt;img src="https://wayneblog.ga/2022-07-17/atguigu-vue3-note/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://wayne-blog.com/2022-07-17/atguigu-vue3-note/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-17/atguigu-vue3-note/</guid><description>&lt;img src="https://wayne-blog.com/2022-07-17/atguigu-vue3-note/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

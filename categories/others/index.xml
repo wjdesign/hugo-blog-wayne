@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>其他 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/others/</link><description>Recent content in 其他 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayneblog.ga/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>其他 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/others/</link><description>Recent content in 其他 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -177,14 +177,14 @@ loading="lazy"
 &lt;/span>&lt;span class="lnt">8
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.1.1 52im-aliyun
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># The following lines are desirable for IPv6 capable hosts
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 ip6-localhost ip6-loopback
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fe00::0 ip6-localnet
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff00::0 ip6-mcastprefix
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::1 ip6-allnodes
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::2 ip6-allrouters
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-conf" data-lang="conf">&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0.0.1&lt;/span> &lt;span class="nv">localhost&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0.1.1&lt;/span> &lt;span class="nv">52im-aliyun&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># The following lines are desirable for IPv6 capable hosts
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">1&lt;/span> &lt;span class="nv">ip6-localhost&lt;/span> &lt;span class="nv">ip6-loopback&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">fe00&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">0&lt;/span> &lt;span class="nv">ip6-localnet&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ff00&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">0&lt;/span> &lt;span class="nv">ip6-mcastprefix&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ff02&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">1&lt;/span> &lt;span class="nv">ip6-allnodes&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ff02&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">2&lt;/span> &lt;span class="nv">ip6-allrouters&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>上面第一行是幾乎每台電腦上都會有的默認配置。但是 localhost 的意義並不局限於 127.0.0.1。&lt;/p>
@@ -196,8 +196,8 @@ loading="lazy"
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 localhost
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-conf" data-lang="conf">&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0.0.1&lt;/span> &lt;span class="nv">localhost&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">::&lt;/span>&lt;span class="nv">1&lt;/span> &lt;span class="nv">localhost&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>所以，在使用的時候要注意確認IPV4還是IPV6。&lt;/p>
@@ -208,7 +208,7 @@ loading="lazy"
 &lt;p>在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code>0.0.0.0&lt;/code>，這樣我的服務訪問方就可以通過我的&lt;strong>多個ip地址&lt;/strong>訪問我的服務。&lt;/p>
 &lt;p>比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code>0.0.0.0&lt;/code>，那麼通過內網地址或外網地址&lt;strong>都可以訪問&lt;/strong>我的應用。&lt;/p>
 &lt;p>但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code>0.0.0.0&lt;/code>，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p>
-&lt;hr></description></item><item><title>以生活的例子說明單線程和多線程</title><link>https://wayneblog.ga/2023-01-07/single-multi-thread/</link><pubDate>Sat, 07 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-07/single-multi-thread/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52611539777_c564013cbd_o.png" alt="Featured image of post 以生活的例子說明單線程和多線程" />&lt;style>
+&lt;hr></description></item><item><title>以生活的例子說明單線程和多線程</title><link>https://wayne-blog.com/2023-01-07/single-multi-thread/</link><pubDate>Sat, 07 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-07/single-multi-thread/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52611539777_c564013cbd_o.png" alt="Featured image of post 以生活的例子說明單線程和多線程" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

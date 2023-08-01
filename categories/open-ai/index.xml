@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OpenAI on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/open-ai/</link><description>Recent content in OpenAI on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/open-ai/index.xml" rel="self" type="application/rss+xml"/><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>OpenAI on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/open-ai/</link><description>Recent content in OpenAI on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 12 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/open-ai/index.xml" rel="self" type="application/rss+xml"/><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -820,7 +820,7 @@ loading="lazy"
 &lt;p>最後這邊我也附上範例程式碼，如果你想直接拉回去用也是可以的，因為這一份程式碼基本上都是以官方所提供的為主，很少有大幅度調整的部分，所以你可以直接拿來用。&lt;/p>
 &lt;p>希望這一篇可以讓你快快樂樂做出一個 LINE Bot。&lt;/p>
 &lt;blockquote>
-&lt;p>如果你覺得部署到 &lt;strong>Render&lt;/strong> 很難去除錯，其實是可以考慮使用 &lt;strong>ngrok&lt;/strong> 的，&lt;strong>ngrok&lt;/strong> 的使用方法可以參考&lt;a class="link" href="https://wayneblog.ga/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
+&lt;p>如果你覺得部署到 &lt;strong>Render&lt;/strong> 很難去除錯，其實是可以考慮使用 &lt;strong>ngrok&lt;/strong> 的，&lt;strong>ngrok&lt;/strong> 的使用方法可以參考&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
 >這裡&lt;/a>。&lt;/p>
 &lt;/blockquote>
 &lt;hr></description></item></channel></rss>

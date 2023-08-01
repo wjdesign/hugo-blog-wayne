@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>typescript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/typescript/</link><description>Recent content in typescript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 18 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/typescript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Typescript】5.0 版本發布</title><link>https://wayneblog.ga/2023-04-18/ts-v5-introduction/</link><pubDate>Tue, 18 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-04-18/ts-v5-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52826805634_6bd4cfd428_o.jpg" alt="Featured image of post 【Typescript】5.0 版本發布" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>typescript on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/typescript/</link><description>Recent content in typescript on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 18 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/typescript/index.xml" rel="self" type="application/rss+xml"/><item><title>【Typescript】5.0 版本發布</title><link>https://wayne-blog.com/2023-04-18/ts-v5-introduction/</link><pubDate>Tue, 18 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-04-18/ts-v5-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52826805634_6bd4cfd428_o.jpg" alt="Featured image of post 【Typescript】5.0 版本發布" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1992,7 +1992,7 @@ loading="lazy"
 &lt;p>當然，如果您選擇只享受 TypeScript 的新穩定版，我們也不會感到受傷。我們希望 TypeScript 5.0 讓每個人的編碼更快、更有趣。&lt;/p>
 &lt;p>Happy Hacking！&lt;/p>
 &lt;p>by Daniel Rosenwasser 和 TypeScript 團隊&lt;/p>
-&lt;hr></description></item><item><title>【Petite-Vue】大小只有 ~6KB 的 mini Vue！</title><link>https://wayneblog.ga/2023-03-10/petite-vue-introduction/</link><pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-10/petite-vue-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52736941727_b3a1dcf3c3_o.jpg" alt="Featured image of post 【Petite-Vue】大小只有 ~6KB 的 mini Vue！" />&lt;style>
+&lt;hr></description></item><item><title>【Petite-Vue】大小只有 ~6KB 的 mini Vue！</title><link>https://wayne-blog.com/2023-03-10/petite-vue-introduction/</link><pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-10/petite-vue-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52736941727_b3a1dcf3c3_o.jpg" alt="Featured image of post 【Petite-Vue】大小只有 ~6KB 的 mini Vue！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2915,7 +2915,7 @@ text-align: center !important;
 &lt;h2 id="總結">總結&lt;/h2>
 &lt;p>總結來說，&lt;a class="link" href="https://github.com/vuejs/petite-vue" target="_blank" rel="noopener"
 >Petite-Vue&lt;/a> 這個項目，挺適合「用不到 Vue、React 等這些偏大的前端框架的簡單頁面」，或是「既有的非前後端分離的歷史項目」來做使用的，有著 Vue 的開發體驗，也能不增加項目的複雜度，簡直是一個完美的體驗！&lt;/p>
-&lt;hr></description></item><item><title>【Typescript】tsconfig.json 的設定與資料型別介紹筆記</title><link>https://wayneblog.ga/2023-03-07/ts-config-and-type/</link><pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-07/ts-config-and-type/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52731863500_76db7b3738_o.png" alt="Featured image of post 【Typescript】tsconfig.json 的設定與資料型別介紹筆記" />&lt;style>
+&lt;hr></description></item><item><title>【Typescript】tsconfig.json 的設定與資料型別介紹筆記</title><link>https://wayne-blog.com/2023-03-07/ts-config-and-type/</link><pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-07/ts-config-and-type/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52731863500_76db7b3738_o.png" alt="Featured image of post 【Typescript】tsconfig.json 的設定與資料型別介紹筆記" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -4137,7 +4137,7 @@ ts： typescript 的特殊型別&lt;/p>
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">var&lt;/span> &lt;span class="nx">directions&lt;/span> &lt;span class="o">=&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Up&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Down&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Left&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="nx">Directions&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">Right&lt;/span>&lt;span class="p">];&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayne-blog.com/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5689,7 +5689,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>因為 request 其實就是 middleware 的陣列，因此若要嵌套其他 middleware 時，使用 Array merge 即可。&lt;/p>
-&lt;hr></description></item><item><title>【Nuxt3】實戰練習 - 實作部落格</title><link>https://wayneblog.ga/2023-01-16/nuxt-nuxt3-practice-project/</link><pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-16/nuxt-nuxt3-practice-project/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52630283696_c93e29e870_o.png" alt="Featured image of post 【Nuxt3】實戰練習 - 實作部落格" />&lt;style>
+&lt;hr></description></item><item><title>【Nuxt3】實戰練習 - 實作部落格</title><link>https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/</link><pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52630283696_c93e29e870_o.png" alt="Featured image of post 【Nuxt3】實戰練習 - 實作部落格" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5706,7 +5706,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://ithelp.ithome.com.tw/users/20152617/ironman/5934" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
-&lt;p>大家經過 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，應該對於 Nuxt 3 有初步的理解，接下來我們將進入實戰部分，我將會以 Nuxt 3 來實作部落格網站，讓已經註冊的使用者可以在網站上發布文章，實作這個網站的程式碼可能不會講解得非常仔細，但一些實務開發上會需要注意的細節我會把個人經驗做一個紀錄，大家可以再參考看看，文末也都會附上完整的範例程式。接下來，讓我們開始吧！&lt;/p>
+&lt;p>大家經過 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，應該對於 Nuxt 3 有初步的理解，接下來我們將進入實戰部分，我將會以 Nuxt 3 來實作部落格網站，讓已經註冊的使用者可以在網站上發布文章，實作這個網站的程式碼可能不會講解得非常仔細，但一些實務開發上會需要注意的細節我會把個人經驗做一個紀錄，大家可以再參考看看，文末也都會附上完整的範例程式。接下來，讓我們開始吧！&lt;/p>
 &lt;hr>
 &lt;h2 id="資料庫與會員系統">資料庫與會員系統&lt;/h2>
 &lt;h3 id="資料庫-database">資料庫 (Database)&lt;/h3>
@@ -6022,7 +6022,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="nuxt-3-使用者註冊帳號">Nuxt 3 使用者註冊帳號&lt;/h3>
-&lt;p>我們將 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p>
+&lt;p>我們將 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a> 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p>
 &lt;p>&lt;code>./server/api/auth/google.post.js&lt;/code> 程式碼如下：&lt;/p>
 &lt;h5 id="serverapiauthgooglepostjs">server/api/auth/google.post.js&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -6966,7 +6966,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;h3 id="取消或替換特定頁面的布局模板">取消或替換特定頁面的布局模板&lt;/h3>
-&lt;p>在&lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a> 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p>
+&lt;p>在&lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a> 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p>
 &lt;p>例如，我們想將登入與註冊頁面，取消套用預設的布局模板，我們就可以使用 &lt;code>definePageMeta()&lt;/code> 來傳入 &lt;code>layout: false&lt;/code> 屬性來取消布局模板的使用。&lt;/p>
 &lt;p>調整登入頁面 &lt;code>./pages/login.vue&lt;/code>&lt;/p>
 &lt;h5 id="pagesloginvue">pages/login.vue&lt;/h5>
@@ -8147,7 +8147,7 @@ loading="lazy"
 >範例程式碼 - Nuxt 3 - 設置導航守衛與頁面切換效果範例&lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="添加-html-meta-tag">添加 HTML Meta Tag&lt;/h2>
-&lt;p>詳細 Nuxt3 添加 HTML Meta Tag 的說明，可以參考 &lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e6%90%9c%e5%b0%8b%e5%bc%95%e6%93%8e%e6%9c%80%e4%bd%b3%e5%8c%96-seo-%e8%88%87-html-meta-tag" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - 搜尋引擎最佳化 (SEO) 與 HTML Meta Tag&lt;/a>，這邊我們說明為實作的部落格文章添加 Meta，調整 &lt;code>./pages/articles/[id].vue&lt;/code> 檔案，添加以下程式碼：&lt;/p>
+&lt;p>詳細 Nuxt3 添加 HTML Meta Tag 的說明，可以參考 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e6%90%9c%e5%b0%8b%e5%bc%95%e6%93%8e%e6%9c%80%e4%bd%b3%e5%8c%96-seo-%e8%88%87-html-meta-tag" >【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - 搜尋引擎最佳化 (SEO) 與 HTML Meta Tag&lt;/a>，這邊我們說明為實作的部落格文章添加 Meta，調整 &lt;code>./pages/articles/[id].vue&lt;/code> 檔案，添加以下程式碼：&lt;/p>
 &lt;h5 id="pagesarticlesidvue">pages/articles/[id].vue&lt;/h5>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -8935,7 +8935,7 @@ loading="lazy"
 &lt;hr>
 &lt;p>&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/day24/nuxt-app-meta" target="_blank" rel="noopener"
 >範例程式碼 - Nuxt 3 - 搜尋引擎最佳化 (SEO) 之設定網頁 Meta 及 OG Tag 範例&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>【Nuxt3】開箱即用的 Nuxt3 玩轉筆記</title><link>https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/</link><pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52616698791_b7b8bbce05_o.jpg" alt="Featured image of post 【Nuxt3】開箱即用的 Nuxt3 玩轉筆記" />&lt;style>
+&lt;hr></description></item><item><title>【Nuxt3】開箱即用的 Nuxt3 玩轉筆記</title><link>https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/</link><pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52616698791_b7b8bbce05_o.jpg" alt="Featured image of post 【Nuxt3】開箱即用的 Nuxt3 玩轉筆記" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -12448,9 +12448,9 @@ loading="lazy"
 &lt;/ul>
 &lt;p>目前在 Vue 3 你仍可以繼續使用 Vue 2 的 Options API，但隨著程式碼邏輯的增加，看似有條理的分類，其實對於理解及維護上沒有想像中便利。&lt;/p>
 &lt;p>Vue 3 提出的&lt;strong>組合式 API (Composition API)&lt;/strong> 則是以邏輯功能來進行分類，你可以將所有與某個功能的 &lt;strong>data&lt;/strong>、&lt;strong>computed&lt;/strong>、&lt;strong>methods&lt;/strong> 與 &lt;strong>watch&lt;/strong> &amp;hellip;等，寫在同一個段落行程一個區塊。&lt;/p>
-&lt;p>詳細說明可閱讀先前撰寫的&lt;a class="link" href="https://wayneblog.ga/2022-08-11/option-api-vs-composition-api/" >圖解 Option API vs Composition API&lt;/a>文章。&lt;/p>
+&lt;p>詳細說明可閱讀先前撰寫的&lt;a class="link" href="https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/" >圖解 Option API vs Composition API&lt;/a>文章。&lt;/p>
 &lt;h3 id="mixins-與-composables">Mixins 與 Composables&lt;/h3>
-&lt;p>在 Options API 可以使用 &lt;code>mixin&lt;/code> 來引入可以重複使用的程式碼，讓不同的元件可以共用函數方法，但隨著專案變大，同一個元件可能使用 mixin 同時來引用許多的共用函數，這將導致容易產生命名衝突、元件間的耦合與來源不夠清晰等問題（詳細原因請參考&lt;a class="link" href="https://wayneblog.ga/2022-12-30/why-use-hooks/" >淺談為什麼 Vue 和 React 都選擇了 Hooks？&lt;/a>）。&lt;/p>
+&lt;p>在 Options API 可以使用 &lt;code>mixin&lt;/code> 來引入可以重複使用的程式碼，讓不同的元件可以共用函數方法，但隨著專案變大，同一個元件可能使用 mixin 同時來引用許多的共用函數，這將導致容易產生命名衝突、元件間的耦合與來源不夠清晰等問題（詳細原因請參考&lt;a class="link" href="https://wayne-blog.com/2022-12-30/why-use-hooks/" >淺談為什麼 Vue 和 React 都選擇了 Hooks？&lt;/a>）。&lt;/p>
 &lt;p>Vue 3 為我們帶來了組合式 API，實現了更乾淨的程式碼編排與高效的邏輯重用，**組合式函數 (Composables)**也基於組合式 API 來進行封裝這些可複用的邏輯，更解決了使用 mixin 實現共用函數的缺點。&lt;/p>
 &lt;h3 id="組合式函數-composables-1">組合式函數 (Composables)&lt;/h3>
 &lt;p>在 Nuxt 3 中要建立一個&lt;code>組合式函數 (Composables)&lt;/code> 我們可以在 &lt;code>composables&lt;/code> 目錄下編寫，這些常用的函數，將會被 Nuxt 3 自動載入做使用，實現在各個元件使用這些函數方法。&lt;/p>
@@ -12661,7 +12661,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>不論在 Nuxt 3 或是 Vue 3，組合式函數 (Composables) 都是能幫助你在整個網站可以共用函數的方法，目前也有專案 &lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
->VueUse&lt;/a> 提供了常用與實用的組合式函數集合，能幫我們省去不少開發時間與提升重複使用性，&lt;a class="link" href="https://wayneblog.ga/2022-12-30/npm-vueuse/" >VueUse的介紹請點我前往&lt;/a>。&lt;/p>
+>VueUse&lt;/a> 提供了常用與實用的組合式函數集合，能幫我們省去不少開發時間與提升重複使用性，&lt;a class="link" href="https://wayne-blog.com/2022-12-30/npm-vueuse/" >VueUse的介紹請點我前往&lt;/a>。&lt;/p>
 &lt;hr>
 &lt;h2 id="插件-plugins">插件 (Plugins)&lt;/h2>
 &lt;p>在開發時，為了不重複造輪子，我們可能會在網路上找看看有沒有現成的套件可以做使用，如果這個套件在 Nuxt 3 沒有專用的模組或插件，那麼我們就只能依照套件的支援與安裝方式嘗試添加至 Nuxt 中使用。這邊將會介紹在 Nuxt 插件的規則與特性，如何建立自己的插件及安裝 Vue 的插件。&lt;/p>
@@ -12879,7 +12879,7 @@ loading="lazy"
 &lt;p>Nuxt 模組與 Nuxt 插件的差異在於，&lt;code>模組載入執行的時間點更早&lt;/code>，意思是 Nuxt 在啟動伺服器後，首先會&lt;code>依序的載入模組並執行&lt;/code>，接續建立 Nuxt 的環境 (Context) 與 Vue 的實例 (Instance)，最後才開始執行 Nuxt 的插件。&lt;/p>
 &lt;p>因此，Nuxt 模組可以做更多的事情，包含在使用 &lt;code>nuxi dev&lt;/code>、&lt;code>nuxi build&lt;/code> 啟動或建構 Nuxt 時，可以透過模組來覆蓋模板、配置 webpack 及配置插件等許多任務。&lt;/p>
 &lt;h3 id="nuxt-3-安裝使用模組">Nuxt 3 安裝使用模組&lt;/h3>
-&lt;p>Nuxt 模組是一個導出異步函數的 JavaScript 檔案，當安裝使用模組時，通常會配置在 &lt;code>nuxt.config.ts&lt;/code> 檔案的 &lt;code>modules&lt;/code> 中，例如&lt;a class="link" href="https://wayneblog.ga/2023-01-14/nuxt-try-nuxt3/#%e4%bd%bf%e7%94%a8-nuxt-tailwind-%e6%a8%a1%e7%b5%84" >使用 Nuxt Tailwind 模組&lt;/a> 會添加上 &lt;strong>&amp;rsquo;@nuxtjs/tailwindcss&amp;rsquo;&lt;/strong>。&lt;/p>
+&lt;p>Nuxt 模組是一個導出異步函數的 JavaScript 檔案，當安裝使用模組時，通常會配置在 &lt;code>nuxt.config.ts&lt;/code> 檔案的 &lt;code>modules&lt;/code> 中，例如&lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e4%bd%bf%e7%94%a8-nuxt-tailwind-%e6%a8%a1%e7%b5%84" >使用 Nuxt Tailwind 模組&lt;/a> 會添加上 &lt;strong>&amp;rsquo;@nuxtjs/tailwindcss&amp;rsquo;&lt;/strong>。&lt;/p>
 &lt;p>通常模組的開發人員會提供這些模組應該如何在 &lt;strong>modules&lt;/strong> 屬性來做配置，甚至一些可選用的參數來配置這些模組。&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -16978,7 +16978,7 @@ loading="lazy"
 &lt;h3 id="網站的-open-graph-og">網站的 Open Graph (OG)&lt;/h3>
 &lt;p>&lt;strong>OG&lt;/strong> 是由 Facebook 所提出的設定，全名為 &lt;strong>Open Graph Protocol&lt;/strong>，官方翻譯為「&lt;strong>開放社交關係圖&lt;/strong>」，在設定網站的 &lt;strong>Meta&lt;/strong> 時通常也稱 &lt;strong>OG Tag&lt;/strong>，Facebook 提供了&lt;a class="link" href="https://developers.facebook.com/docs/sharing/webmasters" target="_blank" rel="noopener"
 >網站管理員分享指南&lt;/a>，當初設計的目的是，當網頁中設定了 &lt;strong>OG Tag&lt;/strong>，能讓網頁被分享至社群媒體時，能有呈現更為豐富的內容，例如標題、描述及縮圖等。&lt;/p>
-&lt;p>舉例來說，當&lt;a class="link" href="https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/" target="_blank" rel="noopener"
+&lt;p>舉例來說，當&lt;a class="link" href="https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/" target="_blank" rel="noopener"
 >網頁&lt;/a>設定了 &lt;strong>OG Tag&lt;/strong>，以連結形式被分享至 Facebook，會呈現如下的資訊，Facebook 會解析網頁內的 &lt;strong>OG Tag&lt;/strong> 將對應的如標題及縮圖等資訊顯示出來。&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52618326446_7205784c15_o.png"
 max-width="100%"
@@ -17509,7 +17509,7 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;p>&lt;code>generate&lt;/code> 指令會觸發 &lt;code>build&lt;/code> 的指令並帶有 &lt;strong>prerender&lt;/strong> 為 &lt;code>true&lt;/code> 的參數，最終產生出來的目錄可以直接進行部署，不需要再執行一次 &lt;code>build&lt;/code> 的指令。&lt;/p>
 &lt;h3 id="使用預設配置進行建構---建構通用渲染-universal-rendering-的網站">使用預設配置進行建構 - 建構通用渲染 (Universal Rendering) 的網站&lt;/h3>
-&lt;p>這邊我們以 &lt;a class="link" href="https://wayneblog.ga/2023-01-16/nuxt-nuxt3-practice-project/" >【Nuxt3】實戰練習 - 實作部落格&lt;/a> 所建立的&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/nuxt-app-blog" target="_blank" rel="noopener"
+&lt;p>這邊我們以 &lt;a class="link" href="https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/" >【Nuxt3】實戰練習 - 實作部落格&lt;/a> 所建立的&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/nuxt-app-blog" target="_blank" rel="noopener"
 >部落格&lt;/a>作為範例，來嘗試以預設的配置進行建構，目前 Nuxt 3 預設 &lt;code>nuxt.config.ts&lt;/code> 中 &lt;code>ssr&lt;/code> 屬性為 &lt;code>true&lt;/code>，也就使用&lt;strong>通用渲染 (Universal Rendering)&lt;/strong>。&lt;/p>
 &lt;p>我們進入專案目錄，執行下列指令：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -18194,7 +18194,7 @@ loading="lazy"
 &lt;/ul>
 &lt;p>這邊主要與大家分享幾種 Nuxt 的部署方式，不管是部署在自己的機房主機或雲端，大家可以在挑選合適的解決方案，Nitro 也支援無伺服器 (Serverless) 等部署方式非常的方便，只是要特別注意到 Serverless 執行一些 binary 的問題，再挑選自己適合的部署與服務方式。&lt;/p>
 &lt;p>經過本篇文章，大家應該都對於 Nuxt 3 有初步的理解，接下來下一篇文章我們將會進入實戰練習，將會以 Nuxt 3 來實作一個部落格網站！&lt;/p>
-&lt;hr></description></item><item><title>闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！</title><link>https://wayneblog.ga/2022-12-29/vitest-unit-test/</link><pubDate>Thu, 29 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-29/vitest-unit-test/</guid><description>&lt;img src="https://madewithnetworkfra.fra1.digitaloceanspaces.com/spatie-space-production/29079/vitest.jpg" alt="Featured image of post 闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！" />&lt;style>
+&lt;hr></description></item><item><title>闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！</title><link>https://wayne-blog.com/2022-12-29/vitest-unit-test/</link><pubDate>Thu, 29 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-29/vitest-unit-test/</guid><description>&lt;img src="https://madewithnetworkfra.fra1.digitaloceanspaces.com/spatie-space-production/29079/vitest.jpg" alt="Featured image of post 闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -24063,7 +24063,7 @@ loading="lazy"
 &lt;p>Stryker Mutator 的概念就是透過替換不同的符號產生出突變的內容，而我們的測試程式碼應該要捕捉到那些不合理的情況，藉此來保證我們的測試案例有一定的穩固性。&lt;/p>
 &lt;p>然而，可惜的是 &lt;code>stryker-js&lt;/code> 目前僅支援到 Jest 環境，尚未支援 Vitest 的環境，因此我這邊就暫不做介紹了，有興趣者可以追蹤該 &lt;a class="link" href="https://github.com/stryker-mutator/stryker-js/issues/3465" target="_blank" rel="noopener"
 >issue&lt;/a> 目前的最新進度。&lt;/p>
-&lt;hr></description></item><item><title>TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！</title><link>https://wayneblog.ga/2022-11-28/ts-string-type-vs-class/</link><pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-28/ts-string-type-vs-class/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52549840532_0ea4bef6e7_o.png" alt="Featured image of post TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！" />&lt;style>
+&lt;hr></description></item><item><title>TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！</title><link>https://wayne-blog.com/2022-11-28/ts-string-type-vs-class/</link><pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-28/ts-string-type-vs-class/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52549840532_0ea4bef6e7_o.png" alt="Featured image of post TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -24086,7 +24086,7 @@ padding: 0 5px;
 &lt;h2 id="背景">背景&lt;/h2>
 &lt;p>與 JavaScript 語言不同的是，TypeScript 使用的是&lt;strong>靜態型別&lt;/strong>(&lt;strong>強型別&lt;/strong>)，比如說它指定了變數可以儲存的資料型別。&lt;/p>
 &lt;p>如下圖所示，如果在 JS 中，指定變數可以儲存的資料型別，會報錯：“&lt;strong>型別註釋只可以在TS檔案中被使用&lt;/strong>”：&lt;/p>
-&lt;p>&lt;img src="https://wayneblog.ga/"
+&lt;p>&lt;img src="https://wayne-blog.com/"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
@@ -24425,7 +24425,7 @@ loading="lazy"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
+&lt;hr></description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -25467,7 +25467,7 @@ loading="lazy"
 >issues&lt;/a> 將資訊反應給 vsmarketplace，此可能為 marketplace 驗證 extension 時偵測到特定字元組合而阻擋掉，會專人協助處理。&lt;/p>
 &lt;p>附上本人遇到此問題的 &lt;a class="link" href="https://github.com/microsoft/vsmarketplace/issues/522" target="_blank" rel="noopener"
 >Issues&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>TypeScript 的實用方法！大家一定要學會啊！</title><link>https://wayneblog.ga/2022-10-28/ts-useful-tricks/</link><pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-28/ts-useful-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52459954880_4228a13922_o.png" alt="Featured image of post TypeScript 的實用方法！大家一定要學會啊！" />&lt;style>
+&lt;hr></description></item><item><title>TypeScript 的實用方法！大家一定要學會啊！</title><link>https://wayne-blog.com/2022-10-28/ts-useful-tricks/</link><pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-28/ts-useful-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52459954880_4228a13922_o.png" alt="Featured image of post TypeScript 的實用方法！大家一定要學會啊！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -25963,7 +25963,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">};&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>推薦 12 個值得學習的 TypeScript 寶庫！</title><link>https://wayneblog.ga/2022-10-27/ts-learning-12-website/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-27/ts-learning-12-website/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52458187213_d3e26e7c48_o.png" alt="Featured image of post 推薦 12 個值得學習的 TypeScript 寶庫！" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>推薦 12 個值得學習的 TypeScript 寶庫！</title><link>https://wayne-blog.com/2022-10-27/ts-learning-12-website/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-27/ts-learning-12-website/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52458187213_d3e26e7c48_o.png" alt="Featured image of post 推薦 12 個值得學習的 TypeScript 寶庫！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

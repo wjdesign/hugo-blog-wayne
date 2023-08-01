@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/reverse-proxy/</link><description>Recent content in reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/reverse-proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnel 介紹</title><link>https://wayneblog.ga/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/reverse-proxy/</link><description>Recent content in reverse proxy on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/reverse-proxy/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnel 介紹</title><link>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -20,7 +20,7 @@ text-align: center !important;
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://editor.leonh.space/2021/cloudflare-tunnel/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
-&lt;p>以前曾經寫過一篇「&lt;a class="link" href="https://wayneblog.ga/2022-09-26/ngrok-basic/" >透過 ngrok 產生臨時用的網址到指定機器&lt;/a>」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+&lt;p>以前曾經寫過一篇「&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" >透過 ngrok 產生臨時用的網址到指定機器&lt;/a>」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
 >Cloudflare Tunnel&lt;/a>，他們有著共同的功能：&lt;/p>
 &lt;ol>
 &lt;li>我們有個本機的服務跑在 http://localhost:5000，想讓外部訪問&lt;/li>
@@ -171,7 +171,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;hr></description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://wayneblog.ga/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
+&lt;hr></description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://wayne-blog.com/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -338,7 +338,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 >&lt;/p>
-&lt;hr></description></item><item><title>nginx CORS 跨域與反向代理</title><link>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
+&lt;hr></description></item><item><title>nginx CORS 跨域與反向代理</title><link>https://wayne-blog.com/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -710,7 +710,7 @@ loading="lazy"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>https://wayneblog.ga/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" />&lt;style>
+&lt;hr></description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>https://wayne-blog.com/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

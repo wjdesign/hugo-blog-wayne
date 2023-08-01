@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CSS on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/css/</link><description>Recent content in CSS on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/css/index.xml" rel="self" type="application/rss+xml"/><item><title>21 個好用與特殊的 CSS 技巧！</title><link>https://wayneblog.ga/2023-03-16/css-21-tricks/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-16/css-21-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52750778595_b25222270e_o.png" alt="Featured image of post 21 個好用與特殊的 CSS 技巧！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CSS on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/css/</link><description>Recent content in CSS on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/css/index.xml" rel="self" type="application/rss+xml"/><item><title>21 個好用與特殊的 CSS 技巧！</title><link>https://wayne-blog.com/2023-03-16/css-21-tricks/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-16/css-21-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52750778595_b25222270e_o.png" alt="Featured image of post 21 個好用與特殊的 CSS 技巧！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -698,7 +698,7 @@ loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;p>以上分享，希望對您有幫助！&lt;/p>
-&lt;hr></description></item><item><title>學習 CSS 中的 :where() 與 :is() 函式</title><link>https://wayneblog.ga/2023-02-13/css-where-function/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-13/css-where-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52685546952_5615aa17bf_o.jpg" alt="Featured image of post 學習 CSS 中的 :where() 與 :is() 函式" />&lt;style>
+&lt;hr></description></item><item><title>學習 CSS 中的 :where() 與 :is() 函式</title><link>https://wayne-blog.com/2023-02-13/css-where-function/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-13/css-where-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52685546952_5615aa17bf_o.jpg" alt="Featured image of post 學習 CSS 中的 :where() 與 :is() 函式" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1135,7 +1135,7 @@ loading="lazy"
 &lt;hr>
 &lt;h2 id="瀏覽器兼容性">瀏覽器兼容性&lt;/h2>
 &lt;p>所有瀏覽器，無論是桌面瀏覽器還是移動瀏覽器，都完全支持 &lt;code>:where()&lt;/code> 函數，包括對其安全特性的支持。因此，你不必擔心你的樣式是否會在瀏覽器中正確呈現。&lt;/p>
-&lt;hr></description></item><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" />&lt;style>
+&lt;hr></description></item><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayne-blog.com/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1403,7 +1403,7 @@ See the Pen &lt;a href="https://codepen.io/WJDesign/pen/vYrpQRY">
 blog/pure-css-toggle-menu-icon&lt;/a> by wjdesign (&lt;a href="https://codepen.io/WJDesign">@WJDesign&lt;/a>)
 on &lt;a href="https://codepen.io">CodePen&lt;/a>.
 &lt;/iframe>
-&lt;hr></description></item><item><title>用 CSS 來偷資料 - CSS injection</title><link>https://wayneblog.ga/2022-10-03/css-injection/</link><pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-03/css-injection/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52401028978_fc63caee61_o.jpg" alt="Featured image of post 用 CSS 來偷資料 - CSS injection" />&lt;style>
+&lt;hr></description></item><item><title>用 CSS 來偷資料 - CSS injection</title><link>https://wayne-blog.com/2022-10-03/css-injection/</link><pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-03/css-injection/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52401028978_fc63caee61_o.jpg" alt="Featured image of post 用 CSS 來偷資料 - CSS injection" />&lt;style>
 .focus {
 background: #f1e2e2;
 color: #d62c2c;

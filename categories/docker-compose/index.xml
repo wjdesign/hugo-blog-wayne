@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker Compose on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/docker-compose/</link><description>Recent content in Docker Compose on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/docker-compose/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://wayneblog.ga/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4e163f06ec_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Docker Compose on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/docker-compose/</link><description>Recent content in Docker Compose on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/docker-compose/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://wayne-blog.com/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4e163f06ec_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1463,7 +1463,7 @@ loading="lazy"
 &lt;/div>&lt;ol start="13">
 &lt;li>Docker Compose 是用於本地開發的一個工具，並不適合用於 Production，它就是為了方便在本地看部署的結果。&lt;/li>
 &lt;/ol>
-&lt;hr></description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayneblog.ga/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_22c917dc9a_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
+&lt;hr></description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayne-blog.com/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_22c917dc9a_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1578,7 +1578,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;p>以上，一台自建 Docker Registry 便上線服役囉～&lt;/p>
-&lt;hr></description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" />&lt;style>
+&lt;hr></description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

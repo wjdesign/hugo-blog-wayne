@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>設計模式 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/design-pattern/</link><description>Recent content in 設計模式 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 31 Mar 2023 00:00:01 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/design-pattern/index.xml" rel="self" type="application/rss+xml"/><item><title>關於領域驅動設計 (Domain-Driven-Design)</title><link>https://wayneblog.ga/2023-03-31/ddd-introduction/</link><pubDate>Fri, 31 Mar 2023 00:00:01 +0000</pubDate><guid>https://wayneblog.ga/2023-03-31/ddd-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782974405_1186eabd11_o.jpg" alt="Featured image of post 關於領域驅動設計 (Domain-Driven-Design)" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>設計模式 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/design-pattern/</link><description>Recent content in 設計模式 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 31 Mar 2023 00:00:01 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/design-pattern/index.xml" rel="self" type="application/rss+xml"/><item><title>關於領域驅動設計 (Domain-Driven-Design)</title><link>https://wayne-blog.com/2023-03-31/ddd-introduction/</link><pubDate>Fri, 31 Mar 2023 00:00:01 +0000</pubDate><guid>https://wayne-blog.com/2023-03-31/ddd-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782974405_1186eabd11_o.jpg" alt="Featured image of post 關於領域驅動設計 (Domain-Driven-Design)" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -259,7 +259,7 @@ loading="lazy"
 &lt;li>Ubiquitous Language 跟商業(業務)語言到底有什麼差別？&lt;/li>
 &lt;/ol>
 &lt;p>Ubiquitous Language 的意涵其實很簡單，可以視為一個&lt;strong>被系統所需要且開發團隊與商業團隊都能理解&lt;/strong>的單字庫。以電商來說，「&lt;strong>下訂單&lt;/strong>」這個詞兩邊都能理解且被系統需要，那個詞就可以被放進 Ubiquitous Language 中，而「&lt;strong>顧客轉換率&lt;/strong>」、「&lt;strong>公司營收&lt;/strong>」等商業用語若是與系統無關，就不在 Ubiquitous Language。&lt;/p>
-&lt;hr></description></item><item><title>【Javascript】關於 Functional Programming 函數式編程</title><link>https://wayneblog.ga/2023-03-27/js-functional-programming/</link><pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-27/js-functional-programming/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52774306416_350deb7178_o.png" alt="Featured image of post 【Javascript】關於 Functional Programming 函數式編程" />&lt;style>
+&lt;hr></description></item><item><title>【Javascript】關於 Functional Programming 函數式編程</title><link>https://wayne-blog.com/2023-03-27/js-functional-programming/</link><pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-27/js-functional-programming/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52774306416_350deb7178_o.png" alt="Featured image of post 【Javascript】關於 Functional Programming 函數式編程" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -432,7 +432,7 @@ text-align: center !important;
 &lt;hr>
 &lt;h2 id="總結">總結&lt;/h2>
 &lt;p>&lt;strong>函數式編程(Functional Programming)&lt;/strong> 誕生了五十多年後，終於獲得程式開發者大量的關注，目前 ML 非常紅的 &lt;strong>Python&lt;/strong> 以及前後端 &lt;strong>JavaScript&lt;/strong> 等語言，對於&lt;strong>函數式編程(Functional Programming)&lt;/strong> 的支持都很強。本篇文章整理 JavaScript 符合&lt;strong>函數式編程(Functional Programming)&lt;/strong> 概念的幾個元素(First-class、higher-order functions、Pure Functions)，希望透過 JavaScript 的實例理解函數式編程所講述的核心理念為何。最後比較&lt;strong>宣告式編程(Declarative Paradigm)&lt;strong>以及&lt;/strong>指令式編程(Imperative Paradigm)&lt;/strong>，對自己過去在軟體開發這塊領域所學的做個整理，理清並梳理已有的知識。&lt;/p>
-&lt;hr></description></item><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://wayneblog.ga/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" />&lt;style>
+&lt;hr></description></item><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://wayne-blog.com/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -839,7 +839,7 @@ text-align: center !important;
 &lt;h3 id="請問物件導向為何叫做物件導向">請問物件導向為何叫做物件導向？&lt;/h3>
 &lt;p>物件導向程式語言之所以叫做物件導向是因為&lt;strong>它重視物件 (Object) 這個概念&lt;/strong>。在物件導向程式語言中，程式設計師可以使用類別 (Class) 來定義物件的共性，並使用物件來實例化類別。&lt;/p>
 &lt;p>物件具有&lt;code>狀態 (state)&lt;/code> 和&lt;code>行為 (behavior)&lt;/code>，並且可以互相之間進行溝通和互動。透過物件導向程式設計，可以更加形象地模擬實際世界中的事物，並且更加容易維護和擴展程式碼。&lt;/p>
-&lt;hr></description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
+&lt;hr></description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayne-blog.com/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

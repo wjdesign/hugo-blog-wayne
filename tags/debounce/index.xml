@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>debounce on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/debounce/</link><description>Recent content in debounce on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 13 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/debounce/index.xml" rel="self" type="application/rss+xml"/><item><title>【C#】實作 Debounced Job</title><link>https://wayneblog.ga/2023-02-13/dotnet-core-debounce/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-13/dotnet-core-debounce/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52686405784_425f5b6fca_o.png" alt="Featured image of post 【C#】實作 Debounced Job" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>debounce on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/debounce/</link><description>Recent content in debounce on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Mon, 13 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/debounce/index.xml" rel="self" type="application/rss+xml"/><item><title>【C#】實作 Debounced Job</title><link>https://wayne-blog.com/2023-02-13/dotnet-core-debounce/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-13/dotnet-core-debounce/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52686405784_425f5b6fca_o.png" alt="Featured image of post 【C#】實作 Debounced Job" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -18,7 +18,7 @@ padding: 0 5px;
 &lt;hr>
 &lt;h2 id="前言">前言&lt;/h2>
 &lt;p>&lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10222749" target="_blank" rel="noopener"
->Debounce (去抖動)&lt;/a>是前端開發時很常用的技巧，經典應用是整合 AJAX 的欄位輸入自動完成。原始設計是每敲一個字元查一次，當使用者連續輸入 w a y n e b 便會發出 &amp;ldquo;w&amp;rdquo;、&amp;ldquo;wa&amp;rdquo;、&amp;ldquo;way&amp;rdquo;、&amp;ldquo;wayn&amp;rdquo;、&amp;ldquo;wayne&amp;rdquo;、&amp;ldquo;wayneb&amp;rdquo; 等六次 AJAX 查詢，而使用者期望的是用 wayneb 帶出 wayneblog 提示，因此前面五次純屬無效查詢，平白浪費頻寬跟主機資源。有效的改善方法是改成每次敲完一個字元先稍待 0.5 秒或 1 秒，確認沒有要輸入其他字元，最後一次送出 &amp;ldquo;wayneb&amp;rdquo;。這在網頁上用 JavaScript setTimeout/clearTimeout 即可輕易實現，這個做法有個術語叫 - Debounce。&lt;/p>
+>Debounce (去抖動)&lt;/a>是前端開發時很常用的技巧，經典應用是整合 AJAX 的欄位輸入自動完成。原始設計是每敲一個字元查一次，當使用者連續輸入 w a y n e b 便會發出 &amp;ldquo;w&amp;rdquo;、&amp;ldquo;wa&amp;rdquo;、&amp;ldquo;way&amp;rdquo;、&amp;ldquo;wayn&amp;rdquo;、&amp;ldquo;wayne&amp;rdquo;、&amp;ldquo;wayne-b&amp;rdquo; 等六次 AJAX 查詢，而使用者期望的是用 wayne-b 帶出 wayne-blog 提示，因此前面五次純屬無效查詢，平白浪費頻寬跟主機資源。有效的改善方法是改成每次敲完一個字元先稍待 0.5 秒或 1 秒，確認沒有要輸入其他字元，最後一次送出 &amp;ldquo;wayneb&amp;rdquo;。這在網頁上用 JavaScript setTimeout/clearTimeout 即可輕易實現，這個做法有個術語叫 - Debounce。&lt;/p>
 &lt;p>伺服器端有類似的應用情境嗎？有。&lt;/p>
 &lt;p>提到系統自動通知，經常是一筆記錄發一次通知(運作最簡單，系統內建提供不需客製)，而某些事件一旦發生會噴出數十上百筆通知，短短幾秒收件匣或 LINE/Slack 就被暴力洗版。更理想的做法是把短時間內的連續訊息彙整成一封，而這類似前面說的「彙整多個輸入字元再一次發出 AJAX 請求」，可以靠 Debounce 機制改善。而我們要做的就是用 C# 實現類似邏輯，收到第一則通知時先不要馬上轉發，若一段時間內接連還有其他訊息進來都先存起來，等到 30 秒內沒有新訊息，再將累積的訊息彙整成一筆送出。&lt;/p>
 &lt;hr>
@@ -138,7 +138,7 @@ padding: 0 5px;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;title&amp;gt;DebouncedJob&amp;lt;/title&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;/head&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;body&amp;gt;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;form action=https://wayneblog.ga/alert method=post target=result id=frm &amp;gt;
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;form action=https://wayne-blog.com/alert method=post target=result id=frm &amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;input type=hidden name=msg id=msg /&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;/form&amp;gt;
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="s"> &amp;lt;iframe name=result style=display:none&amp;gt;&amp;lt;/iframe&amp;gt;

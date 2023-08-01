@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Svelte on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/categories/svelte/</link><description>Recent content in Svelte on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 21 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/categories/svelte/index.xml" rel="self" type="application/rss+xml"/><item><title>前端新寵兒？ - Svelte 介紹</title><link>https://wayneblog.ga/2022-10-21/svelte-quick-start/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/svelte-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52441500615_771efe89dd_o.png" alt="Featured image of post 前端新寵兒？ - Svelte 介紹" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Svelte on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/svelte/</link><description>Recent content in Svelte on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 21 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/svelte/index.xml" rel="self" type="application/rss+xml"/><item><title>前端新寵兒？ - Svelte 介紹</title><link>https://wayne-blog.com/2022-10-21/svelte-quick-start/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-21/svelte-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52441500615_771efe89dd_o.png" alt="Featured image of post 前端新寵兒？ - Svelte 介紹" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -740,7 +740,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>但此方法有可能遭受 &lt;code>XSS&lt;/code> 攻擊。&lt;br>
-我在 「&lt;a style="text-decoration: underline;" href="https://wayneblog.ga/2022-10-21/nodejs-prevent-xss/" target="_blank">NodeJS 防止 xss 攻擊&lt;/a>」 中簡單演示過 &lt;code>XSS&lt;/code> 攻擊，有興趣的可以看看。&lt;/p>
+我在 「&lt;a style="text-decoration: underline;" href="https://wayne-blog.com/2022-10-21/nodejs-prevent-xss/" target="_blank">NodeJS 防止 xss 攻擊&lt;/a>」 中簡單演示過 &lt;code>XSS&lt;/code> 攻擊，有興趣的可以看看。&lt;/p>
 &lt;hr>
 &lt;h2 id="樣式綁定">樣式綁定&lt;/h2>
 &lt;p>在日常開發中，給 &lt;code>HTML&lt;/code> 標籤設置樣式主要通過 &lt;code>行内 style&lt;/code> 和 &lt;code>class&lt;/code> 屬性。&lt;br>

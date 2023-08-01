@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/nodejs/</link><description>Recent content in nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 22 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>【Javascript】Require 與 Import 的區別</title><link>https://wayneblog.ga/2023-02-22/js-require-vs-import/</link><pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-22/js-require-vs-import/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52703536702_73aed5647c_o.jpg" alt="Featured image of post 【Javascript】Require 與 Import 的區別" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/nodejs/</link><description>Recent content in nodejs on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 22 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/nodejs/index.xml" rel="self" type="application/rss+xml"/><item><title>【Javascript】Require 與 Import 的區別</title><link>https://wayne-blog.com/2023-02-22/js-require-vs-import/</link><pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-22/js-require-vs-import/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52703536702_73aed5647c_o.jpg" alt="Featured image of post 【Javascript】Require 與 Import 的區別" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -197,7 +197,7 @@ loading="lazy"
 &lt;li>有用 webpacker/babel 的話，不用在意 import 與 require 的效能，因為最後都會轉為 CommonJS。&lt;/li>
 &lt;li>需要動態加載時才使用 require。&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
+&lt;hr></description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayne-blog.com/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1749,7 +1749,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>因為 request 其實就是 middleware 的陣列，因此若要嵌套其他 middleware 時，使用 Array merge 即可。&lt;/p>
-&lt;hr></description></item><item><title>簡單扼要的介紹什麼是 Node.js？</title><link>https://wayneblog.ga/2023-02-14/what-is-nodejs/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/what-is-nodejs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688618360_3d146e4e7b_o.png" alt="Featured image of post 簡單扼要的介紹什麼是 Node.js？" />&lt;style>
+&lt;hr></description></item><item><title>簡單扼要的介紹什麼是 Node.js？</title><link>https://wayne-blog.com/2023-02-14/what-is-nodejs/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-14/what-is-nodejs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688618360_3d146e4e7b_o.png" alt="Featured image of post 簡單扼要的介紹什麼是 Node.js？" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1843,7 +1843,7 @@ text-align: center !important;
 &lt;hr>
 &lt;h2 id="小結">小結&lt;/h2>
 &lt;p>Node.js 在如今已經是每一位前端開發者必須掌握的技術，它通過 &lt;code>libuv&lt;/code> 向前端開發者開放了操作系統層面的底層能力，讓開發者能夠全面使用計算機的算力和功能。並用一種語言解決 Web 應用開發的所有問題的想法成為可能。希望通過本文的介紹，您能夠對 Node.js 產生好奇，祝您在未來的探索旅途中，過得愉快。&lt;/p>
-&lt;hr></description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" />&lt;style>
+&lt;hr></description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2975,7 +2975,7 @@ loading="lazy"
 關於更多 Collection 的操作，可以參考：&lt;a class="link" href="https://www.mongodb.com/docs/manual/reference/method/js-collection/" target="_blank" rel="noopener"
 >Collection Methods&lt;/a>，特別在使用查詢 find，有不同於以往 SQL 的使用語法。&lt;/p>
 &lt;/blockquote>
-&lt;hr></description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
+&lt;hr></description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3064,7 +3064,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx replace-in-file &lt;span class="s2">&amp;#34;/pattern([s])/g&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;replacement&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> src/**/*.ts --isRegex --encoding&lt;span class="o">=&lt;/span>utf-8
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
+&lt;/div></description></item><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3886,10 +3886,10 @@ loading="lazy"
 &lt;p>最後這邊我也附上範例程式碼，如果你想直接拉回去用也是可以的，因為這一份程式碼基本上都是以官方所提供的為主，很少有大幅度調整的部分，所以你可以直接拿來用。&lt;/p>
 &lt;p>希望這一篇可以讓你快快樂樂做出一個 LINE Bot。&lt;/p>
 &lt;blockquote>
-&lt;p>如果你覺得部署到 &lt;strong>Render&lt;/strong> 很難去除錯，其實是可以考慮使用 &lt;strong>ngrok&lt;/strong> 的，&lt;strong>ngrok&lt;/strong> 的使用方法可以參考&lt;a class="link" href="https://wayneblog.ga/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
+&lt;p>如果你覺得部署到 &lt;strong>Render&lt;/strong> 很難去除錯，其實是可以考慮使用 &lt;strong>ngrok&lt;/strong> 的，&lt;strong>ngrok&lt;/strong> 的使用方法可以參考&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
 >這裡&lt;/a>。&lt;/p>
 &lt;/blockquote>
-&lt;hr></description></item><item><title>試用 RunKit</title><link>https://wayneblog.ga/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" />&lt;style>
+&lt;hr></description></item><item><title>試用 RunKit</title><link>https://wayne-blog.com/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3992,7 +3992,7 @@ loading="lazy"
 &lt;p>&lt;a class="link" href="https://api-jdcmj9qsmxmb.runkit.sh/" target="_blank" rel="noopener"
 >https://api-jdcmj9qsmxmb.runkit.sh/&lt;/a>&lt;/p>
 &lt;p>可以看到，無需配置/運行服務器，就可以有自己的 API 可用，又是 serverless，同時還免費，是不是很爽？&lt;/p>
-&lt;hr></description></item><item><title>nvm - Nodejs 版本隨你切換</title><link>https://wayneblog.ga/2022-10-27/nodejs-nvm/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-27/nodejs-nvm/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457342886_5035af0537_o.png" alt="Featured image of post nvm - Nodejs 版本隨你切換" />&lt;style>
+&lt;hr></description></item><item><title>nvm - Nodejs 版本隨你切換</title><link>https://wayne-blog.com/2022-10-27/nodejs-nvm/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-27/nodejs-nvm/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457342886_5035af0537_o.png" alt="Featured image of post nvm - Nodejs 版本隨你切換" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -4642,7 +4642,7 @@ loading="lazy"
 &lt;/tr>
 &lt;/tbody>
 &lt;/table>
-&lt;hr></description></item><item><title>Node v19 正式發布</title><link>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" />&lt;style>
+&lt;hr></description></item><item><title>Node v19 正式發布</title><link>https://wayne-blog.com/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -4871,9 +4871,9 @@ loading="lazy"
 &lt;/div>
 &lt;/div>&lt;h3 id="更多">更多&lt;/h3>
 &lt;p>關於 Node16 升級的諸多小細節，可參閱&lt;a class="link" href="https://github.com/nodejs/node/releases/tag/v16.0.0" target="_blank" rel="noopener"
->版本發布&lt;/a>獲取更多信息，可持續 &lt;a class="link" href="https://wayneblog.ga/" target="_blank" rel="noopener"
+>版本發布&lt;/a>獲取更多信息，可持續 &lt;a class="link" href="https://wayne-blog.com/" target="_blank" rel="noopener"
 >Wayne&amp;rsquo;s Blog&lt;/a> 對各軟件每一次重大版本升級的說明講解。&lt;/p>
-&lt;hr></description></item><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" />&lt;style>
+&lt;hr></description></item><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://wayne-blog.com/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5578,7 +5578,7 @@ loading="lazy"
 &lt;p>github地址：&lt;a class="link" href="https://github.com/wjdesign/nodejsExpressMysqlDemo" target="_blank" rel="noopener"
 >https://github.com/wjdesign/nodejsExpressMysqlDemo&lt;/a>&lt;/p>
 &lt;p>走過路過點個贊唄～&lt;/p>
-&lt;hr></description></item><item><title>NodeJS 防止 xss 攻擊</title><link>https://wayneblog.ga/2022-10-21/nodejs-prevent-xss/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-21/nodejs-prevent-xss/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52442821071_35fc2e7087_o.png" alt="Featured image of post NodeJS 防止 xss 攻擊" />&lt;style>
+&lt;hr></description></item><item><title>NodeJS 防止 xss 攻擊</title><link>https://wayne-blog.com/2022-10-21/nodejs-prevent-xss/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-21/nodejs-prevent-xss/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52442821071_35fc2e7087_o.png" alt="Featured image of post NodeJS 防止 xss 攻擊" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

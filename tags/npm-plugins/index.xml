@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>npm-plugins on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/npm-plugins/</link><description>Recent content in npm-plugins on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/npm-plugins/index.xml" rel="self" type="application/rss+xml"/><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayneblog.ga/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>npm-plugins on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/npm-plugins/</link><description>Recent content in npm-plugins on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 21 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/npm-plugins/index.xml" rel="self" type="application/rss+xml"/><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayne-blog.com/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1550,7 +1550,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>因為 request 其實就是 middleware 的陣列，因此若要嵌套其他 middleware 時，使用 Array merge 即可。&lt;/p>
-&lt;hr></description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" />&lt;style>
+&lt;hr></description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2682,7 +2682,7 @@ loading="lazy"
 關於更多 Collection 的操作，可以參考：&lt;a class="link" href="https://www.mongodb.com/docs/manual/reference/method/js-collection/" target="_blank" rel="noopener"
 >Collection Methods&lt;/a>，特別在使用查詢 find，有不同於以往 SQL 的使用語法。&lt;/p>
 &lt;/blockquote>
-&lt;hr></description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
+&lt;hr></description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2771,7 +2771,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">npx replace-in-file &lt;span class="s2">&amp;#34;/pattern([s])/g&amp;#34;&lt;/span> &lt;span class="s2">&amp;#34;replacement&lt;/span>&lt;span class="nv">$1&lt;/span>&lt;span class="s2">&amp;#34;&lt;/span> src/**/*.ts --isRegex --encoding&lt;span class="o">=&lt;/span>utf-8
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div></description></item><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" />&lt;style>
+&lt;/div></description></item><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://wayne-blog.com/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2937,7 +2937,7 @@ padding: 0 5px;
 &lt;li>&lt;a class="link" href="https://partytown.builder.io/google-tag-manager" target="_blank" rel="noopener"
 >Google Tag Manager&lt;/a> (GTM)&lt;/li>
 &lt;/ul>
-&lt;hr></description></item><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://wayneblog.ga/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" />&lt;style>
+&lt;hr></description></item><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://wayne-blog.com/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3326,7 +3326,7 @@ loading="lazy"
 &lt;p>例子太多，就不再一一介紹了，但大家應該已經有了一個初步的概念，知道了此庫的作用，一言以蔽之：&lt;strong>助力摸鱼，提前下班&lt;/strong>。&lt;/p>
 &lt;p>它沒辦法做到你之前做不到的事情。&lt;/p>
 &lt;p>它只能做到讓你更輕鬆的完成工作！願你今天也能按時下班。&lt;/p>
-&lt;hr></description></item><item><title>localStorage 容量太小？試試 localforage、idb-keyval</title><link>https://wayneblog.ga/2022-11-15/localforage-and-idb-keyval/</link><pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-15/localforage-and-idb-keyval/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52501465120_8e19a1cda3_o.png" alt="Featured image of post localStorage 容量太小？試試 localforage、idb-keyval" />&lt;style>
+&lt;hr></description></item><item><title>localStorage 容量太小？試試 localforage、idb-keyval</title><link>https://wayne-blog.com/2022-11-15/localforage-and-idb-keyval/</link><pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-15/localforage-and-idb-keyval/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52501465120_8e19a1cda3_o.png" alt="Featured image of post localStorage 容量太小？試試 localforage、idb-keyval" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3880,7 +3880,7 @@ loading="lazy"
 >idb&lt;/a>、&lt;a class="link" href="https://jsstore.net/" target="_blank" rel="noopener"
 >JsStore&lt;/a> 或者 &lt;a class="link" href="https://github.com/google/lovefield" target="_blank" rel="noopener"
 >lovefield&lt;/a> 之類的庫。&lt;/p>
-&lt;hr></description></item><item><title>試用 RunKit</title><link>https://wayneblog.ga/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" />&lt;style>
+&lt;hr></description></item><item><title>試用 RunKit</title><link>https://wayne-blog.com/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -3983,7 +3983,7 @@ loading="lazy"
 &lt;p>&lt;a class="link" href="https://api-jdcmj9qsmxmb.runkit.sh/" target="_blank" rel="noopener"
 >https://api-jdcmj9qsmxmb.runkit.sh/&lt;/a>&lt;/p>
 &lt;p>可以看到，無需配置/運行服務器，就可以有自己的 API 可用，又是 serverless，同時還免費，是不是很爽？&lt;/p>
-&lt;hr></description></item><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayneblog.ga/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
+&lt;hr></description></item><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayne-blog.com/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

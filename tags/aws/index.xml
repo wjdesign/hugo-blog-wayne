@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>aws on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/aws/</link><description>Recent content in aws on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/aws/index.xml" rel="self" type="application/rss+xml"/><item><title>【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！</title><link>https://wayneblog.ga/2023-02-16/aws-sns-lambda-telegram-bot/</link><pubDate>Thu, 16 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-16/aws-sns-lambda-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52691440307_42df4e8ba1_o.png" alt="Featured image of post 【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>aws on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/aws/</link><description>Recent content in aws on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/aws/index.xml" rel="self" type="application/rss+xml"/><item><title>【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！</title><link>https://wayne-blog.com/2023-02-16/aws-sns-lambda-telegram-bot/</link><pubDate>Thu, 16 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-16/aws-sns-lambda-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52691440307_42df4e8ba1_o.png" alt="Featured image of post 【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -35,7 +35,7 @@ loading="lazy"
 >&lt;/p>
 &lt;hr>
 &lt;h2 id="創建一個-telegram-bot">創建一個 Telegram bot&lt;/h2>
-&lt;p>首先我們需要先在 Telegram 中創建一個機器人，透過之前的文章 - 「&lt;a class="link" href="https://wayneblog.ga/2022-08-25/drone-cicd-with-telegram-bot/#%e5%90%91-botfather-%e7%94%b3%e8%ab%8b%e4%b8%80%e9%9a%bb%e6%a9%9f%e5%99%a8%e4%ba%ba%e5%90%a7" >Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人&lt;/a>」，向 &lt;code>@BotFather&lt;/code> 申請一隻吧！&lt;/p>
+&lt;p>首先我們需要先在 Telegram 中創建一個機器人，透過之前的文章 - 「&lt;a class="link" href="https://wayne-blog.com/2022-08-25/drone-cicd-with-telegram-bot/#%e5%90%91-botfather-%e7%94%b3%e8%ab%8b%e4%b8%80%e9%9a%bb%e6%a9%9f%e5%99%a8%e4%ba%ba%e5%90%a7" >Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人&lt;/a>」，向 &lt;code>@BotFather&lt;/code> 申請一隻吧！&lt;/p>
 &lt;p>取得 Telegram bot Token：&lt;/p>
 &lt;p>&lt;img src="https://live.staticflickr.com/65535/52309652519_56d6f78185_o.png"
 max-width="100%"

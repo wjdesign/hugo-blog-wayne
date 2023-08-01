@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vscode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/vscode/</link><description>Recent content in vscode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 31 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://wayneblog.ga/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>vscode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/vscode/</link><description>Recent content in vscode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 31 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -102,7 +102,7 @@ loading="lazy"
 &lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cmdkey /list &lt;span class="p">|&lt;/span> Select-String -Pattern &lt;span class="s2">&amp;#34;LegacyGeneric:target=(vscode.+)&amp;#34;&lt;/span> &lt;span class="p">|&lt;/span> ForEach-Object &lt;span class="o">{&lt;/span> cmdkey.exe /delete &lt;span class="nv">$_&lt;/span>.Matches.Groups&lt;span class="o">[&lt;/span>1&lt;span class="o">]&lt;/span>.Value &lt;span class="o">}&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;hr></description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" />&lt;style>
+&lt;/div>&lt;hr></description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -169,7 +169,7 @@ loading="lazy"
 &lt;li>Polacode 的 file 會影響你的成品，因此 file 內因為擠壓而換行，儲存出來的成品也會換行。&lt;/li>
 &lt;/ol>
 &lt;p>介紹這個套件是希望在跟其他開發者討論程式碼，或是自己有撰寫部落格與文章的習慣時，可以讓對方或讀者有個良好的閱讀體驗，閱讀起來會更加順暢！&lt;/p>
-&lt;hr></description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
+&lt;hr></description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

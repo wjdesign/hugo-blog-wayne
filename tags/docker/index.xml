@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayneblog.ga/tags/docker/</link><description>Recent content in docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayneblog.ga/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://wayneblog.ga/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4e163f06ec_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>docker on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/docker/</link><description>Recent content in docker on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/docker/index.xml" rel="self" type="application/rss+xml"/><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://wayne-blog.com/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4e163f06ec_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1463,7 +1463,7 @@ loading="lazy"
 &lt;/div>&lt;ol start="13">
 &lt;li>Docker Compose 是用於本地開發的一個工具，並不適合用於 Production，它就是為了方便在本地看部署的結果。&lt;/li>
 &lt;/ol>
-&lt;hr></description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayneblog.ga/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayneblog.ga/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_22c917dc9a_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
+&lt;hr></description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayne-blog.com/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_22c917dc9a_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1578,7 +1578,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;p>以上，一台自建 Docker Registry 便上線服役囉～&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayne-blog.com/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1599,12 +1599,12 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="前言">前言&lt;/h2>
-&lt;p>發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+&lt;p>發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>已經提過，用 Docker / Docker-Compose 玩玩小網站還 OK，一旦涉及高可用性如備援、負載平衡，若不依賴現成管理架構，維運操作將複雜到會咬人。而 Kubernetes 正是目前容器管理框架的主流業界標準，尤其如打算將容器直接部署到雲端廠商(Azure、AWS、Google GCP)，不會 Kubernetes 更是寸步難行。故在次聲明以正視聽，在企業環境如需考量高可用性、負載平衡或想直接部署到廠商雲端，一般不會用 Docker-Compose 而會採用 Kubernetes，請大家注意。&lt;/p>
 &lt;p>這篇筆記是我將部落格網站移入 Docker 容器的經驗分享，將記錄 Miniblog.Core ASP.NET Core 網站搬進 Docker 過程遇到的一些眉角。&lt;/p>
 &lt;hr>
 &lt;h2 id="reverse-proxy-問題">Reverse Proxy 問題&lt;/h2>
-&lt;p>由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+&lt;p>由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
 >前一篇筆記&lt;/a>所說的「以 Compose 組合網站與 DB，網站對映 Host IP/Port，Nginx 另跑容器導向各網站 Port」策略。&lt;/p>
 &lt;hr>
 &lt;h2 id="目錄對應">目錄對應&lt;/h2>
@@ -1620,7 +1620,7 @@ padding: 0 5px;
 &lt;p>參考：&lt;a class="link" href="https://www.arthurtoday.com/2016/07/how-to-setup-docker-container-timezone-host.html" target="_blank" rel="noopener"
 >設定 Docker Container 與 Host 相同時區的方法&lt;/a>&lt;/p>
 &lt;h2 id="取得真實來源-ip-問題">取得真實來源 IP 問題&lt;/h2>
-&lt;p>Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p>Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 >ASP.NET Core + Nginx on CentOS 安裝筆記&lt;/a> 提過，當 ASP.NET Core 架設在 Reverse Proxy 後方，直接看到的是 Reverse Proxy 的 IP，要得到真實來源 IP，在 Nginx config 需加註 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for，透過 HTTP Header 傳遞內容。而 ASP.NET Core 程式也需修改：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
@@ -1788,7 +1788,7 @@ padding: 0 5px;
 &lt;/div>
 &lt;/div>&lt;p>Nginx 壓縮設定的意義可參考&lt;a class="link" href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html" target="_blank" rel="noopener"
 >官方文件&lt;/a>&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1803,7 +1803,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;/p>
 &lt;hr>
 &lt;h2 id="前言">前言&lt;/h2>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>介紹過使用 Docker Compose 設定關聯容器(Web、DB、Reverse Proxy)組成系統，容器被隔離在專用網段(Compose 自動建立的 Bridge)，並可透過容器名稱彼此溝通，Compose 也確保相關服務一起啟動一起關閉，是用多個容器建構系統最簡便的做法。&lt;/p>
 &lt;p>註：關於容器管理 &lt;a class="link" href="https://blog.gcp.expert/kubernetes-gke-introduction/" target="_blank" rel="noopener"
 >Kubernetes&lt;/a>，K8S 提供更強大的功能，支援 Cluster 高可用架構 (單一容器、主機掛掉系統不會死)，為當今在雲端掛載容器以及中大型企業實做容器架構的主流，K8S 無疑可取代 Docker Compose，但其複雜性較高。 目前我在單一 Linux 機跑 Docker 還用不到牛刀(雖然有單機版 &lt;a class="link" href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener"
@@ -1838,7 +1838,7 @@ padding: 0 5px;
 &lt;li>Ngnix&lt;/li>
 &lt;/ul>
 &lt;p>3 是我認為較可行且有效率的做法。&lt;/p>
-&lt;p>Nginx 包容器的做法在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>Nginx 包容器的做法在&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >第一篇筆記&lt;/a>已提過，這次我們將重點放在整合 Certbot 及 docker-compose.yml 定義。&lt;/p>
 &lt;p>原本想抓 Nginx 的 Docker Image 自行加裝 certbot 實現自動安裝與更新 &lt;a class="link" href="https://zh.wikipedia.org/wiki/Let%27s_Encrypt" target="_blank" rel="noopener"
 >Let&amp;rsquo;s Encrypt SSL 憑證&lt;/a>。&lt;/p>
@@ -1980,10 +1980,10 @@ padding: 0 5px;
 &lt;/ul>
 &lt;p>若為 &lt;strong>SELinux&lt;/strong> 記得要 &lt;code>chcon -Rt&lt;/code> &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 >參考&lt;/a>，另外 network_mode 指定 host 表示 Nginx 容器將直接使用 Host OS 網段，不另設 Bridge。&lt;/p>
-&lt;p>參考：&lt;a class="link" href="https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
+&lt;p>參考：&lt;a class="link" href="https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
 >Docker Compose 鏈接外部容器的幾種方式&lt;/a>&lt;/p>
 &lt;p>就醬，Nginx Reverse Proxy 準備好了，下一篇來再來分享我將 ASP.NET Core 搬進 Docker 的經驗。&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1999,7 +1999,7 @@ padding: 0 5px;
 &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
 &lt;hr>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >上篇文章&lt;/a>體驗過在 CentOS 用 Docker Container 分別跑 Nginx 跟 ASP.NET Core 網站，並建立 Reverse Proxy 關係，接著探討在實務上當需要多個 Container 協同運作時應如何規劃整合。&lt;/p>
 &lt;p>一個系統常可再拆解成多個服務。以線上購物網站為例，就可能是由 ASP.NET Core 網站(Kestrel)、MySQL 資料庫、Reverse Proxy、金流 Gateway&amp;hellip; 等多個服務組成，若要以 Docker Container 實現，有幾種策略：&lt;/p>
 &lt;h2 id="策略">策略&lt;/h2>
@@ -2012,7 +2012,7 @@ padding: 0 5px;
 &lt;li>當需要個別升級資料庫、ASP.NET Core 版本，或是想抽換服務組合時手續複雜，有違模組化精神。&lt;/li>
 &lt;/ul>
 &lt;h3 id="2-以個別-container-執行獨立控制">2. 以個別 Container 執行，獨立控制&lt;/h3>
-&lt;p>如同&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>如同&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>的做法，ASP.NET Core 網站跑 Cotainer 繫結到 Host OS 的 5000 Port，用 Container 跑 MySQL，再用 Container 跑 Ngnix 繫結到 Host OS 80 Port，再設定 Reverse Proxy 規則。&lt;/p>
 &lt;p>Container 間串接配置全靠人工，系統管理員需協助哪個 Container 聽哪個 Port，確保彼此不衝突。如此做有兩個缺點：&lt;/p>
 &lt;ul>
@@ -2037,10 +2037,10 @@ padding: 0 5px;
 &lt;p>以 ASP.NET Core Image 為基底，安裝 Nginx，設定 nginx.conf，複製 ASP.NET Core 網站檔案並設定 service nginx start 及 dotnet /app/web.dll 分別啟動 Nginx 及 Kestrel。&lt;/p>
 &lt;p>細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/24/nginx-reverse-proxy-to-asp-net-core-same-container/" target="_blank" rel="noopener"
 >Nginx Reverse Proxy to ASP.NET Core – Same Docker Container&lt;/a>&lt;/p>
-&lt;p>不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >前文&lt;/a>&lt;/p>
 &lt;h3 id="2-aspnet-corenginx-各自跑-container">2. ASP.NET Core、Nginx 各自跑 Container&lt;/h3>
-&lt;p>就是我們在&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p>就是我們在&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 >前篇文章&lt;/a>採行的方式，但有一點要補充，除了直接對映到 Host OS IP 的 TCP Port，也可考慮自訂 Bridge，讓 Container 在隔離網段內溝通，例如：ASP.NET Core 的 5000 Port 只有 Nginx 看得到，從 Host OS 無法存取，如此可避免網路介面(網站、資料庫&amp;hellip;)外露到 Host OS，減少被攻擊的風險，這部分後面再找時間介紹。&lt;/p>
 &lt;h3 id="3-使用-docker-compose-串連">3. 使用 Docker Compose 串連&lt;/h3>
 &lt;p>ASP.NET Core 與 Nginx 各有自己的容器，使用 Docker Compose 組合串連，一次啟動兩個服務。&lt;/p>
@@ -2116,7 +2116,7 @@ class="gallery-image"
 loading="lazy"
 >&lt;/p>
 &lt;p>Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p>
-&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
+&lt;hr></description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2131,7 +2131,7 @@ padding: 0 5px;
 >參考網站&lt;/a>&lt;br>
 &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes1/" target="_blank" rel="noopener"
 >參考網站&lt;/a>&lt;/p>
-&lt;p>前面研究過&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p>前面研究過&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 >在 CentOS 安裝及設定 ASP.NET Core + Nginx&lt;/a>，習得徒手在 CentOS 安裝部署伺服器的技能，依循 Roadmap 來到下一階段 - 學習使用 Docker 簡化部署。&lt;/p>
 &lt;p>容器化及 Docker 這幾年熱到發燙，有些人甚至認為它已在軟體產業掀起一波革命。(我親身體驗的感想也是：Wow! 難怪會爆紅) 此刻才起步已算遲了，但也不是沒有好處，晚起鳥兒有更多蟲可以吃，Docker 相關的文章資源多如牛毛，這裡便不多花篇幅贅述觀念與基本操作，只簡單整理我對 Docker 的理解。&lt;/p>
 &lt;h2 id="docker-相關介紹">Docker 相關介紹&lt;/h2>
@@ -2157,7 +2157,7 @@ padding: 0 5px;
 &lt;p>基於 Linux Container 資源數量上的優勢，加上耗用資源較少，軟硬體成本低，我選擇 Linux Container。&lt;/p>
 &lt;p>雖然 Container 間共用底層作業系統，Docker Engine 為容器中的應用程式提供隔離不受干擾的空間（記憶體、檔案系統、網路 Port）。&lt;/p>
 &lt;p>例如：容器 A 寫入 /etc/aaa/default.conf 不影響容器 B /etc/aaa/default.conf 的內容、容器 A 與容器 B 都繫結到 80 Port 也不會衝突。&lt;/p>
-&lt;p>&lt;a class="link" href="https://wayneblog.ga/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
+&lt;p>&lt;a class="link" href="https://wayne-blog.com/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
 >先前文章&lt;/a>提過將 Kestrel 轉為 Linux 服務、設定 www-data 執行權限&amp;hellip; 等步驟，改用 Docker 後簡單很多，生命週期由 Docker 控制，在容器內部權限一律為 root 不需額外規劃權限，直接跑 dotnet WebApp.dll 聽 5000 Port 就好。&lt;/p>
 &lt;p>參考資料：&lt;/p>
 &lt;ul>
@@ -2265,7 +2265,7 @@ loading="lazy"
 >&lt;/p>
 &lt;h3 id="將-nginx-設成-aspnet-core-網站的-reverse-proxy">將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy&lt;/h3>
 &lt;p>至此，我們做了兩個 Container，myginx 聽 Host OS 80 Port，myapp 聽 Host OS 的 5000 Port，下一步要將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy。&lt;/p>
-&lt;p>做法跟&lt;a class="link" href="https://wayneblog.ga/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p>做法跟&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 >先前文章&lt;/a>介紹過的概念差不多，為求簡便我們直接修改 &lt;strong>conf.d/default.conf&lt;/strong> 將進入 80 Port 的請求導向 5000 Port。(正規做法建議一個網站開一個 conf 檔) Container 的檔案系統是隔離的，將設定檔保存在 Container 裡不是好主意 - 除非每次修改設定存檔就重新產生 Image 並要求未來一律改用新版 Image 建立 Container，否則一旦 Conatiner 被刪除，設定就會消失。同樣問題也會發生在資料庫檔、Log 檔等執行期間要動態更新的內容，這類檔案保存在 Host OS 檔案系統上比較合理，程式換版換了 Container Image 資料才不受影響。Docker 靠 Volume 解決資料保存及共用需求，docker run 有個 -v host-path:container-path 可將 Host OS 特定目錄或檔案對映到 Container，讓 Container 能讀寫 Host OS 的檔案。&lt;/p>
 &lt;p>對 Nginx Container 來說，Reverse Proxy 設定放在 &lt;strong>/etc/nginx/conf.d&lt;/strong>，我選擇在 Host OS 也建立相同路徑並將 Container 的 default.conf 複製出來(指令如下)，修改後在 docker run 加上 &lt;strong>-v /etc/nginx/conf.d:/etc/nginx/conf.d&lt;/strong> 對映回去：&lt;/p>
 &lt;div class="highlight">&lt;div class="chroma">
@@ -2345,7 +2345,7 @@ loading="lazy"
 >&lt;/p>
 &lt;p>經過以上練習，我們體驗了從 Docker Hub 下載 Image 建立 Docker Containter 跑 Nginx、用 Dockerfile 將 ASP.NET Core 網站包成 Container、用 Port 映對 Host OS TCP Port 到 Container、使用 -v(&amp;ndash;volume) 映對資料夾讓 Container 讀寫 Host OS 檔案。&lt;/p>
 &lt;p>而在實務應用上，相關的 Conatiner 需要組合在一起執行，例如一個 Container 跑網站，一個 Container 跑資料庫，此時可用 docker-compose 簡化管理；另外 Docker 也提供 Bridge 為相關 Container 建立專屬的隔離網段，防止外界接觸到不想對外公開的網路服務，也避免不相干的 Container 彼此干擾&amp;hellip; 這些議題就留待下一篇文章討論。&lt;/p>
-&lt;hr></description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" />&lt;style>
+&lt;hr></description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2601,7 +2601,7 @@ padding: 0 5px;
 &lt;/div>
 &lt;/div>&lt;p>以上也能充分證明這種方式是屬於單向聯通的。&lt;/p>
 &lt;p>在實際應用中根據自己的需要靈活的選擇這兩種鏈接方式，如果想偷懶的話，大可選擇第二種。不過我更推薦第一種，不難看出無論是聯通性還是靈活性，較為更改網絡模式的第二種都更為友好。&lt;/p>
-&lt;hr></description></item><item><title>10 個 Q&amp;A 快速認識 Docker</title><link>https://wayneblog.ga/2014-10-28/docker-10-qa/</link><pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate><guid>https://wayneblog.ga/2014-10-28/docker-10-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564831824_2754e80d0b_o.png" alt="Featured image of post 10 個 Q&amp;A 快速認識 Docker" />&lt;style>
+&lt;hr></description></item><item><title>10 個 Q&amp;A 快速認識 Docker</title><link>https://wayne-blog.com/2014-10-28/docker-10-qa/</link><pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2014-10-28/docker-10-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564831824_2754e80d0b_o.png" alt="Featured image of post 10 個 Q&amp;A 快速認識 Docker" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
