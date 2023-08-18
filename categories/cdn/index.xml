@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>CDN on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/cdn/</link><description>Recent content in CDN on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Fri, 18 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/cdn/index.xml" rel="self" type="application/rss+xml"/><item><title>淺談中國大陸的特別網路環境和 CDN 選擇</title><link>https://wayne-blog.com/2023-08-18/cdn-in-china/</link><pubDate>Fri, 18 Aug 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-08-18/cdn-in-china/</guid><description>&lt;img src="https://live.staticflickr.com/65535/53124833740_368f414220_o.png" alt="Featured image of post 淺談中國大陸的特別網路環境和 CDN 選擇" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://juejin.cn/post/7219908995339173943" target="_blank" rel="noopener"
+>參考網站&lt;/a>&lt;br>
+&lt;a class="link" href="https://cloud.tencent.com/developer/article/1515102" target="_blank" rel="noopener"
+>原文&lt;/a>&lt;/p>
+&lt;blockquote>
+&lt;p>為什麼我的網站在中國連線的這麼慢?&lt;/p>
+&lt;/blockquote>
+&lt;p>對於很多開始在中國開展業務的業主來說，相信這是一個您會遇到的問題！&lt;/p>
+&lt;p>或許在業務發展初期、人流量還很小的時候，您可能不會感受到網站延遲很高，網站開啟不易等等狀況，但是當您的網站成長到一定的階段的時候，您就會發現縱使在其他地方 (例如台灣、香港、甚至是歐美日) 或許可以正常的訪問，可能僅僅是慢一點而已，但是可能在中國大陸那邊的用戶來訪問就會非常緩慢，甚至是幾乎無法開啟。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124430086_50b7748d56_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>一般人面臨到這樣的問題或許會第一時間就以為自己的網站被防火城牆 (GFW) 給封鎖了，確實如果您的網站有部分當地法令的非法內容，那麼的確有可能發生被阻擋的情況，有可能不是被完全封鎖，而是間歇式的連不上，甚至完全正常的內容也有可能被針對，這部分確實是無法介入。&lt;/p>
+&lt;p>但更多的情況其實是您的網站所使用的網路服務商對中國大陸的聯外線路品質的問題，這篇文章就僅就對中國市場的對外出海連線情況作出分析，暫時不考慮其他因素。&lt;/p>
+&lt;hr>
+&lt;h2 id="面對大陸市場進出的流量需要走特別的線路才會快">面對大陸市場，進出的流量需要走特別的線路才會快&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124430096_644df28e23_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>首先，最符合當地法令也是最穩定的方式當然就是為您的域名與網站申請 ICP 備案，很多域名註冊商、那裡的雲端服務商也都有能夠協助向工信部申請 ICP 的加值服務，如果通過後就可以正大光明的使用位於中國境內的 CDN 節點、伺服器、享有相對穩定的連線速度與品質。但申請需要提供很多材料，並且也未必能夠申請的過，以及需要耗費冗長的時間。&lt;/p>
+&lt;p>因此還是就回到所謂的「免備案 CDN 加速」，只能夠把您的網站放在中國境外的伺服器與 CDN 節點，並且走最快速的路徑將數據傳遞至中國境內，這樣因為數據都不會使用到中國大陸境內的節點，因此就不用跟工信部申請 ICP 備案，以下我們將介紹幾條中國境內外連的線路和比較。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124833745_9c67f724bd_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>目前中國撇開虛擬運營商 (例如 170/171 開頭的手機號、當二房東的有線業者等等，例如前身為鵬博士的長城寬帶，評價非常糟)，以及特殊用途的網路 (例如教育網、衛星通訊業者等等) 以外，主要的網路服務商其實也就由四家 : 移動、聯通、電信、廣電 所提供。&lt;/p>
+&lt;p>其中中國廣電截至目前 (2023/06) 甚至連中國國內的骨幹網都還沒有建成，或是說目前中國廣電許多線路資源與 IP 段等等，在中國境內都還沒有整合，呈現各地區 (例如福建廣電、北京廣電) 四分五裂的情況。廣電到現在還有許多地方都是倚賴租用移動的基站訊號服務，境外線路更是只能倚賴前述三家運營商。根據那邊的網民的說法是，廣電在北方透過電信和聯通的線路出海，在南方則是透過移動的線路出海。&lt;/p>
+&lt;p>因此，我們目前就只探討前三家，具備全國與出海骨幹網資質許可的移動、電信、聯通這三家與其出口的線路情況，目前在所有手機行動上網和家庭寬頻綜合下來的市占率，大約是移動 53 : 電信 28 : 聯通 19 這樣的比例。&lt;/p>
+&lt;hr>
+&lt;h2 id="中國電信">中國電信&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124915463_6ac1758544_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>以前互聯網最大的運營商，出口線路資源也最多。&lt;/strong>&lt;/p>
+&lt;p>雖然現今中國最大的運營商是中國移動，畢竟從智慧型手機在 2014 年開始發展的時候，上網的習慣已經從家用寬帶演變成主力是行動網路了，但考量到全國等級的骨幹網與出海線路這種被視為 「國家重點建設」 的項目，因此在上個世紀開始建設的中國電信自然掌握了最多的線路資源。&lt;/p>
+&lt;p>目前中國電信在業界主要分成三條線路，分別是在上個世紀就建設的 163 網線路 : AS4134、以及較新的 CN2 線路 : AS4809、另外還有一個比較嶄新較少人知道的 CTGNet 線路 : AS23764，我們在下方會逐一解釋這些的差異。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124430091_474eb45c9f_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>單就名字來看 163 線路就是最老的的一條，速度和品質應該大家可能會認為是最慢也最差的，確實這條線路因為有了至少 25 年，因此在至少 2021 以前，其出口的速度與品質一直都是為人詬病的，架構老舊加上使用者眾多一直是其短版。&lt;/p>
+&lt;p>但在近期 163 線路也一直針對頻寬擴容、設備升級，加上其他所謂的 「精品線路」 使用的人數越來越多，所以其實 163 線路目前並不能夠說是最差的，甚至有時候的表現還更好，當然這也要看您對象的海外伺服器的 ISP peering 與路由的情況。&lt;/p>
+&lt;p>要辨別是不是走 163 線路，原則上就是看 IP，如果去回都走 202.97..，那麼應該就是 163 線路。&lt;/p>
+&lt;blockquote>
+&lt;p>另外這裡附帶一提，202.97.&lt;em>.&lt;/em> 和後面會提到的 CN2 用的 59.43.&lt;em>.&lt;/em> 有些段是中國電信內部骨幹網用的 IP，可能沒有被公開 announce 出去，所以您去查有機率會查不到任何公開的 ASN、IRR、Peering 之類的資訊，用 mtr -z 只會看到 ASN 的欄位是 *，這裡再順便題外話一下。&lt;/p>
+&lt;/blockquote>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124915478_bb0cb46cf2_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>CN2 則是全名為 &amp;ldquo;China Telecom Next Generation Carrier Network&amp;rdquo; AS4809，聽起來就是比較厲害的感覺，翻譯成下一代承載網。確實這條線路在中國電信推出之初就是為了政企、大型重點企業實現聯外所部署的線路，因此在相關的費用上自然也是昂貴的，許多不管是海外進中國的免備案 CDN 服務加速商，或是專門賣給大陸用戶的 VPS 商都會特別強調自己用的是 CN2 這條線路。&lt;/p>
+&lt;p>此外 CN2 還有分成 CN2 GT 和 CN2 GIA，差別在於 CN2 GT 在中國大陸境內會走跟 163 一樣的 202.97.. 路由，只有進出中國的時候才會走 59.43.. 的路由，屬於相對低階一些的線路，而 CN2 GIA 則是全程都走 59.43.. 的路由，理論上是速度最快且最穩定的。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124636129_d2cf88d201_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>另外還有一個比較少人提到的 CTGNet 線路，這條線路的 AS 編號是 AS23764，全名是中國電信國際 (China Telecom Global)，CTGNet GIA 大約是介於 CN2 GT 與 CN2 GIA 的品質，主要進出口都是走 59.43.. 的路由，但進到國內骨幹網則是在 59.43.. 幾跳後就改走 163 的 202.97.. 路由。&lt;/p>
+&lt;p>相較於 CN2 GIA 到中國大省省級的路由都是 59.43，以及 GT 只有在出關那一段才走 59.43，其餘都是 202.97 的情況來看應該是介於兩者之間，當然根據資料也有走全 CN2 或是走全部 163 的方案，具體看您的服務商怎麼簽約。&lt;/p>
+&lt;p>會有這個主要是在 2021 年以後海外的 IDC、線路業者要購買與 CN2 GIA 的大頻寬連接合約都需要經過中國電信嚴格的審批，這項改動的原因不明，但個人推測有可能是受到大量放置非法資源的 CDN 與 VPS 商幾乎都透過 CN2 直連回國內，造成相關單位的不堪其擾與注意到，也有可能是受到這三年的互聯網爆炸性成長，CN2 GIA 可賣的頻寬容量開始不足，所以其實目前越來越多這部分的供應商其實供應的都是 CGTNet GIA。&lt;/p>
+&lt;p>當然 CN2 是不是最好的? 不可否認在 2021 以前確實他是最好的線路，與 163 幾乎是天壤之別，但 2021 年開始中國電信針對老舊的 163 網進行了大幅的升級與擴充，以及 CN2 開始越來越多人在用。因此有時候其實 163 的線路品質未必是最差的，CN2 也未必是一定比較好的，還要考慮到兩者的明顯價差，建議不管業者如何聲稱或是不管走哪條線路，都以自己實際測試的數據為主來作為簽約的依據。&lt;/p>
+&lt;hr>
+&lt;h2 id="中國聯通">中國聯通&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124430126_32ccaaf3de_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>頻寬資源雖不及電信，但人少就是他的優勢。&lt;/strong>&lt;/p>
+&lt;p>中國聯通目前是第三大的運營商，如果你以前有在中國的網站下載一些較大的資源，您可能會記得比較大的下載站都會有提供兩個載點，分別是 「電信下載」 和 「網通下載」，如果在台灣通常會選電信，因為電信主要的勢力範圍以大陸南方居多，現在聯通的前身主要就是由專注於固網的網通 (主要線路資源在北方)，與當年專注於手機行動業務的聯通所結合，因此自然保有當年網通的相關線路資源。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124636139_01b7d9b7b8_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>聯通與電信在出口方面一樣也分成比較舊的 169 網 AS4837 (對標電信的 163 網)，以及比較高級的 AS9929 線路 (大家都會直稱聯通 9929)，另外 9929 也分成僅 9929 出口和 9929 接 AS10099 (中國聯通國際的) 的線路，俗成 CU Premium，但在中國國內都會有部分走 4837，與 CN2 GIA 可能只有一跳走 AS4134，其他幾乎都是 AS 4809 還是有些差異。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124915503_bfcbb166b1_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>聯通的基礎其實比電信相對差一些，但是因為用戶不多 (如同前述的市占率)，因此聯通 9929 &amp;gt; 10099 (CU Premium) 也算是一條不錯的線路，具體對標電信大概是：&lt;/p>
+&lt;ul>
+&lt;li>聯通 169 網 (AS4837) - 電信 163 網 (AS4134)&lt;/li>
+&lt;li>聯通 9929 網 (AS9929) - 電信 CN2 GT ~ 電信 CGTNet GIA&lt;/li>
+&lt;li>聯通 9929 + AS10099 - 電信 CN2 GIA&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="中國移動">中國移動&lt;/h2>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53123832202_10f1608bf9_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>&lt;strong>市占率最高、出口表現一般。&lt;/strong>&lt;/p>
+&lt;p>最後就是中國移動，中國移動雖然也有骨幹網等執照資質，目前主要就一條主要的出口線路 (AS58453) China Mobile International 簡稱 CMI。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124430131_0b4ca85681_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>畢竟在 20 年前大家還沒有用手機上網的需求，從 2007 那時候 3G 才開始有一些比較簡單的 WAP 或彩信之類的上網業務，但是到最近 5 年來手機上網需求是爆發性的成長，因此在早期移動並沒有針對網路有大幅的建設，縱使合併了中國鐵通，但原先的線路資源還是不及電信和網通這兩家原本就起家的，雖然移動的相關線路都有不斷提升，但其實品質上加上人數的其實尖峰表現算是一般。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53123832212_31be0e4040_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>另外中國移動還有所謂的 「移動牆」 的問題，雖然電信與聯通多少也有類似情況，但是移動是發生機率最高且最嚴重的，移動牆就是部分境外含有非法信息但沒有被 GFW 阻擋的網站，移動自己會透過各種手段進行阻擋，這個網站如果用電信或聯通上就沒問題。&lt;/p>
+&lt;p>有推測是因為移動對外出口互聯很多都得走電信或聯通的線路，因為有不少海外站點只有接入電信或聯通的出口線路 (尤其以電信為主)，變成移動要付這兩家運營商帶寬費，因此自己進行阻擋多少可以省下這類的支出，由於網站有明確非法信息，你也無法跟工信部之類的有關部門來申訴。&lt;/p>
+&lt;p>總之，CMI 算是一條不怎麼會卡，使用上也有一定水準的線路。&lt;/p>
+&lt;hr>
+&lt;h2 id="中國出海加速總結">中國出海加速總結&lt;/h2>
+&lt;p>&lt;strong>請選擇針對三網優化的免備案 CDN 廠商&lt;/strong>&lt;/p>
+&lt;p>看完了上面這些帶有歷史淵源的故事和解釋，或許很多人會說那我的網站業務要怎麼加速呢？坦白說這部分針對客戶是使用不同的運營商，不同的省份甚至地區都會有所差異，目前來說也未必某一條線路就會是最好的。&lt;/p>
+&lt;p>因此如果預算許可，選擇針對三網都有優化的 CDN 加速廠商會是最好且最有優勢的，專業的海外進中國加速的 CDN 廠商都會簽約多種不同的加速線路，並且有 24x7 的 NOC 團隊會針對線路進行監控與調整至最佳化的狀態，以及附帶許多額外的增值服務，例如抗 L3/L4/L7 DDoS、附贈 SSL 憑證這些。&lt;/p>
+&lt;p>&lt;img src="https://live.staticflickr.com/65535/53124430141_e4b950749a_o.png"
+max-width="100%"
+max-height="100%"
+class="gallery-image"
+loading="lazy"
+>&lt;/p>
+&lt;p>當然，如果您的規模較小並且只能選擇一條線路，那麼也是建議都先進行試用、PoC 的測試。正如同前面提到的，163 可能未必比起昂貴的 CN2 GIA 還要來得差到很多，值不值得特別使用 CN2 / CTGNet 其實是個需要考量的點，以及確認您主要的客戶省份再行簽約。&lt;/p>
+&lt;hr></description></item></channel></rss>

@@ -1,18 +1,24 @@
 User-agent: *
 
-Allow: /2023-04-18/ts-v5-introduction/
-
 Allow: /categories/
+
+Allow: /tags/cdn/
+
+Allow: /categories/cdn/
 
 Allow: /post/
 
 Allow: /tags/
 
+Allow: /
+
+Allow: /2023-08-18/cdn-in-china/
+
+Allow: /2023-04-18/ts-v5-introduction/
+
 Allow: /tags/typescript/
 
 Allow: /categories/typescript/
-
-Allow: /
 
 Allow: /2023-04-11/k6-introduction/
 
