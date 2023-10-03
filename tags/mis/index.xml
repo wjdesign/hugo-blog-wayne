@@ -177,14 +177,14 @@ loading="lazy"
 &lt;/span>&lt;span class="lnt">8
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-conf" data-lang="conf">&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0.0.1&lt;/span> &lt;span class="nv">localhost&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0.1.1&lt;/span> &lt;span class="nv">52im-aliyun&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># The following lines are desirable for IPv6 capable hosts
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c">&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">1&lt;/span> &lt;span class="nv">ip6-localhost&lt;/span> &lt;span class="nv">ip6-loopback&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">fe00&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">0&lt;/span> &lt;span class="nv">ip6-localnet&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ff00&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">0&lt;/span> &lt;span class="nv">ip6-mcastprefix&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ff02&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">1&lt;/span> &lt;span class="nv">ip6-allnodes&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">ff02&lt;/span>&lt;span class="err">::&lt;/span>&lt;span class="nv">2&lt;/span> &lt;span class="nv">ip6-allrouters&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.1.1 52im-aliyun
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># The following lines are desirable for IPv6 capable hosts
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 ip6-localhost ip6-loopback
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fe00::0 ip6-localnet
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff00::0 ip6-mcastprefix
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::1 ip6-allnodes
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::2 ip6-allrouters
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>上面第一行是幾乎每台電腦上都會有的默認配置。但是 localhost 的意義並不局限於 127.0.0.1。&lt;/p>
@@ -196,8 +196,8 @@ loading="lazy"
 &lt;/span>&lt;span class="lnt">2
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-conf" data-lang="conf">&lt;span class="line">&lt;span class="cl">&lt;span class="mf">127.0.0.1&lt;/span> &lt;span class="nv">localhost&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">::&lt;/span>&lt;span class="nv">1&lt;/span> &lt;span class="nv">localhost&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 localhost
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;p>所以，在使用的時候要注意確認IPV4還是IPV6。&lt;/p>

@@ -232,7 +232,7 @@ loading="lazy"
 &lt;/span>&lt;span class="lnt">11
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="k">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IApplicationBuilder&lt;/span> &lt;span class="n">app&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IHostingEnvironment&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-cs" data-lang="cs">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span> &lt;span class="k">void&lt;/span> &lt;span class="n">Configure&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">IApplicationBuilder&lt;/span> &lt;span class="n">app&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">IHostingEnvironment&lt;/span> &lt;span class="n">env&lt;/span>&lt;span class="p">)&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">//運行於 Linux 時啟用 Reverse Proxy 模式 &lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">RuntimeInformation&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">IsOSPlatform&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">OSPlatform&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Linux&lt;/span>&lt;span class="p">))&lt;/span>
@@ -276,7 +276,7 @@ loading="lazy"
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">WorkingDirectory&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/var/www/Darkblog&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">ExecStart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">/usr/bin/dotnet /var/www/Darkblog/Darkblog.Core.dll&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">Restart&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">always&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Restart service after 10 seconds if the dotnet service crashes:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c"># Restart service after 10 seconds if the dotnet service crashes:&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">RestartSec&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">10&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">SyslogIdentifier&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">darkblog-core&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">User&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">www-data&lt;/span>
