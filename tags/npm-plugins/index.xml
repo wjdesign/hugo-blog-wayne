@@ -5514,36 +5514,36 @@ loading="lazy"
 &lt;/span>&lt;span class="lnt">30
 &lt;/span>&lt;/code>&lt;/pre>&lt;/td>
 &lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">node_modules
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.DS_Store
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dist
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">dist-ssr
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*.local
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">node_modules&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">DS_Store&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dist&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">dist&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">ssr&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">*.&lt;/span>&lt;span class="n">local&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># other
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.npmrc
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.cache
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">test/upload-server/static
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># other&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">npmrc&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">cache&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">test&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">upload&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">server&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="k">static&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.local
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># local env files
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.env.local
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.env.*.local
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">local&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># local env files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">local&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">env&lt;/span>&lt;span class="o">.*.&lt;/span>&lt;span class="n">local&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Log files
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">npm-debug.log*
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yarn-debug.log*
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">yarn-error.log*
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">pnpm-debug.log*
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Log files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">npm&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">debug&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">yarn&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">debug&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">yarn&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">error&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="n">pnpm&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">debug&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">log&lt;/span>&lt;span class="o">*&lt;/span>
 &lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># Editor directories and files
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">.idea
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># .vscode
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*.suo
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*.ntvs*
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*.njsproj
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*.sln
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">*.sw?
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Editor directories and files&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">.&lt;/span>&lt;span class="n">idea&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># .vscode&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">*.&lt;/span>&lt;span class="n">suo&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">*.&lt;/span>&lt;span class="n">ntvs&lt;/span>&lt;span class="o">*&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">*.&lt;/span>&lt;span class="n">njsproj&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">*.&lt;/span>&lt;span class="n">sln&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="o">*.&lt;/span>&lt;span class="n">sw&lt;/span>&lt;span class="err">?&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
 &lt;/div>&lt;hr>
