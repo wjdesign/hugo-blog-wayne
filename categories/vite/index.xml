@@ -1,4 +1,65 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vite on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/vite/</link><description>Recent content in Vite on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 12 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/vite/index.xml" rel="self" type="application/rss+xml"/><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayne-blog.com/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vite on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/vite/</link><description>Recent content in Vite on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 22 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/vite/index.xml" rel="self" type="application/rss+xml"/><item><title>Vite 5 正式發布</title><link>https://wayne-blog.com/2023-11-22/vite-v5-announcing/</link><pubDate>Wed, 22 Nov 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-11-22/vite-v5-announcing/</guid><description>&lt;img src="https://live.staticflickr.com/65535/53347857961_a81658c179_o.png" alt="Featured image of post Vite 5 正式發布" />&lt;style>
+.article-content p code {
+background-color: #f5f5f5;
+color: #ff3860;
+}
+.focus {
+background: #f1e2e2;
+color: #d62c2c;
+padding: 0 5px;
+}
+.text-center {
+text-align: center !important;
+}
+&lt;/style>
+&lt;p>&lt;a class="link" href="https://vitejs.dev/blog/announcing-vite5" target="_blank" rel="noopener"
+>原文&lt;/a>&lt;/p>
+&lt;p>&lt;a class="link" href="https://cn.vitejs.dev/blog/announcing-vite5" target="_blank" rel="noopener"
+>Vite 5&lt;/a> 已經發布，這是 Vite 發展道路上又一個重要的里程碑，新版本採用 Rollup 4，大大的提升了構建性能；還帶來了一些新的選項，可用於提高開發服務器的性能。官方指出：Vite 5 的重點是清理已棄用的API，並精簡了幾個功能以解決長期存在的問題。例如將 define 轉換為使用正確的 AST 替換，而不是使用 regexes。團隊表示，他們將繼續推進實現面相未來的 Vite。&lt;/p>
+&lt;hr>
+&lt;h2 id="nodejs-支持">Node.js 支持&lt;/h2>
+&lt;p>Vite 不再支持已經 EOL 的 Node.js 14、16、17、19。現在需要 &lt;code>Node.js 18、20+&lt;/code>。&lt;/p>
+&lt;hr>
+&lt;h2 id="性能">性能&lt;/h2>
+&lt;p>除了 Rollup 4 的構建性能改進之外，&lt;a class="link" href="https://cn.vitejs.dev/guide/performance" target="_blank" rel="noopener"
+>這個新指南&lt;/a>可以幫助用戶識別與修復常見性能問題。&lt;/p>
+&lt;p>Vite 5 還引入了 &lt;a class="link" href="https://cn.vitejs.dev/guide/performance#warm-up-frequently-used-files" target="_blank" rel="noopener"
+>server.warmup&lt;/a>，這是一個改善啟動時間的新功能。他允許妳定義應該在服務器啟動後立即進行預轉換的模塊列表。當使用 &lt;code>--open&lt;/code> 或 &lt;code>server.open&lt;/code> 時，Vite 還會自動預熱應用程序的 entry point 或所提供的 URL，以便打開。&lt;/p>
+&lt;hr>
+&lt;h2 id="主要變化">主要變化&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#rollup-4" target="_blank" rel="noopener"
+>Vite 現已由 Rollup 4 提供支持&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#deprecate-cjs-node-api" target="_blank" rel="noopener"
+>棄用 CJS Node API&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#rework-define-and-import-meta-env-replacement-strategy" target="_blank" rel="noopener"
+>重新設計 &lt;code>define&lt;/code> 和 &lt;code>import.meta.env.*&lt;/code> 的替換策略&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#ssr-externalized-modules-value-now-matches-production" target="_blank" rel="noopener"
+>SSR 外部模組值現在符合 production 環境行為&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#worker-plugins-is-now-a-function" target="_blank" rel="noopener"
+>&lt;code>worker.plugins&lt;/code> 現在是一個函數&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#allow-path-containing-to-fallback-to-index-html" target="_blank" rel="noopener"
+>允許包含 &lt;code>.&lt;/code> 的路徑回退到 index.html&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#align-dev-and-preview-html-serving-behaviour" target="_blank" rel="noopener"
+>協調開發和預覽 HTML serving 行為&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#manifest-files-are-now-generated-in-vite-directory-by-default" target="_blank" rel="noopener"
+>現在預設在 &lt;code>.vite&lt;/code> 目錄中產生 Manifest 文件&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#cli-shortcuts-require-an-additional-enter-press" target="_blank" rel="noopener"
+>CLI 快捷鍵需要額外按下 &lt;code>Enter&lt;/code> 鍵&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#update-experimentaldecorators-and-usedefineforclassfields-typescript-behaviour" target="_blank" rel="noopener"
+>更新 &lt;code>experimentalDecorators&lt;/code> 和 &lt;code>useDefineForClassFields&lt;/code> TypeScript 行為&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#remove-https-flag-and-https-true" target="_blank" rel="noopener"
+>移除 &lt;code>--https&lt;/code> flag 和 &lt;code>https: true&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#remove-resolvepackageentry-and-resolvepackagedata-apis" target="_blank" rel="noopener"
+>移除 &lt;code>resolvePackageEntry&lt;/code> 和 &lt;code>resolvePackageData&lt;/code> API&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#removed-deprecated-apis" target="_blank" rel="noopener"
+>移除之前已棄用的 API&lt;/a>&lt;/li>
+&lt;li>&lt;a class="link" href="https://cn.vitejs.dev/guide/migration#advanced" target="_blank" rel="noopener"
+>了解更多有關影響插件和工具作者的高級更改信息&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>更多詳情可查看 &lt;a class="link" href="https://github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md#500-2023-11-16" target="_blank" rel="noopener"
+>Vite 5 Changelog&lt;/a>。&lt;/p>
+&lt;hr></description></item><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayne-blog.com/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" />&lt;style>
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
