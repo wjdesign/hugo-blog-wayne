@@ -2,17 +2,17 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /tags/javascript/
-
 Allow: /categories/javascript/
+
+Allow: /tags/javascript/
 
 Allow: /post/
 
 Allow: /tags/
 
-Allow: /tags/vite/
-
 Allow: /categories/vite/
+
+Allow: /tags/vite/
 
 Allow: /2023-11-22/vite-v5-announcing/
 
@@ -26,15 +26,15 @@ Allow: /2023-08-18/cdn-in-china/
 
 Allow: /2023-04-18/ts-v5-introduction/
 
-Allow: /tags/typescript/
-
 Allow: /categories/typescript/
+
+Allow: /tags/typescript/
 
 Allow: /2023-04-11/k6-introduction/
 
-Allow: /tags/golang/
-
 Allow: /categories/golang/
+
+Allow: /tags/golang/
 
 Allow: /tags/k6/
 
@@ -74,9 +74,9 @@ Allow: /tags/oop/
 
 Allow: /tags/pyenv/
 
-Allow: /tags/python/
-
 Allow: /categories/python/
+
+Allow: /tags/python/
 
 Allow: /2023-03-21/python-oop-qa/
 
@@ -98,9 +98,9 @@ Allow: /2023-03-10/petite-vue-introduction/
 
 Allow: /tags/petite-vue/
 
-Allow: /tags/vue/
-
 Allow: /categories/vue/
+
+Allow: /tags/vue/
 
 Allow: /2023-03-07/ts-config-and-type/
 
@@ -108,13 +108,13 @@ Allow: /2023-03-03/linux-find/
 
 Allow: /tags/find/
 
-Allow: /tags/linux/
-
 Allow: /categories/linux/
 
-Allow: /tags/cloudflare/
+Allow: /tags/linux/
 
 Allow: /categories/cloudflare/
+
+Allow: /tags/cloudflare/
 
 Allow: /2023-03-02/cloudflare-tunnel-introduction/
 
@@ -126,15 +126,15 @@ Allow: /2023-02-24/webapi-3-tier-introduction/
 
 Allow: /2023-02-22/js-require-vs-import/
 
-Allow: /tags/nodejs/
-
 Allow: /categories/nodejs/
+
+Allow: /tags/nodejs/
 
 Allow: /2023-02-21/ts-express-server/
 
-Allow: /categories/npm-plugins/
-
 Allow: /tags/npm-plugins/
+
+Allow: /categories/npm-plugins/
 
 Allow: /2023-02-17/js-about-this/
 
@@ -180,9 +180,9 @@ Allow: /tags/wsl/
 
 Allow: /2023-02-09/golang-dev-box-in-windows/
 
-Allow: /tags/macos/
-
 Allow: /categories/macos/
+
+Allow: /tags/macos/
 
 Allow: /tags/mis/
 
@@ -212,9 +212,9 @@ Allow: /2023-02-02/docker-persistent-volume/
 
 Allow: /2023-02-02/mysql-1251-error/
 
-Allow: /tags/docker/
-
 Allow: /categories/docker/
+
+Allow: /tags/docker/
 
 Allow: /categories/docker-compose/
 
@@ -262,9 +262,9 @@ Allow: /2023-01-17/why-encrypt-in-client/
 
 Allow: /2023-01-16/nuxt-nuxt3-practice-project/
 
-Allow: /tags/nuxt/
-
 Allow: /categories/nuxt/
+
+Allow: /tags/nuxt/
 
 Allow: /2023-01-14/nuxt-try-nuxt3/
 
@@ -274,15 +274,15 @@ Allow: /2023-01-07/single-multi-thread/
 
 Allow: /2022-12-30/npm-vueuse/
 
-Allow: /tags/react/
-
 Allow: /categories/react/
+
+Allow: /tags/react/
 
 Allow: /2022-12-30/why-use-hooks/
 
-Allow: /tags/vitest/
-
 Allow: /categories/vitest/
+
+Allow: /tags/vitest/
 
 Allow: /2022-12-29/vitest-unit-test/
 
@@ -298,9 +298,9 @@ Allow: /2022-12-19/browser-http-caching/
 
 Allow: /2022-12-15/tampermonkey-userscript-tutorial/
 
-Allow: /tags/tampermonkey/
-
 Allow: /categories/tampermonkey/
+
+Allow: /tags/tampermonkey/
 
 Allow: /tags/open-ai/
 
@@ -318,9 +318,9 @@ Allow: /2022-12-07/dotnet-core-docker-note-2/
 
 Allow: /2022-12-06/dotnet-core-docker-note-1/
 
-Allow: /tags/nginx/
-
 Allow: /categories/nginx/
+
+Allow: /tags/nginx/
 
 Allow: /2022-12-06/dotnet-nginx-install-on-centos/
 
@@ -380,17 +380,17 @@ Allow: /2022-10-21/nodejs-express-mysql/
 
 Allow: /2022-10-21/nodejs-prevent-xss/
 
-Allow: /tags/svelte/
-
 Allow: /categories/svelte/
+
+Allow: /tags/svelte/
 
 Allow: /tags/xss/
 
 Allow: /2022-10-21/svelte-quick-start/
 
-Allow: /tags/firebase/
-
 Allow: /categories/firebase/
+
+Allow: /tags/firebase/
 
 Allow: /tags/pwa/
 
@@ -420,13 +420,15 @@ Allow: /tags/%E7%B6%B2%E8%B7%AF%E7%AE%A1%E7%90%86/
 
 Allow: /2022-09-12/network-management-lesson/
 
-Allow: /tags/drone/
+Allow: /tags/ci/cd/
 
 Allow: /categories/drone/
 
-Allow: /tags/telegram-bot/
+Allow: /tags/drone/
 
 Allow: /categories/telegram-bot/
+
+Allow: /tags/telegram-bot/
 
 Allow: /2022-08-25/drone-cicd-with-telegram-bot/
 
@@ -500,13 +502,13 @@ Allow: /tags/%E6%99%82%E9%96%93%E8%A4%87%E9%9B%9C%E5%BA%A6/
 
 Allow: /2022-07-23/learn-time-complexity-by-clothes/
 
-Allow: /tags/%E6%BC%94%E7%AE%97%E6%B3%95/
-
 Allow: /categories/%E6%BC%94%E7%AE%97%E6%B3%95/
 
-Allow: /tags/grpc/
+Allow: /tags/%E6%BC%94%E7%AE%97%E6%B3%95/
 
 Allow: /categories/grpc/
+
+Allow: /tags/grpc/
 
 Allow: /2022-07-22/grpc-basic-introduction/
 
@@ -522,9 +524,9 @@ Allow: /2022-07-17/atguigu-vue3-note/
 
 Allow: /tags/%E5%89%8D%E7%AB%AF/
 
-Allow: /tags/markdown/
-
 Allow: /categories/markdown/
+
+Allow: /tags/markdown/
 
 Allow: /2022-07-16/markdown-syntax/
 
@@ -541,8 +543,6 @@ Allow: /tags/emoji/
 Allow: /2019-03-05/emoji-support/
 
 Allow: /2014-10-28/docker-10-qa/
-
-Allow: /tags/ci/cd/
 
 Allow: /links/
 

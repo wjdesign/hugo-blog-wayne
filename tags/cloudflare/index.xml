@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>cloudflare on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/cloudflare/</link><description>Recent content in cloudflare on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/cloudflare/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnel 介紹</title><link>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Cloudflare on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/cloudflare/</link><description>Recent content in Cloudflare on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/cloudflare/index.xml" rel="self" type="application/rss+xml"/><item><title>Cloudflare Tunnel 介紹</title><link>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11,657 +11,652 @@ padding: 0 5px;
 .text-center {
 text-align: center !important;
 }
-&lt;/style>
-&lt;p>&lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&lt;/style&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://www.sakamoto.blog/cloudflare-tunnel/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://blog.cloudflare.com/argo-tunnels-that-live-forever/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://editor.leonh.space/2021/cloudflare-tunnel/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;p>以前曾經寫過一篇「&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" >透過 ngrok 產生臨時用的網址到指定機器&lt;/a>」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
->Cloudflare Tunnel&lt;/a>，他們有著共同的功能：&lt;/p>
-&lt;ol>
-&lt;li>我們有個本機的服務跑在 http://localhost:5000，想讓外部訪問&lt;/li>
-&lt;li>Cloudflare Tunnel 產生公共網址以及 Cloudflare 節點與本機間的「tunnel」&lt;/li>
-&lt;li>訪客訪問網址，Cloudflare 節點把請求透過 tunnel 轉送到我們本機的服務，並且把服務的回覆也透過 tunnel 反向的回傳&lt;/li>
-&lt;/ol>
-&lt;p>&lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
->Cloudflare Tunnel&lt;/a>（也稱為 Argo Tunnel）除了名字太長這個問題外，有著這些優勢：&lt;/p>
-&lt;ul>
-&lt;li>Cloudflare Tunnel 與 ngrok 一樣是免費增值型服務，上述基本的 Cloudflare Tunnel 功能完全免費，進階的 Argo 則是收費的&lt;/li>
-&lt;li>Cloudflare Tunnel 可以搭配 Cloudflare 自家的 DNS 服務使用，也就是可以用自有的網址，而這在 ngrok 是要收費的&lt;/li>
-&lt;li>Cloudflare Tunnel 的服務會自動就近分配節點位置，而 ngrok 需要手動指定&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="安裝-cloudflare-tunnel">安裝 Cloudflare Tunnel&lt;/h2>
-&lt;p>使用 Cloudflare Tunnel 的前提當然是要有 Cloudflare 帳號，以及以 Cloudflare DNS 託管的網域，除這兩點外，我們得在主機上安裝 Cloudflare Tunnel 的代理程式 &lt;code>cloudflared&lt;/code>，安裝檔參見 &lt;a class="link" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation" target="_blank" rel="noopener"
->cloudflared 的下載頁&lt;/a>。&lt;/p>
-&lt;hr>
-&lt;h2 id="登入">登入&lt;/h2>
-&lt;p>初次使用時，須執行一次登入，讓 &lt;code>cloudflared&lt;/code> 取得我們帳號的授權：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel login
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>執行後會開啟授權網頁，選擇我們要授權 &lt;code>cloudflared&lt;/code> 操作的網域，授權成功後，會獲得一個代表我們帳號的憑證檔在 &lt;code>~/.cloudflared/cert.pem&lt;/code>，後續的操作 &lt;code>cloudflared&lt;/code> 會自動以此為證與 Cloudflare 服務互動。&lt;/p>
-&lt;p>為了方便後續說明，在此我們假設授權的網域是 &lt;code>cccc.ws&lt;/code>。&lt;/p>
-&lt;p>如果 &lt;code>cccc.ws&lt;/code> 上面已經有既有的 DNS 紀錄，並不會因為此動作而有被改掉的危機，不用擔心。&lt;/p>
-&lt;hr>
-&lt;h2 id="建立-tunnel">建立 Tunnel&lt;/h2>
-&lt;p>幫 tunnel 取個名字，這裡叫 local：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel create &lt;span class="nb">local&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>這只是在 Cloudflare 建一個空的 tunnel 紀錄在案，還沒有真正可以連線的 tunnel。&lt;/p>
-&lt;p>要檢視自身旗下所有 tunnel，使用命令 &lt;code>list&lt;/code>：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel list
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>會看到如下的輸出：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> You can obtain more detailed information &lt;span class="k">for&lt;/span> each tunnel with &lt;span class="sb">`&lt;/span>cloudflared tunnel info &amp;lt;name/uuid&amp;gt;&lt;span class="sb">`&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> ID NAME CREATED CONNECTIONS
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> e6b1ea74-e6ad-4e36-b8b5-0f8f81ccafec &lt;span class="nb">local&lt;/span> 2023-02-05T16:29:33Z
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 9ea66384-6ec7-4b6c-9a05-e57c08a32526 soda 2022-05-26T01:46:42Z
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="綁定-tunnel-與網址">綁定 Tunnel 與網址&lt;/h2>
-&lt;p>目前 tunnel 還沒有網址，給它一個：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel route dns &lt;span class="nb">local&lt;/span> local.cccc.ws
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>那 Cloudflare 會阻止我們這麼做：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> Failed to add route: code: 1003, reason: An A, AAAA, or CNAME record with that host already exists.
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="連接本地服務">連接本地服務&lt;/h2>
-&lt;p>有了 tunnel、有了網址，只剩把服務連上 tunnel 了。&lt;/p>
-&lt;p>假設我們的機台上有個服務跑在 &lt;code>http://localhost:1111&lt;/code>，想要利用 Cloudflare Tunnel 讓外部人士用 &lt;code>https://local.cccc.ws&lt;/code> 訪問，最簡單的一行指令如下：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">cloudflared tunnel run --url http://localhost:1111 &lt;span class="nb">local&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>執行後下面會跑出一堆嘰哩呱啦的訊息，只要沒有紅字就是正常：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-console" data-lang="console">&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection e4fe5a22-1e6e-4a05-b24c-95fc3ec62501 registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">0&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.200.23 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>TPE
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection 57570b20-0c60-472b-bfac-eeebe45912ff registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">1&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.192.227 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>HKG
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection 02f8e0ad-dfca-499b-af48-21a8bbfa1b47 registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">2&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.200.43 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>TPE
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="gp">$&lt;/span> 2023-02-05T16:50:52Z INF Connection 39c656ce-e08d-49a7-9cfb-1d05d92228fc registered with protocol: quic &lt;span class="nv">connIndex&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">3&lt;/span> &lt;span class="nv">ip&lt;/span>&lt;span class="o">=&lt;/span>198.41.192.27 &lt;span class="nv">location&lt;/span>&lt;span class="o">=&lt;/span>NRT
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>照紀錄看起來，我們分配到的節點分別位於&lt;strong>台北（TPE）&lt;/strong>、&lt;strong>東京（NRT）&lt;/strong>、&lt;strong>香港（HKG）&lt;/strong>，如同最開始所說的，Cloudflare 會自動就近分配 tunnel 節點位置。&lt;/p>
-&lt;p>跑起來後在 Cloudflare DNS 頁面的確有多了一筆 &lt;code>local.cccc.ws&lt;/code> 的紀錄。&lt;/p>
-&lt;hr>
-&lt;h2 id="關閉-tunnel">關閉 Tunnel&lt;/h2>
-&lt;p>對剛剛在跑著 &lt;code>cloudflared&lt;/code> 的 terminal（或 console，不論怎麼叫）按下 &lt;code>CTRL+C&lt;/code> 即可中斷 tunnel。&lt;/p>
-&lt;p>此時若去看 Cloudflare DNS 會發現那筆 &lt;code>local.cccc.ws&lt;/code> 還是在，但是確實已經連不到了，此時需要手動砍掉這筆遺留的紀錄（或者射後不理也無妨）。&lt;/p>
-&lt;hr>
-&lt;h2 id="其他花式玩法">其他花式玩法&lt;/h2>
-&lt;p>前文所提的命令列用法較適合臨時性的應用，例如開發中的專案需要給手機測試、對外展示等，從 &lt;code>cloudflared&lt;/code> 的名字可以推測的出來，字尾的「d」是 &lt;strong>daemon&lt;/strong> 的意思，因此它也可以是服務，配合 tunnel 配置文件，讓開機完就把 tunnel 跑起來，除此之外，除了最典型的轉送給本地 HTTP 服務外，Cloudflare Tunnel 也可以轉送給本地 Unix socket 或者 IP，對 Cloudflare Tunnel 的其他花式玩法有興趣的朋友可參閱〈&lt;a class="link" href="https://blog.cloudflare.com/argo-tunnels-that-live-forever/" target="_blank" rel="noopener"
->Argo Tunnels that live forever&lt;/a>〉一文。&lt;/p>
-&lt;hr>
-&lt;h2 id="clouflare-tunnel-的安全優勢">Clouflare Tunnel 的安全優勢&lt;/h2>
-&lt;p>對於展示、測試開發中專案來說，搭建的 tunnel 往往是臨時性的，可能不用太在意安全性的部份，但 Cloudflare Tunnel 的野心不僅於此，他們希望可以將此技術應用在真實的服務上，帶給服務更多的安全保護，因為覺得滿好的所以也順帶寫一下。&lt;/p>
-&lt;p>下面的示意圖是未使用 Cloudflare Tunnel 前的一個典型的 DNS A record 訪問模型：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52719965022_7233b2692f_o.png"
+&gt;參考網站&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以前曾經寫過一篇「&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" &gt;透過 ngrok 產生臨時用的網址到指定機器&lt;/a&gt;」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+&gt;Cloudflare Tunnel&lt;/a&gt;，他們有著共同的功能：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;我們有個本機的服務跑在 http://localhost:5000，想讓外部訪問&lt;/li&gt;
+&lt;li&gt;Cloudflare Tunnel 產生公共網址以及 Cloudflare 節點與本機間的「tunnel」&lt;/li&gt;
+&lt;li&gt;訪客訪問網址，Cloudflare 節點把請求透過 tunnel 轉送到我們本機的服務，並且把服務的回覆也透過 tunnel 反向的回傳&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+&gt;Cloudflare Tunnel&lt;/a&gt;（也稱為 Argo Tunnel）除了名字太長這個問題外，有著這些優勢：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cloudflare Tunnel 與 ngrok 一樣是免費增值型服務，上述基本的 Cloudflare Tunnel 功能完全免費，進階的 Argo 則是收費的&lt;/li&gt;
+&lt;li&gt;Cloudflare Tunnel 可以搭配 Cloudflare 自家的 DNS 服務使用，也就是可以用自有的網址，而這在 ngrok 是要收費的&lt;/li&gt;
+&lt;li&gt;Cloudflare Tunnel 的服務會自動就近分配節點位置，而 ngrok 需要手動指定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="安裝-cloudflare-tunnel"&gt;安裝 Cloudflare Tunnel&lt;/h2&gt;
+&lt;p&gt;使用 Cloudflare Tunnel 的前提當然是要有 Cloudflare 帳號，以及以 Cloudflare DNS 託管的網域，除這兩點外，我們得在主機上安裝 Cloudflare Tunnel 的代理程式 &lt;code&gt;cloudflared&lt;/code&gt;，安裝檔參見 &lt;a class="link" href="https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/install-and-setup/installation" target="_blank" rel="noopener"
+&gt;cloudflared 的下載頁&lt;/a&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="登入"&gt;登入&lt;/h2&gt;
+&lt;p&gt;初次使用時，須執行一次登入，讓 &lt;code&gt;cloudflared&lt;/code&gt; 取得我們帳號的授權：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cloudflared tunnel login
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;執行後會開啟授權網頁，選擇我們要授權 &lt;code&gt;cloudflared&lt;/code&gt; 操作的網域，授權成功後，會獲得一個代表我們帳號的憑證檔在 &lt;code&gt;~/.cloudflared/cert.pem&lt;/code&gt;，後續的操作 &lt;code&gt;cloudflared&lt;/code&gt; 會自動以此為證與 Cloudflare 服務互動。&lt;/p&gt;
+&lt;p&gt;為了方便後續說明，在此我們假設授權的網域是 &lt;code&gt;cccc.ws&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;如果 &lt;code&gt;cccc.ws&lt;/code&gt; 上面已經有既有的 DNS 紀錄，並不會因為此動作而有被改掉的危機，不用擔心。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="建立-tunnel"&gt;建立 Tunnel&lt;/h2&gt;
+&lt;p&gt;幫 tunnel 取個名字，這裡叫 local：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cloudflared tunnel create &lt;span class="nb"&gt;local&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;這只是在 Cloudflare 建一個空的 tunnel 紀錄在案，還沒有真正可以連線的 tunnel。&lt;/p&gt;
+&lt;p&gt;要檢視自身旗下所有 tunnel，使用命令 &lt;code&gt;list&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cloudflared tunnel list
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;會看到如下的輸出：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-console" data-lang="console"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; You can obtain more detailed information &lt;span class="k"&gt;for&lt;/span&gt; each tunnel with &lt;span class="sb"&gt;`&lt;/span&gt;cloudflared tunnel info &amp;lt;name/uuid&amp;gt;&lt;span class="sb"&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; ID NAME CREATED CONNECTIONS
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; e6b1ea74-e6ad-4e36-b8b5-0f8f81ccafec &lt;span class="nb"&gt;local&lt;/span&gt; 2023-02-05T16:29:33Z
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; 9ea66384-6ec7-4b6c-9a05-e57c08a32526 soda 2022-05-26T01:46:42Z
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="綁定-tunnel-與網址"&gt;綁定 Tunnel 與網址&lt;/h2&gt;
+&lt;p&gt;目前 tunnel 還沒有網址，給它一個：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cloudflared tunnel route dns &lt;span class="nb"&gt;local&lt;/span&gt; local.cccc.ws
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;那 Cloudflare 會阻止我們這麼做：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-console" data-lang="console"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; Failed to add route: code: 1003, reason: An A, AAAA, or CNAME record with that host already exists.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="連接本地服務"&gt;連接本地服務&lt;/h2&gt;
+&lt;p&gt;有了 tunnel、有了網址，只剩把服務連上 tunnel 了。&lt;/p&gt;
+&lt;p&gt;假設我們的機台上有個服務跑在 &lt;code&gt;http://localhost:1111&lt;/code&gt;，想要利用 Cloudflare Tunnel 讓外部人士用 &lt;code&gt;https://local.cccc.ws&lt;/code&gt; 訪問，最簡單的一行指令如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cloudflared tunnel run --url http://localhost:1111 &lt;span class="nb"&gt;local&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;執行後下面會跑出一堆嘰哩呱啦的訊息，只要沒有紅字就是正常：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-console" data-lang="console"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; 2023-02-05T16:50:52Z INF Connection e4fe5a22-1e6e-4a05-b24c-95fc3ec62501 registered with protocol: quic &lt;span class="nv"&gt;connIndex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;0&lt;/span&gt; &lt;span class="nv"&gt;ip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;198.41.200.23 &lt;span class="nv"&gt;location&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;TPE
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; 2023-02-05T16:50:52Z INF Connection 57570b20-0c60-472b-bfac-eeebe45912ff registered with protocol: quic &lt;span class="nv"&gt;connIndex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;1&lt;/span&gt; &lt;span class="nv"&gt;ip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;198.41.192.227 &lt;span class="nv"&gt;location&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;HKG
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; 2023-02-05T16:50:52Z INF Connection 02f8e0ad-dfca-499b-af48-21a8bbfa1b47 registered with protocol: quic &lt;span class="nv"&gt;connIndex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;2&lt;/span&gt; &lt;span class="nv"&gt;ip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;198.41.200.43 &lt;span class="nv"&gt;location&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;TPE
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;$&lt;/span&gt; 2023-02-05T16:50:52Z INF Connection 39c656ce-e08d-49a7-9cfb-1d05d92228fc registered with protocol: quic &lt;span class="nv"&gt;connIndex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;3&lt;/span&gt; &lt;span class="nv"&gt;ip&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;198.41.192.27 &lt;span class="nv"&gt;location&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;NRT
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;照紀錄看起來，我們分配到的節點分別位於&lt;strong&gt;台北（TPE）&lt;/strong&gt;、&lt;strong&gt;東京（NRT）&lt;/strong&gt;、&lt;strong&gt;香港（HKG）&lt;/strong&gt;，如同最開始所說的，Cloudflare 會自動就近分配 tunnel 節點位置。&lt;/p&gt;
+&lt;p&gt;跑起來後在 Cloudflare DNS 頁面的確有多了一筆 &lt;code&gt;local.cccc.ws&lt;/code&gt; 的紀錄。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="關閉-tunnel"&gt;關閉 Tunnel&lt;/h2&gt;
+&lt;p&gt;對剛剛在跑著 &lt;code&gt;cloudflared&lt;/code&gt; 的 terminal（或 console，不論怎麼叫）按下 &lt;code&gt;CTRL+C&lt;/code&gt; 即可中斷 tunnel。&lt;/p&gt;
+&lt;p&gt;此時若去看 Cloudflare DNS 會發現那筆 &lt;code&gt;local.cccc.ws&lt;/code&gt; 還是在，但是確實已經連不到了，此時需要手動砍掉這筆遺留的紀錄（或者射後不理也無妨）。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="其他花式玩法"&gt;其他花式玩法&lt;/h2&gt;
+&lt;p&gt;前文所提的命令列用法較適合臨時性的應用，例如開發中的專案需要給手機測試、對外展示等，從 &lt;code&gt;cloudflared&lt;/code&gt; 的名字可以推測的出來，字尾的「d」是 &lt;strong&gt;daemon&lt;/strong&gt; 的意思，因此它也可以是服務，配合 tunnel 配置文件，讓開機完就把 tunnel 跑起來，除此之外，除了最典型的轉送給本地 HTTP 服務外，Cloudflare Tunnel 也可以轉送給本地 Unix socket 或者 IP，對 Cloudflare Tunnel 的其他花式玩法有興趣的朋友可參閱〈&lt;a class="link" href="https://blog.cloudflare.com/argo-tunnels-that-live-forever/" target="_blank" rel="noopener"
+&gt;Argo Tunnels that live forever&lt;/a&gt;〉一文。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="clouflare-tunnel-的安全優勢"&gt;Clouflare Tunnel 的安全優勢&lt;/h2&gt;
+&lt;p&gt;對於展示、測試開發中專案來說，搭建的 tunnel 往往是臨時性的，可能不用太在意安全性的部份，但 Cloudflare Tunnel 的野心不僅於此，他們希望可以將此技術應用在真實的服務上，帶給服務更多的安全保護，因為覺得滿好的所以也順帶寫一下。&lt;/p&gt;
+&lt;p&gt;下面的示意圖是未使用 Cloudflare Tunnel 前的一個典型的 DNS A record 訪問模型：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52719965022_7233b2692f_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>正常的訪客透過 example.com 訪問我們的服務，並且透過 Cloudflare 節點對我們後端的 1.2.3.4 做到基本的防護。&lt;/p>
-&lt;p>但我們服務的 IP 1.2.3.4 仍然是暴露在公網的，所以有心人士有可能透過一些手段擷取到我們的真實 IP 1.2.3.4，進而展開攻擊。&lt;/p>
-&lt;p>而在 Cloudflare Tunnel 的連線模型中，一切的傳輸只透過 tunnel，我們的服務始終都是封閉的，不曾暴露於公網，壞人大猩猩最多只能攻擊到 Cloudflare 節點，碰不到我們機台的真身，這可以為我們帶來額外的安全優勢：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52720750069_7ab47cd607_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;正常的訪客透過 example.com 訪問我們的服務，並且透過 Cloudflare 節點對我們後端的 1.2.3.4 做到基本的防護。&lt;/p&gt;
+&lt;p&gt;但我們服務的 IP 1.2.3.4 仍然是暴露在公網的，所以有心人士有可能透過一些手段擷取到我們的真實 IP 1.2.3.4，進而展開攻擊。&lt;/p&gt;
+&lt;p&gt;而在 Cloudflare Tunnel 的連線模型中，一切的傳輸只透過 tunnel，我們的服務始終都是封閉的，不曾暴露於公網，壞人大猩猩最多只能攻擊到 Cloudflare 節點，碰不到我們機台的真身，這可以為我們帶來額外的安全優勢：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52720750069_7ab47cd607_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>另一方面，Cloudflare 有著全球廣佈的快取節點，訪客會查詢到離他所在位置較近的 Cloudflare 節點，藉此加快訪問速度，而 Cloudflare 節點與我們 tunnel 節點間的流量，則由 Cloudflare 自行導引，就像 Cloudflare 自我宣傳的那樣：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52719964857_4ec5556f0e_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;另一方面，Cloudflare 有著全球廣佈的快取節點，訪客會查詢到離他所在位置較近的 Cloudflare 節點，藉此加快訪問速度，而 Cloudflare 節點與我們 tunnel 節點間的流量，則由 Cloudflare 自行導引，就像 Cloudflare 自我宣傳的那樣：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52719964857_4ec5556f0e_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr></description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>https://wayne-blog.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" />&lt;style>
+&gt;&lt;/p&gt;
+&lt;hr&gt;</description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>https://wayne-blog.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
 padding: 0 5px;
 }
-&lt;/style>
-&lt;hr>
-&lt;h2 id="安裝-hugo">安裝 hugo&lt;/h2>
-&lt;h3 id="homebrew-macos">homebrew (MacOs)&lt;/h3>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">brew install hugo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="scoop-windows">scoop (Windows)&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://scoop.sh/" target="_blank" rel="noopener"
->scoop&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://scoop.sh/#/apps?q=hugo&amp;amp;s=0&amp;amp;d=1&amp;amp;o=true" target="_blank" rel="noopener"
->chocolatey - Hugo&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 若未安裝過 Scoop，需先：&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 1. 第一次需先設定，允許遠端腳本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># Set-ExecutionPolicy RemoteSigned -Scope CurrentUser&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 2. 下載並安裝 Scoop&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># irm get.scoop.sh | iex&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 透過 Scoop 安裝 Hugo&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scoop install hugo
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如需安裝指定版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scoop install hugo@0.100.2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安裝擴展版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">scoop install hugo-extended
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="chocolatey">Chocolatey&lt;/h3>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://chocolatey.org/" target="_blank" rel="noopener"
->chocolatey&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://community.chocolatey.org/packages/hugo/" target="_blank" rel="noopener"
->chocolatey - Hugo&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 透過 Chocolatey 安裝 Hugo&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install hugo
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 如需安裝指定版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install hugo --version&lt;span class="o">=&lt;/span>0.100.2
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 安裝擴展版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">choco install hugo-extended
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="apt-get-linux">apt-get (Linux)&lt;/h3>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">sudo apt-get install hugo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="利用-hugo-建立網站">利用 hugo 建立網站&lt;/h2>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">&lt;span class="c1"># 進到本地資料夾根目錄後&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hugo new site . --force
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="下載主題模板-以-hugo-theme-stackhttpsdocsstackjimmycaicomzh-為例">下載主題模板 (以 &lt;a class="link" href="https://docs.stack.jimmycai.com/zh/" target="_blank" rel="noopener"
->hugo-theme-stack&lt;/a> 為例)&lt;/h2>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">git submodule add git://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>clone 完畢後，把 exampleSite 文件夾中的 config.yaml 複製到站點目錄下，同時刪除此目錄下的 config.toml 文件。&lt;/p>
-&lt;p>將 exampleSite/content/* 複製到站點目錄下的 content/&lt;/p>
-&lt;p>剩餘主題的設定與文章內容，可依個人需求自行設定，本篇不再贅述。&lt;/p>
-&lt;hr>
-&lt;h2 id="github-創建一個-public-的-repo用於存放發布用的-public-資料夾">github 創建一個 public 的 repo，用於存放發布用的 public 資料夾。&lt;/h2>
-&lt;ul>
-&lt;li>前往 repo 的 Settings -&amp;gt; Pages&lt;/li>
-&lt;li>設定好欲發布的分支與 root path&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834833_7d64505282_o.png"
+&lt;/style&gt;
+&lt;hr&gt;
+&lt;h2 id="安裝-hugo"&gt;安裝 hugo&lt;/h2&gt;
+&lt;h3 id="homebrew-macos"&gt;homebrew (MacOs)&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;brew install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="scoop-windows"&gt;scoop (Windows)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://scoop.sh/" target="_blank" rel="noopener"
+&gt;scoop&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://scoop.sh/#/apps?q=hugo&amp;amp;s=0&amp;amp;d=1&amp;amp;o=true" target="_blank" rel="noopener"
+&gt;chocolatey - Hugo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 若未安裝過 Scoop，需先：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 1. 第一次需先設定，允許遠端腳本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# Set-ExecutionPolicy RemoteSigned -Scope CurrentUser&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 2. 下載並安裝 Scoop&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# irm get.scoop.sh | iex&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 透過 Scoop 安裝 Hugo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scoop install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如需安裝指定版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scoop install hugo@0.100.2
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 安裝擴展版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;scoop install hugo-extended
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="chocolatey"&gt;Chocolatey&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://chocolatey.org/" target="_blank" rel="noopener"
+&gt;chocolatey&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://community.chocolatey.org/packages/hugo/" target="_blank" rel="noopener"
+&gt;chocolatey - Hugo&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 透過 Chocolatey 安裝 Hugo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;choco install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 如需安裝指定版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;choco install hugo --version&lt;span class="o"&gt;=&lt;/span&gt;0.100.2
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 安裝擴展版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;choco install hugo-extended
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="apt-get-linux"&gt;apt-get (Linux)&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;sudo apt-get install hugo
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="利用-hugo-建立網站"&gt;利用 hugo 建立網站&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;# 進到本地資料夾根目錄後&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hugo new site . --force
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="下載主題模板-以-hugo-theme-stack-為例"&gt;下載主題模板 (以 &lt;a class="link" href="https://docs.stack.jimmycai.com/zh/" target="_blank" rel="noopener"
+&gt;hugo-theme-stack&lt;/a&gt; 為例)&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;git submodule add git://github.com/CaiJimmy/hugo-theme-stack/ themes/hugo-theme-stack
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;clone 完畢後，把 exampleSite 文件夾中的 config.yaml 複製到站點目錄下，同時刪除此目錄下的 config.toml 文件。&lt;/p&gt;
+&lt;p&gt;將 exampleSite/content/* 複製到站點目錄下的 content/&lt;/p&gt;
+&lt;p&gt;剩餘主題的設定與文章內容，可依個人需求自行設定，本篇不再贅述。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="github-創建一個-public-的-repo用於存放發布用的-public-資料夾"&gt;github 創建一個 public 的 repo，用於存放發布用的 public 資料夾。&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;前往 repo 的 Settings -&amp;gt; Pages&lt;/li&gt;
+&lt;li&gt;設定好欲發布的分支與 root path&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275834833_7d64505282_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;blockquote>
-&lt;p>設定完畢後，github 會分配給你一個公開的網址：&lt;a class="link" href="https://%7byour-account%7d.github.io/%7byour-repo-name%7d/" target="_blank" rel="noopener"
->https://{your-account}.github.io/{your-repo-name}/&lt;/a>，若不需自定義網址與 CI/CD 流程，到此步驟即可完畢。&lt;/p>
-&lt;/blockquote>
-&lt;hr>
-&lt;h2 id="設定自定義網址">設定自定義網址&lt;/h2>
-&lt;h3 id="註冊一個網址">註冊一個網址&lt;/h3>
-&lt;ul>
-&lt;li>本文使用 &lt;a class="link" href="https://my.freenom.com/" target="_blank" rel="noopener"
->freenom&lt;/a> 註冊一組免費的網址&lt;/li>
-&lt;li>註冊完畢後，前往 Manage Domain&lt;/li>
-&lt;li>選擇 Management Tools -&amp;gt; NameServers 後，此頁面先暫時放置著，待會再回來繼續設定&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839342_99157f69b4_o.png"
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;設定完畢後，github 會分配給你一個公開的網址：&lt;a class="link" href="https://%7byour-account%7d.github.io/%7byour-repo-name%7d/" target="_blank" rel="noopener"
+&gt;https://{your-account}.github.io/{your-repo-name}/&lt;/a&gt;，若不需自定義網址與 CI/CD 流程，到此步驟即可完畢。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="設定自定義網址"&gt;設定自定義網址&lt;/h2&gt;
+&lt;h3 id="註冊一個網址"&gt;註冊一個網址&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;本文使用 &lt;a class="link" href="https://my.freenom.com/" target="_blank" rel="noopener"
+&gt;freenom&lt;/a&gt; 註冊一組免費的網址&lt;/li&gt;
+&lt;li&gt;註冊完畢後，前往 Manage Domain&lt;/li&gt;
+&lt;li&gt;選擇 Management Tools -&amp;gt; NameServers 後，此頁面先暫時放置著，待會再回來繼續設定&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52274839342_99157f69b4_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="前往-cloudflare-後台">前往 Cloudflare 後台&lt;/h3>
-&lt;ul>
-&lt;li>登入 Cloudflare 後台，並選擇 &lt;code>網站&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276298045_5813148868_o.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="前往-cloudflare-後台"&gt;前往 Cloudflare 後台&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;登入 Cloudflare 後台，並選擇 &lt;code&gt;網站&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276298045_5813148868_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;ul>
-&lt;li>DNS 設定如圖：
-&lt;ul>
-&lt;li>將註冊的 domain 設定指向到 github server ip
-&lt;ul>
-&lt;li>185.199.108.153&lt;/li>
-&lt;li>185.199.109.153&lt;/li>
-&lt;li>185.199.110.153&lt;/li>
-&lt;li>185.199.111.153&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>設定 CNAME www 指向到剛剛 github 分配給你的 domain (path不需要)： &lt;a class="link" href="https://%7byour-account%7d.github.io/" target="_blank" rel="noopener"
->https://{your-account}.github.io/&lt;/a>&lt;/li>
-&lt;li>將下方兩個 Cloudflare 名稱伺服器複製下來&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834773_a35593be91_o.png"
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;DNS 設定如圖：
+&lt;ul&gt;
+&lt;li&gt;將註冊的 domain 設定指向到 github server ip
+&lt;ul&gt;
+&lt;li&gt;185.199.108.153&lt;/li&gt;
+&lt;li&gt;185.199.109.153&lt;/li&gt;
+&lt;li&gt;185.199.110.153&lt;/li&gt;
+&lt;li&gt;185.199.111.153&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;設定 CNAME www 指向到剛剛 github 分配給你的 domain (path不需要)： &lt;a class="link" href="https://%7byour-account%7d.github.io/" target="_blank" rel="noopener"
+&gt;https://{your-account}.github.io/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;將下方兩個 Cloudflare 名稱伺服器複製下來&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275834773_a35593be91_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;ul>
-&lt;li>選擇 &lt;code>Use custom nameservers (enter below)&lt;/code>&lt;/li>
-&lt;li>將剛剛從 Cloudflare 複製的兩個 NameServer，貼到 NameServer 1、NameServer 2&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839317_c0128152a0_o.png"
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;選擇 &lt;code&gt;Use custom nameservers (enter below)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;將剛剛從 Cloudflare 複製的兩個 NameServer，貼到 NameServer 1、NameServer 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52274839317_c0128152a0_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="cloudflare-後台設定強制使用-ssl">Cloudflare 後台設定強制使用 SSL&lt;/h3>
-&lt;ul>
-&lt;li>點選 &lt;code>SSL/TLS&lt;/code> 的 &lt;code>邊緣憑證&lt;/code>&lt;/li>
-&lt;li>打開 &lt;code>一律使用HTTPS&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834738_19502ba0ac_o.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="cloudflare-後台設定強制使用-ssl"&gt;Cloudflare 後台設定強制使用 SSL&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;點選 &lt;code&gt;SSL/TLS&lt;/code&gt; 的 &lt;code&gt;邊緣憑證&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;打開 &lt;code&gt;一律使用HTTPS&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275834738_19502ba0ac_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="回到-github-pages將網址填寫至-custom-domain短暫驗證完畢後即可點選-save-送出設定">回到 github pages，將網址填寫至 Custom domain，短暫驗證完畢後，即可點選 &lt;code>Save&lt;/code> 送出設定&lt;/h3>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834708_a23fb3550c_o.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="回到-github-pages將網址填寫至-custom-domain短暫驗證完畢後即可點選-save-送出設定"&gt;回到 github pages，將網址填寫至 Custom domain，短暫驗證完畢後，即可點選 &lt;code&gt;Save&lt;/code&gt; 送出設定&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275834708_a23fb3550c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;blockquote>
-&lt;p>自定義網址已設定完畢，可使用網址打開網站。&lt;/p>
-&lt;/blockquote>
-&lt;hr>
-&lt;h2 id="設定-github-actions-做-cicd">設定 github actions 做 CI/CD&lt;/h2>
-&lt;h3 id="準備材料1生成-github-personal-access-tokens">準備材料1：生成 github personal access tokens&lt;/h3>
-&lt;p>前往 github 的個人設定 &lt;code>&amp;quot;Settings&amp;quot;&lt;/code>，下方點選 Developer settings&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275816721_6470a6fa9a_o.png"
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;自定義網址已設定完畢，可使用網址打開網站。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id="設定-github-actions-做-cicd"&gt;設定 github actions 做 CI/CD&lt;/h2&gt;
+&lt;h3 id="準備材料1生成-github-personal-access-tokens"&gt;準備材料1：生成 github personal access tokens&lt;/h3&gt;
+&lt;p&gt;前往 github 的個人設定 &lt;code&gt;&amp;quot;Settings&amp;quot;&lt;/code&gt;，下方點選 Developer settings&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275816721_6470a6fa9a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>點選 &lt;code>Generate new token&lt;/code>&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839257_4a097835f3_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;點選 &lt;code&gt;Generate new token&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52274839257_4a097835f3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>設定備註、過期時間、權限後即可生成 token&lt;/p>
-&lt;ul>
-&lt;li>建議過期時間可以設定 &lt;code>No expiration&lt;/code> (無過期時間)、權限設定 &lt;code>repo&lt;/code> 全部勾選&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297950_4ca5ede7d5_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;設定備註、過期時間、權限後即可生成 token&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;建議過期時間可以設定 &lt;code&gt;No expiration&lt;/code&gt; (無過期時間)、權限設定 &lt;code&gt;repo&lt;/code&gt; 全部勾選&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276297950_4ca5ede7d5_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;blockquote>
-&lt;p>生成後，token 請複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/p>
-&lt;/blockquote>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297940_5bd00127d2_o.png"
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;生成後，token 請複製起來，因為關閉此頁面後，將&lt;mark&gt;無法再取得該 token 的明碼&lt;/mark&gt;。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276297940_5bd00127d2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="準備材料2登入-cloudflare-後台取得-區域識別碼zone">準備材料2：登入 Cloudflare 後台，取得 區域識別碼(Zone)&lt;/h3>
-&lt;ul>
-&lt;li>登入 Cloudflare，選擇自己的 domain&lt;/li>
-&lt;li>點選 &lt;code>概觀&lt;/code>，並於圖中標示處取得 區域識別碼(Zone Id)&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297875_5b918c6ca7_o.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="準備材料2登入-cloudflare-後台取得-區域識別碼zone"&gt;準備材料2：登入 Cloudflare 後台，取得 區域識別碼(Zone)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;登入 Cloudflare，選擇自己的 domain&lt;/li&gt;
+&lt;li&gt;點選 &lt;code&gt;概觀&lt;/code&gt;，並於圖中標示處取得 區域識別碼(Zone Id)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276297875_5b918c6ca7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="準備材料3取得-global-api-key">準備材料3：取得 Global API Key&lt;/h3>
-&lt;ul>
-&lt;li>於 &lt;code>概觀&lt;/code> 下方點選 &lt;code>取得您的 API Token&lt;/code>&lt;/li>
-&lt;li>點選 &lt;code>檢視&lt;/code>，輸入密碼後取得 Global API Key&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839177_7cc0239dce_o.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="準備材料3取得-global-api-key"&gt;準備材料3：取得 Global API Key&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;於 &lt;code&gt;概觀&lt;/code&gt; 下方點選 &lt;code&gt;取得您的 API Token&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;點選 &lt;code&gt;檢視&lt;/code&gt;，輸入密碼後取得 Global API Key&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52274839177_7cc0239dce_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="準備材料4生成-api-token">準備材料4：生成 API token&lt;/h3>
-&lt;ul>
-&lt;li>點選 &lt;code>建立 Token&lt;/code> -&amp;gt; &lt;code>建立自訂 Token&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297870_ed0c26f4ef_o.png"
+&gt;&lt;/p&gt;
+&lt;h3 id="準備材料4生成-api-token"&gt;準備材料4：生成 API token&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;點選 &lt;code&gt;建立 Token&lt;/code&gt; -&amp;gt; &lt;code&gt;建立自訂 Token&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276297870_ed0c26f4ef_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834623_6bd1187ba3_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275834623_6bd1187ba3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;ul>
-&lt;li>設定 token 名稱、權限、TTL&lt;/li>
-&lt;li>PS：權限必須至少擁有 &lt;code>區域&lt;/code> -&amp;gt; &lt;code>快取清除&lt;/code> -&amp;gt; &lt;code>清除&lt;/code>，以便 CI/CD 後使用 token 清除 &lt;code>DNS cache&lt;/code>&lt;/li>
-&lt;li>設定完畢後即可建立 token&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297825_0a3df713a7_o.png"
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;設定 token 名稱、權限、TTL&lt;/li&gt;
+&lt;li&gt;PS：權限必須至少擁有 &lt;code&gt;區域&lt;/code&gt; -&amp;gt; &lt;code&gt;快取清除&lt;/code&gt; -&amp;gt; &lt;code&gt;清除&lt;/code&gt;，以便 CI/CD 後使用 token 清除 &lt;code&gt;DNS cache&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;設定完畢後即可建立 token&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276297825_0a3df713a7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;ul>
-&lt;li>建立後，也請將 token 複製起來，因為關閉此頁面後，將&lt;mark>無法再取得該 token 的明碼&lt;/mark>。&lt;/li>
-&lt;/ul>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52274839127_009cf08ede_o.png"
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;建立後，也請將 token 複製起來，因為關閉此頁面後，將&lt;mark&gt;無法再取得該 token 的明碼&lt;/mark&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52274839127_009cf08ede_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h2 id="材料準備完畢開始設定-secret">材料準備完畢，開始設定 &lt;code>secret&lt;/code>&lt;/h2>
-&lt;h3 id="進入-source-code-的-repo點選-settings---secret---actions並將剛剛的四個準備材料設定到-actions-secrets-中">進入 source code 的 repo，點選 &lt;code>Settings&lt;/code> -&amp;gt; &lt;code>Secret&lt;/code> -&amp;gt; &lt;code>Actions&lt;/code>，並將剛剛的四個準備材料設定到 &lt;code>Actions secrets&lt;/code> 中&lt;/h3>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52275834568_62dbb88ffc_o.png"
+&gt;&lt;/p&gt;
+&lt;h2 id="材料準備完畢開始設定-secret"&gt;材料準備完畢，開始設定 &lt;code&gt;secret&lt;/code&gt;&lt;/h2&gt;
+&lt;h3 id="進入-source-code-的-repo點選-settings---secret---actions並將剛剛的四個準備材料設定到-actions-secrets-中"&gt;進入 source code 的 repo，點選 &lt;code&gt;Settings&lt;/code&gt; -&amp;gt; &lt;code&gt;Secret&lt;/code&gt; -&amp;gt; &lt;code&gt;Actions&lt;/code&gt;，並將剛剛的四個準備材料設定到 &lt;code&gt;Actions secrets&lt;/code&gt; 中&lt;/h3&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52275834568_62dbb88ffc_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;blockquote>
-&lt;p>此處 Actions secrets 的名稱如需修改，則待會的 github-actions.yml 內的名稱也需跟著修改，否則會抓不到 secrets 中設定的值哦!&lt;/p>
-&lt;/blockquote>
-&lt;h3 id="於-source-code-repo-根目錄新增-markgithubworkflowsgithub-actionsymlmark">於 source code repo 根目錄新增 &lt;mark>.github/workflows/github-actions.yml&lt;/mark>&lt;/h3>
-&lt;h6 id="github-actionsyml-內容">github-actions.yml 內容&lt;/h6>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;span class="lnt">48
-&lt;/span>&lt;span class="lnt">49
-&lt;/span>&lt;span class="lnt">50
-&lt;/span>&lt;span class="lnt">51
-&lt;/span>&lt;span class="lnt">52
-&lt;/span>&lt;span class="lnt">53
-&lt;/span>&lt;span class="lnt">54
-&lt;/span>&lt;span class="lnt">55
-&lt;/span>&lt;span class="lnt">56
-&lt;/span>&lt;span class="lnt">57
-&lt;/span>&lt;span class="lnt">58
-&lt;/span>&lt;span class="lnt">59
-&lt;/span>&lt;span class="lnt">60
-&lt;/span>&lt;span class="lnt">61
-&lt;/span>&lt;span class="lnt">62
-&lt;/span>&lt;span class="lnt">63
-&lt;/span>&lt;span class="lnt">64
-&lt;/span>&lt;span class="lnt">65
-&lt;/span>&lt;span class="lnt">66
-&lt;/span>&lt;span class="lnt">67
-&lt;/span>&lt;span class="lnt">68
-&lt;/span>&lt;span class="lnt">69
-&lt;/span>&lt;span class="lnt">70
-&lt;/span>&lt;span class="lnt">71
-&lt;/span>&lt;span class="lnt">72
-&lt;/span>&lt;span class="lnt">73
-&lt;/span>&lt;span class="lnt">74
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">Auto build and publish to public site repository&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="c"># 只有推送到 main 才觸發&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">push&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="s2">&amp;#34;main&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">pull_request&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">branches&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;main&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">&lt;/span>&lt;span class="nt">jobs&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-publish&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">publish content to public site&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">runs-on&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ubuntu-latest&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">steps&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 使用當前 source code 的 repo&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">checkout source code repo&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v3&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 因為目前的 repo 有使用到 submodule(hugo themes)，所以 submodule 也要一併同步，不然原本的 repo 是沒有 submodule 的內容&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">submodules&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">token&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.ACCESS_TOKEN }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># public 網站是放置在另一個 repo 所以這裡也要 clone 一份下來處理&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 因為我 Hugo 預設是產生檔案到 public 資料夾，所以將 public repo clone 到 ./public/ 內，以便後續 publish&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">clone and checkout public repo&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">actions/checkout@v3&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 這裡是 public 網站在 github 上的 repo 名稱&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">repository&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>{&lt;span class="l">template/template-public-repo-name}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">path&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">public&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># tip: 需事先產生一把 personal access token 放到 repo 的 secrets 裡&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 然後 secrets 裡的名稱就叫 ACCESS_TOKEN&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 參考 https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">token&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.ACCESS_TOKEN }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 使用別人做好的 Hugo Actions&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">setup hugo&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">peaceiris/actions-hugo@v2&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">hugo-version&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">latest&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">extended&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="kc">true&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 用 Hugo 產生檔案&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">build content to public site&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">working-directory&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># --cleanDestinationDir 清除舊檔案&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">hugo --minify --gc --cleanDestinationDir&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 將檔案 commit 到 網站 public repo&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">deploy and publish updates&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">working-directory&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">./public&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># user.email 還有 user.name 可以取自己喜歡的，一定要設定不然會出錯&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">run&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="p">|&lt;/span>&lt;span class="sd">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> # 當 git 有更動時才進行動作
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> if [[ `git status --porcelain` ]]; then
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> git config --local user.email &amp;#34;{typing your email}&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> git config --local user.name &amp;#34;{typing your name}&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> git add . -A
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> git commit -m &amp;#34;build: auto publish&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> git push origin
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> else
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> echo &amp;#34;content no changes&amp;#34;
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="sd"> fi&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># 清除 cloudflare dns cache&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">name&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">clear cloudflare cache&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">uses&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">nathanvaughn/actions-cloudflare-purge@master&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">with&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># Using Zone Id&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">cf_zone&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.CLOUDFLARE_ZONE }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="c"># Using API Token&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">cf_auth&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">${{ secrets.CLOUDFLARE_API_TOKEN }}&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;blockquote>
-&lt;p>內容 &lt;code>{}&lt;/code> 內的資訊請更換成自己的資訊&lt;br>
-附上 &lt;code>yaml&lt;/code> 範例，詳細 github-actions.yaml 文件請查閱 &lt;a class="link" href="https://docs.github.com/cn/actions" target="_blank" rel="noopener"
->github 官方文件&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;h2 id="建立檔案後將-commit-push-後即可於-source-code-repo-的-actions-頁面查看-cicd-的過程">建立檔案後，將 commit push 後，即可於 source code repo 的 &lt;code>Actions&lt;/code> 頁面查看 CI/CD 的過程。&lt;/h2>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52276297790_12ed5b06ec_o.png"
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;此處 Actions secrets 的名稱如需修改，則待會的 github-actions.yml 內的名稱也需跟著修改，否則會抓不到 secrets 中設定的值哦!&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id="於-source-code-repo-根目錄新增-githubworkflowsgithub-actionsyml"&gt;於 source code repo 根目錄新增 &lt;mark&gt;.github/workflows/github-actions.yml&lt;/mark&gt;&lt;/h3&gt;
+&lt;h6 id="github-actionsyml-內容"&gt;github-actions.yml 內容&lt;/h6&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;span class="lnt"&gt;48
+&lt;/span&gt;&lt;span class="lnt"&gt;49
+&lt;/span&gt;&lt;span class="lnt"&gt;50
+&lt;/span&gt;&lt;span class="lnt"&gt;51
+&lt;/span&gt;&lt;span class="lnt"&gt;52
+&lt;/span&gt;&lt;span class="lnt"&gt;53
+&lt;/span&gt;&lt;span class="lnt"&gt;54
+&lt;/span&gt;&lt;span class="lnt"&gt;55
+&lt;/span&gt;&lt;span class="lnt"&gt;56
+&lt;/span&gt;&lt;span class="lnt"&gt;57
+&lt;/span&gt;&lt;span class="lnt"&gt;58
+&lt;/span&gt;&lt;span class="lnt"&gt;59
+&lt;/span&gt;&lt;span class="lnt"&gt;60
+&lt;/span&gt;&lt;span class="lnt"&gt;61
+&lt;/span&gt;&lt;span class="lnt"&gt;62
+&lt;/span&gt;&lt;span class="lnt"&gt;63
+&lt;/span&gt;&lt;span class="lnt"&gt;64
+&lt;/span&gt;&lt;span class="lnt"&gt;65
+&lt;/span&gt;&lt;span class="lnt"&gt;66
+&lt;/span&gt;&lt;span class="lnt"&gt;67
+&lt;/span&gt;&lt;span class="lnt"&gt;68
+&lt;/span&gt;&lt;span class="lnt"&gt;69
+&lt;/span&gt;&lt;span class="lnt"&gt;70
+&lt;/span&gt;&lt;span class="lnt"&gt;71
+&lt;/span&gt;&lt;span class="lnt"&gt;72
+&lt;/span&gt;&lt;span class="lnt"&gt;73
+&lt;/span&gt;&lt;span class="lnt"&gt;74
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-yaml" data-lang="yaml"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;Auto build and publish to public site repository&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="c"&gt;# 只有推送到 main 才觸發&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="nt"&gt;on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;push&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;branches&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="s2"&gt;&amp;#34;main&amp;#34;&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;pull_request&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;branches&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;main&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="nt"&gt;jobs&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;hugo-publish&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;publish content to public site&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;runs-on&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;ubuntu-latest&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;steps&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 使用當前 source code 的 repo&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;checkout source code repo&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;actions/checkout@v3&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;with&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 因為目前的 repo 有使用到 submodule(hugo themes)，所以 submodule 也要一併同步，不然原本的 repo 是沒有 submodule 的內容&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;submodules&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;token&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;${{ secrets.ACCESS_TOKEN }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# public 網站是放置在另一個 repo 所以這裡也要 clone 一份下來處理&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 因為我 Hugo 預設是產生檔案到 public 資料夾，所以將 public repo clone 到 ./public/ 內，以便後續 publish&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;clone and checkout public repo&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;actions/checkout@v3&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;with&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 這裡是 public 網站在 github 上的 repo 名稱&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;repository&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;{&lt;span class="l"&gt;template/template-public-repo-name}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;path&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;public&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# tip: 需事先產生一把 personal access token 放到 repo 的 secrets 裡&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 然後 secrets 裡的名稱就叫 ACCESS_TOKEN&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 參考 https://help.github.com/en/actions/automating-your-workflow-with-github-actions/authenticating-with-the-github_token&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;token&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;${{ secrets.ACCESS_TOKEN }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 使用別人做好的 Hugo Actions&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;setup hugo&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;peaceiris/actions-hugo@v2&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;with&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;hugo-version&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;latest&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;extended&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 用 Hugo 產生檔案&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;build content to public site&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;working-directory&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;./&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# --cleanDestinationDir 清除舊檔案&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;hugo --minify --gc --cleanDestinationDir&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 將檔案 commit 到 網站 public repo&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;deploy and publish updates&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;working-directory&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;./public&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# user.email 還有 user.name 可以取自己喜歡的，一定要設定不然會出錯&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;run&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;&lt;span class="sd"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; # 當 git 有更動時才進行動作
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; if [[ `git status --porcelain` ]]; then
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git config --local user.email &amp;#34;{typing your email}&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git config --local user.name &amp;#34;{typing your name}&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git add . -A
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git commit -m &amp;#34;build: auto publish&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; git push origin
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; else
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; echo &amp;#34;content no changes&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="sd"&gt; fi&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# 清除 cloudflare dns cache&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;- &lt;span class="nt"&gt;name&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;clear cloudflare cache&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;uses&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;nathanvaughn/actions-cloudflare-purge@master&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;with&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# Using Zone Id&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;cf_zone&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;${{ secrets.CLOUDFLARE_ZONE }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="c"&gt;# Using API Token&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nt"&gt;cf_auth&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="l"&gt;${{ secrets.CLOUDFLARE_API_TOKEN }}&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;內容 &lt;code&gt;{}&lt;/code&gt; 內的資訊請更換成自己的資訊&lt;br&gt;
+附上 &lt;code&gt;yaml&lt;/code&gt; 範例，詳細 github-actions.yaml 文件請查閱 &lt;a class="link" href="https://docs.github.com/cn/actions" target="_blank" rel="noopener"
+&gt;github 官方文件&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id="建立檔案後將-commit-push-後即可於-source-code-repo-的-actions-頁面查看-cicd-的過程"&gt;建立檔案後，將 commit push 後，即可於 source code repo 的 &lt;code&gt;Actions&lt;/code&gt; 頁面查看 CI/CD 的過程。&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52276297790_12ed5b06ec_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr></description></item></channel></rss>
+&gt;&lt;/p&gt;
+&lt;hr&gt;</description></item></channel></rss>

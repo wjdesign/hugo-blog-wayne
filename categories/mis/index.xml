@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MIS on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/mis/</link><description>Recent content in MIS on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/mis/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MIS on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/mis/</link><description>Recent content in MIS on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/mis/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11,204 +11,204 @@ padding: 0 5px;
 .text-center {
 text-align: center !important;
 }
-&lt;/style>
-&lt;p>&lt;a class="link" href="http://www.52im.net/thread-3590-1-1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&lt;/style&gt;
+&lt;p&gt;&lt;a class="link" href="http://www.52im.net/thread-3590-1-1.html" target="_blank" rel="noopener"
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="http://www.52im.net/topic-tcpipvol1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="http://www.52im.net/thread-2928-1-1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;hr>
-&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>對於工程師來說，127.0.0.1 與 0.0.0.0 這兩個IP地址再熟悉不過了，看起來好像就那麼回事，但真正較起真來，這兩個IP地址到底有什麼作用以及到底有什麼不同？貌似誰可以輕鬆回答，但張嘴卻又不知從何說起&amp;hellip;(這要是面試，估計真會被這搞砸&amp;hellip;)&lt;/p>
-&lt;p>本文將系統地總結 127.0.0.1 和 0.0.0.0 這兩個IP地址的作用，以及它們之間的區別，希望能為你解惑。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676713038_5475fa3a18_o.png"
+&gt;參考網站&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;對於工程師來說，127.0.0.1 與 0.0.0.0 這兩個IP地址再熟悉不過了，看起來好像就那麼回事，但真正較起真來，這兩個IP地址到底有什麼作用以及到底有什麼不同？貌似誰可以輕鬆回答，但張嘴卻又不知從何說起&amp;hellip;(這要是面試，估計真會被這搞砸&amp;hellip;)&lt;/p&gt;
+&lt;p&gt;本文將系統地總結 127.0.0.1 和 0.0.0.0 這兩個IP地址的作用，以及它們之間的區別，希望能為你解惑。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676713038_5475fa3a18_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr>
-&lt;h2 id="ip地址分類">IP地址分類&lt;/h2>
-&lt;p>我們先回顧一下IP地址的基礎知識（本節內容僅作快速概覽，如您對IP地址知識一無所知，建議首先閱讀《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
->IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a>》）。&lt;/p>
-&lt;h3 id="ip地址表示">IP地址表示&lt;/h3>
-&lt;p>IP地址由兩個部分組成，&lt;strong>net-id&lt;/strong> 和 &lt;strong>host-id&lt;/strong>，即&lt;code>網絡號&lt;/code>和&lt;code>主機號&lt;/code>：&lt;/p>
-&lt;ol>
-&lt;li>net-id： 表示 ip 地址所在的&lt;strong>網絡號&lt;/strong>。&lt;/li>
-&lt;li>host-id： 表示 ip 地址所在網絡中的某個&lt;strong>主機號碼&lt;/strong>。&lt;/li>
-&lt;/ol>
-&lt;p>即：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">IP-address ::&lt;span class="o">=&lt;/span> &lt;span class="o">{&lt;/span> &amp;lt;Network-ID&amp;gt;, &amp;lt;Host-ID&amp;gt;&lt;span class="o">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>就像下圖這樣：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676220246_ff6aacfcdf_o.png"
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="ip地址分類"&gt;IP地址分類&lt;/h2&gt;
+&lt;p&gt;我們先回顧一下IP地址的基礎知識（本節內容僅作快速概覽，如您對IP地址知識一無所知，建議首先閱讀《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+&gt;IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a&gt;》）。&lt;/p&gt;
+&lt;h3 id="ip地址表示"&gt;IP地址表示&lt;/h3&gt;
+&lt;p&gt;IP地址由兩個部分組成，&lt;strong&gt;net-id&lt;/strong&gt; 和 &lt;strong&gt;host-id&lt;/strong&gt;，即&lt;code&gt;網絡號&lt;/code&gt;和&lt;code&gt;主機號&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;net-id： 表示 ip 地址所在的&lt;strong&gt;網絡號&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;host-id： 表示 ip 地址所在網絡中的某個&lt;strong&gt;主機號碼&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;即：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;IP-address ::&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt; &amp;lt;Network-ID&amp;gt;, &amp;lt;Host-ID&amp;gt;&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;就像下圖這樣：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676220246_ff6aacfcdf_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;h3 id="ip地址分類-1">IP地址分類&lt;/h3>
-&lt;p>IP地址一共分為5類，即&lt;code>A～E&lt;/code>，它們分類的依據是其 &lt;strong>net-id&lt;/strong> 所佔的字節長度以及網絡號前幾位。&lt;/p>
-&lt;p>大致分類如下：&lt;/p>
-&lt;ol>
-&lt;li>A類地址： 網絡號佔1個字節，網絡號的第一位固定為0。&lt;/li>
-&lt;li>B類地址： 網絡號佔2個字節，網絡號的前兩位固定為10。&lt;/li>
-&lt;li>C類地址： 網絡號佔3個字節，網絡號的前三位固定位110。&lt;/li>
-&lt;li>D類地址： 前四位是1110，用於多播(multicast)，即一對多通信。&lt;/li>
-&lt;li>E類地址： 前四位是1111，保留為以後使用。&lt;/li>
-&lt;/ol>
-&lt;p>其中，A、B、C 三類地址為&lt;code>單播地址&lt;/code>（unicast)，用於一對一通信，是最常用的。&lt;/p>
-&lt;p>&lt;strong>IP地址分類&lt;/strong>看下面這張圖，可能更直接一些：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676649305_568b686eb1_o.jpg"
+&gt;&lt;/p&gt;
+&lt;h3 id="ip地址分類-1"&gt;IP地址分類&lt;/h3&gt;
+&lt;p&gt;IP地址一共分為5類，即&lt;code&gt;A～E&lt;/code&gt;，它們分類的依據是其 &lt;strong&gt;net-id&lt;/strong&gt; 所佔的字節長度以及網絡號前幾位。&lt;/p&gt;
+&lt;p&gt;大致分類如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;A類地址： 網絡號佔1個字節，網絡號的第一位固定為0。&lt;/li&gt;
+&lt;li&gt;B類地址： 網絡號佔2個字節，網絡號的前兩位固定為10。&lt;/li&gt;
+&lt;li&gt;C類地址： 網絡號佔3個字節，網絡號的前三位固定位110。&lt;/li&gt;
+&lt;li&gt;D類地址： 前四位是1110，用於多播(multicast)，即一對多通信。&lt;/li&gt;
+&lt;li&gt;E類地址： 前四位是1111，保留為以後使用。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;其中，A、B、C 三類地址為&lt;code&gt;單播地址&lt;/code&gt;（unicast)，用於一對一通信，是最常用的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;IP地址分類&lt;/strong&gt;看下面這張圖，可能更直接一些：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676649305_568b686eb1_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>（上圖來源於《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
->IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a>》）&lt;/p>
-&lt;p>這裡還有一張&lt;strong>IP地址分類的思維導圖&lt;/strong>：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676649285_5e12904ba4_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;（上圖來源於《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+&gt;IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a&gt;》）&lt;/p&gt;
+&lt;p&gt;這裡還有一張&lt;strong&gt;IP地址分類的思維導圖&lt;/strong&gt;：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676649285_5e12904ba4_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>（上圖來源於《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
->IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a>》）&lt;/p>
-&lt;h3 id="特殊ip地址">特殊IP地址&lt;/h3>
-&lt;p>&lt;strong>特殊IP地址&lt;/strong>就是用來做一些特殊的事情。&lt;a class="link" href="https://datatracker.ietf.org/doc/rfc1700/" target="_blank" rel="noopener"
->RFC1700&lt;/a>中定義了以下特殊IP地址：&lt;/p>
-&lt;ol>
-&lt;li>&lt;code>{0,0}&lt;/code>： 網絡號和主機號都全部為0，表示&amp;quot;&lt;strong>本網絡上的本主機&lt;/strong>&amp;quot;，只能用作源地址。&lt;/li>
-&lt;li>&lt;code>{0，host-id}&lt;/code>： 本網絡上的某台主機。只能用作源地址。&lt;/li>
-&lt;li>&lt;code>{-1,-1}&lt;/code>： 表示網絡號和主機號的所有位上都是 1（二進制），用於本網絡上的廣播，只能用作目的地址，發到該地址的數據包不能轉發到源地址所在網絡之外。&lt;/li>
-&lt;li>&lt;code>{net-id,-1}&lt;/code>： 直接廣播到指定的網絡上。只能用作目的地址。&lt;/li>
-&lt;li>&lt;code>{net-id,subnet-id,-1}&lt;/code>： 直接廣播到指定網絡的指定子網絡上。只用作目的地址。&lt;/li>
-&lt;li>&lt;code>{net-id,-1,-1}&lt;/code>： 直接廣播到指定網絡的所有子網絡上。只能用作目的地址。&lt;/li>
-&lt;li>&lt;code>{127,}&lt;/code>： 即網絡號為 127 的任意 ip 地址。都是內部主機&lt;strong>回環地址&lt;/strong>(loopback)，永遠都不能出現在主機外部的網絡中。&lt;/li>
-&lt;/ol>
-&lt;p>具體來說，特殊的IP地址，主要是以下這些：&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;code>0.0.0.0&lt;/code>：&lt;br>
-嚴格說來，0.0.0.0 已經不是一個真正意義上的IP地址了。它表示的是這樣一個&lt;strong>集合&lt;/strong>：&lt;strong>所有不清楚的主機和目的網絡&lt;/strong>。這裡的&amp;quot;&lt;strong>不清楚&lt;/strong>&amp;ldquo;是指在本機的路由表裡沒有特定條目指明如何到達。對本機來說，它就是一個&amp;rdquo;&lt;strong>收容所&lt;/strong>&amp;quot;，所有不認識的&amp;quot;三無&amp;quot;人員，一律送進去。如果你在網絡設置中設置了缺省網關，那麼 Windows 系統會自動產生一個目的地址為 0.0.0.0 的缺省路由。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;code>255.255.255.255&lt;/code>：&lt;br>
-&lt;strong>限制廣播地址&lt;/strong>。對本機來說，這個地址指本網段內(同一廣播域)的所有主機。如果翻譯成人類的語言，應該是這樣：&amp;ldquo;這個房間裡的所有人都注意了！&amp;quot;，這個地址不能被路由器轉發。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;code>127.0.0.1&lt;/code>：&lt;br>
-&lt;strong>本機地址&lt;/strong>，主要用於測試。用漢語表示，就是&amp;rdquo;&lt;strong>我自己&lt;/strong>&amp;quot;。在 Windows 系統中，這個地址有一個別名&amp;quot;&lt;strong>Localhost&lt;/strong>&amp;quot;。尋址這樣一個地址，是不能把它發到網絡接口的。除非出錯，否則在傳輸介質上永遠不應該出現目的地址為 &amp;ldquo;127.0.0.1&amp;rdquo; 的數據包。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;code>224.0.0.1&lt;/code>：&lt;br>
-&lt;strong>組播地址&lt;/strong>，注意它和廣播的區別。從 224.0.0.0 到 239.255.255.255 都是這樣的地址。224.0.0.1 特指&lt;strong>所有主機&lt;/strong>，224.0.0.2 特指&lt;strong>所有路由器&lt;/strong>。這樣的地址多用於一些特定的程序以及多媒體程序。如果你的主機開啟了 IRDP (Internet路由發現協議，使用組播功能)功能，那麼你的主機路由表中應該有這樣一條路由。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;code>169.254.xx&lt;/code>：&lt;br>
-如果你的主機使用了 DHCP 功能自動獲得一個IP地址，那麼當你的 &lt;strong>DHCP 服務器發生故障&lt;/strong>，或響應時間太長而超出了一個系統規定的時間，Windows 系統會為你分配這樣一個地址。如果你發現你的主機IP地址是一個諸如此類的地址，很不幸，十有八九是你的網絡不能正常運行了。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;code>10.xxx&lt;/code>、&lt;code>172.16.xx～172.31.xx&lt;/code>、&lt;code>192.168.xx&lt;/code>：&lt;br>
-&lt;strong>私有地址&lt;/strong>，這些地址被大量用於企業內部網絡中。一些寬帶路由器，也往往使用 192.168.1.1 作為&lt;strong>缺省地址&lt;/strong>。私有網絡由於不與外部互連，因而可能使用隨意的IP地址。保留這樣的地址供其使用是為了避免以後接入公網時引起地址混亂。使用私有地址的私有網絡在接入 Internet 時，要使用&lt;strong>地址翻譯&lt;/strong>(NAT)，將私有地址翻譯成公用合法地址。在 Internet 上，這類地址是不能出現的。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;hr>
-&lt;h2 id="127001-和-0000-的區別">127.0.0.1 和 0.0.0.0 的區別&lt;/h2>
-&lt;h3 id="基本情況">基本情況&lt;/h3>
-&lt;p>通過上節基礎知識的回顧，我們回到正題：&lt;code>127.0.0.1 與 0.0.0.0 地址的區別是什麼？&lt;/code>&lt;/p>
-&lt;p>我們先來看下共同點：&lt;/p>
-&lt;ol>
-&lt;li>都屬於&lt;strong>特殊地址&lt;/strong>。&lt;/li>
-&lt;li>都屬於&lt;strong>A類地址&lt;/strong>。&lt;/li>
-&lt;li>都是&lt;strong>IPV4&lt;/strong>地址。&lt;/li>
-&lt;/ol>
-&lt;p>接下來我們分別看下這兩個地址的具體作用，就一目了解了。&lt;/p>
-&lt;h3 id="0000">0.0.0.0&lt;/h3>
-&lt;h4 id="說明">說明&lt;/h4>
-&lt;p>IPV4中，&lt;strong>0.0.0.0&lt;/strong> 地址被用於表示一個&lt;strong>無效的&lt;/strong>、&lt;strong>未知的&lt;/strong>或者&lt;strong>不可用的&lt;/strong>目標：&lt;/p>
-&lt;ol>
-&lt;li>在服務器中： 0.0.0.0 指的是本機上的所有IPV4地址，如果一個主機有兩個IP地址，192.168.1.1 和 10.1.2.1，並且該主機上的一個服務監聽的地址是 0.0.0.0 ，那麼&lt;strong>通過兩個ip地址都能夠訪問該服務&lt;/strong>。&lt;/li>
-&lt;li>在路由中： 0.0.0.0 表示的是&lt;strong>默認路由&lt;/strong>，即當&lt;strong>路由表中沒有找到完全匹配的路由的時候&lt;/strong>所對應的路由。&lt;/li>
-&lt;/ol>
-&lt;h4 id="用途總結">用途總結&lt;/h4>
-&lt;ol>
-&lt;li>當一台主機&lt;strong>還沒有被分配&lt;/strong>一個IP地址的時候，用於表示主機本身（DHCP 分配IP地址的時候）。&lt;/li>
-&lt;li>用作&lt;strong>默認路由&lt;/strong>，表示&amp;quot;&lt;strong>任意IPV4主機&lt;/strong>&amp;quot;。&lt;/li>
-&lt;li>用來表示&lt;strong>目標機器不可用&lt;/strong>。&lt;/li>
-&lt;li>用作服務端，表示本機上的&lt;strong>任意IPV4地址&lt;/strong>。&lt;/li>
-&lt;/ol>
-&lt;h3 id="127001">127.0.0.1&lt;/h3>
-&lt;h4 id="說明-1">說明&lt;/h4>
-&lt;p>127.0.0.1 屬於 &lt;code>{127,}&lt;/code> 集合中的一個，而所有網絡號為 127 的地址都被稱之為&lt;strong>回環地址&lt;/strong>，所以&lt;strong>回環地址&lt;/strong>不等於 127.0.0.1，它們是&lt;code>包含&lt;/code>關係，即回環地址包含 127.0.0.1。&lt;/p>
-&lt;h4 id="用途總結-1">用途總結&lt;/h4>
-&lt;ol>
-&lt;li>回環測試： 通過使用 &lt;code>ping 127.0.0.1&lt;/code> 測試某台機器上的網絡設備，操作系統或者 TCP/IP 實現是否工作正常。&lt;/li>
-&lt;li>DDos攻擊防禦： 網站收到 DDos 攻擊之後，將域名A記錄到 127.0.0.1，即讓攻擊者自己攻擊自己。&lt;/li>
-&lt;li>程序測試： 大部分 Web 容器測試的時候綁定的本機地址。&lt;/li>
-&lt;/ol>
-&lt;h4 id="回環地址的定義">回環地址的定義&lt;/h4>
-&lt;p>所有發往該類地址的數據包都應該被 loop back。&lt;/p>
-&lt;h3 id="bonus127001-與-localhost-的關係">BONUS：127.0.0.1 與 localhost 的關係&lt;/h3>
-&lt;p>相比 127.0.0.1，localhost 具有更多的意義。&lt;/p>
-&lt;p>localhost 是個&lt;strong>域名&lt;/strong>，而不是一個ip地址。之所以我們經常把 localhost 與 127.0.0.1 認為是同一個是因為我們使用的大多數電腦上都講 localhost &lt;strong>指向&lt;/strong>了 127.0.0.1 這個地址。&lt;/p>
-&lt;p>在 ubuntu 系統中，&lt;code>/ets/hosts&lt;/code> 文件中都會有如下內容：&lt;/p>
-&lt;h5 id="etshosts">/ets/hosts&lt;/h5>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">127.0.1.1 52im-aliyun
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"># The following lines are desirable for IPv6 capable hosts
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 ip6-localhost ip6-loopback
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">fe00::0 ip6-localnet
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff00::0 ip6-mcastprefix
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::1 ip6-allnodes
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ff02::2 ip6-allrouters
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>上面第一行是幾乎每台電腦上都會有的默認配置。但是 localhost 的意義並不局限於 127.0.0.1。&lt;/p>
-&lt;p>localhost 是一個&lt;strong>域名&lt;/strong>，用於指代 &lt;strong>this computer&lt;/strong> 或者 &lt;strong>this host&lt;/strong>，可以用它來獲取運行在本機上的網絡服務。&lt;/p>
-&lt;p>在大多數系統中，localhost 被指向了 IPV4 的 &lt;code>127.0.0.1&lt;/code> 和 IPV6 的&lt;code>::1&lt;/code>：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">127.0.0.1 localhost
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">::1 localhost
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>所以，在使用的時候要注意確認IPV4還是IPV6。&lt;/p>
-&lt;hr>
-&lt;h2 id="結語">結語&lt;/h2>
-&lt;p>&lt;code>127.0.0.1&lt;/code> 是一個&lt;strong>環回地址&lt;/strong>，並不表示&amp;quot;&lt;strong>本機&lt;/strong>&amp;quot;。&lt;/p>
-&lt;p>&lt;code>0.0.0.0&lt;/code> 才是真正表示&amp;quot;&lt;strong>本網絡中的本機&lt;/strong>&amp;quot;。&lt;/p>
-&lt;p>在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code>0.0.0.0&lt;/code>，這樣我的服務訪問方就可以通過我的&lt;strong>多個ip地址&lt;/strong>訪問我的服務。&lt;/p>
-&lt;p>比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code>0.0.0.0&lt;/code>，那麼通過內網地址或外網地址&lt;strong>都可以訪問&lt;/strong>我的應用。&lt;/p>
-&lt;p>但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code>0.0.0.0&lt;/code>，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p>
-&lt;hr></description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayne-blog.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" />&lt;style>
+&gt;&lt;/p&gt;
+&lt;p&gt;（上圖來源於《&lt;a class="link" href="https://blog.csdn.net/huaying927/article/details/87625028" target="_blank" rel="noopener"
+&gt;IP地址和子網劃分學習筆記之《IP地址詳解》&lt;/a&gt;》）&lt;/p&gt;
+&lt;h3 id="特殊ip地址"&gt;特殊IP地址&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;特殊IP地址&lt;/strong&gt;就是用來做一些特殊的事情。&lt;a class="link" href="https://datatracker.ietf.org/doc/rfc1700/" target="_blank" rel="noopener"
+&gt;RFC1700&lt;/a&gt;中定義了以下特殊IP地址：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;{0,0}&lt;/code&gt;： 網絡號和主機號都全部為0，表示&amp;quot;&lt;strong&gt;本網絡上的本主機&lt;/strong&gt;&amp;quot;，只能用作源地址。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{0，host-id}&lt;/code&gt;： 本網絡上的某台主機。只能用作源地址。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{-1,-1}&lt;/code&gt;： 表示網絡號和主機號的所有位上都是 1（二進制），用於本網絡上的廣播，只能用作目的地址，發到該地址的數據包不能轉發到源地址所在網絡之外。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{net-id,-1}&lt;/code&gt;： 直接廣播到指定的網絡上。只能用作目的地址。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{net-id,subnet-id,-1}&lt;/code&gt;： 直接廣播到指定網絡的指定子網絡上。只用作目的地址。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{net-id,-1,-1}&lt;/code&gt;： 直接廣播到指定網絡的所有子網絡上。只能用作目的地址。&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;{127,}&lt;/code&gt;： 即網絡號為 127 的任意 ip 地址。都是內部主機&lt;strong&gt;回環地址&lt;/strong&gt;(loopback)，永遠都不能出現在主機外部的網絡中。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;具體來說，特殊的IP地址，主要是以下這些：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;0.0.0.0&lt;/code&gt;：&lt;br&gt;
+嚴格說來，0.0.0.0 已經不是一個真正意義上的IP地址了。它表示的是這樣一個&lt;strong&gt;集合&lt;/strong&gt;：&lt;strong&gt;所有不清楚的主機和目的網絡&lt;/strong&gt;。這裡的&amp;quot;&lt;strong&gt;不清楚&lt;/strong&gt;&amp;ldquo;是指在本機的路由表裡沒有特定條目指明如何到達。對本機來說，它就是一個&amp;rdquo;&lt;strong&gt;收容所&lt;/strong&gt;&amp;quot;，所有不認識的&amp;quot;三無&amp;quot;人員，一律送進去。如果你在網絡設置中設置了缺省網關，那麼 Windows 系統會自動產生一個目的地址為 0.0.0.0 的缺省路由。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;255.255.255.255&lt;/code&gt;：&lt;br&gt;
+&lt;strong&gt;限制廣播地址&lt;/strong&gt;。對本機來說，這個地址指本網段內(同一廣播域)的所有主機。如果翻譯成人類的語言，應該是這樣：&amp;ldquo;這個房間裡的所有人都注意了！&amp;quot;，這個地址不能被路由器轉發。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;127.0.0.1&lt;/code&gt;：&lt;br&gt;
+&lt;strong&gt;本機地址&lt;/strong&gt;，主要用於測試。用漢語表示，就是&amp;rdquo;&lt;strong&gt;我自己&lt;/strong&gt;&amp;quot;。在 Windows 系統中，這個地址有一個別名&amp;quot;&lt;strong&gt;Localhost&lt;/strong&gt;&amp;quot;。尋址這樣一個地址，是不能把它發到網絡接口的。除非出錯，否則在傳輸介質上永遠不應該出現目的地址為 &amp;ldquo;127.0.0.1&amp;rdquo; 的數據包。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;224.0.0.1&lt;/code&gt;：&lt;br&gt;
+&lt;strong&gt;組播地址&lt;/strong&gt;，注意它和廣播的區別。從 224.0.0.0 到 239.255.255.255 都是這樣的地址。224.0.0.1 特指&lt;strong&gt;所有主機&lt;/strong&gt;，224.0.0.2 特指&lt;strong&gt;所有路由器&lt;/strong&gt;。這樣的地址多用於一些特定的程序以及多媒體程序。如果你的主機開啟了 IRDP (Internet路由發現協議，使用組播功能)功能，那麼你的主機路由表中應該有這樣一條路由。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;169.254.xx&lt;/code&gt;：&lt;br&gt;
+如果你的主機使用了 DHCP 功能自動獲得一個IP地址，那麼當你的 &lt;strong&gt;DHCP 服務器發生故障&lt;/strong&gt;，或響應時間太長而超出了一個系統規定的時間，Windows 系統會為你分配這樣一個地址。如果你發現你的主機IP地址是一個諸如此類的地址，很不幸，十有八九是你的網絡不能正常運行了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;10.xxx&lt;/code&gt;、&lt;code&gt;172.16.xx～172.31.xx&lt;/code&gt;、&lt;code&gt;192.168.xx&lt;/code&gt;：&lt;br&gt;
+&lt;strong&gt;私有地址&lt;/strong&gt;，這些地址被大量用於企業內部網絡中。一些寬帶路由器，也往往使用 192.168.1.1 作為&lt;strong&gt;缺省地址&lt;/strong&gt;。私有網絡由於不與外部互連，因而可能使用隨意的IP地址。保留這樣的地址供其使用是為了避免以後接入公網時引起地址混亂。使用私有地址的私有網絡在接入 Internet 時，要使用&lt;strong&gt;地址翻譯&lt;/strong&gt;(NAT)，將私有地址翻譯成公用合法地址。在 Internet 上，這類地址是不能出現的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;hr&gt;
+&lt;h2 id="127001-和-0000-的區別"&gt;127.0.0.1 和 0.0.0.0 的區別&lt;/h2&gt;
+&lt;h3 id="基本情況"&gt;基本情況&lt;/h3&gt;
+&lt;p&gt;通過上節基礎知識的回顧，我們回到正題：&lt;code&gt;127.0.0.1 與 0.0.0.0 地址的區別是什麼？&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;我們先來看下共同點：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;都屬於&lt;strong&gt;特殊地址&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;都屬於&lt;strong&gt;A類地址&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;都是&lt;strong&gt;IPV4&lt;/strong&gt;地址。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;接下來我們分別看下這兩個地址的具體作用，就一目了解了。&lt;/p&gt;
+&lt;h3 id="0000"&gt;0.0.0.0&lt;/h3&gt;
+&lt;h4 id="說明"&gt;說明&lt;/h4&gt;
+&lt;p&gt;IPV4中，&lt;strong&gt;0.0.0.0&lt;/strong&gt; 地址被用於表示一個&lt;strong&gt;無效的&lt;/strong&gt;、&lt;strong&gt;未知的&lt;/strong&gt;或者&lt;strong&gt;不可用的&lt;/strong&gt;目標：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;在服務器中： 0.0.0.0 指的是本機上的所有IPV4地址，如果一個主機有兩個IP地址，192.168.1.1 和 10.1.2.1，並且該主機上的一個服務監聽的地址是 0.0.0.0 ，那麼&lt;strong&gt;通過兩個ip地址都能夠訪問該服務&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;在路由中： 0.0.0.0 表示的是&lt;strong&gt;默認路由&lt;/strong&gt;，即當&lt;strong&gt;路由表中沒有找到完全匹配的路由的時候&lt;/strong&gt;所對應的路由。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id="用途總結"&gt;用途總結&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;當一台主機&lt;strong&gt;還沒有被分配&lt;/strong&gt;一個IP地址的時候，用於表示主機本身（DHCP 分配IP地址的時候）。&lt;/li&gt;
+&lt;li&gt;用作&lt;strong&gt;默認路由&lt;/strong&gt;，表示&amp;quot;&lt;strong&gt;任意IPV4主機&lt;/strong&gt;&amp;quot;。&lt;/li&gt;
+&lt;li&gt;用來表示&lt;strong&gt;目標機器不可用&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;用作服務端，表示本機上的&lt;strong&gt;任意IPV4地址&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id="127001"&gt;127.0.0.1&lt;/h3&gt;
+&lt;h4 id="說明-1"&gt;說明&lt;/h4&gt;
+&lt;p&gt;127.0.0.1 屬於 &lt;code&gt;{127,}&lt;/code&gt; 集合中的一個，而所有網絡號為 127 的地址都被稱之為&lt;strong&gt;回環地址&lt;/strong&gt;，所以&lt;strong&gt;回環地址&lt;/strong&gt;不等於 127.0.0.1，它們是&lt;code&gt;包含&lt;/code&gt;關係，即回環地址包含 127.0.0.1。&lt;/p&gt;
+&lt;h4 id="用途總結-1"&gt;用途總結&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;回環測試： 通過使用 &lt;code&gt;ping 127.0.0.1&lt;/code&gt; 測試某台機器上的網絡設備，操作系統或者 TCP/IP 實現是否工作正常。&lt;/li&gt;
+&lt;li&gt;DDos攻擊防禦： 網站收到 DDos 攻擊之後，將域名A記錄到 127.0.0.1，即讓攻擊者自己攻擊自己。&lt;/li&gt;
+&lt;li&gt;程序測試： 大部分 Web 容器測試的時候綁定的本機地址。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4 id="回環地址的定義"&gt;回環地址的定義&lt;/h4&gt;
+&lt;p&gt;所有發往該類地址的數據包都應該被 loop back。&lt;/p&gt;
+&lt;h3 id="bonus127001-與-localhost-的關係"&gt;BONUS：127.0.0.1 與 localhost 的關係&lt;/h3&gt;
+&lt;p&gt;相比 127.0.0.1，localhost 具有更多的意義。&lt;/p&gt;
+&lt;p&gt;localhost 是個&lt;strong&gt;域名&lt;/strong&gt;，而不是一個ip地址。之所以我們經常把 localhost 與 127.0.0.1 認為是同一個是因為我們使用的大多數電腦上都講 localhost &lt;strong&gt;指向&lt;/strong&gt;了 127.0.0.1 這個地址。&lt;/p&gt;
+&lt;p&gt;在 ubuntu 系統中，&lt;code&gt;/ets/hosts&lt;/code&gt; 文件中都會有如下內容：&lt;/p&gt;
+&lt;h5 id="etshosts"&gt;/ets/hosts&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;127.0.0.1 localhost
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;127.0.1.1 52im-aliyun
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;# The following lines are desirable for IPv6 capable hosts
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;::1 ip6-localhost ip6-loopback
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;fe00::0 ip6-localnet
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ff00::0 ip6-mcastprefix
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ff02::1 ip6-allnodes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ff02::2 ip6-allrouters
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;上面第一行是幾乎每台電腦上都會有的默認配置。但是 localhost 的意義並不局限於 127.0.0.1。&lt;/p&gt;
+&lt;p&gt;localhost 是一個&lt;strong&gt;域名&lt;/strong&gt;，用於指代 &lt;strong&gt;this computer&lt;/strong&gt; 或者 &lt;strong&gt;this host&lt;/strong&gt;，可以用它來獲取運行在本機上的網絡服務。&lt;/p&gt;
+&lt;p&gt;在大多數系統中，localhost 被指向了 IPV4 的 &lt;code&gt;127.0.0.1&lt;/code&gt; 和 IPV6 的&lt;code&gt;::1&lt;/code&gt;：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;127.0.0.1 localhost
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;::1 localhost
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;所以，在使用的時候要注意確認IPV4還是IPV6。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="結語"&gt;結語&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;127.0.0.1&lt;/code&gt; 是一個&lt;strong&gt;環回地址&lt;/strong&gt;，並不表示&amp;quot;&lt;strong&gt;本機&lt;/strong&gt;&amp;quot;。&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;0.0.0.0&lt;/code&gt; 才是真正表示&amp;quot;&lt;strong&gt;本網絡中的本機&lt;/strong&gt;&amp;quot;。&lt;/p&gt;
+&lt;p&gt;在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code&gt;0.0.0.0&lt;/code&gt;，這樣我的服務訪問方就可以通過我的&lt;strong&gt;多個ip地址&lt;/strong&gt;訪問我的服務。&lt;/p&gt;
+&lt;p&gt;比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code&gt;0.0.0.0&lt;/code&gt;，那麼通過內網地址或外網地址&lt;strong&gt;都可以訪問&lt;/strong&gt;我的應用。&lt;/p&gt;
+&lt;p&gt;但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code&gt;0.0.0.0&lt;/code&gt;，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p&gt;
+&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayne-blog.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -221,219 +221,218 @@ padding: 0 5px;
 .text-center {
 text-align: center !important;
 }
-&lt;/style>
-&lt;p>&lt;a class="link" href="http://www.52im.net/thread-610-1-3.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&lt;/style&gt;
+&lt;p&gt;&lt;a class="link" href="http://www.52im.net/thread-610-1-3.html" target="_blank" rel="noopener"
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="http://www.52im.net/thread-145-1-1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://zhuanlan.zhihu.com/p/45110873" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;hr>
-&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675459897_504da451b5_o.jpg"
+&gt;參考網站&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52675459897_504da451b5_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>老於網絡編程熟手來說，在測試和部署網絡通信應用（比如IM聊天、實時音視頻等）時，如果發現網絡連接超時，第一時間想到的就是使用&lt;strong>Ping&lt;/strong>命令，Ping一下服務器看看通不通。甚至在有些情況下通過圖形化的Ping命令工具對目標網絡進行長測（比如：《&lt;a class="link" href="http://www.52im.net/thread-610-1-3.html" target="_blank" rel="noopener"
->兩款增強型Ping工具：持續統計、圖形化展式網絡狀況[附件下載]&lt;/a>》、《&lt;a class="link" href="http://www.52im.net/thread-145-1-1.html" target="_blank" rel="noopener"
->網絡測試：Android版多路ping命令工具EnterprisePing[附件下載]&lt;/a>》），可以得出當前網絡通信的&lt;code>網絡延遲&lt;/code>、&lt;code>網絡丟包率&lt;/code>、&lt;code>網絡抖動&lt;/code>等等有價值信息。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676399005_8f1afb4ba8_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;老於網絡編程熟手來說，在測試和部署網絡通信應用（比如IM聊天、實時音視頻等）時，如果發現網絡連接超時，第一時間想到的就是使用&lt;strong&gt;Ping&lt;/strong&gt;命令，Ping一下服務器看看通不通。甚至在有些情況下通過圖形化的Ping命令工具對目標網絡進行長測（比如：《&lt;a class="link" href="http://www.52im.net/thread-610-1-3.html" target="_blank" rel="noopener"
+&gt;兩款增強型Ping工具：持續統計、圖形化展式網絡狀況[附件下載]&lt;/a&gt;》、《&lt;a class="link" href="http://www.52im.net/thread-145-1-1.html" target="_blank" rel="noopener"
+&gt;網絡測試：Android版多路ping命令工具EnterprisePing[附件下載]&lt;/a&gt;》），可以得出當前網絡通信的&lt;code&gt;網絡延遲&lt;/code&gt;、&lt;code&gt;網絡丟包率&lt;/code&gt;、&lt;code&gt;網絡抖動&lt;/code&gt;等等有價值信息。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676399005_8f1afb4ba8_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>Ping命令很簡單，但作為為數不多的網絡檢測工具，卻非常有用，是開發網絡應用時最常用到的命令。雖然Ping這個動作這麼簡單，但你知道Ping命令背後後的邏輯嗎？跟著本篇文章瞭解一下！&lt;/p>
-&lt;hr>
-&lt;h2 id="ping命令的作用和原理">Ping命令的作用和原理&lt;/h2>
-&lt;p>簡單來說，「&lt;strong>ping&lt;/strong>」是用來探測本機與網絡中另一主機之間是否可達的命令，如果兩台主機之間ping不通，則表明這兩台主機不能建立起連接。ping是定位網絡通不通的一個重要手段。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675459902_abcb6f9909_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;Ping命令很簡單，但作為為數不多的網絡檢測工具，卻非常有用，是開發網絡應用時最常用到的命令。雖然Ping這個動作這麼簡單，但你知道Ping命令背後後的邏輯嗎？跟著本篇文章瞭解一下！&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="ping命令的作用和原理"&gt;Ping命令的作用和原理&lt;/h2&gt;
+&lt;p&gt;簡單來說，「&lt;strong&gt;ping&lt;/strong&gt;」是用來探測本機與網絡中另一主機之間是否可達的命令，如果兩台主機之間ping不通，則表明這兩台主機不能建立起連接。ping是定位網絡通不通的一個重要手段。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52675459902_abcb6f9909_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>ping 命令是基於 &lt;strong>ICMP 協議&lt;/strong>來工作的，「&lt;strong>ICMP&lt;/strong>」全稱為Internet 控制報文協議（&lt;a class="link" href="https://tools.ietf.org/html/rfc792" target="_blank" rel="noopener"
->Internet Control Message Protocol&lt;/a>）。ping 命令會發送一份ICMP回顯請求報文給目標主機，並等待目標主機返回ICMP回顯應答。因為ICMP協議會要求目標主機在收到消息之後，必須返回ICMP應答消息給源主機，如果源主機在一定時間內收到了目標主機的應答，則表明兩台主機之間網絡是可達的。&lt;/p>
-&lt;p>&lt;strong>舉一個例子來描述「ping」命令的工作過程：&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>假設有兩個主機，主機A（192.168.0.1）和主機B（192.168.0.2），現在我們要監測主機A和主機B之間網絡&lt;strong>是否可達&lt;/strong>，那麼我們在主機A上輸入命令：&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">ping 192.168.0.2。
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="2">
-&lt;li>
-&lt;p>此時，ping 命令會在主機A上構建一個&lt;strong>ICMP&lt;/strong>的&lt;strong>請求數據包&lt;/strong>（數據包裡的內容後面再詳述），然後ICMP協議會將這個&lt;strong>數據包&lt;/strong>以及&lt;strong>目標IP&lt;/strong>（192.168.0.2）等信息一同交給IP層協議。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>IP層協議得到這些信息後，將&lt;strong>源地址&lt;/strong>（即本機IP）、&lt;strong>目標地址&lt;/strong>（即目標IP：192.168.0.2）、再加上一些其它的&lt;strong>控制信息&lt;/strong>，構建成一個&lt;strong>IP數據包&lt;/strong>。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>IP數據包構建完成後，還不夠，還需要加上&lt;code>MAC地址&lt;/code>，因此，還需要通過ARP映射表找出&lt;strong>目標IP所對應的MAC地址&lt;/strong>。當拿到了&lt;strong>目標主機的MAC地址&lt;/strong>和&lt;strong>本機MAC&lt;/strong>後，一併交給數據鏈路層，組裝成一個&lt;strong>數據幀&lt;/strong>，依據以太網的介質訪問規則，將它們傳送出出去。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>當主機B收到這個數據幀之後，會首先檢查它的&lt;strong>目標MAC地址是不是本機&lt;/strong>，如果是，就接收下來處理，接收之後會檢查這個數據幀，將數據幀中的&lt;strong>IP數據包&lt;/strong>取出來，交給本機的&lt;strong>IP層協議&lt;/strong>，然後IP層協議檢查完之後，再將&lt;strong>ICMP數據包&lt;/strong>取出來交給&lt;strong>ICMP協議&lt;/strong>處理，當這一步也處理完成之後，就會構建一個&lt;strong>ICMP應答數據包&lt;/strong>，回發給主機A。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>在一定的時間內，如果主機A收到了應答包，則說明它與主機B之間網絡可達；如果沒有收到，則說明網絡不可達。除了監測是否可達以外，還可以利用&lt;strong>應答時間&lt;/strong>和&lt;strong>發起時間&lt;/strong>之間的差值，計算出數據包的&lt;strong>延遲耗時&lt;/strong>。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>通過 ping 的流程可以發現，ICMP協議是這個過程的基礎，是非常重要的，下面的章節會把ICMP協議再詳細解釋一下，請繼續往下讀。&lt;/p>
-&lt;hr>
-&lt;h2 id="正確理解icmp協議">正確理解ICMP協議&lt;/h2>
-&lt;p>&lt;strong>Ping命令所基於的ICMP協議所處的網絡模型層級：&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969646_55ce44a2f4_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;ping 命令是基於 &lt;strong&gt;ICMP 協議&lt;/strong&gt;來工作的，「&lt;strong&gt;ICMP&lt;/strong&gt;」全稱為Internet 控制報文協議（&lt;a class="link" href="https://tools.ietf.org/html/rfc792" target="_blank" rel="noopener"
+&gt;Internet Control Message Protocol&lt;/a&gt;）。ping 命令會發送一份ICMP回顯請求報文給目標主機，並等待目標主機返回ICMP回顯應答。因為ICMP協議會要求目標主機在收到消息之後，必須返回ICMP應答消息給源主機，如果源主機在一定時間內收到了目標主機的應答，則表明兩台主機之間網絡是可達的。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;舉一個例子來描述「ping」命令的工作過程：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;假設有兩個主機，主機A（192.168.0.1）和主機B（192.168.0.2），現在我們要監測主機A和主機B之間網絡&lt;strong&gt;是否可達&lt;/strong&gt;，那麼我們在主機A上輸入命令：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ping 192.168.0.2。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start="2"&gt;
+&lt;li&gt;
+&lt;p&gt;此時，ping 命令會在主機A上構建一個&lt;strong&gt;ICMP&lt;/strong&gt;的&lt;strong&gt;請求數據包&lt;/strong&gt;（數據包裡的內容後面再詳述），然後ICMP協議會將這個&lt;strong&gt;數據包&lt;/strong&gt;以及&lt;strong&gt;目標IP&lt;/strong&gt;（192.168.0.2）等信息一同交給IP層協議。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IP層協議得到這些信息後，將&lt;strong&gt;源地址&lt;/strong&gt;（即本機IP）、&lt;strong&gt;目標地址&lt;/strong&gt;（即目標IP：192.168.0.2）、再加上一些其它的&lt;strong&gt;控制信息&lt;/strong&gt;，構建成一個&lt;strong&gt;IP數據包&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;IP數據包構建完成後，還不夠，還需要加上&lt;code&gt;MAC地址&lt;/code&gt;，因此，還需要通過ARP映射表找出&lt;strong&gt;目標IP所對應的MAC地址&lt;/strong&gt;。當拿到了&lt;strong&gt;目標主機的MAC地址&lt;/strong&gt;和&lt;strong&gt;本機MAC&lt;/strong&gt;後，一併交給數據鏈路層，組裝成一個&lt;strong&gt;數據幀&lt;/strong&gt;，依據以太網的介質訪問規則，將它們傳送出出去。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;當主機B收到這個數據幀之後，會首先檢查它的&lt;strong&gt;目標MAC地址是不是本機&lt;/strong&gt;，如果是，就接收下來處理，接收之後會檢查這個數據幀，將數據幀中的&lt;strong&gt;IP數據包&lt;/strong&gt;取出來，交給本機的&lt;strong&gt;IP層協議&lt;/strong&gt;，然後IP層協議檢查完之後，再將&lt;strong&gt;ICMP數據包&lt;/strong&gt;取出來交給&lt;strong&gt;ICMP協議&lt;/strong&gt;處理，當這一步也處理完成之後，就會構建一個&lt;strong&gt;ICMP應答數據包&lt;/strong&gt;，回發給主機A。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在一定的時間內，如果主機A收到了應答包，則說明它與主機B之間網絡可達；如果沒有收到，則說明網絡不可達。除了監測是否可達以外，還可以利用&lt;strong&gt;應答時間&lt;/strong&gt;和&lt;strong&gt;發起時間&lt;/strong&gt;之間的差值，計算出數據包的&lt;strong&gt;延遲耗時&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;通過 ping 的流程可以發現，ICMP協議是這個過程的基礎，是非常重要的，下面的章節會把ICMP協議再詳細解釋一下，請繼續往下讀。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="正確理解icmp協議"&gt;正確理解ICMP協議&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Ping命令所基於的ICMP協議所處的網絡模型層級：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52675969646_55ce44a2f4_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>（▲ 上圖來自《&lt;a class="link" href="http://www.52im.net/thread-180-1-1.html" target="_blank" rel="noopener"
->計算機網絡通訊協議關係圖（中文珍藏版）[附件下載]&lt;/a>》，您可下載此圖的完整清晰版）&lt;/p>
-&lt;p>Ping 命令這麼簡單，在任何系統上上手就能使用，很多人可能想當然的認為 Ping 命令使用的&lt;strong>ICMP協議&lt;/strong>應該是基於傳輸層的TCP或UDP協議的吧？&lt;/p>
-&lt;p>正如上圖所示，&lt;strong>ICMP協議&lt;/strong>既&lt;strong>不是基於TCP&lt;/strong>，也&lt;strong>不是基於UDP&lt;/strong>，而是&lt;code>直接基於網絡層的IP協議&lt;/code>，在整個網絡協議棧中屬於相當底層的協議了。這也從側面證明了它的重要性，因為根據ICMP的&lt;a class="link" href="https://tools.ietf.org/html/rfc792" target="_blank" rel="noopener"
->RFC手冊&lt;/a>規定：&lt;strong>ICMP協議是任何支持IP協議的系統必須實現的&lt;/strong>，沒有餘地。而IP協議是整個互聯網的基石，ICMP協議雖簡單，但重要性不言而喻。&lt;/p>
-&lt;p>所以，以後面試的時候，如果碰到&amp;quot;ICMP協議是基於什麼實現的？&amp;ldquo;這樣的問題，請一定要記往此節所講的內容。&lt;/p>
-&lt;hr>
-&lt;h2 id="深入icmp協議">深入ICMP協議&lt;/h2>
-&lt;p>我們知道，ping 命令是基於&lt;strong>ICMP協議&lt;/strong>來實現的。那麼我們再來看下圖，就明白了ICMP協議又是通過IP協議來發送的，即ICMP報文是封裝在IP包中（如下圖所示）。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969706_f406206ed8_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;（▲ 上圖來自《&lt;a class="link" href="http://www.52im.net/thread-180-1-1.html" target="_blank" rel="noopener"
+&gt;計算機網絡通訊協議關係圖（中文珍藏版）[附件下載]&lt;/a&gt;》，您可下載此圖的完整清晰版）&lt;/p&gt;
+&lt;p&gt;Ping 命令這麼簡單，在任何系統上上手就能使用，很多人可能想當然的認為 Ping 命令使用的&lt;strong&gt;ICMP協議&lt;/strong&gt;應該是基於傳輸層的TCP或UDP協議的吧？&lt;/p&gt;
+&lt;p&gt;正如上圖所示，&lt;strong&gt;ICMP協議&lt;/strong&gt;既&lt;strong&gt;不是基於TCP&lt;/strong&gt;，也&lt;strong&gt;不是基於UDP&lt;/strong&gt;，而是&lt;code&gt;直接基於網絡層的IP協議&lt;/code&gt;，在整個網絡協議棧中屬於相當底層的協議了。這也從側面證明了它的重要性，因為根據ICMP的&lt;a class="link" href="https://tools.ietf.org/html/rfc792" target="_blank" rel="noopener"
+&gt;RFC手冊&lt;/a&gt;規定：&lt;strong&gt;ICMP協議是任何支持IP協議的系統必須實現的&lt;/strong&gt;，沒有餘地。而IP協議是整個互聯網的基石，ICMP協議雖簡單，但重要性不言而喻。&lt;/p&gt;
+&lt;p&gt;所以，以後面試的時候，如果碰到&amp;quot;ICMP協議是基於什麼實現的？&amp;ldquo;這樣的問題，請一定要記往此節所講的內容。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="深入icmp協議"&gt;深入ICMP協議&lt;/h2&gt;
+&lt;p&gt;我們知道，ping 命令是基於&lt;strong&gt;ICMP協議&lt;/strong&gt;來實現的。那麼我們再來看下圖，就明白了ICMP協議又是通過IP協議來發送的，即ICMP報文是封裝在IP包中（如下圖所示）。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52675969706_f406206ed8_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>IP協議是一種無連接的，不可靠的數據包協議，它並不能保證數據一定被送達，那麼我們要保證數據送到，就需要通過其它模塊來協助實現，這裡就引入的是&lt;strong>ICMP協議&lt;/strong>。&lt;/p>
-&lt;p>當傳送的IP數據包發送異常的時候，ICMP就會將異常信息封裝在包內，然後回傳給源主機。&lt;/p>
-&lt;p>&lt;strong>將上圖再細拆一下可見：&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969701_5ca4982b3b_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;IP協議是一種無連接的，不可靠的數據包協議，它並不能保證數據一定被送達，那麼我們要保證數據送到，就需要通過其它模塊來協助實現，這裡就引入的是&lt;strong&gt;ICMP協議&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;當傳送的IP數據包發送異常的時候，ICMP就會將異常信息封裝在包內，然後回傳給源主機。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;將上圖再細拆一下可見：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52675969701_5ca4982b3b_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;strong>繼續將ICMP協議模塊細拆：&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676462808_8cfe4e9fdd_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;繼續將ICMP協議模塊細拆：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676462808_8cfe4e9fdd_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>由圖可知，&lt;code>ICMP數據包&lt;/code>由&lt;strong>8bit的類型字段&lt;/strong>和&lt;strong>8bit的代碼字段&lt;/strong>以及&lt;strong>16bit的校驗字段&lt;/strong>再加上&lt;strong>選項數據&lt;/strong>組成。&lt;/p>
-&lt;p>&lt;strong>ICMP協議大致可分為兩類：&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>查詢報文類型&lt;/li>
-&lt;li>差錯報文類型&lt;/li>
-&lt;/ol>
-&lt;table>
-&lt;thead>
-&lt;tr>
-&lt;td class="text-center">ICMP報文類型&lt;/td>
-&lt;td class="text-center">類型的值&lt;/td>
-&lt;td class="text-center">ICMP的報文類型&lt;/td>
-&lt;/tr>
-&lt;/thead>
-&lt;tbody>
-&lt;tr>
-&lt;td rowspan="5" class="text-center">差錯報文類型&lt;/td>
-&lt;td class="text-center">3&lt;/td>
-&lt;td class="text-center">終點不可達&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">4&lt;/td>
-&lt;td class="text-center">源點抑制&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">11&lt;/td>
-&lt;td class="text-center">時間超過&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">12&lt;/td>
-&lt;td class="text-center">參數問題&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">5&lt;/td>
-&lt;td class="text-center">改變路由&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td rowspan="4" class="text-center">詢問報文&lt;/td>
-&lt;td class="text-center">8&lt;/td>
-&lt;td class="text-center">回送請求&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">0&lt;/td>
-&lt;td class="text-center">回送回答&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">13&lt;/td>
-&lt;td class="text-center">時間戳請求&lt;/td>
-&lt;/tr>
-&lt;tr>
-&lt;td class="text-center">14&lt;/td>
-&lt;td class="text-center">時間戳會帶&lt;/td>
-&lt;/tr>
-&lt;/tbody>
-&lt;/table>
-&lt;ul>
-&lt;li>&lt;strong>【關於查詢報文類型】：&lt;/strong>&lt;/li>
-&lt;/ul>
-&lt;p>查詢報文主要應用於：&lt;code>ping 查詢&lt;/code>、&lt;code>子網掩碼查詢&lt;/code>、&lt;code>時間戳查詢&lt;/code>等等。&lt;/p>
-&lt;p>上面講到的 ping 命令的流程其實就對應ICMP協議查詢報文類型的一種使用。在主機A構建ICMP請求數據包的時候，其ICMP的類型字段中使用的是8 （回送請求），當主機B構建ICMP應答包的時候，其ICMP類型字段就使用的是0 （回送應答），更多類型值參考上表。&lt;/p>
-&lt;p>對查詢報文類型的理解可參考一下文章最開始講的 ping 流程，這裡就不做贅述。&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>【關於差錯報文類型】：&lt;/strong>&lt;/li>
-&lt;/ul>
-&lt;p>差錯報文主要產生於當數據傳送發送錯誤的時候。&lt;/p>
-&lt;p>它包括：&lt;code>目標不可達&lt;/code>（網絡不可達、主機不可達、協議不可達、端口不可達、禁止分片等）、&lt;code>超時&lt;/code>、&lt;code>參數問題&lt;/code>、&lt;code>重定向&lt;/code>（網絡重定向、主機重定向等）等等。&lt;/p>
-&lt;p>差錯報文通常包含了引起錯誤的IP數據包的第一個分片的IP首部，加上該分片數據部分的前8個字節。&lt;/p>
-&lt;p>當傳送IP數據包發生錯誤的時候（例如主機不可達），ICMP協議就會把錯誤信息封包，然後傳送回源主機，那麼源主機就知道該怎麼處理了。&lt;/p>
-&lt;hr>
-&lt;h2 id="icmp差錯報文的妙用">ICMP差錯報文的妙用&lt;/h2>
-&lt;p>正如上一節所介紹的那樣，ICMP協議主要有：&lt;strong>查詢報文類型&lt;/strong>和&lt;strong>差錯報文類型&lt;/strong>兩種。對於差錯報文來說，是不是只有遇到錯誤的時候才能使用呢？&lt;strong>不是&lt;/strong>！&lt;/p>
-&lt;p>基於這個特性，Linux 下的 &lt;strong>Traceroute&lt;/strong> 指令（Windows 下的對等指令是 &lt;strong>tracert&lt;/strong>）利於ICMP的差錯報文可以實現&lt;strong>遍歷到數據包傳輸路徑上的所有路由器&lt;/strong>！這真是個有用的命令！&lt;/p>
-&lt;p>&lt;strong>百度百科上關於 traceroute 命令的用途：&lt;/strong>&lt;/p>
-&lt;blockquote>
-&lt;p>traceroute (Windows 系統下是 tracert) 命令利用 ICMP 協議定位您的計算機和目標計算機之間的所有路由器。TTL 值可以反映數據包&lt;strong>經過的路由器&lt;/strong>或&lt;strong>網關的數量&lt;/strong>，通過操縱獨立 ICMP 呼叫報文的 TTL 值和觀察該報文被拋棄的返回信息，&lt;strong>traceroute 命令能夠遍歷到數據包傳輸路徑上的所有路由器&lt;/strong>。&lt;/p>
-&lt;/blockquote>
-&lt;p>ICMP 的差錯報文的使用，使得 &lt;strong>Traceroute&lt;/strong> 成為用來&lt;strong>偵測源主機到目標主機之間所經過路由情況&lt;/strong>的常用工具。&lt;strong>Traceroute&lt;/strong> 的原理就是利用ICMP的規則，製造一些錯誤的事件出來，然後根據錯誤的事件來評估網絡路由情況。&lt;/p>
-&lt;p>&lt;strong>traceroute 的基本原理如下圖所示：&lt;/strong>&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676399055_bc21725b99_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;由圖可知，&lt;code&gt;ICMP數據包&lt;/code&gt;由&lt;strong&gt;8bit的類型字段&lt;/strong&gt;和&lt;strong&gt;8bit的代碼字段&lt;/strong&gt;以及&lt;strong&gt;16bit的校驗字段&lt;/strong&gt;再加上&lt;strong&gt;選項數據&lt;/strong&gt;組成。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;ICMP協議大致可分為兩類：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;查詢報文類型&lt;/li&gt;
+&lt;li&gt;差錯報文類型&lt;/li&gt;
+&lt;/ol&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;ICMP報文類型&lt;/td&gt;
+&lt;td class="text-center"&gt;類型的值&lt;/td&gt;
+&lt;td class="text-center"&gt;ICMP的報文類型&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td rowspan="5" class="text-center"&gt;差錯報文類型&lt;/td&gt;
+&lt;td class="text-center"&gt;3&lt;/td&gt;
+&lt;td class="text-center"&gt;終點不可達&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;4&lt;/td&gt;
+&lt;td class="text-center"&gt;源點抑制&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;11&lt;/td&gt;
+&lt;td class="text-center"&gt;時間超過&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;12&lt;/td&gt;
+&lt;td class="text-center"&gt;參數問題&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;5&lt;/td&gt;
+&lt;td class="text-center"&gt;改變路由&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td rowspan="4" class="text-center"&gt;詢問報文&lt;/td&gt;
+&lt;td class="text-center"&gt;8&lt;/td&gt;
+&lt;td class="text-center"&gt;回送請求&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;0&lt;/td&gt;
+&lt;td class="text-center"&gt;回送回答&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;13&lt;/td&gt;
+&lt;td class="text-center"&gt;時間戳請求&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class="text-center"&gt;14&lt;/td&gt;
+&lt;td class="text-center"&gt;時間戳會帶&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;【關於查詢報文類型】：&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;查詢報文主要應用於：&lt;code&gt;ping 查詢&lt;/code&gt;、&lt;code&gt;子網掩碼查詢&lt;/code&gt;、&lt;code&gt;時間戳查詢&lt;/code&gt;等等。&lt;/p&gt;
+&lt;p&gt;上面講到的 ping 命令的流程其實就對應ICMP協議查詢報文類型的一種使用。在主機A構建ICMP請求數據包的時候，其ICMP的類型字段中使用的是8 （回送請求），當主機B構建ICMP應答包的時候，其ICMP類型字段就使用的是0 （回送應答），更多類型值參考上表。&lt;/p&gt;
+&lt;p&gt;對查詢報文類型的理解可參考一下文章最開始講的 ping 流程，這裡就不做贅述。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;【關於差錯報文類型】：&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;差錯報文主要產生於當數據傳送發送錯誤的時候。&lt;/p&gt;
+&lt;p&gt;它包括：&lt;code&gt;目標不可達&lt;/code&gt;（網絡不可達、主機不可達、協議不可達、端口不可達、禁止分片等）、&lt;code&gt;超時&lt;/code&gt;、&lt;code&gt;參數問題&lt;/code&gt;、&lt;code&gt;重定向&lt;/code&gt;（網絡重定向、主機重定向等）等等。&lt;/p&gt;
+&lt;p&gt;差錯報文通常包含了引起錯誤的IP數據包的第一個分片的IP首部，加上該分片數據部分的前8個字節。&lt;/p&gt;
+&lt;p&gt;當傳送IP數據包發生錯誤的時候（例如主機不可達），ICMP協議就會把錯誤信息封包，然後傳送回源主機，那麼源主機就知道該怎麼處理了。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="icmp差錯報文的妙用"&gt;ICMP差錯報文的妙用&lt;/h2&gt;
+&lt;p&gt;正如上一節所介紹的那樣，ICMP協議主要有：&lt;strong&gt;查詢報文類型&lt;/strong&gt;和&lt;strong&gt;差錯報文類型&lt;/strong&gt;兩種。對於差錯報文來說，是不是只有遇到錯誤的時候才能使用呢？&lt;strong&gt;不是&lt;/strong&gt;！&lt;/p&gt;
+&lt;p&gt;基於這個特性，Linux 下的 &lt;strong&gt;Traceroute&lt;/strong&gt; 指令（Windows 下的對等指令是 &lt;strong&gt;tracert&lt;/strong&gt;）利於ICMP的差錯報文可以實現&lt;strong&gt;遍歷到數據包傳輸路徑上的所有路由器&lt;/strong&gt;！這真是個有用的命令！&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;百度百科上關於 traceroute 命令的用途：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;traceroute (Windows 系統下是 tracert) 命令利用 ICMP 協議定位您的計算機和目標計算機之間的所有路由器。TTL 值可以反映數據包&lt;strong&gt;經過的路由器&lt;/strong&gt;或&lt;strong&gt;網關的數量&lt;/strong&gt;，通過操縱獨立 ICMP 呼叫報文的 TTL 值和觀察該報文被拋棄的返回信息，&lt;strong&gt;traceroute 命令能夠遍歷到數據包傳輸路徑上的所有路由器&lt;/strong&gt;。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;ICMP 的差錯報文的使用，使得 &lt;strong&gt;Traceroute&lt;/strong&gt; 成為用來&lt;strong&gt;偵測源主機到目標主機之間所經過路由情況&lt;/strong&gt;的常用工具。&lt;strong&gt;Traceroute&lt;/strong&gt; 的原理就是利用ICMP的規則，製造一些錯誤的事件出來，然後根據錯誤的事件來評估網絡路由情況。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;traceroute 的基本原理如下圖所示：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676399055_bc21725b99_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52675969651_8fcea78cf5_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52675969651_8fcea78cf5_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;strong>具體做法就是：&lt;/strong>&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>&lt;strong>Traceroute&lt;/strong> 會設置特殊的 TTL 值，來追踪源主機和目標主機之間的路由數。首先它給目標主機發送一個 TTL=1 的UDP數據包，那麼這個數據包一旦在路上遇到一個路由器，TTL 就變成了 0（TTL規則是每經過一個路由器都會減1），因為 TTL=0 了，所以路由器就會把這個數據包丟掉，然後產生一個錯誤類型（超時）的ICMP數據包回發給源主機，也就是差錯包。這個時候源主機就拿到了第一個路由節點的IP和相關信息了。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>接著，源主機再給目標主機發一個 TTL=2 的UDP數據包，依舊上述流程走一遍，就知道第二個路由節點的IP和耗時情況等信息了。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>如此反復進行，&lt;strong>Traceroute&lt;/strong> 就可以拿到從主機A到主機B之間所有路由器的信息了。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>但是有個問題是，如果數據包到達了目標主機的話，即使目標主機接收到 TTL 值為 1 的IP數據包，它也是不會丟棄該數據包的，也不會產生一份超時的ICMP回發數據包的，因為數據包已經達到了目的地嘛。那我們應該怎麼認定數據包是否達到了目標主機呢？&lt;/p>
-&lt;p>&lt;strong>Traceroute&lt;/strong> 的方法是在源主機發送UDP數據包給目標主機的時候，會設置一個&lt;strong>不可能達到的目標端口號&lt;/strong>（例如大於30000的端口號），那麼當這個數據包真的到達目標主機的時候，目標主機發現沒有對應的端口號，因此會產生一份&lt;code>端口不可達&lt;/code>的錯誤ICMP報文返回給源主機。&lt;/p>
-&lt;p>可見 &lt;strong>Traceroute&lt;/strong> 的原理確實很取巧，很有趣。如您對 &lt;strong>Traceroute&lt;/strong> 感興趣，可以深入讀一讀《&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004762" target="_blank" rel="noopener"
->從 Traceroute 看網絡問題&lt;/a>》一文。&lt;/p>
-&lt;hr></description></item><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" />&lt;style>
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;具體做法就是：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Traceroute&lt;/strong&gt; 會設置特殊的 TTL 值，來追踪源主機和目標主機之間的路由數。首先它給目標主機發送一個 TTL=1 的UDP數據包，那麼這個數據包一旦在路上遇到一個路由器，TTL 就變成了 0（TTL規則是每經過一個路由器都會減1），因為 TTL=0 了，所以路由器就會把這個數據包丟掉，然後產生一個錯誤類型（超時）的ICMP數據包回發給源主機，也就是差錯包。這個時候源主機就拿到了第一個路由節點的IP和相關信息了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接著，源主機再給目標主機發一個 TTL=2 的UDP數據包，依舊上述流程走一遍，就知道第二個路由節點的IP和耗時情況等信息了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;如此反復進行，&lt;strong&gt;Traceroute&lt;/strong&gt; 就可以拿到從主機A到主機B之間所有路由器的信息了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;但是有個問題是，如果數據包到達了目標主機的話，即使目標主機接收到 TTL 值為 1 的IP數據包，它也是不會丟棄該數據包的，也不會產生一份超時的ICMP回發數據包的，因為數據包已經達到了目的地嘛。那我們應該怎麼認定數據包是否達到了目標主機呢？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Traceroute&lt;/strong&gt; 的方法是在源主機發送UDP數據包給目標主機的時候，會設置一個&lt;strong&gt;不可能達到的目標端口號&lt;/strong&gt;（例如大於30000的端口號），那麼當這個數據包真的到達目標主機的時候，目標主機發現沒有對應的端口號，因此會產生一份&lt;code&gt;端口不可達&lt;/code&gt;的錯誤ICMP報文返回給源主機。&lt;/p&gt;
+&lt;p&gt;可見 &lt;strong&gt;Traceroute&lt;/strong&gt; 的原理確實很取巧，很有趣。如您對 &lt;strong&gt;Traceroute&lt;/strong&gt; 感興趣，可以深入讀一讀《&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004762" target="_blank" rel="noopener"
+&gt;從 Traceroute 看網絡問題&lt;/a&gt;》一文。&lt;/p&gt;
+&lt;hr&gt;</description></item><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -446,548 +445,540 @@ padding: 0 5px;
 .text-center {
 text-align: center !important;
 }
-&lt;/style>
-&lt;p>&lt;a class="link" href="http://www.52im.net/thread-1729-1-1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&lt;/style&gt;
+&lt;p&gt;&lt;a class="link" href="http://www.52im.net/thread-1729-1-1.html" target="_blank" rel="noopener"
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="http://www.52im.net/thread-258-1-1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="http://www.52im.net/thread-275-1-1.html" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://segmentfault.com/a/1190000039165592" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;hr>
-&lt;h2 id="前言">前言&lt;/h2>
-&lt;p>在面試中，計算機網絡的 TCP 三次握手和四次揮手是很常見的問題，但是在實際面試中，面試官會更願意聽到怎樣的回答呢？詳細程度是怎樣的？&lt;/p>
-&lt;p>越簡單常見的問題越不可小覷，萬丈高樓平地起，把簡單的問題深入化，才更能拉開與競爭者的距離。掌握了本文講的全部知識點，關於 TCP 三次握手和四次揮手基本就OK 了😊&lt;/p>
-&lt;hr>
-&lt;h2 id="tcp-與-udp">TCP 與 UDP&lt;/h2>
-&lt;p>講解 TCP 三次握手和四次握手之前，我們先了解一下 TCP 和 UDP 這兩個重量級的傳輸層協議。&lt;/p>
-&lt;ul>
-&lt;li>
-&lt;p>💦 用戶數據報協議 &lt;strong>UDP&lt;/strong>（User Datagram Protocol）：&lt;/p>
-&lt;ul>
-&lt;li>UDP 在傳送數據之前不需要先建立連接，遠程主機在收到 UDP 報文後，不需要給出任何確認。&lt;/li>
-&lt;li>雖然 UDP &lt;strong>不提供可靠交付&lt;/strong>，但在某些情況下 UDP 確是一種最有效的工作方式（一般用於&lt;strong>即時通信&lt;/strong>、&lt;strong>直播串流&lt;/strong>），比如：QQ 語音、QQ 視頻、直播等等。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;li>
-&lt;p>💦 傳輸控制協議 &lt;strong>TCP&lt;/strong>（Transmission Control Protocol）：&lt;/p>
-&lt;ul>
-&lt;li>TCP 提供面向連接的服務。在傳送數據之前必須先建立連接，數據傳送結束後要釋放連接。&lt;/li>
-&lt;li>TCP 不提供廣播或多播服務。由於 TCP 要提供&lt;strong>可靠&lt;/strong>的，面向連接的傳輸服務（TCP 的可靠，體現在 TCP 在傳遞數據之前，會有&lt;strong>三次握手&lt;/strong>來建立連接，而且在數據傳遞時，有確認、窗口、重傳、流量控制、擁塞控制機制，在數據傳完後，還會&lt;strong>四次揮手&lt;/strong>斷開連接用來節約系統資源），這不僅使協議數據單元的首部增大很多，還要佔用許多處理機資源。&lt;/li>
-&lt;li>TCP 一般用於&lt;strong>文件傳輸&lt;/strong>、&lt;strong>發送和接收郵件&lt;/strong>、&lt;strong>遠程登錄&lt;/strong>等場景。&lt;/li>
-&lt;/ul>
-&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="tcp-報文段首部格式">TCP 報文段首部格式&lt;/h2>
-&lt;p>TCP 報文段的具體格式大家可以不必都記住，但是其中的幾個控制位與我們接下來要講的三次握手和四次揮手息息相關，大家一定要牢記。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676335786_d3e84c672f_o.png"
+&gt;參考網站&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;在面試中，計算機網絡的 TCP 三次握手和四次揮手是很常見的問題，但是在實際面試中，面試官會更願意聽到怎樣的回答呢？詳細程度是怎樣的？&lt;/p&gt;
+&lt;p&gt;越簡單常見的問題越不可小覷，萬丈高樓平地起，把簡單的問題深入化，才更能拉開與競爭者的距離。掌握了本文講的全部知識點，關於 TCP 三次握手和四次揮手基本就OK 了😊&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="tcp-與-udp"&gt;TCP 與 UDP&lt;/h2&gt;
+&lt;p&gt;講解 TCP 三次握手和四次握手之前，我們先了解一下 TCP 和 UDP 這兩個重量級的傳輸層協議。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;💦 用戶數據報協議 &lt;strong&gt;UDP&lt;/strong&gt;（User Datagram Protocol）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;UDP 在傳送數據之前不需要先建立連接，遠程主機在收到 UDP 報文後，不需要給出任何確認。&lt;/li&gt;
+&lt;li&gt;雖然 UDP &lt;strong&gt;不提供可靠交付&lt;/strong&gt;，但在某些情況下 UDP 確是一種最有效的工作方式（一般用於&lt;strong&gt;即時通信&lt;/strong&gt;、&lt;strong&gt;直播串流&lt;/strong&gt;），比如：QQ 語音、QQ 視頻、直播等等。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;💦 傳輸控制協議 &lt;strong&gt;TCP&lt;/strong&gt;（Transmission Control Protocol）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;TCP 提供面向連接的服務。在傳送數據之前必須先建立連接，數據傳送結束後要釋放連接。&lt;/li&gt;
+&lt;li&gt;TCP 不提供廣播或多播服務。由於 TCP 要提供&lt;strong&gt;可靠&lt;/strong&gt;的，面向連接的傳輸服務（TCP 的可靠，體現在 TCP 在傳遞數據之前，會有&lt;strong&gt;三次握手&lt;/strong&gt;來建立連接，而且在數據傳遞時，有確認、窗口、重傳、流量控制、擁塞控制機制，在數據傳完後，還會&lt;strong&gt;四次揮手&lt;/strong&gt;斷開連接用來節約系統資源），這不僅使協議數據單元的首部增大很多，還要佔用許多處理機資源。&lt;/li&gt;
+&lt;li&gt;TCP 一般用於&lt;strong&gt;文件傳輸&lt;/strong&gt;、&lt;strong&gt;發送和接收郵件&lt;/strong&gt;、&lt;strong&gt;遠程登錄&lt;/strong&gt;等場景。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="tcp-報文段首部格式"&gt;TCP 報文段首部格式&lt;/h2&gt;
+&lt;p&gt;TCP 報文段的具體格式大家可以不必都記住，但是其中的幾個控制位與我們接下來要講的三次握手和四次揮手息息相關，大家一定要牢記。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676335786_d3e84c672f_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>首部固定部分各字段意義如下：&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>源端口和目的端口&lt;/strong>： 各佔 2 個字節，分別寫入源端口和目的端口。&lt;code>IP 地址&lt;/code> + &lt;code>端口號&lt;/code>就可以確定一個進程地址。&lt;/li>
-&lt;li>&lt;strong>序號/序列號&lt;/strong>（Sequense Number，SN）： 在一個TCP 連接中傳送的字節流中的每一個字節都按順序編號。該字段表示本報文段所發送的數據的第一個字節的序號。&lt;strong>初始序號稱為Init Sequense Number&lt;/strong>，&lt;strong>ISN&lt;/strong>（序號/序列號這個字段很重要，大家留個印象，下文會詳細講解）&lt;br>
-例如，一報文段的序號是 101，共有 100 字節的數據。這就表明：本報文段的數據的第一個字節的序號是 101，最後一個字節的序號是 200。顯然，下一個報文段的數據序號應當從 201 開始，即下一個報文段的序號字段值應為 201。&lt;/li>
-&lt;li>&lt;strong>確認號 ack&lt;/strong>： 期望收到對方下一個報文段的第一個數據字節的序號。若確認號為 N，則表明：到序號 N-1 為止的所有數據都已正確收到。&lt;/li>
-&lt;li>&lt;strong>數據偏移&lt;/strong>（首部長度）： 它指出 TCP 報文段的數據起始處距離 TCP 報文段的起始處有多遠。這個字段實際上是指出 TCP 報文段的首部長度。&lt;/li>
-&lt;li>&lt;strong>保留&lt;/strong>： 佔 6 位，應置為 0，保留為今後使用。&lt;/li>
-&lt;/ol>
-&lt;p>⭐ 大家看上圖，保留位的右邊還有 6 個控制位（重要），這是 TCP 用來說明該報文段性質的：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>緊急位URG&lt;/strong>： 當 URG = 1 時，表明此報文段中有緊急數據，是高優先級的數據，應盡快發送，不用在緩存中排隊。該控制位需配合緊急指針使用（緊急指針指出本報文段中緊急數據的字節數）&lt;br>
-舉個例子：我們需要取消一個已經發送了很長程序的運行，因此用戶從鍵盤發出中斷命令。如果不使用緊急數據，那麼這個指令將存儲在接收 TCP 的緩存末尾，只有在所有的數據被處理完畢後這兩個字符才被交付接收方的應用進程，這樣做就無法實現立即中斷。&lt;/li>
-&lt;li>&lt;strong>確認ACK&lt;/strong>： 僅當 ACK = 1 時確認號字段才有效，當 ACK = 0 時確認號無效。TCP 規定，在連接建立後所有傳送的報文段都必須把 ACK 置為 1。&lt;/li>
-&lt;li>&lt;strong>推送PSH&lt;/strong>： 當兩個應用進程進行交互式的通信時，有時在一端的應用進程希望在鍵入一個命令後立即就能收到對方的響應。在這種情況下，TCP 就可以使用推送（push）操作。這時，發送方 TCP 把 PSH 置為 1，並立即創建一個報文段發送出去。接收方 TCP 收到 PSH = 1 的報文段，就盡快地交付接收應用進程。而不用等到整個緩存都填滿了後再向上交付。&lt;/li>
-&lt;li>&lt;strong>復位RST&lt;/strong>： 當 RST = 1 時，表明TCP 連接中出現了嚴重錯誤（如由於主機崩潰或其他原因），必須釋放連接，然後再重新建立傳輸連接。&lt;/li>
-&lt;li>&lt;strong>同步SYN&lt;/strong>： SYN = 1 表示這是一個連接請求或連接接受報文。&lt;br>
-當 SYN = 1 而 ACK = 0 時，表明這是一個連接請求報文段。對方若同意建立連接，則應在響應的報文段中使 SYN = 1 且 ACK = 1。&lt;/li>
-&lt;li>&lt;strong>終止FIN&lt;/strong>： 用來釋放一個連接。當 FIN = 1 時，表明此報文段的發送發的數據已發送完畢，並要求釋放運輸連接。&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="tcp-三次握手建立連接">TCP 三次握手建立連接&lt;/h2>
-&lt;h3 id="三次握手過程詳解">三次握手過程詳解&lt;/h3>
-&lt;p>三次握手的原文是 &lt;code>three-way handshake&lt;/code>，整個名詞的可以翻譯為：&lt;strong>需要三個步驟才能建立握手/連接的機制&lt;/strong>。當然，三次握手也可以叫 &lt;code>three-message handshake&lt;/code>，通過三條消息來建立的握手/連接。&lt;/p>
-&lt;p>進行三次握手的主要作用就是為了確認雙方的接收能力和發送能力是否正常、指定自己的 &lt;strong>初始化序列號 (Init Sequense Number，&lt;/strong>&lt;code>ISN&lt;/code> &lt;strong>)&lt;/strong> 為後面的可靠性傳輸做準備。&lt;/p>
-&lt;p>三次握手過程如下圖：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676335796_725180a8d9_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;首部固定部分各字段意義如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;源端口和目的端口&lt;/strong&gt;： 各佔 2 個字節，分別寫入源端口和目的端口。&lt;code&gt;IP 地址&lt;/code&gt; + &lt;code&gt;端口號&lt;/code&gt;就可以確定一個進程地址。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;序號/序列號&lt;/strong&gt;（Sequense Number，SN）： 在一個TCP 連接中傳送的字節流中的每一個字節都按順序編號。該字段表示本報文段所發送的數據的第一個字節的序號。&lt;strong&gt;初始序號稱為Init Sequense Number&lt;/strong&gt;，&lt;strong&gt;ISN&lt;/strong&gt;（序號/序列號這個字段很重要，大家留個印象，下文會詳細講解）&lt;br&gt;
+例如，一報文段的序號是 101，共有 100 字節的數據。這就表明：本報文段的數據的第一個字節的序號是 101，最後一個字節的序號是 200。顯然，下一個報文段的數據序號應當從 201 開始，即下一個報文段的序號字段值應為 201。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;確認號 ack&lt;/strong&gt;： 期望收到對方下一個報文段的第一個數據字節的序號。若確認號為 N，則表明：到序號 N-1 為止的所有數據都已正確收到。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;數據偏移&lt;/strong&gt;（首部長度）： 它指出 TCP 報文段的數據起始處距離 TCP 報文段的起始處有多遠。這個字段實際上是指出 TCP 報文段的首部長度。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;保留&lt;/strong&gt;： 佔 6 位，應置為 0，保留為今後使用。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;⭐ 大家看上圖，保留位的右邊還有 6 個控制位（重要），這是 TCP 用來說明該報文段性質的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;緊急位URG&lt;/strong&gt;： 當 URG = 1 時，表明此報文段中有緊急數據，是高優先級的數據，應盡快發送，不用在緩存中排隊。該控制位需配合緊急指針使用（緊急指針指出本報文段中緊急數據的字節數）&lt;br&gt;
+舉個例子：我們需要取消一個已經發送了很長程序的運行，因此用戶從鍵盤發出中斷命令。如果不使用緊急數據，那麼這個指令將存儲在接收 TCP 的緩存末尾，只有在所有的數據被處理完畢後這兩個字符才被交付接收方的應用進程，這樣做就無法實現立即中斷。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;確認ACK&lt;/strong&gt;： 僅當 ACK = 1 時確認號字段才有效，當 ACK = 0 時確認號無效。TCP 規定，在連接建立後所有傳送的報文段都必須把 ACK 置為 1。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;推送PSH&lt;/strong&gt;： 當兩個應用進程進行交互式的通信時，有時在一端的應用進程希望在鍵入一個命令後立即就能收到對方的響應。在這種情況下，TCP 就可以使用推送（push）操作。這時，發送方 TCP 把 PSH 置為 1，並立即創建一個報文段發送出去。接收方 TCP 收到 PSH = 1 的報文段，就盡快地交付接收應用進程。而不用等到整個緩存都填滿了後再向上交付。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;復位RST&lt;/strong&gt;： 當 RST = 1 時，表明TCP 連接中出現了嚴重錯誤（如由於主機崩潰或其他原因），必須釋放連接，然後再重新建立傳輸連接。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;同步SYN&lt;/strong&gt;： SYN = 1 表示這是一個連接請求或連接接受報文。&lt;br&gt;
+當 SYN = 1 而 ACK = 0 時，表明這是一個連接請求報文段。對方若同意建立連接，則應在響應的報文段中使 SYN = 1 且 ACK = 1。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;終止FIN&lt;/strong&gt;： 用來釋放一個連接。當 FIN = 1 時，表明此報文段的發送發的數據已發送完畢，並要求釋放運輸連接。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="tcp-三次握手建立連接"&gt;TCP 三次握手建立連接&lt;/h2&gt;
+&lt;h3 id="三次握手過程詳解"&gt;三次握手過程詳解&lt;/h3&gt;
+&lt;p&gt;三次握手的原文是 &lt;code&gt;three-way handshake&lt;/code&gt;，整個名詞的可以翻譯為：&lt;strong&gt;需要三個步驟才能建立握手/連接的機制&lt;/strong&gt;。當然，三次握手也可以叫 &lt;code&gt;three-message handshake&lt;/code&gt;，通過三條消息來建立的握手/連接。&lt;/p&gt;
+&lt;p&gt;進行三次握手的主要作用就是為了確認雙方的接收能力和發送能力是否正常、指定自己的 &lt;strong&gt;初始化序列號 (Init Sequense Number，&lt;/strong&gt;&lt;code&gt;ISN&lt;/code&gt; &lt;strong&gt;)&lt;/strong&gt; 為後面的可靠性傳輸做準備。&lt;/p&gt;
+&lt;p&gt;三次握手過程如下圖：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676335796_725180a8d9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>回顧一下圖中字符的含義：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>SYN&lt;/strong>： 連接請求/接收報文段&lt;/li>
-&lt;li>&lt;strong>seq&lt;/strong>： 發送的第一個字節的序號&lt;/li>
-&lt;li>&lt;strong>ACK&lt;/strong>： 確認報文段&lt;/li>
-&lt;li>&lt;strong>ack&lt;/strong>： 確認號。希望收到的下一個數據的第一個字節的序號&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>剛開始客戶端處於&lt;/strong> &lt;code>Closed&lt;/code> &lt;strong>的狀態，而服務端處於&lt;/strong> &lt;code>Listen&lt;/code> &lt;strong>狀態：&lt;/strong>&lt;/p>
-&lt;p>&lt;code>CLOSED&lt;/code>： 沒有任何連接狀態&lt;br>
-&lt;code>LISTEN&lt;/code>： 偵聽來自遠方 TCP 端口的連接請求&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>第一次握手&lt;/strong>： 客戶端向服務端發送一個 SYN 報文（SYN = 1），並指明客戶端的初始化序列號 ISN(x)，即圖中的 seq = x，表示本報文段所發送的數據的第一個字節的序號。此時客戶端處於 &lt;code>SYN_Send&lt;/code> 狀態。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>&lt;strong>SYN-SENT&lt;/strong>： 在發送連接請求後等待匹配的連接請求&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>&lt;strong>第二次握手&lt;/strong>： 服務器收到客戶端的 SYN 報文之後，會發送 SYN 報文作為應答（SYN = 1），並且指定自己的初始化序列號 ISN(y)，即圖中的 seq = y。同時會把客戶端的 ISN + 1 作為確認號 ack 的值，表示已經收到了客戶端發來的的 SYN 報文，希望收到的下一個數據的第一個字節的序號是 x + 1，此時服務器處於 &lt;code>SYN_REVD&lt;/code> 的狀態。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>&lt;strong>SYN-RECEIVED&lt;/strong>： 在收到和發送一個連接請求後等待對連接請求的確認&lt;/p>
-&lt;/blockquote>
-&lt;ol start="3">
-&lt;li>&lt;strong>第三次握手&lt;/strong>： 客戶端收到服務器端響應的 SYN 報文之後，會發送一個 ACK 報文，也是一樣把服務器的 ISN + 1 作為ack 的值，表示已經收到了服務端發來的的 SYN 報文，希望收到的下一個數據的第一個字節的序號是 y + 1，並指明此時客戶端的序列號 seq = x + 1（初始為 seq = x，所以第二個報文段要 +1），此時客戶端處於 &lt;code>Establised&lt;/code> 狀態。&lt;/li>
-&lt;/ol>
-&lt;p>服務器收到ACK 報文之後，也處於 &lt;code>Establised 狀態&lt;/code>，至此，雙方建立起了 TCP 連接。&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>ESTABLISHED&lt;/strong>： 代表一個打開的連接，數據可以傳送給用戶&lt;/p>
-&lt;/blockquote>
-&lt;h3 id="為什麼要三次握手">為什麼要三次握手&lt;/h3>
-&lt;p>三次握手的目的是建立可靠的通信信道，說到通訊，簡單來說就是數據的發送與接收，而三次握手最主要的目的就是&lt;strong>雙方確認自己與對方的發送與接收是正常的&lt;/strong>。&lt;/p>
-&lt;p>只有經過三次握手才能確認雙發的收發功能都正常，缺一不可：&lt;/p>
-&lt;ul>
-&lt;li>第一次握手（客戶端發送SYN 報文給服務器，服務器接收該報文）：&lt;br>
-客戶端什麼都不能確認；服務器確認了對方發送正常，自己接收正常。&lt;/li>
-&lt;li>第二次握手（服務器響應SYN 報文給客戶端，客戶端接收該報文）：&lt;br>
-客戶端確認了：自己發送、接收正常，對方發送、接收正常；&lt;br>
-服務器確認了：對方發送正常，自己接收正常。&lt;/li>
-&lt;li>第三次握手（客戶端發送ACK 報文給服務器）：&lt;br>
-客戶端確認了：自己發送、接收正常，對方發送、接收正常；&lt;br>
-服務器確認了：自己發送、接收正常，對方發送、接收正常。&lt;/li>
-&lt;/ul>
-&lt;h3 id="isn-initial-sequence-number-是固定的嗎">ISN (Initial Sequence Number) 是固定的嗎？&lt;/h3>
-&lt;p>&lt;strong>三次握手的其中一個重要功能是客戶端和服務端交換 ISN(Initial Sequence Number)，以便讓對方知道接下來接收數據的時候如何按序列號組裝數據。&lt;/strong>&lt;/p>
-&lt;p>當一端為建立連接而發送它的 SYN 時，它會為連接選擇一個初始序號。ISN 隨時間而變化，因此每個連接都將具有不同的 ISN。&lt;strong>如果 ISN 是固定的，攻擊者很容易猜出後續的確認號，因此 ISN 是動態生成的。&lt;/strong>&lt;/p>
-&lt;h3 id="三次握手過程中可以攜帶數據嗎">三次握手過程中可以攜帶數據嗎？&lt;/h3>
-&lt;p>第三次握手的時候，是可以攜帶數據的。但是，&lt;strong>第一次、第二次握手絕對不可以攜帶數據&lt;/strong>。&lt;/p>
-&lt;p>假如第一次握手可以攜帶數據的話，如果有人要惡意攻擊服務器，那他每次都在第一次握手中的 SYN 報文中放入大量的數據，然後瘋狂重複發 SYN 報文的話（因為攻擊者根本就不用管服務器的接收、發送能力是否正常，它就是要攻擊你），這會讓服務器花費很多時間、內存空間來接收這些報文。&lt;/p>
-&lt;p>⭐ &lt;strong>簡單的記憶就是，請求連接/接收即&lt;/strong> &lt;code>SYN = 1&lt;/code> &lt;strong>的時候不能攜帶數據&lt;/strong>&lt;/p>
-&lt;p>而對於第三次的話，此時客戶端已經處於 &lt;code>ESTABLISHED&lt;/code> 狀態。對於客戶端來說，他已經建立起連接了，並且也已經知道服務器的接收、發送能力是正常的了，所以當然能正常發送/攜帶數據了。&lt;/p>
-&lt;h3 id="半連接隊列">半連接隊列&lt;/h3>
-&lt;p>服務器第一次收到客戶端的 SYN 之後，就會處於 &lt;code>SYN_RCVD&lt;/code> 狀態，此時雙方還沒有完全建立其連接，服務器會把這種狀態下的請求連接放在一個隊列裡，我們把這種隊列稱之為&lt;strong>半連接隊列&lt;/strong>。&lt;/p>
-&lt;p>當然還有一個&lt;strong>全連接隊列&lt;/strong>，完成三次握手後建立起的連接就會放在全連接隊列中。如果隊列滿了就有可能會出現丟包現象。&lt;/p>
-&lt;h3 id="syn-洪氾攻擊">SYN 洪氾攻擊&lt;/h3>
-&lt;p>SYN 攻擊就是 &lt;strong>Client 在短時間內偽造大量不存在的 IP 地址，並向 Server 不斷地發送 SYN 包&lt;/strong>，Server 則回覆確認包，並等待 Client 確認，由於源地址不存在，因此 Server 需要不斷重發直至超時，這些偽造的 SYN 包將長時間佔用半連接隊列，導致正常的 SYN 請求因為隊列滿而被丟棄，從而引起網絡擁塞甚至系統癱瘓。&lt;/p>
-&lt;h3 id="如果第三次握手丟失了客戶端服務端會如何處理">如果第三次握手丟失了，客戶端服務端會如何處理？&lt;/h3>
-&lt;p>服務器發送完 SYN-ACK 包，如果未收到客戶端響應的確認包，也即第三次握手丟失。那麼服務器就會進行首次重傳，若等待一段時間仍未收到客戶確認包，就進行第二次重傳。如果重傳次數超過系統規定的最大重傳次數，則係統將該連接信息從半連接隊列中刪除。&lt;/p>
-&lt;p>注意，每次重傳等待的時間不一定相同，一般會是指數增長，例如間隔時間為 1s、2s、4s、8s&amp;hellip;&lt;/p>
-&lt;hr>
-&lt;h2 id="tcp-四次揮手釋放連接">TCP 四次揮手釋放連接&lt;/h2>
-&lt;h3 id="四次揮手過程詳解">四次揮手過程詳解&lt;/h3>
-&lt;p>建立一個 TCP 連接需要三次握手，而終止一個 TCP 連接要經過四次揮手（也有將四次揮手叫做四次握手的）。這是由於 TCP 的&lt;strong>半關閉&lt;/strong>（half-close）特性造成的，TCP 提供了連接的一端在結束它的發送後還能接收來自另一端數據的能力。&lt;/p>
-&lt;p>TCP 連接的釋放需要發送四個包（執行四個步驟），因此稱為&lt;strong>四次揮手&lt;/strong>(&lt;code>Four-way handshake&lt;/code>)，&lt;strong>客戶端或服務端均可主動發起揮手動作&lt;/strong>。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52676617649_2711bbb224_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;回顧一下圖中字符的含義：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;SYN&lt;/strong&gt;： 連接請求/接收報文段&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;seq&lt;/strong&gt;： 發送的第一個字節的序號&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ACK&lt;/strong&gt;： 確認報文段&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ack&lt;/strong&gt;： 確認號。希望收到的下一個數據的第一個字節的序號&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;剛開始客戶端處於&lt;/strong&gt; &lt;code&gt;Closed&lt;/code&gt; &lt;strong&gt;的狀態，而服務端處於&lt;/strong&gt; &lt;code&gt;Listen&lt;/code&gt; &lt;strong&gt;狀態：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;CLOSED&lt;/code&gt;： 沒有任何連接狀態&lt;br&gt;
+&lt;code&gt;LISTEN&lt;/code&gt;： 偵聽來自遠方 TCP 端口的連接請求&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;第一次握手&lt;/strong&gt;： 客戶端向服務端發送一個 SYN 報文（SYN = 1），並指明客戶端的初始化序列號 ISN(x)，即圖中的 seq = x，表示本報文段所發送的數據的第一個字節的序號。此時客戶端處於 &lt;code&gt;SYN_Send&lt;/code&gt; 狀態。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;SYN-SENT&lt;/strong&gt;： 在發送連接請求後等待匹配的連接請求&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;第二次握手&lt;/strong&gt;： 服務器收到客戶端的 SYN 報文之後，會發送 SYN 報文作為應答（SYN = 1），並且指定自己的初始化序列號 ISN(y)，即圖中的 seq = y。同時會把客戶端的 ISN + 1 作為確認號 ack 的值，表示已經收到了客戶端發來的的 SYN 報文，希望收到的下一個數據的第一個字節的序號是 x + 1，此時服務器處於 &lt;code&gt;SYN_REVD&lt;/code&gt; 的狀態。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;SYN-RECEIVED&lt;/strong&gt;： 在收到和發送一個連接請求後等待對連接請求的確認&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;strong&gt;第三次握手&lt;/strong&gt;： 客戶端收到服務器端響應的 SYN 報文之後，會發送一個 ACK 報文，也是一樣把服務器的 ISN + 1 作為ack 的值，表示已經收到了服務端發來的的 SYN 報文，希望收到的下一個數據的第一個字節的序號是 y + 1，並指明此時客戶端的序列號 seq = x + 1（初始為 seq = x，所以第二個報文段要 +1），此時客戶端處於 &lt;code&gt;Establised&lt;/code&gt; 狀態。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;服務器收到ACK 報文之後，也處於 &lt;code&gt;Establised 狀態&lt;/code&gt;，至此，雙方建立起了 TCP 連接。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;ESTABLISHED&lt;/strong&gt;： 代表一個打開的連接，數據可以傳送給用戶&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id="為什麼要三次握手"&gt;為什麼要三次握手&lt;/h3&gt;
+&lt;p&gt;三次握手的目的是建立可靠的通信信道，說到通訊，簡單來說就是數據的發送與接收，而三次握手最主要的目的就是&lt;strong&gt;雙方確認自己與對方的發送與接收是正常的&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;只有經過三次握手才能確認雙發的收發功能都正常，缺一不可：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一次握手（客戶端發送SYN 報文給服務器，服務器接收該報文）：&lt;br&gt;
+客戶端什麼都不能確認；服務器確認了對方發送正常，自己接收正常。&lt;/li&gt;
+&lt;li&gt;第二次握手（服務器響應SYN 報文給客戶端，客戶端接收該報文）：&lt;br&gt;
+客戶端確認了：自己發送、接收正常，對方發送、接收正常；&lt;br&gt;
+服務器確認了：對方發送正常，自己接收正常。&lt;/li&gt;
+&lt;li&gt;第三次握手（客戶端發送ACK 報文給服務器）：&lt;br&gt;
+客戶端確認了：自己發送、接收正常，對方發送、接收正常；&lt;br&gt;
+服務器確認了：自己發送、接收正常，對方發送、接收正常。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="isn-initial-sequence-number-是固定的嗎"&gt;ISN (Initial Sequence Number) 是固定的嗎？&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;三次握手的其中一個重要功能是客戶端和服務端交換 ISN(Initial Sequence Number)，以便讓對方知道接下來接收數據的時候如何按序列號組裝數據。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;當一端為建立連接而發送它的 SYN 時，它會為連接選擇一個初始序號。ISN 隨時間而變化，因此每個連接都將具有不同的 ISN。&lt;strong&gt;如果 ISN 是固定的，攻擊者很容易猜出後續的確認號，因此 ISN 是動態生成的。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="三次握手過程中可以攜帶數據嗎"&gt;三次握手過程中可以攜帶數據嗎？&lt;/h3&gt;
+&lt;p&gt;第三次握手的時候，是可以攜帶數據的。但是，&lt;strong&gt;第一次、第二次握手絕對不可以攜帶數據&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;假如第一次握手可以攜帶數據的話，如果有人要惡意攻擊服務器，那他每次都在第一次握手中的 SYN 報文中放入大量的數據，然後瘋狂重複發 SYN 報文的話（因為攻擊者根本就不用管服務器的接收、發送能力是否正常，它就是要攻擊你），這會讓服務器花費很多時間、內存空間來接收這些報文。&lt;/p&gt;
+&lt;p&gt;⭐ &lt;strong&gt;簡單的記憶就是，請求連接/接收即&lt;/strong&gt; &lt;code&gt;SYN = 1&lt;/code&gt; &lt;strong&gt;的時候不能攜帶數據&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;而對於第三次的話，此時客戶端已經處於 &lt;code&gt;ESTABLISHED&lt;/code&gt; 狀態。對於客戶端來說，他已經建立起連接了，並且也已經知道服務器的接收、發送能力是正常的了，所以當然能正常發送/攜帶數據了。&lt;/p&gt;
+&lt;h3 id="半連接隊列"&gt;半連接隊列&lt;/h3&gt;
+&lt;p&gt;服務器第一次收到客戶端的 SYN 之後，就會處於 &lt;code&gt;SYN_RCVD&lt;/code&gt; 狀態，此時雙方還沒有完全建立其連接，服務器會把這種狀態下的請求連接放在一個隊列裡，我們把這種隊列稱之為&lt;strong&gt;半連接隊列&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;當然還有一個&lt;strong&gt;全連接隊列&lt;/strong&gt;，完成三次握手後建立起的連接就會放在全連接隊列中。如果隊列滿了就有可能會出現丟包現象。&lt;/p&gt;
+&lt;h3 id="syn-洪氾攻擊"&gt;SYN 洪氾攻擊&lt;/h3&gt;
+&lt;p&gt;SYN 攻擊就是 &lt;strong&gt;Client 在短時間內偽造大量不存在的 IP 地址，並向 Server 不斷地發送 SYN 包&lt;/strong&gt;，Server 則回覆確認包，並等待 Client 確認，由於源地址不存在，因此 Server 需要不斷重發直至超時，這些偽造的 SYN 包將長時間佔用半連接隊列，導致正常的 SYN 請求因為隊列滿而被丟棄，從而引起網絡擁塞甚至系統癱瘓。&lt;/p&gt;
+&lt;h3 id="如果第三次握手丟失了客戶端服務端會如何處理"&gt;如果第三次握手丟失了，客戶端服務端會如何處理？&lt;/h3&gt;
+&lt;p&gt;服務器發送完 SYN-ACK 包，如果未收到客戶端響應的確認包，也即第三次握手丟失。那麼服務器就會進行首次重傳，若等待一段時間仍未收到客戶確認包，就進行第二次重傳。如果重傳次數超過系統規定的最大重傳次數，則係統將該連接信息從半連接隊列中刪除。&lt;/p&gt;
+&lt;p&gt;注意，每次重傳等待的時間不一定相同，一般會是指數增長，例如間隔時間為 1s、2s、4s、8s&amp;hellip;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="tcp-四次揮手釋放連接"&gt;TCP 四次揮手釋放連接&lt;/h2&gt;
+&lt;h3 id="四次揮手過程詳解"&gt;四次揮手過程詳解&lt;/h3&gt;
+&lt;p&gt;建立一個 TCP 連接需要三次握手，而終止一個 TCP 連接要經過四次揮手（也有將四次揮手叫做四次握手的）。這是由於 TCP 的&lt;strong&gt;半關閉&lt;/strong&gt;（half-close）特性造成的，TCP 提供了連接的一端在結束它的發送後還能接收來自另一端數據的能力。&lt;/p&gt;
+&lt;p&gt;TCP 連接的釋放需要發送四個包（執行四個步驟），因此稱為&lt;strong&gt;四次揮手&lt;/strong&gt;(&lt;code&gt;Four-way handshake&lt;/code&gt;)，&lt;strong&gt;客戶端或服務端均可主動發起揮手動作&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52676617649_2711bbb224_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>回顧一下上圖中符號的意思：&lt;/p>
-&lt;ul>
-&lt;li>&lt;strong>FIN&lt;/strong>： 連接終止位&lt;/li>
-&lt;li>&lt;strong>seq&lt;/strong>： 發送的第一個字節的序號&lt;/li>
-&lt;li>&lt;strong>ACK&lt;/strong>： 確認報文段&lt;/li>
-&lt;li>&lt;strong>ack&lt;/strong>： 確認號。希望收到的下一個數據的第一個字節的序號&lt;/li>
-&lt;/ul>
-&lt;p>剛開始雙方都處於 &lt;code>ESTABLISHED&lt;/code> 狀態，假設是客戶端先發起關閉請求。四次揮手的過程如下：&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>第一次揮手&lt;/strong>： 客戶端發送一個 FIN 報文（請求連接終止：FIN = 1），報文中會指定一個序列號 seq = u。並&lt;strong>停止再發送數據，主動關閉 TCP 連接&lt;/strong>。此時客戶端處於 &lt;code>FIN_WAIT1&lt;/code> 狀態，等待服務端的確認。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>&lt;strong>FIN-WAIT-1&lt;/strong>： 等待遠程 TCP 的連接中斷請求，或先前的連接中斷請求的確認&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>&lt;strong>第二次揮手&lt;/strong>： 服務端收到 FIN 之後，會發送 ACK 報文，且把客戶端的序號值 +1 作為 ACK 報文的序列號值，表明已經收到客戶端的報文了，此時服務端處於 &lt;code>CLOSE_WAIT&lt;/code> 狀態。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>&lt;strong>CLOSE-WAIT&lt;/strong>： 等待從本地用戶發來的連接中斷請求&lt;/p>
-&lt;/blockquote>
-&lt;p>&lt;strong>此時的 TCP 處於半關閉狀態，客戶端到服務端的連接釋放&lt;/strong>。客戶端收到服務端的確認後，進入 &lt;code>FIN_WAIT2&lt;/code>（終止等待2）狀態，等待服務端發出的連接釋放報文段。&lt;/p>
-&lt;blockquote>
-&lt;p>&lt;strong>FIN-WAIT-2&lt;/strong>： 從遠程TCP等待連接中斷請求&lt;/p>
-&lt;/blockquote>
-&lt;ol start="3">
-&lt;li>&lt;strong>第三次揮手&lt;/strong>： 如果服務端也想斷開連接了（沒有要向客戶端發出的數據），和客戶端的第一次揮手一樣，發送 FIN 報文，且指定一個序列號。此時服務端處於 &lt;code>LAST_ACK&lt;/code> 的狀態，等待客戶端的確認。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>&lt;strong>LAST-ACK&lt;/strong>： 等待原來發向遠程TCP的連接中斷請求的確認&lt;/p>
-&lt;/blockquote>
-&lt;ol start="4">
-&lt;li>&lt;strong>第四次揮手&lt;/strong>： 客戶端收到 FIN 之後，一樣發送一個 ACK 報文作為應答（ack = w+1），且把服務端的序列值 +1 作為自己 ACK 報文的序號值（seq=u+1），此時客戶端處於 &lt;code>TIME_WAIT&lt;/code>（時間等待）狀態。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>&lt;strong>TIME-WAIT&lt;/strong>： 等待足夠的時間以確保遠程TCP接收到連接中斷請求的確認&lt;/p>
-&lt;/blockquote>
-&lt;p>🚨 注意！這個時候由服務端到客戶端的 TCP 連接並未釋放掉，&lt;strong>需要經過時間等待計時器設置的時間 2MSL（一個報文的來回時間） 後才會進入&lt;/strong> &lt;code>CLOSED&lt;/code> &lt;strong>狀態&lt;/strong>（這樣做的目的是確保服務端收到自己的 ACK 報文。如果服務端在規定時間內沒有收到客戶端發來的 ACK 報文的話，服務端會重新發送 FIN 報文給客戶端，客戶端再次收到 FIN 報文之後，就知道之前的 ACK 報文丟失了，然後再次發送 ACK 報文給服務端）。服務端收到 ACK 報文之後，就關閉連接了，處於 &lt;code>CLOSED&lt;/code> 狀態。&lt;/p>
-&lt;h3 id="為什麼要四次揮手">為什麼要四次揮手&lt;/h3>
-&lt;p>由於 TCP 的&lt;strong>半關閉&lt;/strong>（half-close）特性，TCP 提供了連接的一端在結束它的發送後還能接收來自另一端數據的能力。&lt;/p>
-&lt;p>任何一方都可以在數據傳送結束後發出連接釋放的通知，待對方確認後進入&lt;strong>半關閉狀態&lt;/strong>。當另一方也沒有數據再發送的時候，則發出連接釋放通知，對方確認後就&lt;strong>完全關閉&lt;/strong>了 TCP 連接。&lt;/p>
-&lt;p>&lt;strong>通俗的來說，兩次握手就可以釋放一端到另一端的 TCP 連接，完全釋放連接一共需要四次握手。&lt;/strong>&lt;/p>
-&lt;p>舉個例子： A 和 B 打電話，通話即將結束後，A 說&amp;quot;&lt;strong>我沒啥要說的了&lt;/strong>&amp;quot;，B 回答&amp;quot;&lt;strong>我知道了&lt;/strong>&amp;quot;，於是 A 向 B 的連接釋放了。但是 B 可能還會有要說的話，於是 B 可能又巴拉巴拉說了一通，最後 B 說&amp;quot;&lt;strong>我說完了&lt;/strong>&amp;quot;，A 回答&amp;quot;&lt;strong>知道了&lt;/strong>&amp;quot;，於是 B 向 A 的連接釋放了，這樣整個通話就結束了。&lt;/p>
-&lt;hr></description></item><item><title>網路管理技術應用實務班筆記</title><link>https://wayne-blog.com/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" />&lt;style>
+&gt;&lt;/p&gt;
+&lt;p&gt;回顧一下上圖中符號的意思：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;FIN&lt;/strong&gt;： 連接終止位&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;seq&lt;/strong&gt;： 發送的第一個字節的序號&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ACK&lt;/strong&gt;： 確認報文段&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ack&lt;/strong&gt;： 確認號。希望收到的下一個數據的第一個字節的序號&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;剛開始雙方都處於 &lt;code&gt;ESTABLISHED&lt;/code&gt; 狀態，假設是客戶端先發起關閉請求。四次揮手的過程如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;第一次揮手&lt;/strong&gt;： 客戶端發送一個 FIN 報文（請求連接終止：FIN = 1），報文中會指定一個序列號 seq = u。並&lt;strong&gt;停止再發送數據，主動關閉 TCP 連接&lt;/strong&gt;。此時客戶端處於 &lt;code&gt;FIN_WAIT1&lt;/code&gt; 狀態，等待服務端的確認。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;FIN-WAIT-1&lt;/strong&gt;： 等待遠程 TCP 的連接中斷請求，或先前的連接中斷請求的確認&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;第二次揮手&lt;/strong&gt;： 服務端收到 FIN 之後，會發送 ACK 報文，且把客戶端的序號值 +1 作為 ACK 報文的序列號值，表明已經收到客戶端的報文了，此時服務端處於 &lt;code&gt;CLOSE_WAIT&lt;/code&gt; 狀態。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;CLOSE-WAIT&lt;/strong&gt;： 等待從本地用戶發來的連接中斷請求&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;strong&gt;此時的 TCP 處於半關閉狀態，客戶端到服務端的連接釋放&lt;/strong&gt;。客戶端收到服務端的確認後，進入 &lt;code&gt;FIN_WAIT2&lt;/code&gt;（終止等待2）狀態，等待服務端發出的連接釋放報文段。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;FIN-WAIT-2&lt;/strong&gt;： 從遠程TCP等待連接中斷請求&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;strong&gt;第三次揮手&lt;/strong&gt;： 如果服務端也想斷開連接了（沒有要向客戶端發出的數據），和客戶端的第一次揮手一樣，發送 FIN 報文，且指定一個序列號。此時服務端處於 &lt;code&gt;LAST_ACK&lt;/code&gt; 的狀態，等待客戶端的確認。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;LAST-ACK&lt;/strong&gt;： 等待原來發向遠程TCP的連接中斷請求的確認&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;&lt;strong&gt;第四次揮手&lt;/strong&gt;： 客戶端收到 FIN 之後，一樣發送一個 ACK 報文作為應答（ack = w+1），且把服務端的序列值 +1 作為自己 ACK 報文的序號值（seq=u+1），此時客戶端處於 &lt;code&gt;TIME_WAIT&lt;/code&gt;（時間等待）狀態。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;TIME-WAIT&lt;/strong&gt;： 等待足夠的時間以確保遠程TCP接收到連接中斷請求的確認&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;🚨 注意！這個時候由服務端到客戶端的 TCP 連接並未釋放掉，&lt;strong&gt;需要經過時間等待計時器設置的時間 2MSL（一個報文的來回時間） 後才會進入&lt;/strong&gt; &lt;code&gt;CLOSED&lt;/code&gt; &lt;strong&gt;狀態&lt;/strong&gt;（這樣做的目的是確保服務端收到自己的 ACK 報文。如果服務端在規定時間內沒有收到客戶端發來的 ACK 報文的話，服務端會重新發送 FIN 報文給客戶端，客戶端再次收到 FIN 報文之後，就知道之前的 ACK 報文丟失了，然後再次發送 ACK 報文給服務端）。服務端收到 ACK 報文之後，就關閉連接了，處於 &lt;code&gt;CLOSED&lt;/code&gt; 狀態。&lt;/p&gt;
+&lt;h3 id="為什麼要四次揮手"&gt;為什麼要四次揮手&lt;/h3&gt;
+&lt;p&gt;由於 TCP 的&lt;strong&gt;半關閉&lt;/strong&gt;（half-close）特性，TCP 提供了連接的一端在結束它的發送後還能接收來自另一端數據的能力。&lt;/p&gt;
+&lt;p&gt;任何一方都可以在數據傳送結束後發出連接釋放的通知，待對方確認後進入&lt;strong&gt;半關閉狀態&lt;/strong&gt;。當另一方也沒有數據再發送的時候，則發出連接釋放通知，對方確認後就&lt;strong&gt;完全關閉&lt;/strong&gt;了 TCP 連接。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;通俗的來說，兩次握手就可以釋放一端到另一端的 TCP 連接，完全釋放連接一共需要四次握手。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;舉個例子： A 和 B 打電話，通話即將結束後，A 說&amp;quot;&lt;strong&gt;我沒啥要說的了&lt;/strong&gt;&amp;quot;，B 回答&amp;quot;&lt;strong&gt;我知道了&lt;/strong&gt;&amp;quot;，於是 A 向 B 的連接釋放了。但是 B 可能還會有要說的話，於是 B 可能又巴拉巴拉說了一通，最後 B 說&amp;quot;&lt;strong&gt;我說完了&lt;/strong&gt;&amp;quot;，A 回答&amp;quot;&lt;strong&gt;知道了&lt;/strong&gt;&amp;quot;，於是 B 向 A 的連接釋放了，這樣整個通話就結束了。&lt;/p&gt;
+&lt;hr&gt;</description></item><item><title>網路管理技術應用實務班筆記</title><link>https://wayne-blog.com/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
 padding: 0 5px;
 }
-&lt;/style>
-&lt;h6 id="指導教師黃威誌">指導教師：&lt;code>黃威誌&lt;/code>&lt;/h6>
-&lt;hr>
-&lt;h2 id="使用軟體">使用軟體&lt;/h2>
-&lt;h3 id="cisco-packet-tracer">Cisco Packet Tracer&lt;/h3>
-&lt;ul>
-&lt;li>Cisco官方網路模擬器&lt;/li>
-&lt;/ul>
-&lt;p>&lt;a class="link" href="https://actionpc.pixnet.net/blog/post/119258428" target="_blank" rel="noopener"
->CPT下載教學&lt;/a>&lt;/p>
-&lt;h3 id="wireshark360">wireshark(3.6.0)&lt;/h3>
-&lt;ul>
-&lt;li>封包擷取工具&lt;/li>
-&lt;/ul>
-&lt;p>&lt;a class="link" href="https://www.wireshark.org/download.html" target="_blank" rel="noopener"
->下載wireshark&lt;/a>&lt;/p>
-&lt;h3 id="vmware">Vmware&lt;/h3>
-&lt;ul>
-&lt;li>虛擬機軟體&lt;/li>
-&lt;/ul>
-&lt;p>&lt;a class="link" href="https://www.vmware.com/go/getplayer-win" target="_blank" rel="noopener"
->下載Vmware&lt;/a>&lt;/p>
-&lt;hr>
-&lt;h2 id="指令筆記">指令筆記&lt;/h2>
-&lt;h3 id="ping">ping&lt;/h3>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 常用來測試的ip&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 中華電信DNS&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 168.95.1.1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### Google&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ping 8.8.8.8
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o">[&lt;/span>IP&lt;span class="o">]&lt;/span>: &lt;span class="nv">位元組&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">32&lt;/span> &lt;span class="nv">時間&lt;/span>&lt;span class="o">=&lt;/span>7ms &lt;span class="nv">TTL&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="m">245&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">時間: 若連續超過100ms，代表網路有問題
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">TTL: Time to live
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="ipconfig">ipconfig&lt;/h3>
-&lt;ul>
-&lt;li>查詢電腦網卡設定&lt;/li>
-&lt;li>ipconfig(Windows) / ifconfig(Linux/UNIX)&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 基本使用&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 更詳細版本&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /all
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 查詢參數&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /?
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 釋放IP位址&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /release &lt;span class="c1"># IPv4&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /release6 &lt;span class="c1"># IPv6&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 重新取得IP位址 (會造成瞬間斷線)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /renew &lt;span class="c1"># IPv4&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /renew6 &lt;span class="c1"># IPv6&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 清除DNS快取&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ipconfig /flushdns
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="tracert">tracert&lt;/h3>
-&lt;ul>
-&lt;li>追蹤連線出去的節點&lt;/li>
-&lt;li>最多30個節點&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">tracert 168.95.1.1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 也可輸入網址&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">tracert www.pchome.com.tw
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="nslookup">nslookup&lt;/h3>
-&lt;ul>
-&lt;li>判斷DNS名稱解析伺服器是否正常&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">nslookup 168.95.1.1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 也可輸入網址&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">nslookup www.pchome.com.tw
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;h3 id="netstat">netstat&lt;/h3>
-&lt;ul>
-&lt;li>查詢電腦連線服務的狀態&lt;/li>
-&lt;li>使用port：7&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">netstat
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 列出目前所有的網路狀態(包含IPv6)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">netstat -an
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="cisco-packet-tracer-1">Cisco Packet Tracer&lt;/h2>
-&lt;h3 id="設定router">設定Router&lt;/h3>
-&lt;p>範例使用的設備&lt;/p>
-&lt;ul>
-&lt;li>Routers: &lt;code>1841 router&lt;/code>&lt;/li>
-&lt;li>Connections: &lt;code>RS 232&lt;/code>&lt;/li>
-&lt;li>Devices: &lt;code>PC&lt;/code>&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 進入router&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router&amp;gt; &lt;span class="nb">enable&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router#
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 進入privey config&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router# configure terminal
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 設定 hostname (範例設定為&amp;#34;ISP_1&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Router&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># hostname ISP_1&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 設定網卡介面 (範例設定為&amp;#34;fastEthernet 0/0&amp;#34;)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># interface fastEthernet 0/0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1"># &lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 設定IP&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1"># ip address 192.168.0.5 255.255.255.0&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1">#&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">### 離開並查看IP設定&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config-if&lt;span class="o">)&lt;/span>&lt;span class="c1"># exit&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1&lt;span class="o">(&lt;/span>config&lt;span class="o">)&lt;/span>&lt;span class="c1"># exit&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1#
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ISP_1# show running-config
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Building configuration...
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">Current configuration : &lt;span class="m">575&lt;/span> bytes
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">version 12.4
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no service timestamps log datetime msec
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no service timestamps debug datetime msec
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no service password-encryption
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">hostname ISP_1
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">ip cef
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">no ipv6 cef
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">!
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> --More--
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="wireshark">Wireshark&lt;/h2>
-&lt;hr>
-&lt;h2 id="防火牆概念">防火牆概念&lt;/h2>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52351628073_ee20e935c3_o.png"
+&lt;/style&gt;
+&lt;h6 id="指導教師黃威誌"&gt;指導教師：&lt;code&gt;黃威誌&lt;/code&gt;&lt;/h6&gt;
+&lt;hr&gt;
+&lt;h2 id="使用軟體"&gt;使用軟體&lt;/h2&gt;
+&lt;h3 id="cisco-packet-tracer"&gt;Cisco Packet Tracer&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Cisco官方網路模擬器&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="https://actionpc.pixnet.net/blog/post/119258428" target="_blank" rel="noopener"
+&gt;CPT下載教學&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="wireshark360"&gt;wireshark(3.6.0)&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;封包擷取工具&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.wireshark.org/download.html" target="_blank" rel="noopener"
+&gt;下載wireshark&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="vmware"&gt;Vmware&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;虛擬機軟體&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.vmware.com/go/getplayer-win" target="_blank" rel="noopener"
+&gt;下載Vmware&lt;/a&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="指令筆記"&gt;指令筆記&lt;/h2&gt;
+&lt;h3 id="ping"&gt;ping&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 常用來測試的ip&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 中華電信DNS&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ping 168.95.1.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### Google&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ping 8.8.8.8
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o"&gt;[&lt;/span&gt;IP&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="nv"&gt;位元組&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;32&lt;/span&gt; &lt;span class="nv"&gt;時間&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;7ms &lt;span class="nv"&gt;TTL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;245&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o"&gt;[&lt;/span&gt;IP&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="nv"&gt;位元組&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;32&lt;/span&gt; &lt;span class="nv"&gt;時間&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;7ms &lt;span class="nv"&gt;TTL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;245&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o"&gt;[&lt;/span&gt;IP&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="nv"&gt;位元組&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;32&lt;/span&gt; &lt;span class="nv"&gt;時間&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;7ms &lt;span class="nv"&gt;TTL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;245&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;gt;&amp;gt;&amp;gt; 回覆自 &lt;span class="o"&gt;[&lt;/span&gt;IP&lt;span class="o"&gt;]&lt;/span&gt;: &lt;span class="nv"&gt;位元組&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;32&lt;/span&gt; &lt;span class="nv"&gt;時間&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;7ms &lt;span class="nv"&gt;TTL&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="m"&gt;245&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;時間: 若連續超過100ms，代表網路有問題
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;TTL: Time to live
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="ipconfig"&gt;ipconfig&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;查詢電腦網卡設定&lt;/li&gt;
+&lt;li&gt;ipconfig(Windows) / ifconfig(Linux/UNIX)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 基本使用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 更詳細版本&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /all
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 查詢參數&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /?
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 釋放IP位址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /release &lt;span class="c1"&gt;# IPv4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /release6 &lt;span class="c1"&gt;# IPv6&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 重新取得IP位址 (會造成瞬間斷線)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /renew &lt;span class="c1"&gt;# IPv4&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /renew6 &lt;span class="c1"&gt;# IPv6&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 清除DNS快取&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ipconfig /flushdns
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="tracert"&gt;tracert&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;追蹤連線出去的節點&lt;/li&gt;
+&lt;li&gt;最多30個節點&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;tracert 168.95.1.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 也可輸入網址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;tracert www.pchome.com.tw
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="nslookup"&gt;nslookup&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;判斷DNS名稱解析伺服器是否正常&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;nslookup 168.95.1.1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 也可輸入網址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;nslookup www.pchome.com.tw
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h3 id="netstat"&gt;netstat&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;查詢電腦連線服務的狀態&lt;/li&gt;
+&lt;li&gt;使用port：7&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;netstat
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 列出目前所有的網路狀態(包含IPv6)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;netstat -an
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="cisco-packet-tracer-1"&gt;Cisco Packet Tracer&lt;/h2&gt;
+&lt;h3 id="設定router"&gt;設定Router&lt;/h3&gt;
+&lt;p&gt;範例使用的設備&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Routers: &lt;code&gt;1841 router&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Connections: &lt;code&gt;RS 232&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Devices: &lt;code&gt;PC&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-shell" data-lang="shell"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 進入router&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Router&amp;gt; &lt;span class="nb"&gt;enable&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Router#
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 進入privey config&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Router# configure terminal
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Router&lt;span class="o"&gt;(&lt;/span&gt;config&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 設定 hostname (範例設定為&amp;#34;ISP_1&amp;#34;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Router&lt;span class="o"&gt;(&lt;/span&gt;config&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# hostname ISP_1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 設定網卡介面 (範例設定為&amp;#34;fastEthernet 0/0&amp;#34;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1&lt;span class="o"&gt;(&lt;/span&gt;config&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# interface fastEthernet 0/0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1&lt;span class="o"&gt;(&lt;/span&gt;config-if&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 設定IP&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1&lt;span class="o"&gt;(&lt;/span&gt;config-if&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# ip address 192.168.0.5 255.255.255.0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1&lt;span class="o"&gt;(&lt;/span&gt;config-if&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;#&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;### 離開並查看IP設定&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1&lt;span class="o"&gt;(&lt;/span&gt;config-if&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1&lt;span class="o"&gt;(&lt;/span&gt;config&lt;span class="o"&gt;)&lt;/span&gt;&lt;span class="c1"&gt;# exit&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1#
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ISP_1# show running-config
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Building configuration...
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;Current configuration : &lt;span class="m"&gt;575&lt;/span&gt; bytes
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;version 12.4
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;no service timestamps log datetime msec
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;no service timestamps debug datetime msec
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;no service password-encryption
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;hostname ISP_1
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;ip cef
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;no ipv6 cef
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;!
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; --More--
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="wireshark"&gt;Wireshark&lt;/h2&gt;
+&lt;hr&gt;
+&lt;h2 id="防火牆概念"&gt;防火牆概念&lt;/h2&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52351628073_ee20e935c3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr>
-&lt;h2 id="ftp">FTP&lt;/h2>
-&lt;ul>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>使用port：21(命令傳輸)、20(檔案傳輸)&lt;/li>
-&lt;li>近期已較不常使用，因安全性問題&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="sshsecure-shell">SSH(secure shell)&lt;/h2>
-&lt;ul>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>用於登入系統、傳輸指令&lt;/li>
-&lt;li>加密傳輸&lt;/li>
-&lt;li>使用port：22&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="telnet">telnet&lt;/h2>
-&lt;ul>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>用於文字命令&lt;/li>
-&lt;li>無加密&lt;/li>
-&lt;li>使用port：23&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="smtpsimple-mail-transfer-protocal">SMTP(simple mail transfer protocal)&lt;/h2>
-&lt;ul>
-&lt;li>使用DNS Server的MX Record&lt;/li>
-&lt;li>用於寄出mail&lt;/li>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>使用port：25&lt;/li>
-&lt;li>對寄件者身分不做驗證，只會驗證收件者&lt;/li>
-&lt;li>現今已較少使用，通常已改使用網頁式的mail，較於安全且減省資源&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="pop3">POP3&lt;/h2>
-&lt;ul>
-&lt;li>用來接收mail、遠端管理郵件，可以單純下載，伺服器端不需刪除&lt;/li>
-&lt;li>採用不加密通訊&lt;/li>
-&lt;li>新版(POP3S)採取加密通訊&lt;/li>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>使用port：110&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="whois">WHOIS&lt;/h2>
-&lt;ul>
-&lt;li>用於查詢網際網路中網域名稱IP與所有者的資訊&lt;/li>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>使用port：43&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="dnsdomain-name-system">DNS(domain name system)&lt;/h2>
-&lt;ul>
-&lt;li>用於網域名稱與IP的對應查詢&lt;/li>
-&lt;li>同時使用TCP/UDP通訊協定&lt;/li>
-&lt;li>使用port：53&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="httphypertext-transfer-protocol">HTTP(hypertext transfer protocol)&lt;/h2>
-&lt;ul>
-&lt;li>網頁的發布和接收&lt;/li>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>使用port：80 (8080為替代port)&lt;/li>
-&lt;/ul>
-&lt;hr>
-&lt;h2 id="imap">IMAP&lt;/h2>
-&lt;ul>
-&lt;li>用於線上和離線狀態的瀏覽模式&lt;/li>
-&lt;li>使用TCP通訊協定&lt;/li>
-&lt;li>使用port：143 (8080為替代port)&lt;/li>
-&lt;/ul>
-&lt;hr></description></item></channel></rss>
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="ftp"&gt;FTP&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：21(命令傳輸)、20(檔案傳輸)&lt;/li&gt;
+&lt;li&gt;近期已較不常使用，因安全性問題&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="sshsecure-shell"&gt;SSH(secure shell)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;用於登入系統、傳輸指令&lt;/li&gt;
+&lt;li&gt;加密傳輸&lt;/li&gt;
+&lt;li&gt;使用port：22&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="telnet"&gt;telnet&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;用於文字命令&lt;/li&gt;
+&lt;li&gt;無加密&lt;/li&gt;
+&lt;li&gt;使用port：23&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="smtpsimple-mail-transfer-protocal"&gt;SMTP(simple mail transfer protocal)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;使用DNS Server的MX Record&lt;/li&gt;
+&lt;li&gt;用於寄出mail&lt;/li&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：25&lt;/li&gt;
+&lt;li&gt;對寄件者身分不做驗證，只會驗證收件者&lt;/li&gt;
+&lt;li&gt;現今已較少使用，通常已改使用網頁式的mail，較於安全且減省資源&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="pop3"&gt;POP3&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;用來接收mail、遠端管理郵件，可以單純下載，伺服器端不需刪除&lt;/li&gt;
+&lt;li&gt;採用不加密通訊&lt;/li&gt;
+&lt;li&gt;新版(POP3S)採取加密通訊&lt;/li&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：110&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="whois"&gt;WHOIS&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;用於查詢網際網路中網域名稱IP與所有者的資訊&lt;/li&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：43&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="dnsdomain-name-system"&gt;DNS(domain name system)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;用於網域名稱與IP的對應查詢&lt;/li&gt;
+&lt;li&gt;同時使用TCP/UDP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：53&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="httphypertext-transfer-protocol"&gt;HTTP(hypertext transfer protocol)&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;網頁的發布和接收&lt;/li&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：80 (8080為替代port)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h2 id="imap"&gt;IMAP&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;用於線上和離線狀態的瀏覽模式&lt;/li&gt;
+&lt;li&gt;使用TCP通訊協定&lt;/li&gt;
+&lt;li&gt;使用port：143 (8080為替代port)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;</description></item></channel></rss>

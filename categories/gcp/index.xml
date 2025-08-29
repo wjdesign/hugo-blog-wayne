@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Google Cloud Platform on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/gcp/</link><description>Recent content in Google Cloud Platform on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 07 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/gcp/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能</title><link>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52674631510_d9525c3729_o.png" alt="Featured image of post ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能" />&lt;style>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Google Cloud Platform on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/gcp/</link><description>Recent content in Google Cloud Platform on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 07 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/gcp/index.xml" rel="self" type="application/rss+xml"/><item><title>ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能</title><link>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52674631510_d9525c3729_o.png" alt="Featured image of post ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -8,685 +8,676 @@ background: #f1e2e2;
 color: #d62c2c;
 padding: 0 5px;
 }
-&lt;/style>
-&lt;p>&lt;a class="link" href="https://www.google.com/recaptcha/about/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&lt;/style&gt;
+&lt;p&gt;&lt;a class="link" href="https://www.google.com/recaptcha/about/" target="_blank" rel="noopener"
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://developers.google.com/recaptcha/intro" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/choose-key-type" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/how-to" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://zh.wikipedia.org/wiki/ReCAPTCHA" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;br>
+&gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://ithelp.ithome.com.tw/articles/10262450" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;p>網站上幾乎每頁都有聯絡表單，並透過 AJAX 傳送到後端 API 負責記錄並送出郵件到公司的服務信箱，但網站上線後，垃圾訊息太常收到。因此，我打算將表單加入 &lt;a class="link" href="https://cloud.google.com/" target="_blank" rel="noopener"
->Google Cloud Platform&lt;/a> (GCP) 的 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 服務，減少收到垃圾訊息的機會，這篇文章我來分享一下完整的開發流程！&lt;/p>
-&lt;hr>
-&lt;h2 id="先整理幾個重要概念">先整理幾個重要概念&lt;/h2>
-&lt;p>&lt;a class="link" href="https://zh.m.wikipedia.org/wiki/ReCAPTCHA" target="_blank" rel="noopener"
->reCAPTCHA&lt;/a> 原本是由&lt;a class="link" href="https://zh.m.wikipedia.org/wiki/%E5%8D%A1%E5%86%85%E5%9F%BA%C2%B7%E6%A2%85%E9%9A%86%E5%A4%A7%E5%AD%A6" target="_blank" rel="noopener"
->卡內基梅隆大學&lt;/a>所發展的系統，主要目的是利用 &lt;a class="link" href="https://zh.m.wikipedia.org/wiki/CAPTCHA" target="_blank" rel="noopener"
->CAPTCHA&lt;/a> 技術來幫助典籍數位化的進行，這個計畫將由書本掃瞄下來無法準確的被光學文字辨識技術識別的文字顯示在 CAPTCHA 問題中，讓人類在回答 CAPTCHA 問題時用&lt;strong>人腦&lt;/strong>加以識別。2009 年 9 月 17 日 Google 宣佈收購 reCAPTCHA 技術，持續發展之下也提供標準的 API 供用戶免費使用，時至今日已經發展出好幾個版本。&lt;/p>
-&lt;p>目前可以在 Google 網站找到 3 個不同的版本，其功能與特性各有不同：&lt;/p>
-&lt;ol>
-&lt;li>&lt;a class="link" href="https://developers.google.com/recaptcha/docs/display" target="_blank" rel="noopener"
->reCAPTCHA v2&lt;/a>&lt;/li>
-&lt;/ol>
-&lt;p>除了原來的文字掃瞄圖片外，也採用 Google 街景拍攝的門牌號碼相片。&lt;/p>
-&lt;ol start="2">
-&lt;li>&lt;a class="link" href="https://developers.google.com/recaptcha/docs/v3" target="_blank" rel="noopener"
->reCAPTCHA v3&lt;/a>&lt;/li>
-&lt;/ol>
-&lt;p>採用&lt;strong>分數制&lt;/strong>驗證系統，對使用者在網站上的動作進行評分，若分數過低則會被判定為機器人。&lt;/p>
-&lt;ol start="3">
-&lt;li>&lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a>&lt;/li>
-&lt;/ol>
-&lt;p>與 &lt;code>reCAPTCHA v3&lt;/code> 相同，採用&lt;strong>分數制&lt;/strong>驗證系統，但能夠提供&lt;strong>更精細的分數&lt;/strong>以及&lt;strong>高風險分數原因代碼&lt;/strong>，以供進一步分析之用。&lt;/p>
-&lt;blockquote>
-&lt;p>本篇文章主要是以 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 為主，版本比較可參考 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/compare-versions" target="_blank" rel="noopener"
->Comparison of features between reCAPTCHA versions&lt;/a> 文件。&lt;/p>
-&lt;/blockquote>
-&lt;p>&lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 有個重要的概念，就是 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/keys" target="_blank" rel="noopener"
->reCAPTCHA keys&lt;/a> 或 &lt;code>site keys&lt;/code>，我將其翻譯為「&lt;strong>網站通關金鑰&lt;/strong>」或是「&lt;strong>驗證金鑰&lt;/strong>」也許比較恰當，他是一個使用在你網站的一組公開金鑰，透過這個 &lt;code>site keys&lt;/code> 會依據使用者端提供的各種資訊，自動產生一個唯一的「回應值」(Response)，你要把這個「回應值」傳到後端的 reCAPTCHA Server 進行驗證，由 reCAPTCHA Server 判斷出這個「回應值」是否是「真人」(Human)或「假人」(Bots)。&lt;/p>
-&lt;p>&lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 的 &lt;code>site keys&lt;/code> 有 3 種使用方式：&lt;/p>
-&lt;ol>
-&lt;li>&lt;strong>Score-based (no challenge) site keys&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;p>以「分數」為基礎的驗證方法，這種驗證方法完全&lt;strong>不需要由使用輸入資訊&lt;/strong>，系統會自動判斷使用者透過瀏覽器、鍵盤或是觸控等使用方式，自動收集使用者跟手機或網頁之間的互動情況，判斷該「使用者」是否為「真人」或「假人」，送到 reCAPTCHA Server 驗證時，會提供你一個「分數」(Score)，從 &lt;code>0.0&lt;/code> ～ &lt;code>10.0&lt;/code> 分，其中 &lt;code>0.0&lt;/code> 就是絕對的「假人」，而 &lt;code>10.0&lt;/code> 就是絕對的「真人」。這種類型的 &lt;code>site keys&lt;/code> 適用於「手機 APP」或「網頁」環境。&lt;/p>
-&lt;blockquote>
-&lt;p>這樣對使用者來說非常方便，不用讓客戶還在那邊選「哪幾張圖是公車」之類的，表單輸入門檻會低很多。&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>&lt;strong>Checkbox (checkbox challenge) site keys&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;p>所謂 &lt;code>Checkbox&lt;/code> 就真的是「核取方塊」的意思（如下圖示），他需要使用者真的去對這個 &lt;code>Checkbox&lt;/code> 做個點擊的動作，藉此判斷跟網頁互動的對像是否為「真人」在操作。想當然的，這種驗證方式一定要跟使用者發生互動，所以只能用在「網頁」的介面上，尤其特別適合用在「表單填寫」、「網站登入」、「註冊會員」等網頁功能，但不適用於透過「手機 APP」或其他互動方式。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696102_3bffe38a83_o.gif"
+&gt;參考網站&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;網站上幾乎每頁都有聯絡表單，並透過 AJAX 傳送到後端 API 負責記錄並送出郵件到公司的服務信箱，但網站上線後，垃圾訊息太常收到。因此，我打算將表單加入 &lt;a class="link" href="https://cloud.google.com/" target="_blank" rel="noopener"
+&gt;Google Cloud Platform&lt;/a&gt; (GCP) 的 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 服務，減少收到垃圾訊息的機會，這篇文章我來分享一下完整的開發流程！&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="先整理幾個重要概念"&gt;先整理幾個重要概念&lt;/h2&gt;
+&lt;p&gt;&lt;a class="link" href="https://zh.m.wikipedia.org/wiki/ReCAPTCHA" target="_blank" rel="noopener"
+&gt;reCAPTCHA&lt;/a&gt; 原本是由&lt;a class="link" href="https://zh.m.wikipedia.org/wiki/%E5%8D%A1%E5%86%85%E5%9F%BA%C2%B7%E6%A2%85%E9%9A%86%E5%A4%A7%E5%AD%A6" target="_blank" rel="noopener"
+&gt;卡內基梅隆大學&lt;/a&gt;所發展的系統，主要目的是利用 &lt;a class="link" href="https://zh.m.wikipedia.org/wiki/CAPTCHA" target="_blank" rel="noopener"
+&gt;CAPTCHA&lt;/a&gt; 技術來幫助典籍數位化的進行，這個計畫將由書本掃瞄下來無法準確的被光學文字辨識技術識別的文字顯示在 CAPTCHA 問題中，讓人類在回答 CAPTCHA 問題時用&lt;strong&gt;人腦&lt;/strong&gt;加以識別。2009 年 9 月 17 日 Google 宣佈收購 reCAPTCHA 技術，持續發展之下也提供標準的 API 供用戶免費使用，時至今日已經發展出好幾個版本。&lt;/p&gt;
+&lt;p&gt;目前可以在 Google 網站找到 3 個不同的版本，其功能與特性各有不同：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class="link" href="https://developers.google.com/recaptcha/docs/display" target="_blank" rel="noopener"
+&gt;reCAPTCHA v2&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;除了原來的文字掃瞄圖片外，也採用 Google 街景拍攝的門牌號碼相片。&lt;/p&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;a class="link" href="https://developers.google.com/recaptcha/docs/v3" target="_blank" rel="noopener"
+&gt;reCAPTCHA v3&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;採用&lt;strong&gt;分數制&lt;/strong&gt;驗證系統，對使用者在網站上的動作進行評分，若分數過低則會被判定為機器人。&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;與 &lt;code&gt;reCAPTCHA v3&lt;/code&gt; 相同，採用&lt;strong&gt;分數制&lt;/strong&gt;驗證系統，但能夠提供&lt;strong&gt;更精細的分數&lt;/strong&gt;以及&lt;strong&gt;高風險分數原因代碼&lt;/strong&gt;，以供進一步分析之用。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;本篇文章主要是以 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 為主，版本比較可參考 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/compare-versions" target="_blank" rel="noopener"
+&gt;Comparison of features between reCAPTCHA versions&lt;/a&gt; 文件。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 有個重要的概念，就是 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/keys" target="_blank" rel="noopener"
+&gt;reCAPTCHA keys&lt;/a&gt; 或 &lt;code&gt;site keys&lt;/code&gt;，我將其翻譯為「&lt;strong&gt;網站通關金鑰&lt;/strong&gt;」或是「&lt;strong&gt;驗證金鑰&lt;/strong&gt;」也許比較恰當，他是一個使用在你網站的一組公開金鑰，透過這個 &lt;code&gt;site keys&lt;/code&gt; 會依據使用者端提供的各種資訊，自動產生一個唯一的「回應值」(Response)，你要把這個「回應值」傳到後端的 reCAPTCHA Server 進行驗證，由 reCAPTCHA Server 判斷出這個「回應值」是否是「真人」(Human)或「假人」(Bots)。&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 的 &lt;code&gt;site keys&lt;/code&gt; 有 3 種使用方式：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Score-based (no challenge) site keys&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以「分數」為基礎的驗證方法，這種驗證方法完全&lt;strong&gt;不需要由使用輸入資訊&lt;/strong&gt;，系統會自動判斷使用者透過瀏覽器、鍵盤或是觸控等使用方式，自動收集使用者跟手機或網頁之間的互動情況，判斷該「使用者」是否為「真人」或「假人」，送到 reCAPTCHA Server 驗證時，會提供你一個「分數」(Score)，從 &lt;code&gt;0.0&lt;/code&gt; ～ &lt;code&gt;10.0&lt;/code&gt; 分，其中 &lt;code&gt;0.0&lt;/code&gt; 就是絕對的「假人」，而 &lt;code&gt;10.0&lt;/code&gt; 就是絕對的「真人」。這種類型的 &lt;code&gt;site keys&lt;/code&gt; 適用於「手機 APP」或「網頁」環境。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;這樣對使用者來說非常方便，不用讓客戶還在那邊選「哪幾張圖是公車」之類的，表單輸入門檻會低很多。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;&lt;strong&gt;Checkbox (checkbox challenge) site keys&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;所謂 &lt;code&gt;Checkbox&lt;/code&gt; 就真的是「核取方塊」的意思（如下圖示），他需要使用者真的去對這個 &lt;code&gt;Checkbox&lt;/code&gt; 做個點擊的動作，藉此判斷跟網頁互動的對像是否為「真人」在操作。想當然的，這種驗證方式一定要跟使用者發生互動，所以只能用在「網頁」的介面上，尤其特別適合用在「表單填寫」、「網站登入」、「註冊會員」等網頁功能，但不適用於透過「手機 APP」或其他互動方式。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696102_3bffe38a83_o.gif"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;blockquote>
-&lt;p>這種驗證方式可能不適用於所有情境，例如要提供「&lt;strong>無障礙&lt;/strong>」網站的話，對「視覺」有問題的用戶就會很不方便，因此使用時要注意。詳見 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/choose-key-type#captcha-challenges" target="_blank" rel="noopener"
->Understanding the caveats with CAPTCHA challenges&lt;/a>&lt;/p>
-&lt;/blockquote>
-&lt;ol start="3">
-&lt;li>&lt;strong>reCAPTCHA WAF site keys&lt;/strong>&lt;/li>
-&lt;/ol>
-&lt;p>這個 reCAPTCHA WAF site keys 可以讓你把 sitekey 安裝在 WAF (應用程式防火牆) 這一層，但這種作法必須要合格的 WAF service provider 才能使用，例如 GCP 自家的 &lt;a class="link" href="https://cloud.google.com/armor" target="_blank" rel="noopener"
->Google Cloud Armor&lt;/a> 服務。詳情請見 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/integration-overview" target="_blank" rel="noopener"
->reCAPTCHA Enterprise for WAF and Google Cloud Armor integration overview&lt;/a> 說明。&lt;/p>
-&lt;hr>
-&lt;h2 id="整合-recaptcha-enterprise-的大致流程">整合 reCAPTCHA Enterprise 的大致流程&lt;/h2>
-&lt;p>想要整合 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 到你的網站，建議多少理解一下 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 的運作流程，你可以從 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/overview#how-recaptcha-enterprise-works" target="_blank" rel="noopener"
->How reCAPTCHA Enterprise works&lt;/a> 看到以下循序圖(sequence diagram)：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696092_e332ed9cc8_o.png"
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;這種驗證方式可能不適用於所有情境，例如要提供「&lt;strong&gt;無障礙&lt;/strong&gt;」網站的話，對「視覺」有問題的用戶就會很不方便，因此使用時要注意。詳見 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/choose-key-type#captcha-challenges" target="_blank" rel="noopener"
+&gt;Understanding the caveats with CAPTCHA challenges&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;&lt;strong&gt;reCAPTCHA WAF site keys&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;這個 reCAPTCHA WAF site keys 可以讓你把 sitekey 安裝在 WAF (應用程式防火牆) 這一層，但這種作法必須要合格的 WAF service provider 才能使用，例如 GCP 自家的 &lt;a class="link" href="https://cloud.google.com/armor" target="_blank" rel="noopener"
+&gt;Google Cloud Armor&lt;/a&gt; 服務。詳情請見 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/integration-overview" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise for WAF and Google Cloud Armor integration overview&lt;/a&gt; 說明。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="整合-recaptcha-enterprise-的大致流程"&gt;整合 reCAPTCHA Enterprise 的大致流程&lt;/h2&gt;
+&lt;p&gt;想要整合 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 到你的網站，建議多少理解一下 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 的運作流程，你可以從 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/overview#how-recaptcha-enterprise-works" target="_blank" rel="noopener"
+&gt;How reCAPTCHA Enterprise works&lt;/a&gt; 看到以下循序圖(sequence diagram)：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696092_e332ed9cc8_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>即便你大概知道這個流程，我還是覺得整合 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 有一點小門檻，所以我打算簡化成以下 3 個步驟來說明：&lt;/p>
-&lt;ol>
-&lt;li>申請 reCAPTCHA keys 階段&lt;/li>
-&lt;/ol>
-&lt;p>你要到 &lt;a class="link" href="https://console.cloud.google.com/" target="_blank" rel="noopener"
->Google Cloud console&lt;/a> 建立 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
->reCAPTCHA keys&lt;/a>&lt;/p>
-&lt;blockquote>
-&lt;p>也可以從 &lt;a class="link" href="https://console.cloud.google.com/" target="_blank" rel="noopener"
->Google Cloud console&lt;/a> 左上角的&lt;strong>漢堡選單&lt;/strong>選取 &lt;code>Security&lt;/code> &amp;gt; &lt;code>reCAPTCHA Enterprise&lt;/code> 進入此頁面。&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>收集前端使用者回應值階段&lt;/li>
-&lt;/ol>
-&lt;p>安裝 reCAPTCHA keys 到網頁上 (主要用來收集 reCAPTCHA 回應值)&lt;/p>
-&lt;ol start="3">
-&lt;li>後端評估與驗證回應值階段&lt;/li>
-&lt;/ol>
-&lt;p>這個步驟會先從後端應用程式取得前端傳來的回應值，並將回應值送到 reCAPTCHA Server 進行評估(assessment)，並取得一個評估後的 Score (分數)，從該分數判斷這個 HTTP 要求是否要允許通過。&lt;/p>
-&lt;blockquote>
-&lt;p>此步驟最為麻煩，主因是缺少 ASP.NET Core 範例，所以上手確實有點門檻！&lt;/p>
-&lt;/blockquote>
-&lt;p>以下我就依據這三個階段，分別說明作法！&lt;/p>
-&lt;hr>
-&lt;h2 id="申請-recaptcha-keys-階段">申請 reCAPTCHA keys 階段&lt;/h2>
-&lt;blockquote>
-&lt;p>可以參考 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/create-key" target="_blank" rel="noopener"
->Creating reCAPTCHA keys&lt;/a> 這份文件進行操作。&lt;/p>
-&lt;/blockquote>
-&lt;ol>
-&lt;li>
-&lt;p>你要先有一個 &lt;a class="link" href="https://accounts.google.com/" target="_blank" rel="noopener"
->Google 帳戶&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>在 Google Cloud Console &lt;a class="link" href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project" target="_blank" rel="noopener"
->建立一個新專案&lt;/a>&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674484149_6ce66d6192_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;即便你大概知道這個流程，我還是覺得整合 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 有一點小門檻，所以我打算簡化成以下 3 個步驟來說明：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;申請 reCAPTCHA keys 階段&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;你要到 &lt;a class="link" href="https://console.cloud.google.com/" target="_blank" rel="noopener"
+&gt;Google Cloud console&lt;/a&gt; 建立 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
+&gt;reCAPTCHA keys&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;也可以從 &lt;a class="link" href="https://console.cloud.google.com/" target="_blank" rel="noopener"
+&gt;Google Cloud console&lt;/a&gt; 左上角的&lt;strong&gt;漢堡選單&lt;/strong&gt;選取 &lt;code&gt;Security&lt;/code&gt; &amp;gt; &lt;code&gt;reCAPTCHA Enterprise&lt;/code&gt; 進入此頁面。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;收集前端使用者回應值階段&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;安裝 reCAPTCHA keys 到網頁上 (主要用來收集 reCAPTCHA 回應值)&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;後端評估與驗證回應值階段&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;這個步驟會先從後端應用程式取得前端傳來的回應值，並將回應值送到 reCAPTCHA Server 進行評估(assessment)，並取得一個評估後的 Score (分數)，從該分數判斷這個 HTTP 要求是否要允許通過。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;此步驟最為麻煩，主因是缺少 ASP.NET Core 範例，所以上手確實有點門檻！&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;以下我就依據這三個階段，分別說明作法！&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="申請-recaptcha-keys-階段"&gt;申請 reCAPTCHA keys 階段&lt;/h2&gt;
+&lt;blockquote&gt;
+&lt;p&gt;可以參考 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/create-key" target="_blank" rel="noopener"
+&gt;Creating reCAPTCHA keys&lt;/a&gt; 這份文件進行操作。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;你要先有一個 &lt;a class="link" href="https://accounts.google.com/" target="_blank" rel="noopener"
+&gt;Google 帳戶&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 Google Cloud Console &lt;a class="link" href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project" target="_blank" rel="noopener"
+&gt;建立一個新專案&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674484149_6ce66d6192_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;ol start="3">
-&lt;li>啟用 &lt;code>reCAPTCHA Enterprise API&lt;/code> 服務&lt;/li>
-&lt;/ol>
-&lt;p>進入 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 頁面，如果尚未啟用 &lt;code>reCAPTCHA Enterprise API&lt;/code> 服務的話，會先出現以下畫面，你必須選對 GCP 上面的專案(Project)，然後按下 &lt;code>ENABLE&lt;/code> 啟用服務：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696137_7386c9123f_o.png"
+&gt;&lt;/p&gt;
+&lt;ol start="3"&gt;
+&lt;li&gt;啟用 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 服務&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;進入 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 頁面，如果尚未啟用 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 服務的話，會先出現以下畫面，你必須選對 GCP 上面的專案(Project)，然後按下 &lt;code&gt;ENABLE&lt;/code&gt; 啟用服務：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696137_7386c9123f_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;ol start="4">
-&lt;li>建立 reCAPTCHA keys&lt;/li>
-&lt;/ol>
-&lt;p>進入 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 頁面&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674484179_2eec4888a1_o.png"
+&gt;&lt;/p&gt;
+&lt;ol start="4"&gt;
+&lt;li&gt;建立 reCAPTCHA keys&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;進入 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 頁面&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674484179_2eec4888a1_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>輸入一個顯示名稱(&lt;code>Display name&lt;/code>)與使用 reCAPTCHA keys 的平台(&lt;code>Platform type&lt;/code>)，由於我們是一個網站服務，所以記得選擇 &lt;code>Website&lt;/code> 選項&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631195_2268de597c_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;輸入一個顯示名稱(&lt;code&gt;Display name&lt;/code&gt;)與使用 reCAPTCHA keys 的平台(&lt;code&gt;Platform type&lt;/code&gt;)，由於我們是一個網站服務，所以記得選擇 &lt;code&gt;Website&lt;/code&gt; 選項&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631195_2268de597c_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>如果是網站使用，就要設定網站的域名在此，你可以新增多個域名：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631220_9938c87bde_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;如果是網站使用，就要設定網站的域名在此，你可以新增多個域名：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631220_9938c87bde_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>最後按下 &lt;code>CREATE KEY&lt;/code> 建立即可。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674192016_124de38d87_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;最後按下 &lt;code&gt;CREATE KEY&lt;/code&gt; 建立即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674192016_124de38d87_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr>
-&lt;h2 id="收集前端使用者回應值階段">收集前端使用者回應值階段&lt;/h2>
-&lt;p>我們從上一個步驟可以看到一個 &lt;code>Web integration&lt;/code> 區段，這裡有一段 JavaScript 程式碼片段，你直接複製起來，貼上到網頁的 &lt;code>&amp;lt;head&amp;gt;&lt;/code> 區段內，即可開始收集前端使用者回應值。&lt;/p>
-&lt;p>範例程式碼如下：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;span class="lnt">7
-&lt;/span>&lt;span class="lnt">8
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-html" data-lang="html">&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span> &lt;span class="na">src&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="s">&amp;#34;https://www.google.com/recaptcha/enterprise.js?render=6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&amp;#34;&lt;/span>&lt;span class="p">&amp;gt;&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nx">grecaptcha&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">enterprise&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">ready&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">()&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">grecaptcha&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">enterprise&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">execute&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&amp;#39;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="p">{&lt;/span>&lt;span class="nx">action&lt;/span>&lt;span class="o">:&lt;/span> &lt;span class="s1">&amp;#39;login&amp;#39;&lt;/span>&lt;span class="p">}).&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kd">function&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">token&lt;/span>&lt;span class="p">)&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">...&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">});&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">&amp;lt;/&lt;/span>&lt;span class="nt">script&lt;/span>&lt;span class="p">&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>這裡特別需要知道的地方有以下幾點：&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>程式碼片段的 &lt;code>6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&lt;/code> 就是你的 &lt;code>reCAPTCHA key&lt;/code>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>這裡的 &lt;code>grecaptcha.enterprise.ready()&lt;/code> 函式會在載入完 reCAPTCHA Enterprise 函式庫後執行，只會執行一次&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>這裡的 &lt;code>grecaptcha.enterprise.execute()&lt;/code> 函式則會執行 reCAPTCHA 驗證（這個函式會回傳一個 Promise 物件）&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>這裡的 &lt;code>{ action: 'login'}&lt;/code> 也很重要，這裡是設定一個「驗證動作」的類型，這個值要跟後端進行驗證時使用相同的 &lt;code>action&lt;/code> 才行&lt;br>
-Google reCAPTCHA 的 &lt;code>action&lt;/code> 參數可以是任何字串，它可以用來標記驗證的目的或類型。一些常用的 &lt;code>action&lt;/code> 值包括：&lt;code>login&lt;/code> (用於登入驗證)、&lt;code>register&lt;/code> (用於註冊驗證)、&lt;code>password_reset&lt;/code> (用於密碼重置驗證)、&lt;code>contact&lt;/code> (用於聯繫表單驗證)，但其實沒有一定要用哪一種，不知道要挑哪一種的話，你隨便選個 &lt;code>login&lt;/code> 其實都可以。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>程式碼片段中的 &lt;code>...&lt;/code> 不是真的程式碼，而是一個要你客製化修改的地方！&lt;br>
-由於 &lt;code>grecaptcha.enterprise.execute()&lt;/code> 函式是一個 Promise 物件，你可以透過 &lt;code>.then()&lt;/code> 帶入的 function callback 得到一個 &lt;code>token&lt;/code> 字串，這個就是由 reCAPTCHA Enterprise 幫你收集好的「回應值」，你要設法將這個值帶到後端去驗證。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>這裡有個地雷是，這個透過 &lt;code>grecaptcha.enterprise.execute()&lt;/code> 函式取回的 &lt;code>token&lt;/code> 有效期只有 &lt;code>2 分鐘&lt;/code>！&lt;/p>
-&lt;p>各位~只有 &lt;code>2&lt;/code> 分鐘就會&lt;strong>過時&lt;/strong>/&lt;strong>過期&lt;/strong>！只要 &lt;code>2&lt;/code> 分鐘就會 &lt;strong>Timeout&lt;/strong>！只要 2 分鐘就&lt;strong>不能用&lt;/strong>了！&lt;/p>
-&lt;blockquote>
-&lt;p>很重要，所以說三遍，為了 SEO 要求，我用三份關鍵字描述！🔥&lt;/p>
-&lt;/blockquote>
-&lt;p>超過 &lt;code>2&lt;/code> 分鐘之後這個 &lt;code>token&lt;/code> 就失效了，所以千萬不能在「&lt;strong>網頁載入&lt;/strong>」的時候就取得 &lt;code>token&lt;/code> 回應值，否則表單填寫超過 2 分鐘之後不就自動失效了嗎？這個注意事項是有出現在 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/create-assessment#retrieve_token" target="_blank" rel="noopener"
->Create an assessment&lt;/a> 官方文件中，我有點懷疑會有多少人看到？😅&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631260_e53b2911b2_o.png"
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="收集前端使用者回應值階段"&gt;收集前端使用者回應值階段&lt;/h2&gt;
+&lt;p&gt;我們從上一個步驟可以看到一個 &lt;code&gt;Web integration&lt;/code&gt; 區段，這裡有一段 JavaScript 程式碼片段，你直接複製起來，貼上到網頁的 &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; 區段內，即可開始收集前端使用者回應值。&lt;/p&gt;
+&lt;p&gt;範例程式碼如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;span class="lnt"&gt;7
+&lt;/span&gt;&lt;span class="lnt"&gt;8
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-html" data-lang="html"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://www.google.com/recaptcha/enterprise.js?render=6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;grecaptcha&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;enterprise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ready&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;grecaptcha&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;enterprise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;action&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;login&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;token&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;...&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;這裡特別需要知道的地方有以下幾點：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;程式碼片段的 &lt;code&gt;6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&lt;/code&gt; 就是你的 &lt;code&gt;reCAPTCHA key&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;這裡的 &lt;code&gt;grecaptcha.enterprise.ready()&lt;/code&gt; 函式會在載入完 reCAPTCHA Enterprise 函式庫後執行，只會執行一次&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;這裡的 &lt;code&gt;grecaptcha.enterprise.execute()&lt;/code&gt; 函式則會執行 reCAPTCHA 驗證（這個函式會回傳一個 Promise 物件）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;這裡的 &lt;code&gt;{ action: 'login'}&lt;/code&gt; 也很重要，這裡是設定一個「驗證動作」的類型，這個值要跟後端進行驗證時使用相同的 &lt;code&gt;action&lt;/code&gt; 才行&lt;br&gt;
+Google reCAPTCHA 的 &lt;code&gt;action&lt;/code&gt; 參數可以是任何字串，它可以用來標記驗證的目的或類型。一些常用的 &lt;code&gt;action&lt;/code&gt; 值包括：&lt;code&gt;login&lt;/code&gt; (用於登入驗證)、&lt;code&gt;register&lt;/code&gt; (用於註冊驗證)、&lt;code&gt;password_reset&lt;/code&gt; (用於密碼重置驗證)、&lt;code&gt;contact&lt;/code&gt; (用於聯繫表單驗證)，但其實沒有一定要用哪一種，不知道要挑哪一種的話，你隨便選個 &lt;code&gt;login&lt;/code&gt; 其實都可以。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;程式碼片段中的 &lt;code&gt;...&lt;/code&gt; 不是真的程式碼，而是一個要你客製化修改的地方！&lt;br&gt;
+由於 &lt;code&gt;grecaptcha.enterprise.execute()&lt;/code&gt; 函式是一個 Promise 物件，你可以透過 &lt;code&gt;.then()&lt;/code&gt; 帶入的 function callback 得到一個 &lt;code&gt;token&lt;/code&gt; 字串，這個就是由 reCAPTCHA Enterprise 幫你收集好的「回應值」，你要設法將這個值帶到後端去驗證。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;這裡有個地雷是，這個透過 &lt;code&gt;grecaptcha.enterprise.execute()&lt;/code&gt; 函式取回的 &lt;code&gt;token&lt;/code&gt; 有效期只有 &lt;code&gt;2 分鐘&lt;/code&gt;！&lt;/p&gt;
+&lt;p&gt;各位~只有 &lt;code&gt;2&lt;/code&gt; 分鐘就會&lt;strong&gt;過時&lt;/strong&gt;/&lt;strong&gt;過期&lt;/strong&gt;！只要 &lt;code&gt;2&lt;/code&gt; 分鐘就會 &lt;strong&gt;Timeout&lt;/strong&gt;！只要 2 分鐘就&lt;strong&gt;不能用&lt;/strong&gt;了！&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;很重要，所以說三遍，為了 SEO 要求，我用三份關鍵字描述！🔥&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;超過 &lt;code&gt;2&lt;/code&gt; 分鐘之後這個 &lt;code&gt;token&lt;/code&gt; 就失效了，所以千萬不能在「&lt;strong&gt;網頁載入&lt;/strong&gt;」的時候就取得 &lt;code&gt;token&lt;/code&gt; 回應值，否則表單填寫超過 2 分鐘之後不就自動失效了嗎？這個注意事項是有出現在 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/create-assessment#retrieve_token" target="_blank" rel="noopener"
+&gt;Create an assessment&lt;/a&gt; 官方文件中，我有點懷疑會有多少人看到？😅&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631260_e53b2911b2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr>
-&lt;h2 id="後端評估與驗證回應值階段">後端評估與驗證回應值階段&lt;/h2>
-&lt;p>這裡的步驟就有點多了，我會以 ASP.NET Core 6 為例進行解說完整步驟。&lt;/p>
-&lt;ol>
-&lt;li>到 Google Cloud Console 的 &lt;a class="link" href="https://console.cloud.google.com/iam-admin/serviceaccounts" target="_blank" rel="noopener"
->IAM &amp;amp; Admin &amp;gt; Service accounts&lt;/a> 建立一個服務帳戶(&lt;code>Service Accounts&lt;/code>)&lt;/li>
-&lt;/ol>
-&lt;p>要從網站的後端呼叫 GCP 上面的 API 服務，都需要有一個身分(Principal)來呼叫 API 服務。你可以從 &lt;code>APIs &amp;amp; Services &amp;gt; Enabled APIs &amp;amp; Services&lt;/code> 找到 &lt;code>reCAPTCHA Enterprise API&lt;/code> 服務，點擊進去：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631275_d9921c7606_o.png"
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="後端評估與驗證回應值階段"&gt;後端評估與驗證回應值階段&lt;/h2&gt;
+&lt;p&gt;這裡的步驟就有點多了，我會以 ASP.NET Core 6 為例進行解說完整步驟。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;到 Google Cloud Console 的 &lt;a class="link" href="https://console.cloud.google.com/iam-admin/serviceaccounts" target="_blank" rel="noopener"
+&gt;IAM &amp;amp; Admin &amp;gt; Service accounts&lt;/a&gt; 建立一個服務帳戶(&lt;code&gt;Service Accounts&lt;/code&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;要從網站的後端呼叫 GCP 上面的 API 服務，都需要有一個身分(Principal)來呼叫 API 服務。你可以從 &lt;code&gt;APIs &amp;amp; Services &amp;gt; Enabled APIs &amp;amp; Services&lt;/code&gt; 找到 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 服務，點擊進去：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631275_d9921c7606_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>我們要建立一個 reCAPTCHA Enterprise API 所需的 &lt;code>CREDENTIALS&lt;/code> (身分認證)&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696297_58025d471a_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;我們要建立一個 reCAPTCHA Enterprise API 所需的 &lt;code&gt;CREDENTIALS&lt;/code&gt; (身分認證)&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696297_58025d471a_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>這裡有兩個選項，我們透過網站整合 reCAPTCHA Enterprise API 一定是使用 &lt;code>Service Accounts&lt;/code> (服務帳戶) 這項！&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696327_de9d0c8ac1_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;這裡有兩個選項，我們透過網站整合 reCAPTCHA Enterprise API 一定是使用 &lt;code&gt;Service Accounts&lt;/code&gt; (服務帳戶) 這項！&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696327_de9d0c8ac1_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>設定一個服務帳戶名稱，好記就好&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674695908_0e1455e917_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;設定一個服務帳戶名稱，好記就好&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674695908_0e1455e917_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>🔥 &lt;strong>這個步驟超級重要&lt;/strong>，你要是不在這裡選對 Role (角色)，也就是 &lt;code>reCAPTCHA Enterprise Agent&lt;/code>，就算你取得 &lt;code>Service Account&lt;/code> 也沒有權限呼叫 &lt;code>reCAPTCHA Enterprise API&lt;/code>！&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696372_5009fe8da3_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;🔥 &lt;strong&gt;這個步驟超級重要&lt;/strong&gt;，你要是不在這裡選對 Role (角色)，也就是 &lt;code&gt;reCAPTCHA Enterprise Agent&lt;/code&gt;，就算你取得 &lt;code&gt;Service Account&lt;/code&gt; 也沒有權限呼叫 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt;！&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696372_5009fe8da3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631365_1ebb8a6d4b_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631365_1ebb8a6d4b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>如果沒設定的話，你的 ASP.NET Core 執行時就會得到以下錯誤訊息：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">Status&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">StatusCode&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;PermissionDenied&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">Detail&lt;/span>&lt;span class="p">=&lt;/span>&lt;span class="s">&amp;#34;Permission denied for: recaptchaenterprise.assessments.create. Please ensure you have sufficient permissions: https://cloud.google.com/iam/docs/granting-changing-revoking-access&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>這個步驟可以不用設定，直接按下 &lt;code>DONE&lt;/code> 完成設定。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52673696422_6947c5edc3_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;如果沒設定的話，你的 ASP.NET Core 執行時就會得到以下錯誤訊息：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-csharp" data-lang="csharp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;Status&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;StatusCode&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;PermissionDenied&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Detail&lt;/span&gt;&lt;span class="p"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;Permission denied for: recaptchaenterprise.assessments.create. Please ensure you have sufficient permissions: https://cloud.google.com/iam/docs/granting-changing-revoking-access&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;這個步驟可以不用設定，直接按下 &lt;code&gt;DONE&lt;/code&gt; 完成設定。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52673696422_6947c5edc3_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>點擊進入剛剛建立的服務帳戶&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674696068_f6abd56af7_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;點擊進入剛剛建立的服務帳戶&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674696068_f6abd56af7_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>🔥 切換到 &lt;code>KEYS&lt;/code> 頁籤，建立一把新的&lt;strong>私密金鑰&lt;/strong>(key)，主要用來給後端程式呼叫 API 時通過驗證用！&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674192246_6df4520a36_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;🔥 切換到 &lt;code&gt;KEYS&lt;/code&gt; 頁籤，建立一把新的&lt;strong&gt;私密金鑰&lt;/strong&gt;(key)，主要用來給後端程式呼叫 API 時通過驗證用！&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674192246_6df4520a36_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>建立金鑰可以選擇兩種格式，我們選擇 &lt;code>JSON&lt;/code> 格式&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674696038_3fa8ea1c95_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;建立金鑰可以選擇兩種格式，我們選擇 &lt;code&gt;JSON&lt;/code&gt; 格式&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674696038_3fa8ea1c95_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>🔥 按下 CREATE 之後，瀏覽器就會直接下載一個 *.json 檔案，這個檔案就是我們的金鑰檔，之後在 ASP.NET Core 網站中用的到！&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631420_be947a72f5_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;🔥 按下 CREATE 之後，瀏覽器就會直接下載一個 *.json 檔案，這個檔案就是我們的金鑰檔，之後在 ASP.NET Core 網站中用的到！&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631420_be947a72f5_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>這個 JSON 檔案的內容大致如下：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-json" data-lang="json">&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;type&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;service_account&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;project_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;recaptchademo-374714&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;private_key_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;9462e07151d......181083e38c718503&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;private_key&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;-----BEGIN PRIVATE KEY-----\nM...g=\n-----END PRIVATE KEY-----\n&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;client_email&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;myrecaptcha@recaptchademo-374714.iam.gserviceaccount.com&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;client_id&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;11581452......4955852&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;auth_uri&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;https://accounts.google.com/o/oauth2/auth&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;token_uri&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;https://oauth2.googleapis.com/token&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;auth_provider_x509_cert_url&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;https://www.googleapis.com/oauth2/v1/certs&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nt">&amp;#34;client_x509_cert_url&amp;#34;&lt;/span>&lt;span class="p">:&lt;/span> &lt;span class="s2">&amp;#34;https://www.googleapis.com/robot/v1/metadata/x509/myrecaptcha%40recaptchademo-374714.iam.gserviceaccount.com&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;blockquote>
-&lt;p>這個步驟我做了好幾次，漏掉一兩步就別想玩下去了，所以 GCP 就是主要的門檻所在！😅&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>在 ASP.NET Core 網站安裝 &lt;a class="link" href="https://www.nuget.org/packages/Google.Cloud.RecaptchaEnterprise.V1" target="_blank" rel="noopener"
->Google.Cloud.RecaptchaEnterprise.V1&lt;/a> NuGet 套件&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">dotnet add package Google.Cloud.RecaptchaEnterprise.V1
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="3">
-&lt;li>設定 ASP.NET Core 網站的 DI 容器 (ServiceCollection)&lt;/li>
-&lt;/ol>
-&lt;p>以下程式碼會將 &lt;code>RecaptchaEnterpriseServiceClient&lt;/code> 註冊成 Singleton，並設定 JsonCredentials 為我們剛剛下載的私密金鑰 JSON 檔！&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="n">builder&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Services&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">AddRecaptchaEnterpriseServiceClient&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">options&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">options&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">JsonCredentials&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">File&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ReadAllText&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;recaptchademo-374714-9462e07151d4.json&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">});&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>如果沒有指定 &lt;code>Credentials&lt;/code> 的話，執行時就會得到以下錯誤訊息：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-gdscript3" data-lang="gdscript3">&lt;span class="line">&lt;span class="cl">&lt;span class="n">The&lt;/span> &lt;span class="n">Application&lt;/span> &lt;span class="n">Default&lt;/span> &lt;span class="n">Credentials&lt;/span> &lt;span class="n">are&lt;/span> &lt;span class="ow">not&lt;/span> &lt;span class="n">available&lt;/span>&lt;span class="o">.&lt;/span> &lt;span class="n">They&lt;/span> &lt;span class="n">are&lt;/span> &lt;span class="n">available&lt;/span> &lt;span class="k">if&lt;/span> &lt;span class="n">running&lt;/span> &lt;span class="ow">in&lt;/span> &lt;span class="n">Google&lt;/span> &lt;span class="n">Compute&lt;/span> &lt;span class="n">Engine&lt;/span>&lt;span class="o">.&lt;/span> &lt;span class="n">Otherwise&lt;/span>&lt;span class="p">,&lt;/span> &lt;span class="n">the&lt;/span> &lt;span class="n">environment&lt;/span> &lt;span class="n">variable&lt;/span> &lt;span class="n">GOOGLE_APPLICATION_CREDENTIALS&lt;/span> &lt;span class="n">must&lt;/span> &lt;span class="n">be&lt;/span> &lt;span class="n">defined&lt;/span> &lt;span class="n">pointing&lt;/span> &lt;span class="n">to&lt;/span> &lt;span class="n">a&lt;/span> &lt;span class="n">file&lt;/span> &lt;span class="n">defining&lt;/span> &lt;span class="n">the&lt;/span> &lt;span class="n">credentials&lt;/span>&lt;span class="o">.&lt;/span> &lt;span class="n">See&lt;/span> &lt;span class="n">https&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="o">//&lt;/span>&lt;span class="n">developers&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">google&lt;/span>&lt;span class="o">.&lt;/span>&lt;span class="n">com&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">accounts&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">docs&lt;/span>&lt;span class="o">/&lt;/span>&lt;span class="n">application&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">default&lt;/span>&lt;span class="o">-&lt;/span>&lt;span class="n">credentials&lt;/span> &lt;span class="k">for&lt;/span> &lt;span class="n">more&lt;/span> &lt;span class="n">information&lt;/span>&lt;span class="o">.&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="4">
-&lt;li>在 Controller 的建構式注入 &lt;code>RecaptchaEnterpriseServiceClient&lt;/code> 物件&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;span class="lnt">6
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="kd">private&lt;/span> &lt;span class="k">readonly&lt;/span> &lt;span class="n">RecaptchaEnterpriseServiceClient&lt;/span> &lt;span class="n">_recaptchaClient&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span> &lt;span class="n">ContactController&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">RecaptchaEnterpriseServiceClient&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">this&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">_recaptchaClient&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">re&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ol start="5">
-&lt;li>建立一個 &lt;code>createAssessmentAsync&lt;/code> 方法 (Method)&lt;/li>
-&lt;/ol>
-&lt;p>我參考 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/create-assessment#c" target="_blank" rel="noopener"
->Create an assessment using the REST API or Client Libraries&lt;/a> 的 C# 範例程式進行改寫如下：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;span class="lnt">14
-&lt;/span>&lt;span class="lnt">15
-&lt;/span>&lt;span class="lnt">16
-&lt;/span>&lt;span class="lnt">17
-&lt;/span>&lt;span class="lnt">18
-&lt;/span>&lt;span class="lnt">19
-&lt;/span>&lt;span class="lnt">20
-&lt;/span>&lt;span class="lnt">21
-&lt;/span>&lt;span class="lnt">22
-&lt;/span>&lt;span class="lnt">23
-&lt;/span>&lt;span class="lnt">24
-&lt;/span>&lt;span class="lnt">25
-&lt;/span>&lt;span class="lnt">26
-&lt;/span>&lt;span class="lnt">27
-&lt;/span>&lt;span class="lnt">28
-&lt;/span>&lt;span class="lnt">29
-&lt;/span>&lt;span class="lnt">30
-&lt;/span>&lt;span class="lnt">31
-&lt;/span>&lt;span class="lnt">32
-&lt;/span>&lt;span class="lnt">33
-&lt;/span>&lt;span class="lnt">34
-&lt;/span>&lt;span class="lnt">35
-&lt;/span>&lt;span class="lnt">36
-&lt;/span>&lt;span class="lnt">37
-&lt;/span>&lt;span class="lnt">38
-&lt;/span>&lt;span class="lnt">39
-&lt;/span>&lt;span class="lnt">40
-&lt;/span>&lt;span class="lnt">41
-&lt;/span>&lt;span class="lnt">42
-&lt;/span>&lt;span class="lnt">43
-&lt;/span>&lt;span class="lnt">44
-&lt;/span>&lt;span class="lnt">45
-&lt;/span>&lt;span class="lnt">46
-&lt;/span>&lt;span class="lnt">47
-&lt;/span>&lt;span class="lnt">48
-&lt;/span>&lt;span class="lnt">49
-&lt;/span>&lt;span class="lnt">50
-&lt;/span>&lt;span class="lnt">51
-&lt;/span>&lt;span class="lnt">52
-&lt;/span>&lt;span class="lnt">53
-&lt;/span>&lt;span class="lnt">54
-&lt;/span>&lt;span class="lnt">55
-&lt;/span>&lt;span class="lnt">56
-&lt;/span>&lt;span class="lnt">57
-&lt;/span>&lt;span class="lnt">58
-&lt;/span>&lt;span class="lnt">59
-&lt;/span>&lt;span class="lnt">60
-&lt;/span>&lt;span class="lnt">61
-&lt;/span>&lt;span class="lnt">62
-&lt;/span>&lt;span class="lnt">63
-&lt;/span>&lt;span class="lnt">64
-&lt;/span>&lt;span class="lnt">65
-&lt;/span>&lt;span class="lnt">66
-&lt;/span>&lt;span class="lnt">67
-&lt;/span>&lt;span class="lnt">68
-&lt;/span>&lt;span class="lnt">69
-&lt;/span>&lt;span class="lnt">70
-&lt;/span>&lt;span class="lnt">71
-&lt;/span>&lt;span class="lnt">72
-&lt;/span>&lt;span class="lnt">73
-&lt;/span>&lt;span class="lnt">74
-&lt;/span>&lt;span class="lnt">75
-&lt;/span>&lt;span class="lnt">76
-&lt;/span>&lt;span class="lnt">77
-&lt;/span>&lt;span class="lnt">78
-&lt;/span>&lt;span class="lnt">79
-&lt;/span>&lt;span class="lnt">80
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// Create an assessment to analyze the risk of an UI action.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// projectID: GCloud Project ID.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// recaptchaSiteKey: Site key obtained by registering a domain/app to use recaptcha.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// token: The token obtained from the client on passing the recaptchaSiteKey.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="c1">// recaptchaAction: Action name corresponding to the token.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">private&lt;/span> &lt;span class="kd">async&lt;/span> &lt;span class="n">Task&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="kt">bool&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="n">createAssessmentAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">string&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">string&lt;/span> &lt;span class="n">projectID&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;recaptchademo-374714&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">string&lt;/span> &lt;span class="n">recaptchaSiteKey&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&amp;#34;&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">string&lt;/span> &lt;span class="n">recaptchaAction&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="s">&amp;#34;login&amp;#34;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">String&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">IsNullOrWhiteSpace&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">token&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">throw&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">ArgumentException&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;The `token` argument must not empty.&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ProjectName&lt;/span> &lt;span class="n">projectName&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">ProjectName&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">projectID&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Build the assessment request.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">CreateAssessmentRequest&lt;/span> &lt;span class="n">createAssessmentRequest&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">CreateAssessmentRequest&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Assessment&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Assessment&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Set the properties of the event to be tracked.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Event&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">new&lt;/span> &lt;span class="n">Event&lt;/span>&lt;span class="p">()&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">SiteKey&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">recaptchaSiteKey&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Token&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">token&lt;/span>&lt;span class="p">,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ExpectedAction&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">recaptchaAction&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">},&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">ParentAsProjectName&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">projectName&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">};&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">Assessment&lt;/span> &lt;span class="n">response&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="k">await&lt;/span> &lt;span class="n">_recaptchaClient&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">CreateAssessmentAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">createAssessmentRequest&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Check if the token is valid.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TokenProperties&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Valid&lt;/span> &lt;span class="p">==&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">LogInformation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;The CreateAssessment call failed because the token was: &amp;#34;&lt;/span> &lt;span class="p">+&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TokenProperties&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">InvalidReason&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ToString&lt;/span>&lt;span class="p">());&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Check if the expected action was executed.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TokenProperties&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Action&lt;/span> &lt;span class="p">!=&lt;/span> &lt;span class="n">recaptchaAction&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">LogInformation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;The action attribute in reCAPTCHA tag is: &amp;#34;&lt;/span> &lt;span class="p">+&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">TokenProperties&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Action&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ToString&lt;/span>&lt;span class="p">());&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">LogInformation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;The action attribute in the reCAPTCHA tag does not &amp;#34;&lt;/span> &lt;span class="p">+&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="s">&amp;#34;match the action you are expecting to score&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Get the risk score and the reason(s).&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// For more information on interpreting the assessment,&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// see: https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="kt">var&lt;/span> &lt;span class="n">score&lt;/span> &lt;span class="p">=&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">RiskAnalysis&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Score&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">LogInformation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;The reCAPTCHA score is: &amp;#34;&lt;/span> &lt;span class="p">+&lt;/span> &lt;span class="n">score&lt;/span>&lt;span class="p">);&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">foreach&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">RiskAnalysis&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Types&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ClassificationReason&lt;/span> &lt;span class="n">reason&lt;/span> &lt;span class="k">in&lt;/span> &lt;span class="n">response&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">RiskAnalysis&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">Reasons&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="n">_logger&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">LogInformation&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">reason&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">ToString&lt;/span>&lt;span class="p">());&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// https://developers.google.com/recaptcha/docs/analytics&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// This chart shows the average score on your site, which is designed to help you spot trends.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Scores range from 0.0 to 1.0, with 0.0 indicating abusive traffic and 1.0 indicating good traffic.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="c1">// Sign up for reCAPTCHA v3 to gain more insights about your traffic.&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="n">score&lt;/span> &lt;span class="p">&amp;gt;&lt;/span> &lt;span class="m">0.5&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">true&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="kc">false&lt;/span>&lt;span class="p">;&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>這裡 method 總共有 4 個參數，都很重要，除了 &lt;code>token&lt;/code> 之外，其他都可以寫進 &lt;code>appsettings.json&lt;/code> 組態之中！&lt;/p>
-&lt;p>因為 GCP 上的每個「專案」都有個唯一的 &lt;code>projectID&lt;/code>，你要特別查才知道是什麼，這裡的 &lt;code>projectID&lt;/code> 要記得到 &lt;a class="link" href="https://console.cloud.google.com/welcome" target="_blank" rel="noopener"
->https://console.cloud.google.com/welcome&lt;/a> 查閱！&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674484434_7414cca050_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;這個 JSON 檔案的內容大致如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-json" data-lang="json"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;type&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;service_account&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;project_id&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;recaptchademo-374714&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;private_key_id&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;9462e07151d......181083e38c718503&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;private_key&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;-----BEGIN PRIVATE KEY-----\nM...g=\n-----END PRIVATE KEY-----\n&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;client_email&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;myrecaptcha@recaptchademo-374714.iam.gserviceaccount.com&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;client_id&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;11581452......4955852&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;auth_uri&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;https://accounts.google.com/o/oauth2/auth&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;token_uri&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;https://oauth2.googleapis.com/token&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;auth_provider_x509_cert_url&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;https://www.googleapis.com/oauth2/v1/certs&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nt"&gt;&amp;#34;client_x509_cert_url&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;https://www.googleapis.com/robot/v1/metadata/x509/myrecaptcha%40recaptchademo-374714.iam.gserviceaccount.com&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;這個步驟我做了好幾次，漏掉一兩步就別想玩下去了，所以 GCP 就是主要的門檻所在！😅&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;在 ASP.NET Core 網站安裝 &lt;a class="link" href="https://www.nuget.org/packages/Google.Cloud.RecaptchaEnterprise.V1" target="_blank" rel="noopener"
+&gt;Google.Cloud.RecaptchaEnterprise.V1&lt;/a&gt; NuGet 套件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;dotnet add package Google.Cloud.RecaptchaEnterprise.V1
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start="3"&gt;
+&lt;li&gt;設定 ASP.NET Core 網站的 DI 容器 (ServiceCollection)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;以下程式碼會將 &lt;code&gt;RecaptchaEnterpriseServiceClient&lt;/code&gt; 註冊成 Singleton，並設定 JsonCredentials 為我們剛剛下載的私密金鑰 JSON 檔！&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-csharp" data-lang="csharp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;builder&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Services&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;AddRecaptchaEnterpriseServiceClient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;options&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;options&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;JsonCredentials&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;File&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ReadAllText&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;recaptchademo-374714-9462e07151d4.json&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;如果沒有指定 &lt;code&gt;Credentials&lt;/code&gt; 的話，執行時就會得到以下錯誤訊息：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-gdscript3" data-lang="gdscript3"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="n"&gt;The&lt;/span&gt; &lt;span class="n"&gt;Application&lt;/span&gt; &lt;span class="n"&gt;Default&lt;/span&gt; &lt;span class="n"&gt;Credentials&lt;/span&gt; &lt;span class="n"&gt;are&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="n"&gt;available&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;They&lt;/span&gt; &lt;span class="n"&gt;are&lt;/span&gt; &lt;span class="n"&gt;available&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;running&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;Google&lt;/span&gt; &lt;span class="n"&gt;Compute&lt;/span&gt; &lt;span class="n"&gt;Engine&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;Otherwise&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;environment&lt;/span&gt; &lt;span class="n"&gt;variable&lt;/span&gt; &lt;span class="n"&gt;GOOGLE_APPLICATION_CREDENTIALS&lt;/span&gt; &lt;span class="n"&gt;must&lt;/span&gt; &lt;span class="n"&gt;be&lt;/span&gt; &lt;span class="n"&gt;defined&lt;/span&gt; &lt;span class="n"&gt;pointing&lt;/span&gt; &lt;span class="n"&gt;to&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;defining&lt;/span&gt; &lt;span class="n"&gt;the&lt;/span&gt; &lt;span class="n"&gt;credentials&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt; &lt;span class="n"&gt;See&lt;/span&gt; &lt;span class="n"&gt;https&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;//&lt;/span&gt;&lt;span class="n"&gt;developers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;accounts&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;docs&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;application&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;default&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;credentials&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;more&lt;/span&gt; &lt;span class="n"&gt;information&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start="4"&gt;
+&lt;li&gt;在 Controller 的建構式注入 &lt;code&gt;RecaptchaEnterpriseServiceClient&lt;/code&gt; 物件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;span class="lnt"&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-csharp" data-lang="csharp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="k"&gt;readonly&lt;/span&gt; &lt;span class="n"&gt;RecaptchaEnterpriseServiceClient&lt;/span&gt; &lt;span class="n"&gt;_recaptchaClient&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="n"&gt;ContactController&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;RecaptchaEnterpriseServiceClient&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;this&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;_recaptchaClient&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ol start="5"&gt;
+&lt;li&gt;建立一個 &lt;code&gt;createAssessmentAsync&lt;/code&gt; 方法 (Method)&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;我參考 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/create-assessment#c" target="_blank" rel="noopener"
+&gt;Create an assessment using the REST API or Client Libraries&lt;/a&gt; 的 C# 範例程式進行改寫如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;span class="lnt"&gt;14
+&lt;/span&gt;&lt;span class="lnt"&gt;15
+&lt;/span&gt;&lt;span class="lnt"&gt;16
+&lt;/span&gt;&lt;span class="lnt"&gt;17
+&lt;/span&gt;&lt;span class="lnt"&gt;18
+&lt;/span&gt;&lt;span class="lnt"&gt;19
+&lt;/span&gt;&lt;span class="lnt"&gt;20
+&lt;/span&gt;&lt;span class="lnt"&gt;21
+&lt;/span&gt;&lt;span class="lnt"&gt;22
+&lt;/span&gt;&lt;span class="lnt"&gt;23
+&lt;/span&gt;&lt;span class="lnt"&gt;24
+&lt;/span&gt;&lt;span class="lnt"&gt;25
+&lt;/span&gt;&lt;span class="lnt"&gt;26
+&lt;/span&gt;&lt;span class="lnt"&gt;27
+&lt;/span&gt;&lt;span class="lnt"&gt;28
+&lt;/span&gt;&lt;span class="lnt"&gt;29
+&lt;/span&gt;&lt;span class="lnt"&gt;30
+&lt;/span&gt;&lt;span class="lnt"&gt;31
+&lt;/span&gt;&lt;span class="lnt"&gt;32
+&lt;/span&gt;&lt;span class="lnt"&gt;33
+&lt;/span&gt;&lt;span class="lnt"&gt;34
+&lt;/span&gt;&lt;span class="lnt"&gt;35
+&lt;/span&gt;&lt;span class="lnt"&gt;36
+&lt;/span&gt;&lt;span class="lnt"&gt;37
+&lt;/span&gt;&lt;span class="lnt"&gt;38
+&lt;/span&gt;&lt;span class="lnt"&gt;39
+&lt;/span&gt;&lt;span class="lnt"&gt;40
+&lt;/span&gt;&lt;span class="lnt"&gt;41
+&lt;/span&gt;&lt;span class="lnt"&gt;42
+&lt;/span&gt;&lt;span class="lnt"&gt;43
+&lt;/span&gt;&lt;span class="lnt"&gt;44
+&lt;/span&gt;&lt;span class="lnt"&gt;45
+&lt;/span&gt;&lt;span class="lnt"&gt;46
+&lt;/span&gt;&lt;span class="lnt"&gt;47
+&lt;/span&gt;&lt;span class="lnt"&gt;48
+&lt;/span&gt;&lt;span class="lnt"&gt;49
+&lt;/span&gt;&lt;span class="lnt"&gt;50
+&lt;/span&gt;&lt;span class="lnt"&gt;51
+&lt;/span&gt;&lt;span class="lnt"&gt;52
+&lt;/span&gt;&lt;span class="lnt"&gt;53
+&lt;/span&gt;&lt;span class="lnt"&gt;54
+&lt;/span&gt;&lt;span class="lnt"&gt;55
+&lt;/span&gt;&lt;span class="lnt"&gt;56
+&lt;/span&gt;&lt;span class="lnt"&gt;57
+&lt;/span&gt;&lt;span class="lnt"&gt;58
+&lt;/span&gt;&lt;span class="lnt"&gt;59
+&lt;/span&gt;&lt;span class="lnt"&gt;60
+&lt;/span&gt;&lt;span class="lnt"&gt;61
+&lt;/span&gt;&lt;span class="lnt"&gt;62
+&lt;/span&gt;&lt;span class="lnt"&gt;63
+&lt;/span&gt;&lt;span class="lnt"&gt;64
+&lt;/span&gt;&lt;span class="lnt"&gt;65
+&lt;/span&gt;&lt;span class="lnt"&gt;66
+&lt;/span&gt;&lt;span class="lnt"&gt;67
+&lt;/span&gt;&lt;span class="lnt"&gt;68
+&lt;/span&gt;&lt;span class="lnt"&gt;69
+&lt;/span&gt;&lt;span class="lnt"&gt;70
+&lt;/span&gt;&lt;span class="lnt"&gt;71
+&lt;/span&gt;&lt;span class="lnt"&gt;72
+&lt;/span&gt;&lt;span class="lnt"&gt;73
+&lt;/span&gt;&lt;span class="lnt"&gt;74
+&lt;/span&gt;&lt;span class="lnt"&gt;75
+&lt;/span&gt;&lt;span class="lnt"&gt;76
+&lt;/span&gt;&lt;span class="lnt"&gt;77
+&lt;/span&gt;&lt;span class="lnt"&gt;78
+&lt;/span&gt;&lt;span class="lnt"&gt;79
+&lt;/span&gt;&lt;span class="lnt"&gt;80
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-csharp" data-lang="csharp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// Create an assessment to analyze the risk of an UI action.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// projectID: GCloud Project ID.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// recaptchaSiteKey: Site key obtained by registering a domain/app to use recaptcha.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// token: The token obtained from the client on passing the recaptchaSiteKey.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// recaptchaAction: Action name corresponding to the token.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;private&lt;/span&gt; &lt;span class="kd"&gt;async&lt;/span&gt; &lt;span class="n"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;bool&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;createAssessmentAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;projectID&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#34;recaptchademo-374714&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;recaptchaSiteKey&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#34;6LdSxPgjAAAAAGTKX703ydrWNF8WbQv2pZbRXGyX&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;string&lt;/span&gt; &lt;span class="n"&gt;recaptchaAction&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="s"&gt;&amp;#34;login&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;String&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;IsNullOrWhiteSpace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;throw&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ArgumentException&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;The `token` argument must not empty.&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ProjectName&lt;/span&gt; &lt;span class="n"&gt;projectName&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;ProjectName&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;projectID&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Build the assessment request.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;CreateAssessmentRequest&lt;/span&gt; &lt;span class="n"&gt;createAssessmentRequest&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;CreateAssessmentRequest&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;Assessment&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Assessment&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Set the properties of the event to be tracked.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;Event&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="n"&gt;Event&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;SiteKey&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;recaptchaSiteKey&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;Token&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;token&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ExpectedAction&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;recaptchaAction&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;},&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;ParentAsProjectName&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;projectName&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;Assessment&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="n"&gt;_recaptchaClient&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;CreateAssessmentAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;createAssessmentRequest&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Check if the token is valid.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TokenProperties&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Valid&lt;/span&gt; &lt;span class="p"&gt;==&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logger&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LogInformation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;The CreateAssessment call failed because the token was: &amp;#34;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TokenProperties&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;InvalidReason&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ToString&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Check if the expected action was executed.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TokenProperties&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Action&lt;/span&gt; &lt;span class="p"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;recaptchaAction&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logger&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LogInformation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;The action attribute in reCAPTCHA tag is: &amp;#34;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;TokenProperties&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Action&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ToString&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logger&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LogInformation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;The action attribute in the reCAPTCHA tag does not &amp;#34;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="s"&gt;&amp;#34;match the action you are expecting to score&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Get the risk score and the reason(s).&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// For more information on interpreting the assessment,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// see: https://cloud.google.com/recaptcha-enterprise/docs/interpret-assessment&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="kt"&gt;var&lt;/span&gt; &lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="p"&gt;=&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RiskAnalysis&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Score&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logger&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LogInformation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;#34;The reCAPTCHA score is: &amp;#34;&lt;/span&gt; &lt;span class="p"&gt;+&lt;/span&gt; &lt;span class="n"&gt;score&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;foreach&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;RiskAnalysis&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Types&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ClassificationReason&lt;/span&gt; &lt;span class="n"&gt;reason&lt;/span&gt; &lt;span class="k"&gt;in&lt;/span&gt; &lt;span class="n"&gt;response&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RiskAnalysis&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Reasons&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="n"&gt;_logger&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LogInformation&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;reason&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ToString&lt;/span&gt;&lt;span class="p"&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// https://developers.google.com/recaptcha/docs/analytics&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// This chart shows the average score on your site, which is designed to help you spot trends.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Scores range from 0.0 to 1.0, with 0.0 indicating abusive traffic and 1.0 indicating good traffic.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="c1"&gt;// Sign up for reCAPTCHA v3 to gain more insights about your traffic.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="m"&gt;0.5&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;這裡 method 總共有 4 個參數，都很重要，除了 &lt;code&gt;token&lt;/code&gt; 之外，其他都可以寫進 &lt;code&gt;appsettings.json&lt;/code&gt; 組態之中！&lt;/p&gt;
+&lt;p&gt;因為 GCP 上的每個「專案」都有個唯一的 &lt;code&gt;projectID&lt;/code&gt;，你要特別查才知道是什麼，這裡的 &lt;code&gt;projectID&lt;/code&gt; 要記得到 &lt;a class="link" href="https://console.cloud.google.com/welcome" target="_blank" rel="noopener"
+&gt;https://console.cloud.google.com/welcome&lt;/a&gt; 查閱！&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674484434_7414cca050_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>這裡的 &lt;code>recaptchaSiteKey&lt;/code> 就是你先前建立 site key 時拿到的那組！&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52674631405_347fa4a156_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;這裡的 &lt;code&gt;recaptchaSiteKey&lt;/code&gt; 就是你先前建立 site key 時拿到的那組！&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52674631405_347fa4a156_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>這裡的 &lt;code>recaptchaAction&lt;/code> 必須跟你在「收集前端使用者回應值階段」設定的 &lt;code>{action: 'login'}&lt;/code> 完全一樣，這裡是設定一個「驗證動作」的類型，可以是任意字串！&lt;/p>
-&lt;p>程式碼邏輯的部分我就不贅述了，大家可以自己看，應該很容易理解。最後的 &lt;code>if (score &amp;gt; 0.5) {}&lt;/code> 就是在判斷怎樣的分數允許通過驗證，基本上分數只會介於 &lt;code>0.0&lt;/code> ~ &lt;code>1.0&lt;/code> 之間，共 11 個等級。但在尚未通過 &lt;a class="link" href="https://go.chronicle.security/recaptchaupgrade" target="_blank" rel="noopener"
->Google Security Review&lt;/a> 的前提下，預設只會有 &lt;code>0.1&lt;/code>、&lt;code>0.3&lt;/code>、&lt;code>0.7&lt;/code> 與 &lt;code>0.9&lt;/code> 這四個等級，所以建議 &lt;code>Score&lt;/code> 結果的判斷式不要用 == 來寫，用 &lt;code>&amp;lt;&lt;/code>、&lt;code>&amp;lt;=&lt;/code> 或 &lt;code>&amp;gt;&lt;/code>、&lt;code>&amp;gt;=&lt;/code> 才是比較正確的寫法！&lt;/p>
-&lt;ol start="6">
-&lt;li>最後要使用就很簡單了，以下是一個簡單的 Action 使用範例&lt;/li>
-&lt;/ol>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
-&lt;/span>&lt;span class="lnt"> 2
-&lt;/span>&lt;span class="lnt"> 3
-&lt;/span>&lt;span class="lnt"> 4
-&lt;/span>&lt;span class="lnt"> 5
-&lt;/span>&lt;span class="lnt"> 6
-&lt;/span>&lt;span class="lnt"> 7
-&lt;/span>&lt;span class="lnt"> 8
-&lt;/span>&lt;span class="lnt"> 9
-&lt;/span>&lt;span class="lnt">10
-&lt;/span>&lt;span class="lnt">11
-&lt;/span>&lt;span class="lnt">12
-&lt;/span>&lt;span class="lnt">13
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-csharp" data-lang="csharp">&lt;span class="line">&lt;span class="cl">&lt;span class="na">[HttpPost]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="na">[ValidateAntiForgeryToken]&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="kd">public&lt;/span> &lt;span class="kd">async&lt;/span> &lt;span class="n">Task&lt;/span>&lt;span class="p">&amp;lt;&lt;/span>&lt;span class="n">IActionResult&lt;/span>&lt;span class="p">&amp;gt;&lt;/span> &lt;span class="n">Index&lt;/span>&lt;span class="p">([&lt;/span>&lt;span class="n">FromForm&lt;/span>&lt;span class="p">]&lt;/span> &lt;span class="n">ContactViewModel&lt;/span> &lt;span class="n">model&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">if&lt;/span> &lt;span class="p">(&lt;/span>&lt;span class="k">await&lt;/span> &lt;span class="n">createAssessmentAsync&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">model&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="n">RecaptchaToken&lt;/span>&lt;span class="p">))&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">NoContent&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">else&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="n">BadRequest&lt;/span>&lt;span class="p">();&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;hr>
-&lt;h2 id="總結">總結&lt;/h2>
-&lt;p>整合 Google 的 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 實在太多雷了，這對 &lt;a class="link" href="https://cloud.google.com/" target="_blank" rel="noopener"
->Google Cloud Platform&lt;/a> 不太熟悉的人來說，整合起來著實有不小的門檻，本文這麼多步驟，要是我不記錄下來，過一段時間我肯定又忘記了！😅&lt;/p>
-&lt;p>我來重新總結一下整個開發過程：&lt;/p>
-&lt;ol>
-&lt;li>先到 &lt;a class="link" href="https://console.cloud.google.com/" target="_blank" rel="noopener"
->Google Cloud console&lt;/a> 建立 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
->reCAPTCHA keys&lt;/a>&lt;br>
+&gt;&lt;/p&gt;
+&lt;p&gt;這裡的 &lt;code&gt;recaptchaAction&lt;/code&gt; 必須跟你在「收集前端使用者回應值階段」設定的 &lt;code&gt;{action: 'login'}&lt;/code&gt; 完全一樣，這裡是設定一個「驗證動作」的類型，可以是任意字串！&lt;/p&gt;
+&lt;p&gt;程式碼邏輯的部分我就不贅述了，大家可以自己看，應該很容易理解。最後的 &lt;code&gt;if (score &amp;gt; 0.5) {}&lt;/code&gt; 就是在判斷怎樣的分數允許通過驗證，基本上分數只會介於 &lt;code&gt;0.0&lt;/code&gt; ~ &lt;code&gt;1.0&lt;/code&gt; 之間，共 11 個等級。但在尚未通過 &lt;a class="link" href="https://go.chronicle.security/recaptchaupgrade" target="_blank" rel="noopener"
+&gt;Google Security Review&lt;/a&gt; 的前提下，預設只會有 &lt;code&gt;0.1&lt;/code&gt;、&lt;code&gt;0.3&lt;/code&gt;、&lt;code&gt;0.7&lt;/code&gt; 與 &lt;code&gt;0.9&lt;/code&gt; 這四個等級，所以建議 &lt;code&gt;Score&lt;/code&gt; 結果的判斷式不要用 == 來寫，用 &lt;code&gt;&amp;lt;&lt;/code&gt;、&lt;code&gt;&amp;lt;=&lt;/code&gt; 或 &lt;code&gt;&amp;gt;&lt;/code&gt;、&lt;code&gt;&amp;gt;=&lt;/code&gt; 才是比較正確的寫法！&lt;/p&gt;
+&lt;ol start="6"&gt;
+&lt;li&gt;最後要使用就很簡單了，以下是一個簡單的 Action 使用範例&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt; 1
+&lt;/span&gt;&lt;span class="lnt"&gt; 2
+&lt;/span&gt;&lt;span class="lnt"&gt; 3
+&lt;/span&gt;&lt;span class="lnt"&gt; 4
+&lt;/span&gt;&lt;span class="lnt"&gt; 5
+&lt;/span&gt;&lt;span class="lnt"&gt; 6
+&lt;/span&gt;&lt;span class="lnt"&gt; 7
+&lt;/span&gt;&lt;span class="lnt"&gt; 8
+&lt;/span&gt;&lt;span class="lnt"&gt; 9
+&lt;/span&gt;&lt;span class="lnt"&gt;10
+&lt;/span&gt;&lt;span class="lnt"&gt;11
+&lt;/span&gt;&lt;span class="lnt"&gt;12
+&lt;/span&gt;&lt;span class="lnt"&gt;13
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-csharp" data-lang="csharp"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;[HttpPost]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="na"&gt;[ValidateAntiForgeryToken]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;public&lt;/span&gt; &lt;span class="kd"&gt;async&lt;/span&gt; &lt;span class="n"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;IActionResult&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Index&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="n"&gt;FromForm&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="n"&gt;ContactViewModel&lt;/span&gt; &lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;await&lt;/span&gt; &lt;span class="n"&gt;createAssessmentAsync&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;model&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;RecaptchaToken&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;NoContent&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;else&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;BadRequest&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h2 id="總結"&gt;總結&lt;/h2&gt;
+&lt;p&gt;整合 Google 的 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 實在太多雷了，這對 &lt;a class="link" href="https://cloud.google.com/" target="_blank" rel="noopener"
+&gt;Google Cloud Platform&lt;/a&gt; 不太熟悉的人來說，整合起來著實有不小的門檻，本文這麼多步驟，要是我不記錄下來，過一段時間我肯定又忘記了！😅&lt;/p&gt;
+&lt;p&gt;我來重新總結一下整個開發過程：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;先到 &lt;a class="link" href="https://console.cloud.google.com/" target="_blank" rel="noopener"
+&gt;Google Cloud console&lt;/a&gt; 建立 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
+&gt;reCAPTCHA keys&lt;/a&gt;&lt;br&gt;
 你可能需要&lt;a class="link" href="https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project" target="_blank" rel="noopener"
->建立一個新專案&lt;/a>，並啟用 &lt;code>reCAPTCHA Enterprise API&lt;/code> 服務，然後才能建立 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
->reCAPTCHA keys&lt;/a>。&lt;/li>
-&lt;/ol>
-&lt;blockquote>
-&lt;p>每個 GCP 上面的新專案，都需要個別手動啟用 API 服務。如果你選用先前建立過的專案，且 &lt;code>reCAPTCHA Enterprise API&lt;/code> 服務已經啟用過，那就不需要再次啟用。&lt;/p>
-&lt;/blockquote>
-&lt;ol start="2">
-&lt;li>
-&lt;p>安裝 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/keys" target="_blank" rel="noopener"
->reCAPTCHA keys&lt;/a> 到網頁上 (前端 JavaScript 為主)&lt;br>
-這邊需要寫一點點 JavaScript 才能將 &lt;code>token&lt;/code> 回寫到表單上，幫助前端將 &lt;code>token&lt;/code> 送回後端評估。&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>從後端評估前端送來的 &lt;code>token&lt;/code> (回應值) 是否有效&lt;br>
-你必須建立一個 GCP 上的 &lt;code>Service Account&lt;/code> (服務帳戶)，並賦予 &lt;code>reCAPTCHA Enterprise Agent&lt;/code> 角色。然後為這個 &lt;code>Service Account&lt;/code> 建立一把 &lt;code>key&lt;/code> (私密金鑰) 才能組成一個 &lt;code>Credential&lt;/code> (身分認證資訊) 讓應用程式使用，然後用這份 &lt;code>Credential&lt;/code> 跟 &lt;code>reCAPTCHA Enterprise API&lt;/code> 通訊，取得 &lt;code>Assessment&lt;/code> (評估) 結果，然後依據 &lt;code>Score&lt;/code> (分數) 判斷是否為真人的流量，通常這個 &lt;code>Score&lt;/code> (分數) 只要大於等於 &lt;code>0.7&lt;/code> 通常就意味著可信度夠高。&lt;/p>
-&lt;/li>
-&lt;/ol>
-&lt;p>另外，我想補充說明的是，&lt;a class="link" href="https://www.google.com/recaptcha/about/" target="_blank" rel="noopener"
->reCAPTCHA Enterprise&lt;/a> 有&lt;strong>每月 100 萬次免費使用額度&lt;/strong>，這些次數主要是「後端」對 &lt;code>reCAPTCHA Enterprise API&lt;/code> 發送驗證 &lt;code>Assessment&lt;/code> (評估) 的次數，對許多網站來說，這個數量應該是綽綽有餘了，所以我才考慮直接使用這個服務。&lt;/p>
-&lt;hr></description></item><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://wayne-blog.com/2022-12-10/use-google-sheet-as-db/</link><pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-10/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" />&lt;style>
+&gt;建立一個新專案&lt;/a&gt;，並啟用 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 服務，然後才能建立 &lt;a class="link" href="https://console.cloud.google.com/security/recaptcha" target="_blank" rel="noopener"
+&gt;reCAPTCHA keys&lt;/a&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;blockquote&gt;
+&lt;p&gt;每個 GCP 上面的新專案，都需要個別手動啟用 API 服務。如果你選用先前建立過的專案，且 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 服務已經啟用過，那就不需要再次啟用。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol start="2"&gt;
+&lt;li&gt;
+&lt;p&gt;安裝 &lt;a class="link" href="https://cloud.google.com/recaptcha-enterprise/docs/keys" target="_blank" rel="noopener"
+&gt;reCAPTCHA keys&lt;/a&gt; 到網頁上 (前端 JavaScript 為主)&lt;br&gt;
+這邊需要寫一點點 JavaScript 才能將 &lt;code&gt;token&lt;/code&gt; 回寫到表單上，幫助前端將 &lt;code&gt;token&lt;/code&gt; 送回後端評估。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;從後端評估前端送來的 &lt;code&gt;token&lt;/code&gt; (回應值) 是否有效&lt;br&gt;
+你必須建立一個 GCP 上的 &lt;code&gt;Service Account&lt;/code&gt; (服務帳戶)，並賦予 &lt;code&gt;reCAPTCHA Enterprise Agent&lt;/code&gt; 角色。然後為這個 &lt;code&gt;Service Account&lt;/code&gt; 建立一把 &lt;code&gt;key&lt;/code&gt; (私密金鑰) 才能組成一個 &lt;code&gt;Credential&lt;/code&gt; (身分認證資訊) 讓應用程式使用，然後用這份 &lt;code&gt;Credential&lt;/code&gt; 跟 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 通訊，取得 &lt;code&gt;Assessment&lt;/code&gt; (評估) 結果，然後依據 &lt;code&gt;Score&lt;/code&gt; (分數) 判斷是否為真人的流量，通常這個 &lt;code&gt;Score&lt;/code&gt; (分數) 只要大於等於 &lt;code&gt;0.7&lt;/code&gt; 通常就意味著可信度夠高。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;另外，我想補充說明的是，&lt;a class="link" href="https://www.google.com/recaptcha/about/" target="_blank" rel="noopener"
+&gt;reCAPTCHA Enterprise&lt;/a&gt; 有&lt;strong&gt;每月 100 萬次免費使用額度&lt;/strong&gt;，這些次數主要是「後端」對 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 發送驗證 &lt;code&gt;Assessment&lt;/code&gt; (評估) 的次數，對許多網站來說，這個數量應該是綽綽有餘了，所以我才考慮直接使用這個服務。&lt;/p&gt;
+&lt;hr&gt;</description></item><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://wayne-blog.com/2022-12-10/use-google-sheet-as-db/</link><pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-10/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -696,184 +687,184 @@ background: #f1e2e2;
 color: #d62c2c;
 padding: 0 5px;
 }
-&lt;/style>
-&lt;p>&lt;a class="link" href="https://wjdesign.github.io/google-sheet-db/dist/" target="_blank" rel="noopener"
->參考網站&lt;/a>&lt;/p>
-&lt;p>Google 試算表名稱是 Google Sheets，但為了讓大家好理解，以下也會稱 Google Excel。&lt;/p>
-&lt;p>這一篇說明如何把 Google Excel 當作資料庫，並實作出一個簡單的會員列表頁出來。&lt;/p>
-&lt;hr>
-&lt;h2 id="建立-google-excel">建立 Google Excel&lt;/h2>
-&lt;p>在 Google Drive 上，按&lt;strong>新增&lt;/strong>，選擇「&lt;strong>Google 試算表&lt;/strong>」，就會進到一張新的 Google Excel。&lt;/p>
-&lt;p>這邊設定的假資料欄位，總共有以下 5 個：&lt;/p>
-&lt;ul>
-&lt;li>id：流水號&lt;/li>
-&lt;li>name：姓名&lt;/li>
-&lt;li>image：圖片&lt;/li>
-&lt;li>email：信箱&lt;/li>
-&lt;li>phone：電話&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>要注意，欄位名稱的部份要用英文，在下面接資料那段會解釋原因。&lt;/strong>&lt;/p>
-&lt;p>Demo 的資料如下：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332746_69623d6a40_o.png"
+&lt;/style&gt;
+&lt;p&gt;&lt;a class="link" href="https://wjdesign.github.io/google-sheet-db/dist/" target="_blank" rel="noopener"
+&gt;參考網站&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Google 試算表名稱是 Google Sheets，但為了讓大家好理解，以下也會稱 Google Excel。&lt;/p&gt;
+&lt;p&gt;這一篇說明如何把 Google Excel 當作資料庫，並實作出一個簡單的會員列表頁出來。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="建立-google-excel"&gt;建立 Google Excel&lt;/h2&gt;
+&lt;p&gt;在 Google Drive 上，按&lt;strong&gt;新增&lt;/strong&gt;，選擇「&lt;strong&gt;Google 試算表&lt;/strong&gt;」，就會進到一張新的 Google Excel。&lt;/p&gt;
+&lt;p&gt;這邊設定的假資料欄位，總共有以下 5 個：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;id：流水號&lt;/li&gt;
+&lt;li&gt;name：姓名&lt;/li&gt;
+&lt;li&gt;image：圖片&lt;/li&gt;
+&lt;li&gt;email：信箱&lt;/li&gt;
+&lt;li&gt;phone：電話&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;要注意，欄位名稱的部份要用英文，在下面接資料那段會解釋原因。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Demo 的資料如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550332746_69623d6a40_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr>
-&lt;h2 id="發佈-google-excel-到網路">發佈 Google Excel 到網路&lt;/h2>
-&lt;p>這步最簡單也最重要，只有選擇&lt;strong>發佈到網路&lt;/strong>上的 Google Excel，才能 GET 到資料。&lt;/p>
-&lt;p>首先，點擊左上角的「檔案」&amp;gt;「共用」，會看到展開的選項裡有「發佈到網路」：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52549877517_7035af1b3b_o.png"
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="發佈-google-excel-到網路"&gt;發佈 Google Excel 到網路&lt;/h2&gt;
+&lt;p&gt;這步最簡單也最重要，只有選擇&lt;strong&gt;發佈到網路&lt;/strong&gt;上的 Google Excel，才能 GET 到資料。&lt;/p&gt;
+&lt;p&gt;首先，點擊左上角的「檔案」&amp;gt;「共用」，會看到展開的選項裡有「發佈到網路」：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52549877517_7035af1b3b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>點擊後，會出現詢問框，問說發佈的範圍：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804960_d56c660192_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;點擊後，會出現詢問框，問說發佈的範圍：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550804960_d56c660192_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>這篇 Demo 因為只有一張表，所以直接用「&lt;strong>整份文件&lt;/strong>」，如果是有很多張表，但限制其中幾張是可以抓的，就選擇可以公開的表即可。&lt;/p>
-&lt;p>按下「&lt;strong>發佈&lt;/strong>」後，就會看見結果的詢問框：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550627694_39f3048c41_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;這篇 Demo 因為只有一張表，所以直接用「&lt;strong&gt;整份文件&lt;/strong&gt;」，如果是有很多張表，但限制其中幾張是可以抓的，就選擇可以公開的表即可。&lt;/p&gt;
+&lt;p&gt;按下「&lt;strong&gt;發佈&lt;/strong&gt;」後，就會看見結果的詢問框：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550627694_39f3048c41_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>就可以按下叉叉關掉這框了。&lt;/p>
-&lt;p>接著記得將表單的「檢視」權限開放給知道連結的任何人，以免後面步驟因權限不足而被阻擋。&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876658_a2a7571895_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;就可以按下叉叉關掉這框了。&lt;/p&gt;
+&lt;p&gt;接著記得將表單的「檢視」權限開放給知道連結的任何人，以免後面步驟因權限不足而被阻擋。&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550876658_a2a7571895_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;hr>
-&lt;h2 id="取得-google-api-key">取得 Google API Key&lt;/h2>
-&lt;h3 id="1-gcp-新增新專案">1. GCP 新增新專案&lt;/h3>
-&lt;p>&lt;strong>沒有專案的才需要這步&lt;/strong>，進到 &lt;a class="link" href="https://console.cloud.google.com/?hl=zh-TW" target="_blank" rel="noopener"
->Google Cloud Platform&lt;/a> 的頁面按下新增專案，取好專案名稱後即可新增。&lt;/p>
-&lt;h3 id="2-開通-google-sheets-api-功能">2. 開通 Google Sheets API 功能&lt;/h3>
-&lt;p>有了 GCP 的專案後，進到 API 程式庫：&lt;a class="link" href="https://console.cloud.google.com/apis/library?hl=zh-TW" target="_blank" rel="noopener"
->https://console.cloud.google.com/apis/library?hl=zh-TW&lt;/a>&lt;/p>
-&lt;p>搜尋欄中搜尋「&lt;strong>sheet&lt;/strong>」，會看到一項「&lt;strong>Google Sheets API&lt;/strong>」：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804915_a8e928380e_o.png"
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="取得-google-api-key"&gt;取得 Google API Key&lt;/h2&gt;
+&lt;h3 id="1-gcp-新增新專案"&gt;1. GCP 新增新專案&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;沒有專案的才需要這步&lt;/strong&gt;，進到 &lt;a class="link" href="https://console.cloud.google.com/?hl=zh-TW" target="_blank" rel="noopener"
+&gt;Google Cloud Platform&lt;/a&gt; 的頁面按下新增專案，取好專案名稱後即可新增。&lt;/p&gt;
+&lt;h3 id="2-開通-google-sheets-api-功能"&gt;2. 開通 Google Sheets API 功能&lt;/h3&gt;
+&lt;p&gt;有了 GCP 的專案後，進到 API 程式庫：&lt;a class="link" href="https://console.cloud.google.com/apis/library?hl=zh-TW" target="_blank" rel="noopener"
+&gt;https://console.cloud.google.com/apis/library?hl=zh-TW&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;搜尋欄中搜尋「&lt;strong&gt;sheet&lt;/strong&gt;」，會看到一項「&lt;strong&gt;Google Sheets API&lt;/strong&gt;」：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550804915_a8e928380e_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>點擊後按下「啟用」，專案就會開通 &lt;strong>Google Sheets API&lt;/strong> 的功能：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332711_79a2bbc937_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;點擊後按下「啟用」，專案就會開通 &lt;strong&gt;Google Sheets API&lt;/strong&gt; 的功能：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550332711_79a2bbc937_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>啟用完成，頁面會回到 GCP 的頁面，可以看到上面一條訊息提醒要有憑證才能使用 API：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550804875_033c1b47e2_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;啟用完成，頁面會回到 GCP 的頁面，可以看到上面一條訊息提醒要有憑證才能使用 API：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550804875_033c1b47e2_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>直接點擊「&lt;strong>建立憑證&lt;/strong>」，或是打開網址：&lt;a class="link" href="https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW" target="_blank" rel="noopener"
->https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW&lt;/a>&lt;/p>
-&lt;h3 id="3-建立憑證">3. 建立憑證&lt;/h3>
-&lt;p>建立憑證的第一步要先做一些選擇：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876703_969c87a5d9_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;直接點擊「&lt;strong&gt;建立憑證&lt;/strong&gt;」，或是打開網址：&lt;a class="link" href="https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW" target="_blank" rel="noopener"
+&gt;https://console.cloud.google.com/apis/credentials/wizard?hl=zh-TW&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="3-建立憑證"&gt;3. 建立憑證&lt;/h3&gt;
+&lt;p&gt;建立憑證的第一步要先做一些選擇：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550876703_969c87a5d9_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>「&lt;strong>選取 API&lt;/strong>」，選擇「&lt;strong>Google Sheets API&lt;/strong>」。&lt;/p>
-&lt;p>「您需要存取什麼資料？」，這段看了 &lt;a class="link" href="https://cloud.google.com/docs/authentication?hl=zh-TW" target="_blank" rel="noopener"
->說明文件&lt;/a> 也看不太懂使用的情境，選擇「&lt;strong>應用程式資料&lt;/strong>」就可以。&lt;/p>
-&lt;p>「您打算將這個 API 與 Compute Engine、Kubernetes Engine、App Engine 或 Cloud Functions 搭配使用嗎？」，本篇只是為了要能夠取得 Google Sheets 中的資料，並不會用到上述的功能，選擇「&lt;strong>不，我不會使用任何一項憑證&lt;/strong>」。&lt;/p>
-&lt;p>接著按「&lt;strong>下一步&lt;/strong>」。&lt;/p>
-&lt;p>下一步是填寫我們建立這個帳戶的資料，填寫成我們之後回頭來看時，看得懂要做什麼的資訊就可以：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52549877427_00813119ce_o.jpg"
+&gt;&lt;/p&gt;
+&lt;p&gt;「&lt;strong&gt;選取 API&lt;/strong&gt;」，選擇「&lt;strong&gt;Google Sheets API&lt;/strong&gt;」。&lt;/p&gt;
+&lt;p&gt;「您需要存取什麼資料？」，這段看了 &lt;a class="link" href="https://cloud.google.com/docs/authentication?hl=zh-TW" target="_blank" rel="noopener"
+&gt;說明文件&lt;/a&gt; 也看不太懂使用的情境，選擇「&lt;strong&gt;應用程式資料&lt;/strong&gt;」就可以。&lt;/p&gt;
+&lt;p&gt;「您打算將這個 API 與 Compute Engine、Kubernetes Engine、App Engine 或 Cloud Functions 搭配使用嗎？」，本篇只是為了要能夠取得 Google Sheets 中的資料，並不會用到上述的功能，選擇「&lt;strong&gt;不，我不會使用任何一項憑證&lt;/strong&gt;」。&lt;/p&gt;
+&lt;p&gt;接著按「&lt;strong&gt;下一步&lt;/strong&gt;」。&lt;/p&gt;
+&lt;p&gt;下一步是填寫我們建立這個帳戶的資料，填寫成我們之後回頭來看時，看得懂要做什麼的資訊就可以：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52549877427_00813119ce_o.jpg"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>填寫完後按下「&lt;strong>建立並繼續&lt;/strong>」。&lt;/p>
-&lt;p>後面二項是選填，不用設定也沒關係，按下「&lt;strong>完成&lt;/strong>」。&lt;/p>
-&lt;h3 id="4-建立-api-金鑰">4. 建立 API 金鑰&lt;/h3>
-&lt;p>上一步完成後，頁面會回到 &lt;a class="link" href="https://console.cloud.google.com/apis/credentials?hl=zh-TW" target="_blank" rel="noopener"
->憑證的頁面&lt;/a>，點擊上方的「&lt;strong>建立憑證&lt;/strong>」，選擇「&lt;strong>API 金鑰&lt;/strong>」：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876678_2e409c343b_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;填寫完後按下「&lt;strong&gt;建立並繼續&lt;/strong&gt;」。&lt;/p&gt;
+&lt;p&gt;後面二項是選填，不用設定也沒關係，按下「&lt;strong&gt;完成&lt;/strong&gt;」。&lt;/p&gt;
+&lt;h3 id="4-建立-api-金鑰"&gt;4. 建立 API 金鑰&lt;/h3&gt;
+&lt;p&gt;上一步完成後，頁面會回到 &lt;a class="link" href="https://console.cloud.google.com/apis/credentials?hl=zh-TW" target="_blank" rel="noopener"
+&gt;憑證的頁面&lt;/a&gt;，點擊上方的「&lt;strong&gt;建立憑證&lt;/strong&gt;」，選擇「&lt;strong&gt;API 金鑰&lt;/strong&gt;」：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550876678_2e409c343b_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>幾秒後，就會看見跳出一個小視窗，上面寫了「&lt;strong>您的 API 金鑰&lt;/strong>」，這個金鑰也就是我們要取 Google Sheets 時後面要附上的：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550876663_965c0731fb_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;幾秒後，就會看見跳出一個小視窗，上面寫了「&lt;strong&gt;您的 API 金鑰&lt;/strong&gt;」，這個金鑰也就是我們要取 Google Sheets 時後面要附上的：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550876663_965c0731fb_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>視窗上面也提醒了，為了怕金鑰被外人拿到也可以用，我們必須要對這組金鑰加上限制，點擊「&lt;strong>限制金鑰&lt;/strong>」就會進入設定的頁面。&lt;/p>
-&lt;p>建議&lt;strong>一定要設定限制&lt;/strong>，本篇的 Demo 有限制只有在 Demo 頁下才有效，而且也只能用 &lt;strong>Google Sheets API&lt;/strong> 的功能。&lt;/p>
-&lt;p>有了 API 金鑰，接著就是用新的 URL 去執行 GET。&lt;/p>
-&lt;h3 id="google-sheets-url">Google Sheets URL&lt;/h3>
-&lt;p>V4 版的 URL 規則如下：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-bash" data-lang="bash">&lt;span class="line">&lt;span class="cl">https://sheets.googleapis.com/v4/spreadsheets/&lt;span class="o">{&lt;/span>表單id&lt;span class="o">}&lt;/span>/values/&lt;span class="o">{&lt;/span>sheet名稱&lt;span class="o">}&lt;/span>?alt&lt;span class="o">=&lt;/span>json&lt;span class="p">&amp;amp;&lt;/span>&lt;span class="nv">key&lt;/span>&lt;span class="o">={&lt;/span>API金鑰&lt;span class="o">}&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;ul>
-&lt;li>{表單id}：表單的網址上就可以看到。&lt;/li>
-&lt;li>{sheet名稱}：就是每一張試算表的名稱，預設會是叫「工作表1」，這邊有測試過，有支援中文。&lt;/li>
-&lt;li>{API金鑰}：就是上一段我們從 GCP 上取得的金鑰。&lt;/li>
-&lt;/ul>
-&lt;p>我們用一個簡單的 &lt;strong>fetch&lt;/strong> 來取：&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;span class="lnt">5
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-javascript" data-lang="javascript">&lt;span class="line">&lt;span class="cl">&lt;span class="nx">fetch&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s1">&amp;#39;https://sheets.googleapis.com/v4/spreadsheets/1-vTT5LVlscvExPjqJHrhmlO2ZMM-93McoP-yXT8gyOU/values/工作表1?alt=json&amp;amp;key=AIzaSyAVlwHA4EQx7AWjK1QsT87shL37vhKWrl4&amp;#39;&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="nx">res&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">json&lt;/span>&lt;span class="p">())&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">.&lt;/span>&lt;span class="nx">then&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span> &lt;span class="p">=&amp;gt;&lt;/span> &lt;span class="p">{&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nx">console&lt;/span>&lt;span class="p">.&lt;/span>&lt;span class="nx">log&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="nx">res&lt;/span>&lt;span class="p">)&lt;/span>
-&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="p">})&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>&lt;strong>Console&lt;/strong> 上會看到回來的資料如下：&lt;/p>
-&lt;p>&lt;img src="https://live.staticflickr.com/65535/52550332606_d61bfd7d60_o.png"
+&gt;&lt;/p&gt;
+&lt;p&gt;視窗上面也提醒了，為了怕金鑰被外人拿到也可以用，我們必須要對這組金鑰加上限制，點擊「&lt;strong&gt;限制金鑰&lt;/strong&gt;」就會進入設定的頁面。&lt;/p&gt;
+&lt;p&gt;建議&lt;strong&gt;一定要設定限制&lt;/strong&gt;，本篇的 Demo 有限制只有在 Demo 頁下才有效，而且也只能用 &lt;strong&gt;Google Sheets API&lt;/strong&gt; 的功能。&lt;/p&gt;
+&lt;p&gt;有了 API 金鑰，接著就是用新的 URL 去執行 GET。&lt;/p&gt;
+&lt;h3 id="google-sheets-url"&gt;Google Sheets URL&lt;/h3&gt;
+&lt;p&gt;V4 版的 URL 規則如下：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;https://sheets.googleapis.com/v4/spreadsheets/&lt;span class="o"&gt;{&lt;/span&gt;表單id&lt;span class="o"&gt;}&lt;/span&gt;/values/&lt;span class="o"&gt;{&lt;/span&gt;sheet名稱&lt;span class="o"&gt;}&lt;/span&gt;?alt&lt;span class="o"&gt;=&lt;/span&gt;json&lt;span class="p"&gt;&amp;amp;&lt;/span&gt;&lt;span class="nv"&gt;key&lt;/span&gt;&lt;span class="o"&gt;={&lt;/span&gt;API金鑰&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;{表單id}：表單的網址上就可以看到。&lt;/li&gt;
+&lt;li&gt;{sheet名稱}：就是每一張試算表的名稱，預設會是叫「工作表1」，這邊有測試過，有支援中文。&lt;/li&gt;
+&lt;li&gt;{API金鑰}：就是上一段我們從 GCP 上取得的金鑰。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;我們用一個簡單的 &lt;strong&gt;fetch&lt;/strong&gt; 來取：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
+&lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code&gt;&lt;span class="lnt"&gt;1
+&lt;/span&gt;&lt;span class="lnt"&gt;2
+&lt;/span&gt;&lt;span class="lnt"&gt;3
+&lt;/span&gt;&lt;span class="lnt"&gt;4
+&lt;/span&gt;&lt;span class="lnt"&gt;5
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class="lntd"&gt;
+&lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;fetch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;https://sheets.googleapis.com/v4/spreadsheets/1-vTT5LVlscvExPjqJHrhmlO2ZMM-93McoP-yXT8gyOU/values/工作表1?alt=json&amp;amp;key=AIzaSyAVlwHA4EQx7AWjK1QsT87shL37vhKWrl4&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;json&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;})&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;&lt;strong&gt;Console&lt;/strong&gt; 上會看到回來的資料如下：&lt;/p&gt;
+&lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52550332606_d61bfd7d60_o.png"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
->&lt;/p>
-&lt;p>回來資料的格式，所有資料都收在 &lt;strong>values&lt;/strong> 裡，Google Sheets 上的每一列會成為一個一個的陣列。&lt;/p>
-&lt;hr>
-&lt;h2 id="相關連結">相關連結&lt;/h2>
-&lt;p>附上本篇的相關連結：&lt;/p>
-&lt;ul>
-&lt;li>&lt;a class="link" href="https://wjdesign.github.io/google-sheet-db/dist/" target="_blank" rel="noopener"
->網站成果&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://docs.google.com/spreadsheets/d/1LX8B-H-g9qzetX6YOq_GbrXP-NIui81fV9fovUKykT8/edit?usp=sharing" target="_blank" rel="noopener"
->Google Sheet&lt;/a>&lt;/li>
-&lt;li>&lt;a class="link" href="https://github.com/wjdesign/google-sheet-db" target="_blank" rel="noopener"
->網站原始碼 Github 空間&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;hr></description></item></channel></rss>
+&gt;&lt;/p&gt;
+&lt;p&gt;回來資料的格式，所有資料都收在 &lt;strong&gt;values&lt;/strong&gt; 裡，Google Sheets 上的每一列會成為一個一個的陣列。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id="相關連結"&gt;相關連結&lt;/h2&gt;
+&lt;p&gt;附上本篇的相關連結：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class="link" href="https://wjdesign.github.io/google-sheet-db/dist/" target="_blank" rel="noopener"
+&gt;網站成果&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://docs.google.com/spreadsheets/d/1LX8B-H-g9qzetX6YOq_GbrXP-NIui81fV9fovUKykT8/edit?usp=sharing" target="_blank" rel="noopener"
+&gt;Google Sheet&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="link" href="https://github.com/wjdesign/google-sheet-db" target="_blank" rel="noopener"
+&gt;網站原始碼 Github 空間&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;</description></item></channel></rss>
