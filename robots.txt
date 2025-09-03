@@ -2,21 +2,35 @@ User-agent: *
 
 Allow: /categories/
 
-Allow: /categories/javascript/
+Allow: /categories/mcp/
 
-Allow: /tags/javascript/
+Allow: /tags/mcp-server/
+
+Allow: /tags/playwright/
 
 Allow: /post/
 
 Allow: /tags/
+
+Allow: /tags/vscode/
+
+Allow: /categories/vscode/
+
+Allow: /2025-08-30/vscode-mcp-servers-playwright/
+
+Allow: /
+
+Allow: /tags/%E8%87%AA%E5%8B%95%E5%8C%96%E6%B8%AC%E8%A9%A6/
+
+Allow: /categories/javascript/
+
+Allow: /tags/javascript/
 
 Allow: /categories/vite/
 
 Allow: /tags/vite/
 
 Allow: /2023-11-22/vite-v5-announcing/
-
-Allow: /
 
 Allow: /tags/cdn/
 
@@ -47,10 +61,6 @@ Allow: /categories/design-pattern/
 Allow: /2023-03-31/ddd-introduction/
 
 Allow: /2023-03-31/reset-vscode-settings-cloud-data/
-
-Allow: /tags/vscode/
-
-Allow: /categories/vscode/
 
 Allow: /tags/vscode-settings/
 
@@ -543,6 +553,8 @@ Allow: /tags/emoji/
 Allow: /2019-03-05/emoji-support/
 
 Allow: /2014-10-28/docker-10-qa/
+
+Allow: /categories/mcp-server/
 
 Allow: /links/
 

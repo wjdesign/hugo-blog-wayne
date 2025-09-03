@@ -1,0 +1,429 @@
+<!doctype html><html lang=zh-tw dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content='研究並介紹 VSCode MCP Servers 與 Playwright，並在專案中導入 Playwright 跑自動化測試應用，分享並記錄研究過程。'><meta name=keywords content="VSCode,VSCode Extension,MCP,MCP Server,MCP Servers,Playwright,自動化,自動化測試"><title>VSCode MCP Servers 與專案導入 Playwright 自動化測試分享</title><link rel=canonical href=https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/><link rel=stylesheet href=https://wayne-blog.com/scss/style.min.de08ce8a8b4894c32f2646940b0549065eabd98db570574dd51b29ea2704fa95.css><script>!function(e,t,n,s,o,i,a){if(e.fbq)return;o=e.fbq=function(){o.callMethod?o.callMethod.apply(o,arguments):o.queue.push(arguments)},e._fbq||(e._fbq=o),o.push=o,o.loaded=!0,o.version="2.0",o.queue=[],i=t.createElement(n),i.async=!0,i.src=s,a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(i,a)}(window,document,"script","https://connect.facebook.net/en_US/fbevents.js"),fbq("init","843131703668116"),fbq("track","PageView")</script><noscript><img height=1 width=1 style=display:none src="https://www.facebook.com/tr?id=843131703668116&ev=PageView&noscript=1"></noscript><meta property='og:title' content='VSCode MCP Servers 與專案導入 Playwright 自動化測試分享'><meta property='og:description' content='研究並介紹 VSCode MCP Servers 與 Playwright，並在專案中導入 Playwright 跑自動化測試應用，分享並記錄研究過程。'><meta property='og:url' content='https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/'><meta property='og:site_name' content="Wayne's blog | 偉恩的部落格 | 技術博客"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:tag' content='vscode'><meta property='article:tag' content='mcp-server'><meta property='article:tag' content='playwright'><meta property='article:tag' content='自動化測試'><meta property='article:published_time' content='2025-08-30T00:00:00+00:00'><meta property='article:modified_time' content='2025-08-30T00:00:00+00:00'><meta property='og:image' content='https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg'><meta name=twitter:site content="@4006wayne"><meta name=twitter:creator content="@4006wayne"><meta name=twitter:title content="VSCode MCP Servers 與專案導入 Playwright 自動化測試分享"><meta name=twitter:description content="研究並介紹 VSCode MCP Servers 與 Playwright，並在專案中導入 Playwright 跑自動化測試應用，分享並記錄研究過程。"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content='https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg'><link rel="shortcut icon" href=https://live.staticflickr.com/65535/52275825736_808b1fd4a8_o.png><script async src="https://www.googletagmanager.com/gtag/js?id=G-FG6KQD7H6C"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-FG6KQD7H6C")}</script><link rel=stylesheet type=text/css href=https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/toastify-js></script><script>const hackKey="hack",author="Wayne (偉恩)",link="https://wayne-blog.com/",source="Wayne's blog | 偉恩的部落格 | 技術博客",warningText="請重視著作權，商業轉載請聯繫作者獲得授權，非商業轉載請註明出處。",warningBackgroundColor="linear-gradient(to right, rgb(108 47 87), rgb(191 86 86))",successBackgroundColor="linear-gradient(to right, rgb(47 151 127), rgb(69 195 137))",ignoreTagNames=["INPUT"];window.addEventListener("keyup",function(e){if(document.activeElement&&ignoreTagNames.includes(document.activeElement.tagName))return;if(e.key&&e.key.toLowerCase()==="h"){let e={text:"",duration:1e3,destination:"",newWindow:!0,close:!0,gravity:"top",position:"center",stopOnFocus:!1,style:{borderRadius:"50em"}};const t=new URL(window.location.href),n=new URLSearchParams(t.search);if(n.has(hackKey)){e.text="Hack模式已關閉",e.style.background=warningBackgroundColor,Toastify(e).showToast(),n.delete(hackKey),t.search=n.toString(),window.history.replaceState(null,"",t.toString());return}e.text="Hack模式已開啟",e.style.background=successBackgroundColor,Toastify(e).showToast(),n.set(hackKey,"1"),t.search=n.toString(),window.history.replaceState(null,"",t.toString())}}),window.addEventListener("copy",function(e){const t=new URL(window.location.href),n=new URLSearchParams(t.search);if(!n.has(hackKey)){e.preventDefault();const t=document.getSelection();e.clipboardData.setData("text/plain",`${t.toString()}
+
+作者：${author}
+連結：${link}
+來源：${source}
+${warningText}`)}})</script><style>:root{--zh-font-family:"Microsoft JhengHei", "微軟正黑體";--code-font-family:Menlo, Monaco, Consolas, "Courier New"}</style><meta name=theme-color content="#57BCB9"><link rel=manifest href=./manifest.json><link rel=apple-touch-icon sizes=57x57 href=./apple-touch-icon-57x57.webp><link rel=apple-touch-icon sizes=114x114 href=./apple-touch-icon-114x114.webp><link rel=apple-touch-icon sizes=120x120 href=./apple-touch-icon-120x120.webp><link rel=apple-touch-icon sizes=180x180 href=./apple-touch-icon-180x180.webp><link rel=apple-touch-icon sizes=192x192 href=./apple-touch-icon-192x192.webp><link rel=apple-touch-icon sizes=512x512 href=./apple-touch-icon-512x512.png><meta name=msvalidate.01 content="D1D0687C3DAA5A891295FC82A5EDD3B0"></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"light")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切換選單>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=https://wayne-blog.com/><img src=https://wayne-blog.com/img/avatar2d.webp width=256 height=256 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🧧</span></figure><div class=site-meta><h1 class=site-name><a href=https://wayne-blog.com/>Wayne (偉恩)</a></h1><h2 class=site-description>軟體開發 | 網路工程 | 技術博客</h2></div></header><ol class=social-menu><li><a href=https://wayneblog.bobaboba.me target=_blank title=Bobaboba rel=me><svg width="16" height="25" viewBox="0 0 108 156" fill="none" class="ant-menu-item-icon"><g id="Frame" clip-path="url(#clip0_1286_9119)"><path id="Vector" d="M103.092 68.82c3.923-10.88 3.425-22.877-1.386-33.3898-4.8113-10.5128-13.5473-18.6939-24.3139-22.7695C66.6255 8.58519 54.6963 8.94396 44.1907 13.6589 33.6852 18.3738 25.4501 27.065 21.2715 37.848L103.092 68.82z" fill="#E3E7F5"/><path id="Vector_2" d="M20.6297 41.1675.0942412 133.077C-.0317631 133.774.0878744 134.493.432471 135.11.777068 135.727 1.325 136.203 1.98169 136.457L52.9429 155.789C53.6062 156.055 54.3425 156.073 55.0179 155.84 55.6933 155.607 56.2629 155.137 56.6233 154.517L101.337 71.7598C101.535 71.3808 101.649 70.9635 101.672 70.5363 101.694 70.109 101.626 69.6817 101.47 69.2836 101.314 68.8855 101.075 68.5258 100.769 68.2289 100.463 67.932 100.096 67.705 99.6951 67.5631L24.4802 39.0787C24.0918 38.9392 23.6786 38.8833 23.2674 38.9148 22.8561 38.9462 22.456 39.0642 22.093 39.2611S21.4122 39.7294 21.1601 40.0578 20.7273 40.7643 20.6297 41.1675z" fill="#F2F2F2"/><path id="Vector_3" d="M82.9934.252578 82.9758.245884C80.9074-.537125 78.5998.515063 77.8216 2.59602L48.9735 79.7314C48.1953 81.8123 49.2411 84.134 51.3094 84.917L51.3271 84.9237C53.3954 85.7067 55.703 84.6545 56.4813 82.5736L85.3293 5.43823C86.1076 3.35727 85.0618 1.03559 82.9934.252578z" fill="#CED8ED"/><path id="Vector_4" d="M104.866 63.6606 24.7538 33.3326C22.2172 32.3723 19.3869 33.6626 18.4324 36.2147L18.4258 36.2325C17.4713 38.7846 18.7541 41.632 21.2907 42.5923L101.403 72.9204C103.94 73.8806 106.77 72.5902 107.724 70.0381L107.731 70.0203C108.685 67.4682 107.403 64.6209 104.866 63.6606z" fill="#CBD3E8"/><path id="Vector_5" d="M89.6538 93.0834 56.7178 154.572C56.3574 155.192 55.7878 155.662 55.1124 155.895 54.437 156.129 53.7006 156.111 53.0374 155.844L2.07618 136.513C1.41948 136.259.87155 135.782.526954 135.165.182357 134.548.0627193 133.829.188724 133.133L15.4204 64.9219 89.6538 93.0834z" fill="#F8E0BE"/><path id="Vector_6" d="M74.3088 11.125C77.2135 11.8219 79.9953 12.9619 82.5572 14.5052L69.2128 50.1868 60.2285 46.7876S74.6297 11.2579 74.3088 11.125z" fill="#E3E7F5"/><path id="Vector_7" d="M15.1374 125.272C17.7851 125.272 19.9315 123.112 19.9315 120.448 19.9315 117.784 17.7851 115.625 15.1374 115.625S10.3433 117.784 10.3433 120.448C10.3433 123.112 12.4897 125.272 15.1374 125.272z" fill="#D79B7A"/><path id="Vector_8" d="M15.3261 108.756C17.9738 108.756 20.1202 106.597 20.1202 103.933 20.1202 101.269 17.9738 99.1094 15.3261 99.1094S10.532 101.269 10.532 103.933C10.532 106.597 12.6784 108.756 15.3261 108.756z" fill="#D79B7A"/><path id="Vector_9" d="M23.0837 141.303c2.6477.0 4.7941-2.16 4.7941-4.82300000000001C27.8778 133.816 25.7314 131.656 23.0837 131.656S18.2896 133.816 18.2896 136.48C18.2896 139.143 20.436 141.303 23.0837 141.303z" fill="#D79B7A"/><path id="Vector_10" d="M58.9829 119.678c2.6477.0 4.7941-2.16 4.7941-4.82299999999999.0-2.664-2.1464-4.824-4.7941-4.824-2.6478.0-4.7942 2.16-4.7942 4.824C54.1887 117.518 56.3351 119.678 58.9829 119.678z" fill="#D79B7A"/><path id="Vector_11" d="M59.9643 138.022C62.612 138.022 64.7584 135.862 64.7584 133.198 64.7584 130.534 62.612 128.375 59.9643 128.375S55.1702 130.534 55.1702 133.198C55.1702 135.862 57.3166 138.022 59.9643 138.022z" fill="#D79B7A"/><path id="Vector_12" d="M41.3351 136.631C43.9829 136.631 46.1293 134.472 46.1293 131.808c0-2.66399999999999-2.1464-4.824-4.7942-4.824C38.6874 126.984 36.541 129.144 36.541 131.808 36.541 134.472 38.6874 136.631 41.3351 136.631z" fill="#D79B7A"/><path id="Vector_13" d="M50.5837 150.701C53.2314 150.701 55.3778 148.542 55.3778 145.878 55.3778 143.214 53.2314 141.055 50.5837 141.055S45.7896 143.214 45.7896 145.878C45.7896 148.542 47.936 150.701 50.5837 150.701z" fill="#D79B7A"/><path id="Vector_14" d="M35.7106 121.381C38.3584 121.381 40.5048 119.222 40.5048 116.558 40.5048 113.894 38.3584 111.734 35.7106 111.734 33.0629 111.734 30.9165 113.894 30.9165 116.558 30.9165 119.222 33.0629 121.381 35.7106 121.381z" fill="#D79B7A"/><path id="Vector_15" d="M68.8354 37.6381C67.5686 37.1053 66.5083 36.1721 65.8153 34.9795 65.7527 34.8551 65.7394 34.7115 65.778 34.5775 65.8165 34.4436 65.9042 34.3294 66.0231 34.2579 66.1435 34.1884 66.2861 34.1695 66.4203 34.205 66.5545 34.2405 66.6695 34.3277 66.7404 34.4477 66.7404 34.5996 68.7787 37.9797 72.0251 36.4985 72.0885 36.4533 72.1611 36.4229 72.2375 36.409 72.314 36.3952 72.3924 36.3984 72.4675 36.4185 72.5425 36.4387 72.6122 36.4755 72.6716 36.5259 72.731 36.5762 72.7785 36.6392 72.811 36.7102 72.8435 36.7812 72.86 36.8585 72.8594 36.9366 72.8588 37.0148 72.8409 37.0917 72.8073 37.1622 72.7737 37.2326 72.7251 37.2947 72.6649 37.3442 72.6047 37.3936 72.5345 37.429 72.4592 37.448 71.8991 37.7239 71.2894 37.8829 70.6666 37.9156 70.0439 37.9482 69.421 37.8539 68.8354 37.6381z" fill="#42210B"/><path id="Vector_16" d="M52.3767 34.5824c3.4921.0 6.3229-2.8481 6.3229-6.3615s-2.8308-6.3615-6.3229-6.3615-6.323 2.8481-6.323 6.3615 2.8309 6.3615 6.323 6.3615z" fill="#F2F2F2"/><path id="Vector_17" d="M46.3936 25.979C46.6783 25.1869 47.1165 24.4595 47.6829 23.8392 48.2493 23.2188 48.9326 22.7179 49.6929 22.3653 50.4533 22.0128 51.2757 21.8156 52.1124 21.7854 52.949 21.7551 53.7833 21.8922 54.5668 22.1889 55.3504 22.4857 56.0677 22.9361 56.6768 23.5139 57.286 24.0918 57.7751 24.7855 58.1157 25.555 58.4563 26.3245 58.6416 27.1543 58.6608 27.9964 58.6801 28.8385 58.5329 29.6761 58.2279 30.4605" fill="#51260E"/><path id="Vector_18" d="M53.4147 28.5224C53.2968 29.0523 53.0675 29.5504 52.742 29.9835 52.4164 30.4166 52.0024 30.7745 51.5277 31.0329 51.0531 31.2913 50.5289 31.4443 49.9905 31.4817 49.4521 31.519 48.9121 31.4396 48.4067 31.2492 47.9014 31.0587 47.4424 30.7614 47.0609 30.3773 46.6795 29.9933 46.3841 29.5315 46.1951 29.0229 46.0061 28.5143 45.9277 27.9709 45.9652 27.4292 46.0026 26.8875 46.1552 26.3602 46.4124 25.8828" fill="#47220D"/><path id="Vector_19" d="M87.4079 47.8559C90.9 47.8559 93.7309 45.0077 93.7309 41.4943 93.7309 37.981 90.9 35.1328 87.4079 35.1328c-3.492.0-6.3229 2.8482-6.3229 6.3615.0 3.5134 2.8309 6.3616 6.3229 6.3616z" fill="#F2F2F2"/><path id="Vector_20" d="M81.4246 39.2313C82.0304 37.6734 83.222 36.4183 84.741 35.7378 86.26 35.0572 87.9843 35.0059 89.5405 35.5952 91.0967 36.1845 92.3595 37.3671 93.0555 38.8864S93.8245 42.1397 93.2589 43.7129" fill="#51260E"/><path id="Vector_21" d="M88.446 41.8148C88.0132 42.6263 87.302 43.2519 86.445 43.5752 85.5879 43.8985 84.6434 43.8975 83.787 43.5724 82.9307 43.2473 82.2208 42.62 81.7897 41.8077 81.3586 40.9953 81.2355 40.0531 81.4434 39.1562" fill="#47220D"/></g><defs><clipPath id="clip0_1286_9119"><rect width="108" height="156" fill="#fff"/></clipPath></defs></svg></a></li><li><a href=https://www.facebook.com/wayne.blog.ga/ target=_blank title=Facebook rel=me><svg viewBox="0 0 48 48" width="48" height="48"><linearGradient id="CXanuwD9EGkBgTn76_1mxa" x1="9.993" x2="40.615" y1="-299.993" y2="-330.615" gradientTransform="matrix(1 0 0 -1 0 -290)" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2aa4f4"/><stop offset="1" stop-color="#007ad9"/></linearGradient><path fill="url(#CXanuwD9EGkBgTn76_1mxa)" d="M24 4C12.954 4 4 12.954 4 24c0 10.028 7.379 18.331 17.004 19.777C21.981 43.924 22.982 41 24 41c.919.0 1.824 2.938 2.711 2.818C36.475 42.495 44 34.127 44 24 44 12.954 35.046 4 24 4z"/><path d="M27.707 21.169c0-1.424.305-3.121 1.757-3.121h4.283l-.001-5.617-.05-.852-.846-.114c-.608-.082-1.873-.253-4.206-.253-5.569.0-8.636 3.315-8.636 9.334v2.498H15.06v7.258h4.948V43.6C21.298 43.861 22.633 44 24 44c1.268.0 2.504-.131 3.707-.357V30.301h5.033l1.122-7.258h-6.155V21.169z" opacity=".05"/><path d="M27.207 21.169c0-1.353.293-3.621 2.257-3.621h3.783V12.46l-.026-.44-.433-.059c-.597-.081-1.838-.249-4.143-.249-5.323.0-8.136 3.055-8.136 8.834v2.998H15.56v6.258h4.948v13.874C21.644 43.876 22.806 44 24 44c1.094.0 2.16-.112 3.207-.281V29.801h5.104l.967-6.258h-6.072V21.169z" opacity=".05"/><path fill="#fff" d="M26.707 29.301h5.176l.813-5.258h-5.989v-2.874c0-2.184.714-4.121 2.757-4.121h3.283V12.46c-.577-.078-1.797-.248-4.102-.248-4.814.0-7.636 2.542-7.636 8.334v3.498H16.06v5.258h4.948v14.475C21.988 43.923 22.981 44 24 44c.921.0 1.82-.062 2.707-.182V29.301z"/></svg></a></li><li><a href=https://github.com/wjdesign target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=https://twitter.com/4006wayne target=_blank title=Twitter rel=me><svg class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.423 10.034 1.517 3.58-1.04 6.522-3.723 7.651-7.742a13.84 13.84.0 00.497-3.753C20.18 7.773 21.692 5.25 22 4.009z"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=https://wayne-blog.com/about/><svg class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>
+<span>關於本站</span></a></li><li><a href=https://wayne-blog.com/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>文章卷宗</span></a></li><li><a href=https://wayne-blog.com/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>搜尋檢索</span></a></li><li><a href=https://wayne-blog.com/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>相關連結</span></a></li><li><a href=https://wayne-blog.com/categories/><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg>
+<span>分類檢索</span></a></li><li><a href=https://wayne-blog.com/tags/><svg class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11 3l9 9a1.5 1.5.0 010 2l-6 6a1.5 1.5.0 01-2 0L3 11V7a4 4 0 014-4h4"/><circle cx="9" cy="9" r="2"/></svg>
+<span>標籤檢索</span></a></li><li><a href=https://wayne-blog.com/index.xml target=_blank><svg class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="5" cy="19" r="1"/><path d="M4 4a16 16 0 0116 16"/><path d="M4 11a9 9 0 019 9"/></svg>
+<span>RSS Feed</span></a></li><div class=menu-bottom-section><li id=i18n-switch><svg class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 5h7"/><path d="M9 3v2c0 4.418-2.239 8-5 8"/><path d="M5 9c-.003 2.144 2.952 3.908 6.7 4"/><path d="M12 20l4-9 4 9"/><path d="M19.1 18h-6.2"/></svg>
+<select name=language onchange="window.location.href=this.selectedOptions[0].value"><option value=https://wayne-blog.com/ selected>繁體中文</option><option value=https://wayne-blog.com/en/>English</option></select></li><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>夜晚模式</span></li></div></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目錄</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#mcp>MCP</a><ol><li><a href=#mcp-主機mcp-host>MCP 主機（MCP Host）</a></li><li><a href=#mcp-客戶端mcp-client>MCP 客戶端（MCP Client）</a></li><li><a href=#mcp-伺服端mcp-server>MCP 伺服端（MCP Server）</a></li></ol></li><li><a href=#vscode-mcp-server-是什麼>VSCode MCP Server 是什麼？</a></li><li><a href=#playwright-是什麼>Playwright 是什麼？</a><ol><li><a href=#playwright-與其他自動化操作工具的差異>Playwright 與其他自動化操作工具的差異</a></li></ol></li><li><a href=#playwright-導入方式>Playwright 導入方式</a><ol><li><a href=#安裝-playwright-套件>安裝 Playwright 套件</a></li><li><a href=#建立測試目錄與設定檔>建立測試目錄與設定檔</a><ol><li></li></ol></li><li><a href=#撰寫第一個測試腳本>撰寫第一個測試腳本</a><ol><li></li></ol></li><li><a href=#執行測試>執行測試</a></li><li><a href=#進階設定與-ci-整合>進階設定與 CI 整合</a></li></ol></li><li><a href=#playwright-在-vscode-extensionmcp-server-專案的應用>Playwright 在 VSCode Extension/MCP Server 專案的應用</a></li><li><a href=#playwright-的設定值與常用元件介紹>Playwright 的設定值與常用元件介紹</a><ol><li><a href=#playwrightconfig-常用設定值>playwright.config 常用設定值</a></li><li><a href=#常用元件與方法>常用元件與方法</a></li></ol></li><li><a href=#實戰一自動化測試-api-healthz-check>實戰一：自動化測試 API healthz check</a></li><li><a href=#實戰二playwright-自動化登入流程範例>實戰二：Playwright 自動化登入流程範例</a></li><li><a href=#開發心得與建議>開發心得與建議</a></li><li><a href=#結語>結語</a></li></ol></nav></div></section></aside><main class="main full-width"><article class="has-image main-article"><a class=btnBack href=javascript:void(0) onclick=backEvent()><svg class="icon icon-tabler icon-tabler-arrow-back" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M9 11l-4 4 4 4m-4-4h11a4 4 0 000-8h-1"/></svg>
+<span class=btnBackText>BACK</span>
+</a><script>function backEvent(){if(document.referrer.indexOf(window.location.host)!==-1){history.go(-1);return}window.location.href=window.location.origin}</script><header class=article-header><div class=article-image><a href=https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/><img src=https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg loading=lazy alt="Featured image of post VSCode MCP Servers 與專案導入 Playwright 自動化測試分享"></a></div><div class=article-details><header class=article-category><a href=https://wayne-blog.com/categories/mcp/>Mcp
+</a><a href=https://wayne-blog.com/categories/vscode/ style=background-color:#48aef3;color:#fff>VScode</a></header><div class=article-title-wrapper><h2 class=article-title><a href=https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/>VSCode MCP Servers 與專案導入 Playwright 自動化測試分享</a></h2><h3 class=article-subtitle>研究並介紹 VSCode MCP Servers 與 Playwright，並在專案中導入 Playwright 跑自動化測試應用，分享並記錄研究過程。</h3></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Aug 30, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>閱讀時間: 6 分鐘</time></div></footer></div></header><section class=article-content><style>.article-content p code{background-color:#f5f5f5;color:#ff3860}.focus{background:#f1e2e2;color:#d62c2c;padding:0 5px}.text-center{text-align:center !important}</style><p><a class=link href=https://playwright.dev/ target=_blank rel=noopener>官方文件 - Playwright</a></p><p>本篇將分享如何在 VSCode 開發中，結合 MCP Servers 與 <a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a>，製作現代化自動化測試的流程。</p><hr><h2 id=mcp>MCP</h2><p>MCP 全名為 Model Context Protocol，中文為「模型上下文協定」，是一種開放協定，2024 年 11 月由開發模型 Claude 的美國新創公司 Anthropic 推出，提供了一種標準化的方式，讓 AI 向外部工具請求使用服務和數據。並且透過提供 AI 上下文指示，讓 AI 決定使用哪些工具、按什麼順序以及如何將工作流程連結在一起以完成任務。</p><p>換句話說，MCP 不只能當作轉接頭，也像是提供 AI 一本使用說明書，幫助 AI 理解企業數據和應用情境，例如內部數據的結構與存取方式、重要的業務邏輯與規則，以及專業術語等。</p><p><img src=https://live.staticflickr.com/65535/54762369681_1c2bafa33e_b.jpg max-width=100% max-height=100% class=gallery-image loading=lazy></p><p>以銀行客服系統導入 AI 為例，當客戶詢問：「能否提前還清貸款？」MCP 能提示 AI 該銀行的房貸規則在哪裡查詢、違約金計算方式，和哪些客戶符合提前還款條件等。</p><ul><li>典型應用：AI Copilot、Code Search、Test Runner、Remote Workspace 等</li><li>讓 VSCode extension 能像微服務一樣，與外部系統互動</li></ul><p>MCP Server 架構圖：</p><p><img src=https://live.staticflickr.com/65535/54761520537_35cbd6d032_c.jpg max-width=100% max-height=100% class=gallery-image loading=lazy></p><h3 id=mcp-主機mcp-host>MCP 主機（MCP Host）</h3><p>Claude、ChatGPT&mldr;等需要透過 MCP 存取外部工具的 AI 模型，它們會請求 MCP 來幫助執行各種操作。這些 AI 模型就像筆電本身，需要透過轉接頭來連接外部裝置。</p><p>例如：Claude、ChatGPT、Gemini、Llama&mldr;等 AI 模型。</p><h3 id=mcp-客戶端mcp-client>MCP 客戶端（MCP Client）</h3><p>AI 存取 MCP 的程式碼，它讓 AI 可以透過 MCP 來請求特定的工具或數據來源。這就像筆電的 USB 連接埠，負責發送請求給轉接頭，讓筆電知道該怎麼存取外部設備。</p><p>例如：Anthropic 官方 MCP SDK、OpenAI MCP client library、Python/TypeScript MCP client 實作&mldr;等。</p><h3 id=mcp-伺服端mcp-server>MCP 伺服端（MCP Server）</h3><p>Slack、Gmail、Google 日曆、Mac 檔案系統等，提供 AI 所需的功能與數據，可以是遠端應用程式或本地數據來源。MCP Server 就像滑鼠、鍵盤、硬碟等各種 USB 設備，透過轉接頭連接到筆電。</p><p>以 VSCode 為例，MCP Servers 作為 VSCode 與外部工具或數據源之間的媒介，像是使用者可以從 Google Drive 調取數據檔案，也可以從 GitHub 創建任務分支和查詢程式碼。</p><p>例如：Google Drive MCP Server、GitHub MCP Server、VSCode MCP Server、Notion MCP Server、Jira MCP Server&mldr;等。</p><hr><h2 id=vscode-mcp-server-是什麼>VSCode MCP Server 是什麼？</h2><p>VSCode 官方也提出了自己的 MCP Servers，目標是讓 extension 能以更彈性的方式與外部服務溝通，突破過去 LSP（Language Server Protocol）或 Debug Adapter Protocol 的限制。</p><p>MCP Server 特色：</p><ul><li>支援多種 context（如 AI、語意分析、測試、執行環境等）</li><li>可同時處理多種資料流與事件，適合大型、複雜的 extension</li><li>典型應用：AI Copilot、Code Search、Test Runner、Remote Workspace 等</li><li>讓 VSCode extension 能像微服務一樣，與外部系統互動</li></ul><p><img src=https://live.staticflickr.com/65535/54762707765_ec1b524c2c_b.jpg max-width=100% max-height=100% class=gallery-image loading=lazy></p><hr><h2 id=playwright-是什麼>Playwright 是什麼？</h2><p><img src=https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg max-width=100% max-height=100% class=gallery-image loading=lazy></p><p><a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 是由 Microsoft 推出的現代化瀏覽器自動化測試框架，支援 Chromium、Firefox、WebKit 三大主流瀏覽器，並可用 TypeScript、JavaScript、Python、C# 等語言撰寫測試腳本。<a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 具備跨平台、API 直覺、可錄製操作、支援多分頁與多瀏覽器等特性，適合用於前端、Web App、SPA、Webview 等多種場景的自動化測試。</p><p>主要特色：</p><p><a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 讓開發者能快速撰寫、執行、維護自動化測試腳本，是現代前端開發與測試的主流選擇之一。</p><h3 id=playwright-與其他自動化操作工具的差異>Playwright 與其他自動化操作工具的差異</h3><div class=table-wrapper><table><thead><tr><th>工具</th><th>支援瀏覽器</th><th>語言支援</th><th>API/功能特色</th><th>CI/CD 整合</th><th>其他特色</th></tr></thead><tbody><tr><td>Playwright</td><td>Chromium、Firefox、WebKit（含 Safari）</td><td>JavaScript、TypeScript、Python、C#</td><td>API 現代化且直覺，原生多分頁/多瀏覽器、網路攔截、等待同步、錄製腳本</td><td>易於整合</td><td>進階功能多</td></tr><tr><td>Selenium</td><td>幾乎所有主流瀏覽器</td><td>Java、Python、C#、JS 等</td><td>API 較繁瑣、較舊，等待/同步需手動處理</td><td>易於整合</td><td>穩定性高、跨平台</td></tr><tr><td>Cypress</td><td>Chromium、Firefox</td><td>JavaScript、TypeScript</td><td>API 現代化且直覺，原生等待/同步、無多分頁/多瀏覽器</td><td>易於整合</td><td>內建測試儀表板</td></tr></tbody></table></div><p><strong>重點差異說明：</strong></p><ul><li><a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 支援三大主流瀏覽器（含 Safari/WebKit），API 現代化，原生支援多分頁、網路攔截、等待同步，適合複雜互動測試。</li><li>Selenium 歷史悠久，支援最多語言與瀏覽器，但 API 較繁瑣，等待/同步需手動處理，適合跨平台、穩定性要求高的場景。</li><li>Cypress 以前端 E2E 測試為主，API 直覺，原生等待，但僅支援部分瀏覽器，不支援多分頁，適合前端 SPA/React/Vue 等專案。</li></ul><p><a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 在現代前端、Web App、VSCode extension 測試場景下，通常能提供更高效、易用的自動化體驗。</p><hr><h2 id=playwright-導入方式>Playwright 導入方式</h2><h3 id=安裝-playwright-套件>安裝 Playwright 套件</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>npm install -D @playwright/test
+</span></span><span class=line><span class=cl>npx playwright install
+</span></span></code></pre></td></tr></table></div></div><p>這會安裝 Playwright 及所需瀏覽器。</p><h3 id=建立測試目錄與設定檔>建立測試目錄與設定檔</h3><p>建立 <code>tests/</code> 目錄，並新增 <code>playwright.config.ts</code>：</p><h5 id=playwrightconfigts>playwright.config.ts</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>defineConfig</span><span class=p>,</span> <span class=nx>devices</span> <span class=p>}</span> <span class=kr>from</span> <span class=s2>&#34;@playwright/test&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=k>default</span> <span class=nx>defineConfig</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>  <span class=nx>testDir</span><span class=o>:</span> <span class=s2>&#34;./playwright&#34;</span><span class=p>,</span> <span class=c1>// 測試腳本目錄
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>timeout</span>: <span class=kt>30</span> <span class=o>*</span> <span class=mi>1000</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>expect</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>timeout</span>: <span class=kt>5000</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=nx>fullyParallel</span>: <span class=kt>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>forbidOnly</span><span class=o>:</span> <span class=o>!!</span><span class=nx>process</span><span class=p>.</span><span class=nx>env</span><span class=p>.</span><span class=nx>CI</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>retries</span>: <span class=kt>process.env.CI</span> <span class=o>?</span> <span class=nx>2</span> : <span class=kt>0</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>workers</span>: <span class=kt>process.env.CI</span> <span class=o>?</span> <span class=nx>1</span> : <span class=kt>undefined</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>reporter</span><span class=o>:</span> <span class=p>[[</span><span class=s2>&#34;list&#34;</span><span class=p>],</span> <span class=p>[</span><span class=s2>&#34;html&#34;</span><span class=p>,</span> <span class=p>{</span> <span class=nx>outputFolder</span><span class=o>:</span> <span class=s2>&#34;playwright-report&#34;</span><span class=p>,</span> <span class=nx>open</span><span class=o>:</span> <span class=s2>&#34;never&#34;</span> <span class=p>}]],</span>
+</span></span><span class=line><span class=cl>  <span class=nx>use</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>baseURL</span><span class=o>:</span> <span class=s2>&#34;https://localhost:8082/&#34;</span><span class=p>,</span> <span class=c1>// Vite dev server https
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>ignoreHTTPSErrors</span>: <span class=kt>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>trace</span><span class=o>:</span> <span class=s2>&#34;on-first-retry&#34;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>headless</span>: <span class=kt>false</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>viewport</span><span class=o>:</span> <span class=p>{</span> <span class=nx>width</span>: <span class=kt>1280</span><span class=p>,</span> <span class=nx>height</span>: <span class=kt>800</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>...</span><span class=nx>devices</span><span class=p>[</span><span class=s2>&#34;Desktop Chrome&#34;</span><span class=p>]</span>
+</span></span><span class=line><span class=cl>  <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=p>})</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=撰寫第一個測試腳本>撰寫第一個測試腳本</h3><p>例如建立一支跑自動跑登入流程的腳本：</p><h5 id=testsloginspects>tests/login.spec.ts</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>test</span><span class=p>,</span> <span class=nx>expect</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;@playwright/test&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>test</span><span class=p>(</span><span class=s2>&#34;登入流程測試&#34;</span><span class=p>,</span> <span class=kr>async</span> <span class=p>({</span> <span class=nx>page</span> <span class=p>})</span> <span class=o>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=kr>goto</span><span class=p>(</span><span class=s2>&#34;https://{我要測試的網站}/login&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;input[name=&#34;</span><span class=nx>username</span><span class=s2>&#34;]&#34;</span><span class=p>,</span> <span class=s2>&#34;wayne&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=s2>&#34;input[name=&#34;</span><span class=nx>password</span><span class=s2>&#34;]&#34;</span><span class=p>,</span> <span class=s2>&#34;123456&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>click</span><span class=p>(</span><span class=s2>&#34;button[type=&#34;</span><span class=nx>submit</span><span class=s2>&#34;]&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>expect</span><span class=p>(</span><span class=nx>page</span><span class=p>).</span><span class=nx>toHaveURL</span><span class=p>(</span><span class=sr>/dashboard|home/</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>expect</span><span class=p>(</span><span class=nx>page</span><span class=p>.</span><span class=nx>locator</span><span class=p>(</span><span class=s2>&#34;.user-info&#34;</span><span class=p>)).</span><span class=nx>toContainText</span><span class=p>(</span><span class=s2>&#34;wayne&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=執行測試>執行測試</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 執行所有測試：</span>
+</span></span><span class=line><span class=cl>npx playwright <span class=nb>test</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#執行單一測項（指定檔案）：</span>
+</span></span><span class=line><span class=cl>npx playwright <span class=nb>test</span> tests/login.spec.ts
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 執行單一測項（指定測試名稱）：</span>
+</span></span><span class=line><span class=cl>npx playwright <span class=nb>test</span> -g <span class=s2>&#34;登入流程測試&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Playwright 會自動啟動瀏覽器並執行所有或指定的測試腳本。</p><h3 id=進階設定與-ci-整合>進階設定與 CI 整合</h3><ul><li>可在 <code>playwright.config.ts</code> 設定多瀏覽器測試、環境變數、報告格式等</li><li>可在 GitHub Actions、GitLab CI 等自動化流程中執行 Playwright 測試</li></ul><h2 id=playwright-在-vscode-extensionmcp-server-專案的應用>Playwright 在 VSCode Extension/MCP Server 專案的應用</h2><ul><li>驗證 extension Webview UI/互動</li><li>測試 MCP Server API 回應與錯誤處理</li><li>整合 CI/CD，確保 extension 發布品質</li></ul><p><a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 讓開發者能快速撰寫、執行、維護自動化測試腳本，是現代前端開發與測試的主流選擇之一。</p><h2 id=playwright-的設定值與常用元件介紹>Playwright 的設定值與常用元件介紹</h2><h3 id=playwrightconfig-常用設定值>playwright.config 常用設定值</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span><span class=lnt>79
+</span><span class=lnt>80
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=kr>import</span> <span class=p>{</span> <span class=nx>defineConfig</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;@playwright/test&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=k>default</span> <span class=nx>defineConfig</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>  <span class=nx>testDir</span><span class=o>:</span> <span class=s1>&#39;./tests&#39;</span><span class=p>,</span> <span class=c1>// 測試檔案目錄
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>timeout</span>: <span class=kt>30000</span><span class=p>,</span> <span class=c1>// 單一測試逾時（毫秒）
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>retries</span>: <span class=kt>1</span><span class=p>,</span> <span class=c1>// 測試失敗時重試次數
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>reporter</span><span class=o>:</span> <span class=p>[[</span><span class=s1>&#39;list&#39;</span><span class=p>],</span> <span class=p>[</span><span class=s1>&#39;html&#39;</span><span class=p>]],</span> <span class=c1>// 測試報告格式
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>fullyParallel</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 是否完全平行執行所有測試
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>forbidOnly</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 禁止 .only，避免漏跑測試
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>workers</span>: <span class=kt>2</span><span class=p>,</span> <span class=c1>// 平行執行的 worker 數量
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>outputDir</span><span class=o>:</span> <span class=s1>&#39;test-results/&#39;</span><span class=p>,</span> <span class=c1>// 測試產生的快照、截圖、trace 等輸出目錄
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>testIgnore</span><span class=o>:</span> <span class=p>[</span><span class=s1>&#39;**/skip/**&#39;</span><span class=p>],</span> <span class=c1>// 忽略哪些測試檔案（glob pattern）
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>testMatch</span><span class=o>:</span> <span class=p>[</span><span class=s1>&#39;**/*.spec.ts&#39;</span><span class=p>,</span> <span class=s1>&#39;**/*.test.ts&#39;</span><span class=p>],</span> <span class=c1>// 匹配哪些測試檔案（glob pattern）
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>offline</span>: <span class=kt>false</span><span class=p>,</span> <span class=c1>// 是否離線模式（true | false）
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>use</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>headless</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 是否無頭模式
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>baseURL</span><span class=o>:</span> <span class=s1>&#39;http://localhost:3000&#39;</span><span class=p>,</span> <span class=c1>// 預設 base URL
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>viewport</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>width</span>: <span class=kt>1280</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>height</span>: <span class=kt>720</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=c1>// 預設瀏覽器視窗大小
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>ignoreHTTPSErrors</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 忽略 HTTPS 錯誤
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>video</span><span class=o>:</span> <span class=s1>&#39;retain-on-failure&#39;</span><span class=p>,</span> <span class=c1>// 錄影設定: &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>screenshot</span><span class=o>:</span> <span class=s1>&#39;only-on-failure&#39;</span><span class=p>,</span> <span class=c1>// 截圖設定: &#39;on&#39; | &#39;off&#39; | &#39;only-on-failure&#39;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>trace</span><span class=o>:</span> <span class=s1>&#39;retain-on-failure&#39;</span><span class=p>,</span> <span class=c1>// Trace 記錄: &#39;on&#39; | &#39;off&#39; | &#39;retain-on-failure&#39;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>storageState</span><span class=o>:</span> <span class=s1>&#39;state.json&#39;</span><span class=p>,</span> <span class=c1>// 預載入登入狀態檔
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>locale</span><span class=o>:</span> <span class=s1>&#39;zh-TW&#39;</span><span class=p>,</span> <span class=c1>// 預設語系
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>colorScheme</span><span class=o>:</span> <span class=s1>&#39;dark&#39;</span><span class=p>,</span> <span class=c1>// 顏色主題: &#39;light&#39; | &#39;dark&#39; | &#39;no-preference&#39;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>permissions</span><span class=o>:</span> <span class=p>[</span>
+</span></span><span class=line><span class=cl>      <span class=s1>&#39;geolocation&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=s1>&#39;notifications&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>],</span> <span class=c1>// 權限設定
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>geolocation</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>latitude</span>: <span class=kt>25.033</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>longitude</span>: <span class=kt>121.5654</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=c1>// 預設地理位置
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>timezoneId</span><span class=o>:</span> <span class=s1>&#39;Asia/Taipei&#39;</span><span class=p>,</span> <span class=c1>// 預設時區
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>userAgent</span><span class=o>:</span> <span class=s1>&#39;MyCustomAgent/1.0&#39;</span><span class=p>,</span> <span class=c1>// 自訂 User-Agent
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>httpCredentials</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>username</span><span class=o>:</span> <span class=s1>&#39;user&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>password</span><span class=o>:</span> <span class=s1>&#39;pass&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=c1>// HTTP 基本認證
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>extraHTTPHeaders</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=s1>&#39;x-test-header&#39;</span><span class=o>:</span> <span class=s1>&#39;test&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=s1>&#39;authorization&#39;</span><span class=o>:</span> <span class=s1>&#39;Bearer token&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=c1>// 額外 HTTP 標頭
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>acceptDownloads</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 是否允許下載檔案
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>isMobile</span>: <span class=kt>false</span><span class=p>,</span> <span class=c1>// 是否模擬行動裝置（true | false）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>deviceScaleFactor</span>: <span class=kt>1</span><span class=p>,</span> <span class=c1>// 裝置像素比例（預設 1）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>hasTouch</span>: <span class=kt>false</span><span class=p>,</span> <span class=c1>// 是否支援觸控（true | false）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>javaScriptEnabled</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 是否啟用 JS（true | false）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>recordVideo</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>dir</span><span class=o>:</span> <span class=s1>&#39;videos/&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>size</span><span class=o>:</span> <span class=p>{</span> <span class=nx>width</span>: <span class=kt>1280</span><span class=p>,</span> <span class=nx>height</span>: <span class=kt>720</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span> <span class=c1>// 錄影輸出目錄與尺寸
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>serviceWorkers</span><span class=o>:</span> <span class=s1>&#39;allow&#39;</span><span class=p>,</span> <span class=c1>// Service Worker 設定: &#39;allow&#39; | &#39;block&#39;
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>strictSelectors</span>: <span class=kt>true</span><span class=p>,</span> <span class=c1>// 是否嚴格選取器（true | false）
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>userDataDir</span><span class=o>:</span> <span class=s1>&#39;./user-data&#39;</span><span class=p>,</span> <span class=c1>// 使用者資料目錄
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=nx>launchOptions</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>slowMo</span>: <span class=kt>100</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=c1>// 其他啟動選項可加在這裡
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>},</span> <span class=c1>// 啟動瀏覽器時的額外選項
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=nx>projects</span><span class=o>:</span> <span class=p>[</span> <span class=c1>// 多瀏覽器/多環境測試設定
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;chromium&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>use</span><span class=o>:</span> <span class=p>{</span> <span class=nx>browserName</span><span class=o>:</span> <span class=s1>&#39;chromium&#39;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;firefox&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>use</span><span class=o>:</span> <span class=p>{</span> <span class=nx>browserName</span><span class=o>:</span> <span class=s1>&#39;firefox&#39;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>{</span>
+</span></span><span class=line><span class=cl>      <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;webkit&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>      <span class=nx>use</span><span class=o>:</span> <span class=p>{</span> <span class=nx>browserName</span><span class=o>:</span> <span class=s1>&#39;webkit&#39;</span> <span class=p>},</span>
+</span></span><span class=line><span class=cl>    <span class=p>},</span>
+</span></span><span class=line><span class=cl>  <span class=p>],</span>
+</span></span><span class=line><span class=cl>  <span class=nx>globalSetup</span><span class=o>:</span> <span class=s1>&#39;./global-setup.js&#39;</span><span class=p>,</span> <span class=c1>// 全域初始化腳本
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=nx>globalTeardown</span><span class=o>:</span> <span class=s1>&#39;./global-teardown.js&#39;</span><span class=p>,</span> <span class=c1>// 全域清理腳本
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><p>更多請參考<a class=link href=https://playwright.dev/docs/test-configuration target=_blank rel=noopener>官方文件</a></p><h3 id=常用元件與方法>常用元件與方法</h3><div class=table-wrapper><table><thead><tr><th>類型</th><th>名稱/方法</th><th>說明</th></tr></thead><tbody><tr><td>測試物件</td><td><code>test</code></td><td>定義測試案例</td></tr><tr><td>頁面物件</td><td><code>page</code></td><td>操作瀏覽器分頁</td></tr><tr><td>斷言</td><td><code>expect</code></td><td>驗證結果</td></tr><tr><td>定位器</td><td><code>locator</code></td><td>精準選取元素</td></tr><tr><td>填值</td><td><code>fill</code></td><td>填入表單欄位</td></tr><tr><td>點擊</td><td><code>click</code></td><td>點擊按鈕或元素</td></tr><tr><td>取得文字</td><td><code>textContent</code></td><td>取得元素文字內容</td></tr><tr><td>等待</td><td><code>waitForSelector</code></td><td>等待元素出現</td></tr><tr><td>螢幕截圖</td><td><code>screenshot</code></td><td>擷取頁面或元素畫面</td></tr><tr><td>輸入鍵盤</td><td><code>keyboard</code></td><td>鍵盤事件</td></tr><tr><td>輸入滑鼠</td><td><code>mouse</code></td><td>滑鼠事件</td></tr><tr><td>請求物件</td><td><code>request</code></td><td>API 請求測試</td></tr><tr><td>瀏覽器物件</td><td><code>browser</code></td><td>控制瀏覽器（多分頁、多瀏覽器）</td></tr><tr><td>配置</td><td><code>defineConfig</code></td><td><a class=link href=https://playwright.dev/ target=_blank rel=noopener>Playwright</a> 設定檔</td></tr><tr><td>錯誤截圖</td><td><code>trace</code></td><td>錯誤追蹤與錄影</td></tr></tbody></table></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=c1>// 定義測試案例 test
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>test</span><span class=p>(</span><span class=s1>&#39;首頁載入&#39;</span><span class=p>,</span> <span class=kr>async</span> <span class=p>({</span> <span class=nx>page</span> <span class=p>})</span> <span class=o>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=kr>goto</span><span class=p>(</span><span class=s1>&#39;https://example.com&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 操作瀏覽器分頁 page
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=kr>goto</span><span class=p>(</span><span class=s1>&#39;https://example.com&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 驗證結果 expect
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>expect</span><span class=p>(</span><span class=nx>page</span><span class=p>).</span><span class=nx>toHaveURL</span><span class=p>(</span><span class=s1>&#39;https://example.com&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 精準選取元素 locator
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>btn</span> <span class=o>=</span> <span class=nx>page</span><span class=p>.</span><span class=nx>locator</span><span class=p>(</span><span class=s1>&#39;button.login&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 填入表單欄位 fill
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=s1>&#39;input[name=&#34;username&#34;]&#39;</span><span class=p>,</span> <span class=s1>&#39;wayne&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 點擊按鈕或元素 click
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>click</span><span class=p>(</span><span class=s1>&#39;button[type=&#34;submit&#34;]&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 取得元素文字內容 textContent
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>txt</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>textContent</span><span class=p>(</span><span class=s1>&#39;.user-info&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 等待元素出現 waitForSelector
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>waitForSelector</span><span class=p>(</span><span class=s1>&#39;.loading-done&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 擷取頁面或元素畫面 screenshot
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>screenshot</span><span class=p>({</span> <span class=nx>path</span><span class=o>:</span> <span class=s1>&#39;home.png&#39;</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 鍵盤事件 keyboard
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>keyboard</span><span class=p>.</span><span class=nx>press</span><span class=p>(</span><span class=s1>&#39;Enter&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 滑鼠事件 mouse
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>mouse</span><span class=p>.</span><span class=nx>click</span><span class=p>(</span><span class=mi>100</span><span class=p>,</span> <span class=mi>200</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// API 請求測試 request
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>res</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>request</span><span class=p>.</span><span class=kr>get</span><span class=p>(</span><span class=s1>&#39;/api/health&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 控制瀏覽器 browser
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>const</span> <span class=nx>browser</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>chromium</span><span class=p>.</span><span class=nx>launch</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// Playwright 設定檔 defineConfig
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>export</span> <span class=k>default</span> <span class=nx>defineConfig</span><span class=p>({</span> <span class=nx>testDir</span><span class=o>:</span> <span class=s1>&#39;./tests&#39;</span> <span class=p>});</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>// 錯誤追蹤與錄影 trace
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=nx>npx</span> <span class=nx>playwright</span> <span class=nx>show</span><span class=o>-</span><span class=nx>trace</span> <span class=nx>trace</span><span class=p>.</span><span class=nx>zip</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>更多元件與 API 可參考 <a class=link href=https://playwright.dev/docs/api/class-page target=_blank rel=noopener>Playwright 官方文件</a></p></blockquote><hr><h2 id=實戰一自動化測試-api-healthz-check>實戰一：自動化測試 API healthz check</h2><ol><li>建立 MCP Server 專案（Node.js/TypeScript）</li><li>在 extension 內啟動 MCP Server，並與前端溝通</li><li>撰寫 Playwright 測試腳本，模擬 VSCode extension 與 MCP Server 的互動</li></ol><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=c1>// playwright.config.ts
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>import</span> <span class=p>{</span> <span class=nx>defineConfig</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;@playwright/test&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kr>export</span> <span class=k>default</span> <span class=nx>defineConfig</span><span class=p>({</span>
+</span></span><span class=line><span class=cl>  <span class=nx>testDir</span><span class=o>:</span> <span class=s1>&#39;./tests&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=nx>use</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=nx>headless</span>: <span class=kt>true</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>    <span class=nx>baseURL</span><span class=o>:</span> <span class=s1>&#39;http://localhost:3000&#39;</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>  <span class=p>},</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=c1>// tests/mcp-server.spec.ts
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>import</span> <span class=p>{</span> <span class=nx>test</span><span class=p>,</span> <span class=nx>expect</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;@playwright/test&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=nx>test</span><span class=p>(</span><span class=s1>&#39;MCP Server health check&#39;</span><span class=p>,</span> <span class=kr>async</span> <span class=p>({</span> <span class=nx>request</span> <span class=p>})</span> <span class=o>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=kr>const</span> <span class=nx>res</span> <span class=o>=</span> <span class=k>await</span> <span class=nx>request</span><span class=p>.</span><span class=kr>get</span><span class=p>(</span><span class=s1>&#39;/health&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=nx>expect</span><span class=p>(</span><span class=nx>res</span><span class=p>.</span><span class=nx>ok</span><span class=p>()).</span><span class=nx>toBeTruthy</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><hr><h2 id=實戰二playwright-自動化登入流程範例>實戰二：Playwright 自動化登入流程範例</h2><p>以下以我自己的專案的登入流程自動化測試為例
+透過打開我的網站登入頁，並輸入帳號與密碼後進行登入，登入後檢查頁面上是否存在「Dashboard」字樣(因我的網站登入後會導向到 Dashboard 頁面)。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-typescript data-lang=typescript><span class=line><span class=cl><span class=c1>// tests/login.spec.ts
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kr>import</span> <span class=p>{</span> <span class=nx>test</span><span class=p>,</span> <span class=nx>expect</span> <span class=p>}</span> <span class=kr>from</span> <span class=s1>&#39;@playwright/test&#39;</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>test</span><span class=p>(</span><span class=s1>&#39;登入流程測試&#39;</span><span class=p>,</span> <span class=kr>async</span> <span class=p>({</span> <span class=nx>page</span> <span class=p>})</span> <span class=o>=&gt;</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=kr>goto</span><span class=p>(</span><span class=s1>&#39;https://{我的網站}/login&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=s1>&#39;input[name=&#34;username&#34;]&#39;</span><span class=p>,</span> <span class=s1>&#39;wayne&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>fill</span><span class=p>(</span><span class=s1>&#39;input[name=&#34;password&#34;]&#39;</span><span class=p>,</span> <span class=s1>&#39;123456&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>page</span><span class=p>.</span><span class=nx>click</span><span class=p>(</span><span class=s1>&#39;button[type=&#34;submit&#34;]&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=c1>// 驗證登入成功（例如跳轉到首頁或顯示用戶名稱）
+</span></span></span><span class=line><span class=cl><span class=c1></span>  <span class=k>await</span> <span class=nx>expect</span><span class=p>(</span><span class=nx>page</span><span class=p>).</span><span class=nx>toHaveURL</span><span class=p>(</span><span class=sr>/dashboard|home/</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>  <span class=k>await</span> <span class=nx>expect</span><span class=p>(</span><span class=nx>page</span><span class=p>.</span><span class=nx>locator</span><span class=p>(</span><span class=s1>&#39;.user-info&#39;</span><span class=p>)).</span><span class=nx>toContainText</span><span class=p>(</span><span class=s1>&#39;wayne&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>});</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>＊ 若你的 VSCode 有開啟 <a class=link href=vscode://settings/chat.mcp.enabled><code>chat.mcp.enabled</code></a>，則可直接透過 <strong>VSCode Chat</strong> 的 <strong>Agent</strong> 模式進行即時的測試腳本撰寫與調試，加速完成你的測試項目腳本，甚至直接透過 Chat 來執行你的測試項目。</p><p>＊ 可以在開發時，<code>多在 DOM 上埋入 id、class</code>，這樣當執行自動化驗證的操作時，可以更輕鬆的<strong>獲取到你所需要的元素</strong>，確保自動化測試流程的穩定與品質。</p></blockquote><hr><h2 id=開發心得與建議>開發心得與建議</h2><ul><li>MCP Server 架構彈性高，適合 AI/自動化/大型 extension。</li><li>建議在開發前端代碼時，在 DOM 上多埋入 id、class，方便 Playwright 定位元素，確保自動化測試流程的穩定與品質。</li><li>建議可以透過 VSCode Chat 的 Agent 模式進行即時的測試腳本撰寫與調試，<strong>記得 vscode 的settings 要開啟 <a class=link href=vscode://settings/chat.mcp.enabled>chat.mcp.enabled</a></strong>。</li><li>Playwright 腳本可直接整合 CI，快速驗證功能。</li><li>建議在使用 VSCode 時，安裝 Playwright 的<a class=link href=vscode:mcp/install?%7B%22name%22%3A%22playwright%22%2C%22gallery%22%3Atrue%2C%22command%22%3A%22npx%22%2C%22args%22%3A%5B%22%40playwright%2Fmcp%40latest%22%5D%7D>官方 extension</a>，方便在 VSCode 內撰寫、執行測試腳本。</li><li>建議將 MCP Server、Playwright 測試與 extension 專案分層管理，方便維護。</li><li>Playwright 支援多瀏覽器測試，建議在 CI 中同時驗證 Chrome/Firefox/WebKit。</li></ul><hr><h2 id=結語>結語</h2><p>VSCode MCP Servers 與 Playwright 的結合，讓 extension 開發與測試更現代化、流程自動化。推薦給有志於 VSCode 生態圈、AI 工具、測試自動化的開發者！</p><p>如有相關問題，歡迎留言討論或參考官方文件。</p><hr></section><footer class=article-footer><section class=article-tags><a href=https://wayne-blog.com/tags/vscode/>Vscode</a>
+<a href=https://wayne-blog.com/tags/mcp-server/>Mcp-Server</a>
+<a href=https://wayne-blog.com/tags/playwright/>Playwright</a>
+<a href=https://wayne-blog.com/tags/%E8%87%AA%E5%8B%95%E5%8C%96%E6%B8%AC%E8%A9%A6/>自動化測試</a></section><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section></footer></article><aside class=related-content--wrapper><h2 class=section-title>相關文章</h2><div class=related-content><div class="flex article-list--tile"><article class=has-image><a href=https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/><div class=article-image><img src=https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png loading=lazy data-key=reset-vscode-settings-cloud-data data-hash=https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png></div><div class=article-details><h2 class=article-title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</h2></div></a></article><article class=has-image><a href=https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/><div class=article-image><img src=https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg loading=lazy data-key=vscode-plugin-polacode data-hash=https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg></div><div class=article-details><h2 class=article-title>【Polacode】一款好用的 VSCode 截圖套件推薦</h2></div></a></article><article class=has-image><a href=https://wayne-blog.com/2022-11-22/create-own-vscode-extension/><div class=article-image><img src=https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png loading=lazy data-key=create-own-vscode-extension data-hash=https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png></div><div class=article-details><h2 class=article-title>今天來搞一個屬於自己的 VScode Extension 吧！</h2></div></a></article></div></div></aside><div class=disqus-container><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//hugo-blog-wayne.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div><style>.disqus-container{background-color:var(--card-background);border-radius:var(--card-border-radius);box-shadow:var(--shadow-l1);padding:var(--card-padding)}</style><script>window.addEventListener("onColorSchemeChange",e=>{typeof DISQUS=="object"&&DISQUS.reset({reload:!0})})</script><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 Wayne's blog | 偉恩的部落格 | 技術博客</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://wayne-blog.com/vendor/photoswipe/photoswipe.min.js crossorigin=anonymous></script><link rel=stylesheet href=https://wayne-blog.com/vendor/photoswipe/photoswipe.min.css crossorigin=anonymous><script src=https://wayne-blog.com/vendor/photoswipe/photoswipe-ui-default.min.js crossorigin=anonymous></script></main></div><script src=https://wayne-blog.com/vendor/vibrant/vibrant.min.js crossorigin=anonymous></script><script type=text/javascript src=https://wayne-blog.com/ts/main.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script><script>"serviceWorker"in navigator&&(console.log("Check service worker register?"),navigator.serviceWorker.register("./service-worker.js").then(function(){console.log("service worker registed.")}).catch(function(e){console.log("service worker registed fail. This happened: ",e)}));function toggleBtnScrollTop(){let t=document.documentElement.scrollTop||document.body.scrollTop;const e=document.getElementById("btnScrollTop");if(t){e&&!e.classList.contains("show")&&e.classList.add("show");return}e&&e.classList.contains("show")&&e.classList.remove("show")}window.addEventListener("scroll",toggleBtnScrollTop),document.addEventListener("DOMContentLoaded",toggleBtnScrollTop);function clickToScrollTop(){window.scrollTo({top:0,behavior:"smooth"})}function clickToMessenger(){window.open("//m.me/100278986238046","_blank")}</script><button id=btnScrollTop onclick=clickToScrollTop() title=回到頁頂>
+<img src=https://wayne-blog.com/img/top_hu_53e578b761a6b677.png alt=scroll-top>
+</button>
+<button id=btnMessenger onclick=clickToMessenger() title="Facebook Messenger">
+<img src=https://wayne-blog.com/img/messenger_hu_9c73223db11db93f.png alt="facebook messenger"></button></body></html>
