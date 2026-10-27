@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>其他 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/others/</link><description>Recent content in 其他 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>分享一個實用的 Chrome 擴充功能 - Console Importer</title><link>https://wayne-blog.com/2025-10-16/console-importer-chrome-extension/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2025-10-16/console-importer-chrome-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54858288256_40cf65e375_b.jpg" alt="Featured image of post 分享一個實用的 Chrome 擴充功能 - Console Importer" /&gt;&lt;style&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>其他 on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://blog.wayne-project.com/categories/others/</link><description>Recent content in 其他 on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wayne-project.com/categories/others/index.xml" rel="self" type="application/rss+xml"/><item><title>分享一個實用的 Chrome 擴充功能 - Console Importer</title><link>https://blog.wayne-project.com/2025-10-16/console-importer-chrome-extension/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2025-10-16/console-importer-chrome-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54858288256_40cf65e375_b.jpg" alt="Featured image of post 分享一個實用的 Chrome 擴充功能 - Console Importer" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1222,7 +1222,7 @@ ES Module 載入方式不會將變數加入到全域作用域中，能夠更好�
 &gt;unpkg - npm CDN&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;希望這篇文章對您有幫助！如果您有任何問題或建議，歡迎在下方留言討論。🚀&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://blog.wayne-project.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1432,7 +1432,7 @@ loading="lazy"
 &lt;p&gt;在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code&gt;0.0.0.0&lt;/code&gt;，這樣我的服務訪問方就可以通過我的&lt;strong&gt;多個ip地址&lt;/strong&gt;訪問我的服務。&lt;/p&gt;
 &lt;p&gt;比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code&gt;0.0.0.0&lt;/code&gt;，那麼通過內網地址或外網地址&lt;strong&gt;都可以訪問&lt;/strong&gt;我的應用。&lt;/p&gt;
 &lt;p&gt;但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code&gt;0.0.0.0&lt;/code&gt;，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>以生活的例子說明單線程和多線程</title><link>https://wayne-blog.com/2023-01-07/single-multi-thread/</link><pubDate>Sat, 07 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-07/single-multi-thread/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52611539777_c564013cbd_o.png" alt="Featured image of post 以生活的例子說明單線程和多線程" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>以生活的例子說明單線程和多線程</title><link>https://blog.wayne-project.com/2023-01-07/single-multi-thread/</link><pubDate>Sat, 07 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-07/single-multi-thread/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52611539777_c564013cbd_o.png" alt="Featured image of post 以生活的例子說明單線程和多線程" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

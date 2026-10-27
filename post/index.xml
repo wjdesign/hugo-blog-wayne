@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/post/index.xml" rel="self" type="application/rss+xml"/><item><title>分享一個實用的 Chrome 擴充功能 - Console Importer</title><link>https://wayne-blog.com/2025-10-16/console-importer-chrome-extension/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2025-10-16/console-importer-chrome-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54858288256_40cf65e375_b.jpg" alt="Featured image of post 分享一個實用的 Chrome 擴充功能 - Console Importer" /&gt;&lt;style&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://blog.wayne-project.com/post/</link><description>Recent content in Posts on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 16 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wayne-project.com/post/index.xml" rel="self" type="application/rss+xml"/><item><title>分享一個實用的 Chrome 擴充功能 - Console Importer</title><link>https://blog.wayne-project.com/2025-10-16/console-importer-chrome-extension/</link><pubDate>Thu, 16 Oct 2025 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2025-10-16/console-importer-chrome-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54858288256_40cf65e375_b.jpg" alt="Featured image of post 分享一個實用的 Chrome 擴充功能 - Console Importer" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1222,7 +1222,7 @@ ES Module 載入方式不會將變數加入到全域作用域中，能夠更好�
 &gt;unpkg - npm CDN&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;希望這篇文章對您有幫助！如果您有任何問題或建議，歡迎在下方留言討論。🚀&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>VSCode MCP Servers 與專案導入 Playwright 自動化測試分享</title><link>https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/</link><pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg" alt="Featured image of post VSCode MCP Servers 與專案導入 Playwright 自動化測試分享" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>VSCode MCP Servers 與專案導入 Playwright 自動化測試分享</title><link>https://blog.wayne-project.com/2025-08-30/vscode-mcp-servers-playwright/</link><pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2025-08-30/vscode-mcp-servers-playwright/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg" alt="Featured image of post VSCode MCP Servers 與專案導入 Playwright 自動化測試分享" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2052,7 +2052,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id="實戰三playwright-串聯-vitest-ui-跑單元測試"&gt;實戰三：Playwright 串聯 Vitest UI 跑單元測試&lt;/h2&gt;
-&lt;p&gt;串聯一下之前在&lt;a class="link" href="https://wayne-blog.com/2022-12-29/vitest-unit-test" &gt;闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！&lt;/a&gt;，自己撰寫的 Utils tools function 的單元測試好了，讓自己後續可以直接打打字，讓 Agent 幫我跑這些單元測試(工程師沒有最懶，只有更懶)。&lt;/p&gt;
+&lt;p&gt;串聯一下之前在&lt;a class="link" href="https://blog.wayne-project.com/2022-12-29/vitest-unit-test" &gt;闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！&lt;/a&gt;，自己撰寫的 Utils tools function 的單元測試好了，讓自己後續可以直接打打字，讓 Agent 幫我跑這些單元測試(工程師沒有最懶，只有更懶)。&lt;/p&gt;
 &lt;h5 id="test-tools-unitspects"&gt;test-tools-unit.spec.ts&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
@@ -2154,7 +2154,7 @@ loading="lazy"
 &lt;h2 id="結語"&gt;結語&lt;/h2&gt;
 &lt;p&gt;VSCode MCP Servers 與 Playwright 的結合，讓 extension 開發與測試更現代化、流程自動化。推薦給有志於 VSCode 生態圈、AI 工具、測試自動化的開發者！&lt;/p&gt;
 &lt;p&gt;如有相關問題，歡迎留言討論或參考官方文件。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Vite 5 正式發布</title><link>https://wayne-blog.com/2023-11-22/vite-v5-announcing/</link><pubDate>Wed, 22 Nov 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-11-22/vite-v5-announcing/</guid><description>&lt;img src="https://live.staticflickr.com/65535/53347857961_a81658c179_o.png" alt="Featured image of post Vite 5 正式發布" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Vite 5 正式發布</title><link>https://blog.wayne-project.com/2023-11-22/vite-v5-announcing/</link><pubDate>Wed, 22 Nov 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-11-22/vite-v5-announcing/</guid><description>&lt;img src="https://live.staticflickr.com/65535/53347857961_a81658c179_o.png" alt="Featured image of post Vite 5 正式發布" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2215,7 +2215,7 @@ text-align: center !important;
 &lt;/ul&gt;
 &lt;p&gt;更多詳情可查看 &lt;a class="link" href="https://github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md#500-2023-11-16" target="_blank" rel="noopener"
 &gt;Vite 5 Changelog&lt;/a&gt;。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>淺談中國大陸的特別網路環境和 CDN 選擇</title><link>https://wayne-blog.com/2023-08-18/cdn-in-china/</link><pubDate>Fri, 18 Aug 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-08-18/cdn-in-china/</guid><description>&lt;img src="https://live.staticflickr.com/65535/53124833740_368f414220_o.png" alt="Featured image of post 淺談中國大陸的特別網路環境和 CDN 選擇" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>淺談中國大陸的特別網路環境和 CDN 選擇</title><link>https://blog.wayne-project.com/2023-08-18/cdn-in-china/</link><pubDate>Fri, 18 Aug 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-08-18/cdn-in-china/</guid><description>&lt;img src="https://live.staticflickr.com/65535/53124833740_368f414220_o.png" alt="Featured image of post 淺談中國大陸的特別網路環境和 CDN 選擇" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2371,7 +2371,7 @@ class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
 &lt;p&gt;當然，如果您的規模較小並且只能選擇一條線路，那麼也是建議都先進行試用、PoC 的測試。正如同前面提到的，163 可能未必比起昂貴的 CN2 GIA 還要來得差到很多，值不值得特別使用 CN2 / CTGNet 其實是個需要考量的點，以及確認您主要的客戶省份再行簽約。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Typescript】5.0 版本發布</title><link>https://wayne-blog.com/2023-04-18/ts-v5-introduction/</link><pubDate>Tue, 18 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-04-18/ts-v5-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52826805634_6bd4cfd428_o.jpg" alt="Featured image of post 【Typescript】5.0 版本發布" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Typescript】5.0 版本發布</title><link>https://blog.wayne-project.com/2023-04-18/ts-v5-introduction/</link><pubDate>Tue, 18 Apr 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-04-18/ts-v5-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52826805634_6bd4cfd428_o.jpg" alt="Featured image of post 【Typescript】5.0 版本發布" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -4365,7 +4365,7 @@ loading="lazy"
 &lt;p&gt;當然，如果您選擇只享受 TypeScript 的新穩定版，我們也不會感到受傷。我們希望 TypeScript 5.0 讓每個人的編碼更快、更有趣。&lt;/p&gt;
 &lt;p&gt;Happy Hacking！&lt;/p&gt;
 &lt;p&gt;by Daniel Rosenwasser 和 TypeScript 團隊&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【K6】壓力測試工具介紹</title><link>https://wayne-blog.com/2023-04-11/k6-introduction/</link><pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-04-11/k6-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52808880406_c06b18a888_o.png" alt="Featured image of post 【K6】壓力測試工具介紹" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【K6】壓力測試工具介紹</title><link>https://blog.wayne-project.com/2023-04-11/k6-introduction/</link><pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-04-11/k6-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52808880406_c06b18a888_o.png" alt="Featured image of post 【K6】壓力測試工具介紹" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5392,7 +5392,7 @@ loading="lazy"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>關於領域驅動設計 (Domain-Driven-Design)</title><link>https://wayne-blog.com/2023-03-31/ddd-introduction/</link><pubDate>Fri, 31 Mar 2023 00:00:01 +0000</pubDate><guid>https://wayne-blog.com/2023-03-31/ddd-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782974405_1186eabd11_o.jpg" alt="Featured image of post 關於領域驅動設計 (Domain-Driven-Design)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>關於領域驅動設計 (Domain-Driven-Design)</title><link>https://blog.wayne-project.com/2023-03-31/ddd-introduction/</link><pubDate>Fri, 31 Mar 2023 00:00:01 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-31/ddd-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782974405_1186eabd11_o.jpg" alt="Featured image of post 關於領域驅動設計 (Domain-Driven-Design)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5650,7 +5650,7 @@ loading="lazy"
 &lt;li&gt;Ubiquitous Language 跟商業(業務)語言到底有什麼差別？&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Ubiquitous Language 的意涵其實很簡單，可以視為一個&lt;strong&gt;被系統所需要且開發團隊與商業團隊都能理解&lt;/strong&gt;的單字庫。以電商來說，「&lt;strong&gt;下訂單&lt;/strong&gt;」這個詞兩邊都能理解且被系統需要，那個詞就可以被放進 Ubiquitous Language 中，而「&lt;strong&gt;顧客轉換率&lt;/strong&gt;」、「&lt;strong&gt;公司營收&lt;/strong&gt;」等商業用語若是與系統無關，就不在 Ubiquitous Language。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://blog.wayne-project.com/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5754,7 +5754,7 @@ loading="lazy"
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cmdkey /list &lt;span class="p"&gt;|&lt;/span&gt; Select-String -Pattern &lt;span class="s2"&gt;&amp;#34;LegacyGeneric:target=(vscode.+)&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; ForEach-Object &lt;span class="o"&gt;{&lt;/span&gt; cmdkey.exe /delete &lt;span class="nv"&gt;$_&lt;/span&gt;.Matches.Groups&lt;span class="o"&gt;[&lt;/span&gt;1&lt;span class="o"&gt;]&lt;/span&gt;.Value &lt;span class="o"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【Javascript】關於 Functional Programming 函數式編程</title><link>https://wayne-blog.com/2023-03-27/js-functional-programming/</link><pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-27/js-functional-programming/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52774306416_350deb7178_o.png" alt="Featured image of post 【Javascript】關於 Functional Programming 函數式編程" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【Javascript】關於 Functional Programming 函數式編程</title><link>https://blog.wayne-project.com/2023-03-27/js-functional-programming/</link><pubDate>Mon, 27 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-27/js-functional-programming/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52774306416_350deb7178_o.png" alt="Featured image of post 【Javascript】關於 Functional Programming 函數式編程" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -5926,7 +5926,7 @@ text-align: center !important;
 &lt;hr&gt;
 &lt;h2 id="總結"&gt;總結&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;函數式編程(Functional Programming)&lt;/strong&gt; 誕生了五十多年後，終於獲得程式開發者大量的關注，目前 ML 非常紅的 &lt;strong&gt;Python&lt;/strong&gt; 以及前後端 &lt;strong&gt;JavaScript&lt;/strong&gt; 等語言，對於&lt;strong&gt;函數式編程(Functional Programming)&lt;/strong&gt; 的支持都很強。本篇文章整理 JavaScript 符合&lt;strong&gt;函數式編程(Functional Programming)&lt;/strong&gt; 概念的幾個元素(First-class、higher-order functions、Pure Functions)，希望透過 JavaScript 的實例理解函數式編程所講述的核心理念為何。最後比較&lt;strong&gt;宣告式編程(Declarative Paradigm)&lt;strong&gt;以及&lt;/strong&gt;指令式編程(Imperative Paradigm)&lt;/strong&gt;，對自己過去在軟體開發這塊領域所學的做個整理，理清並梳理已有的知識。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)</title><link>https://wayne-blog.com/2023-03-24/dotnet-core-v7-launch-profile/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-24/dotnet-core-v7-launch-profile/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52767686731_8692b4f919_o.jpg" alt="Featured image of post 關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)</title><link>https://blog.wayne-project.com/2023-03-24/dotnet-core-v7-launch-profile/</link><pubDate>Fri, 24 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-24/dotnet-core-v7-launch-profile/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52767686731_8692b4f919_o.jpg" alt="Featured image of post 關於 ASP.NET Core 7.0 的啟動設定檔 (Launch Settings)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -6507,7 +6507,7 @@ text-align: center !important;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>【Pyenv】輕鬆管理 Python 版本的好工具！</title><link>https://wayne-blog.com/2023-03-21/python-pyenv-introduction/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-21/python-pyenv-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52760880532_9a3e6169b0_o.jpg" alt="Featured image of post 【Pyenv】輕鬆管理 Python 版本的好工具！" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>【Pyenv】輕鬆管理 Python 版本的好工具！</title><link>https://blog.wayne-project.com/2023-03-21/python-pyenv-introduction/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-21/python-pyenv-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52760880532_9a3e6169b0_o.jpg" alt="Featured image of post 【Pyenv】輕鬆管理 Python 版本的好工具！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -6820,7 +6820,7 @@ text-align: center !important;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;pyenv rehash
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://wayne-blog.com/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>物件導向的 Q&amp;A - 以 Python 舉例</title><link>https://blog.wayne-project.com/2023-03-21/python-oop-qa/</link><pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-21/python-oop-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52761621059_ebb7e25e23_o.jpg" alt="Featured image of post 物件導向的 Q&amp;A - 以 Python 舉例" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -7227,7 +7227,7 @@ text-align: center !important;
 &lt;h3 id="請問物件導向為何叫做物件導向"&gt;請問物件導向為何叫做物件導向？&lt;/h3&gt;
 &lt;p&gt;物件導向程式語言之所以叫做物件導向是因為&lt;strong&gt;它重視物件 (Object) 這個概念&lt;/strong&gt;。在物件導向程式語言中，程式設計師可以使用類別 (Class) 來定義物件的共性，並使用物件來實例化類別。&lt;/p&gt;
 &lt;p&gt;物件具有&lt;code&gt;狀態 (state)&lt;/code&gt; 和&lt;code&gt;行為 (behavior)&lt;/code&gt;，並且可以互相之間進行溝通和互動。透過物件導向程式設計，可以更加形象地模擬實際世界中的事物，並且更加容易維護和擴展程式碼。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Function Currying】Javascript 函數柯里化</title><link>https://wayne-blog.com/2023-03-16/js-function-currying/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-16/js-function-currying/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52750230342_4ddafe10aa_o.jpg" alt="Featured image of post 【Function Currying】Javascript 函數柯里化" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Function Currying】Javascript 函數柯里化</title><link>https://blog.wayne-project.com/2023-03-16/js-function-currying/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-16/js-function-currying/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52750230342_4ddafe10aa_o.jpg" alt="Featured image of post 【Function Currying】Javascript 函數柯里化" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -7478,7 +7478,7 @@ text-align: center !important;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;});&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【Python】裝飾子 (decorator) 教學</title><link>https://wayne-blog.com/2023-03-16/python-decorator-tutorial/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-16/python-decorator-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52749963857_07e09e156b_o.png" alt="Featured image of post 【Python】裝飾子 (decorator) 教學" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【Python】裝飾子 (decorator) 教學</title><link>https://blog.wayne-project.com/2023-03-16/python-decorator-tutorial/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-16/python-decorator-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52749963857_07e09e156b_o.png" alt="Featured image of post 【Python】裝飾子 (decorator) 教學" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -8182,7 +8182,7 @@ loading="lazy"
 &lt;p&gt;Decorator 是一個非常實用的模式/功能，它可以讓我們輕鬆地在既有基礎上疊加額外的功能，除了使程式碼更加簡潔、易讀之外，還可以增加複用性。&lt;/p&gt;
 &lt;p&gt;不過由於 Decorator 可以不斷疊加的特性，甚至是可以多重包裝一個函式，有時候會適得其反，造成程式碼閱讀困難，使用上還是建議盡量保持單純為佳。&lt;/p&gt;
 &lt;p&gt;如果你還沒有在 Python 專案中使用 decorator，現在是時候了！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>21 個好用與特殊的 CSS 技巧！</title><link>https://wayne-blog.com/2023-03-16/css-21-tricks/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-16/css-21-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52750778595_b25222270e_o.png" alt="Featured image of post 21 個好用與特殊的 CSS 技巧！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>21 個好用與特殊的 CSS 技巧！</title><link>https://blog.wayne-project.com/2023-03-16/css-21-tricks/</link><pubDate>Thu, 16 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-16/css-21-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52750778595_b25222270e_o.png" alt="Featured image of post 21 個好用與特殊的 CSS 技巧！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -8881,7 +8881,7 @@ loading="lazy"
 &gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;以上分享，希望對您有幫助！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Petite-Vue】大小只有 ~6KB 的 mini Vue！</title><link>https://wayne-blog.com/2023-03-10/petite-vue-introduction/</link><pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-10/petite-vue-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52736941727_b3a1dcf3c3_o.jpg" alt="Featured image of post 【Petite-Vue】大小只有 ~6KB 的 mini Vue！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Petite-Vue】大小只有 ~6KB 的 mini Vue！</title><link>https://blog.wayne-project.com/2023-03-10/petite-vue-introduction/</link><pubDate>Fri, 10 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-10/petite-vue-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52736941727_b3a1dcf3c3_o.jpg" alt="Featured image of post 【Petite-Vue】大小只有 ~6KB 的 mini Vue！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -9802,7 +9802,7 @@ text-align: center !important;
 &lt;h2 id="總結"&gt;總結&lt;/h2&gt;
 &lt;p&gt;總結來說，&lt;a class="link" href="https://github.com/vuejs/petite-vue" target="_blank" rel="noopener"
 &gt;Petite-Vue&lt;/a&gt; 這個項目，挺適合「用不到 Vue、React 等這些偏大的前端框架的簡單頁面」，或是「既有的非前後端分離的歷史項目」來做使用的，有著 Vue 的開發體驗，也能不增加項目的複雜度，簡直是一個完美的體驗！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Typescript】tsconfig.json 的設定與資料型別介紹筆記</title><link>https://wayne-blog.com/2023-03-07/ts-config-and-type/</link><pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-07/ts-config-and-type/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52731863500_76db7b3738_o.png" alt="Featured image of post 【Typescript】tsconfig.json 的設定與資料型別介紹筆記" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Typescript】tsconfig.json 的設定與資料型別介紹筆記</title><link>https://blog.wayne-project.com/2023-03-07/ts-config-and-type/</link><pubDate>Tue, 07 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-07/ts-config-and-type/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52731863500_76db7b3738_o.png" alt="Featured image of post 【Typescript】tsconfig.json 的設定與資料型別介紹筆記" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11023,7 +11023,7 @@ ts： typescript 的特殊型別&lt;/p&gt;&lt;/blockquote&gt;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-javascript" data-lang="javascript"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;directions&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nx"&gt;Directions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Up&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;Directions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Down&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;Directions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Left&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;Directions&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Right&lt;/span&gt;&lt;span class="p"&gt;];&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【find】在 Linux 使用 find 指令尋找目錄或檔案的速查筆記</title><link>https://wayne-blog.com/2023-03-03/linux-find/</link><pubDate>Fri, 03 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-03/linux-find/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52722272752_8d023c0dc1_o.jpg" alt="Featured image of post 【find】在 Linux 使用 find 指令尋找目錄或檔案的速查筆記" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【find】在 Linux 使用 find 指令尋找目錄或檔案的速查筆記</title><link>https://blog.wayne-project.com/2023-03-03/linux-find/</link><pubDate>Fri, 03 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-03/linux-find/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52722272752_8d023c0dc1_o.jpg" alt="Featured image of post 【find】在 Linux 使用 find 指令尋找目錄或檔案的速查筆記" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11266,7 +11266,7 @@ text-align: center !important;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;find &lt;span class="nv"&gt;$HOME&lt;/span&gt; -name *.txt
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Cloudflare Tunnel 介紹</title><link>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Cloudflare Tunnel 介紹</title><link>https://blog.wayne-project.com/2023-03-02/cloudflare-tunnel-introduction/</link><pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-02/cloudflare-tunnel-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52720903430_307b8e0d62_o.png" alt="Featured image of post Cloudflare Tunnel 介紹" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11288,7 +11288,7 @@ text-align: center !important;
 &gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://editor.leonh.space/2021/cloudflare-tunnel/" target="_blank" rel="noopener"
 &gt;參考網站&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;以前曾經寫過一篇「&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" &gt;透過 ngrok 產生臨時用的網址到指定機器&lt;/a&gt;」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
+&lt;p&gt;以前曾經寫過一篇「&lt;a class="link" href="https://blog.wayne-project.com/2022-09-26/ngrok-basic/" &gt;透過 ngrok 產生臨時用的網址到指定機器&lt;/a&gt;」，這次要介紹的是類似的工具 &lt;a class="link" href="https://www.cloudflare.com/zh-tw/products/tunnel/" target="_blank" rel="noopener"
 &gt;Cloudflare Tunnel&lt;/a&gt;，他們有著共同的功能：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;我們有個本機的服務跑在 http://localhost:5000，想讓外部訪問&lt;/li&gt;
@@ -11439,7 +11439,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://wayne-blog.com/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【WebAPI】分層設計模式 - 三層式架構</title><link>https://blog.wayne-project.com/2023-02-24/webapi-3-tier-introduction/</link><pubDate>Fri, 24 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-24/webapi-3-tier-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52708075740_5943652140_o.png" alt="Featured image of post 【WebAPI】分層設計模式 - 三層式架構" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11614,7 +11614,7 @@ loading="lazy"
 &lt;li&gt;撰寫單元測試 (Unit Test) 保護每次修改&lt;/li&gt;
 &lt;li&gt;合理的設計各層職責物件，業務層更為重要&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>【Javascript】Require 與 Import 的區別</title><link>https://wayne-blog.com/2023-02-22/js-require-vs-import/</link><pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-22/js-require-vs-import/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52703536702_73aed5647c_o.jpg" alt="Featured image of post 【Javascript】Require 與 Import 的區別" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Javascript】Require 與 Import 的區別</title><link>https://blog.wayne-project.com/2023-02-22/js-require-vs-import/</link><pubDate>Wed, 22 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-22/js-require-vs-import/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52703536702_73aed5647c_o.jpg" alt="Featured image of post 【Javascript】Require 與 Import 的區別" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -11860,7 +11860,7 @@ max-width="100%"
 max-height="100%"
 class="gallery-image"
 loading="lazy"
-&gt;&lt;/p&gt;</description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://wayne-blog.com/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" /&gt;&lt;style&gt;
+&gt;&lt;/p&gt;</description></item><item><title>【Node.js】用 Typescript 與 Express 建立一個 server</title><link>https://blog.wayne-project.com/2023-02-21/ts-express-server/</link><pubDate>Tue, 21 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-21/ts-express-server/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52702210344_fe78a142e7_o.png" alt="Featured image of post 【Node.js】用 Typescript 與 Express 建立一個 server" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -13410,7 +13410,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;因為 request 其實就是 middleware 的陣列，因此若要嵌套其他 middleware 時，使用 Array merge 即可。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Javascript】整理關於 this 的指向</title><link>https://wayne-blog.com/2023-02-17/js-about-this/</link><pubDate>Fri, 17 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-17/js-about-this/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52694000500_81babf36e6_o.jpg" alt="Featured image of post 【Javascript】整理關於 this 的指向" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Javascript】整理關於 this 的指向</title><link>https://blog.wayne-project.com/2023-02-17/js-about-this/</link><pubDate>Fri, 17 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-17/js-about-this/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52694000500_81babf36e6_o.jpg" alt="Featured image of post 【Javascript】整理關於 this 的指向" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -13707,7 +13707,7 @@ text-align: center !important;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;myHello&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="c1"&gt;// [String: &amp;#39;my&amp;#39;]
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;詳細可以參考我另一篇文章 - 「&lt;a class="link" href="https://wayne-blog.com/2022-11-09/js-call-apply-bind/" target="_blank" rel="noopener"
+&lt;/div&gt;&lt;p&gt;詳細可以參考我另一篇文章 - 「&lt;a class="link" href="https://blog.wayne-project.com/2022-11-09/js-call-apply-bind/" target="_blank" rel="noopener"
 &gt;使用 bind、call、apply 改變 this 指向的對象&lt;/a&gt;」，幫大家做個中場總結：&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;在物件以外的 this 基本上沒有任何意義，硬要輸出的話會給個預設值&lt;/li&gt;
@@ -15133,7 +15133,7 @@ text-align: center !important;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Foo&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;getName&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="c1"&gt;// 3
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！</title><link>https://wayne-blog.com/2023-02-16/aws-sns-lambda-telegram-bot/</link><pubDate>Thu, 16 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-16/aws-sns-lambda-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52691440307_42df4e8ba1_o.png" alt="Featured image of post 【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！</title><link>https://blog.wayne-project.com/2023-02-16/aws-sns-lambda-telegram-bot/</link><pubDate>Thu, 16 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-16/aws-sns-lambda-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52691440307_42df4e8ba1_o.png" alt="Featured image of post 【AWS】利用 SNS + Lambda，在 S3 儲存貯體檔案更新時透過 Telegram 通知我！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -15170,7 +15170,7 @@ loading="lazy"
 &gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="創建一個-telegram-bot"&gt;創建一個 Telegram bot&lt;/h2&gt;
-&lt;p&gt;首先我們需要先在 Telegram 中創建一個機器人，透過之前的文章 - 「&lt;a class="link" href="https://wayne-blog.com/2022-08-25/drone-cicd-with-telegram-bot/#%e5%90%91-botfather-%e7%94%b3%e8%ab%8b%e4%b8%80%e9%9a%bb%e6%a9%9f%e5%99%a8%e4%ba%ba%e5%90%a7" &gt;Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人&lt;/a&gt;」，向 &lt;code&gt;@BotFather&lt;/code&gt; 申請一隻吧！&lt;/p&gt;
+&lt;p&gt;首先我們需要先在 Telegram 中創建一個機器人，透過之前的文章 - 「&lt;a class="link" href="https://blog.wayne-project.com/2022-08-25/drone-cicd-with-telegram-bot/#%e5%90%91-botfather-%e7%94%b3%e8%ab%8b%e4%b8%80%e9%9a%bb%e6%a9%9f%e5%99%a8%e4%ba%ba%e5%90%a7" &gt;Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人&lt;/a&gt;」，向 &lt;code&gt;@BotFather&lt;/code&gt; 申請一隻吧！&lt;/p&gt;
 &lt;p&gt;取得 Telegram bot Token：&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52309652519_56d6f78185_o.png"
 max-width="100%"
@@ -15573,7 +15573,7 @@ loading="lazy"
 &lt;p&gt;其次，SNS 是一個強大的消息發布和訂閱服務，可以幫助我將消息發送到多個端點，如電子郵件、短信、移動設備等。SNS 的設置非常簡單，可以輕鬆地創建主題(topic)、訂閱端點(subscription)、設置過濾器(policy)等。同時，SNS 還提供了許多高級功能，如死信隊列(dead-letter queue)、消息篩選等，這些功能可以更好地控制和管理我的消息流。&lt;/p&gt;
 &lt;p&gt;最後，Lambda 是一個靈活且高效的無伺服器計算服務，可以讓我在不擔心伺服器設置和管理的情況下運行代碼。使用 Lambda 非常方便，只需創建一個函數(function)，然後設置觸發器(trigger)，就可以開始運行我的代碼。同時，Lambda 還支持許多高級功能，如環境變量(environment variables)、VPC 訪問(virtual private cloud access)、調用其他服務等，這些功能可以讓我的代碼更加強大和靈活。&lt;/p&gt;
 &lt;p&gt;本篇只是分享我試玩一下 AWS SNS 與 Lambda，相當有趣，期待後續有更靈活、更好玩的運用！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://blog.wayne-project.com/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -15640,7 +15640,7 @@ loading="lazy"
 &lt;li&gt;Polacode 的 file 會影響你的成品，因此 file 內因為擠壓而換行，儲存出來的成品也會換行。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;介紹這個套件是希望在跟其他開發者討論程式碼，或是自己有撰寫部落格與文章的習慣時，可以讓對方或讀者有個良好的閱讀體驗，閱讀起來會更加順暢！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>用 Navigator.share() API 實作分享功能</title><link>https://wayne-blog.com/2023-02-14/js-navigator-share-api/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-14/js-navigator-share-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688657055_cb1b8e38df_o.jpg" alt="Featured image of post 用 Navigator.share() API 實作分享功能" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>用 Navigator.share() API 實作分享功能</title><link>https://blog.wayne-project.com/2023-02-14/js-navigator-share-api/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-14/js-navigator-share-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688657055_cb1b8e38df_o.jpg" alt="Featured image of post 用 Navigator.share() API 實作分享功能" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -15709,7 +15709,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;navigator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;share&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;標題&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;text&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;文字描述&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://wayne-blog.com/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;https://blog.wayne-project.com/&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;})&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(()&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;成功！&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;catch&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;發生錯誤&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;error&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
@@ -15760,7 +15760,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;// 下面的欄位可以不用全部填寫，可以只分享網址，也可以只分享文字
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;sharePromise&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;navigator&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;share&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;https://wayne-blog.com/2023-02-14/js-navigator-share-api/&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c1"&gt;// 要分享的 URL
+&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="nx"&gt;url&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;https://blog.wayne-project.com/2023-02-14/js-navigator-share-api/&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c1"&gt;// 要分享的 URL
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="nx"&gt;title&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;Wayne&amp;#39; blog&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="c1"&gt;// 要分享的標題
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt; &lt;span class="nx"&gt;text&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;偉恩的部落格文章好豐富阿&amp;#34;&lt;/span&gt; &lt;span class="c1"&gt;// 要分享的文字內容
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
@@ -15771,7 +15771,7 @@ See the Pen &lt;a href="https://codepen.io/WJDesign/pen/MWqWeYM"&gt;
 Web Share API example&lt;/a&gt; by wjdesign (&lt;a href="https://codepen.io/WJDesign"&gt;@WJDesign&lt;/a&gt;)
 on &lt;a href="https://codepen.io"&gt;CodePen&lt;/a&gt;.
 &lt;/iframe&gt;
-&lt;hr&gt;</description></item><item><title>簡單扼要的介紹什麼是 Node.js？</title><link>https://wayne-blog.com/2023-02-14/what-is-nodejs/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-14/what-is-nodejs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688618360_3d146e4e7b_o.png" alt="Featured image of post 簡單扼要的介紹什麼是 Node.js？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>簡單扼要的介紹什麼是 Node.js？</title><link>https://blog.wayne-project.com/2023-02-14/what-is-nodejs/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-14/what-is-nodejs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688618360_3d146e4e7b_o.png" alt="Featured image of post 簡單扼要的介紹什麼是 Node.js？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -15865,7 +15865,7 @@ text-align: center !important;
 &lt;hr&gt;
 &lt;h2 id="小結"&gt;小結&lt;/h2&gt;
 &lt;p&gt;Node.js 在如今已經是每一位前端開發者必須掌握的技術，它通過 &lt;code&gt;libuv&lt;/code&gt; 向前端開發者開放了操作系統層面的底層能力，讓開發者能夠全面使用計算機的算力和功能。並用一種語言解決 Web 應用開發的所有問題的想法成為可能。希望通過本文的介紹，您能夠對 Node.js 產生好奇，祝您在未來的探索旅途中，過得愉快。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【C#】實作 Debounced Job</title><link>https://wayne-blog.com/2023-02-13/dotnet-core-debounce/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-13/dotnet-core-debounce/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52686405784_425f5b6fca_o.png" alt="Featured image of post 【C#】實作 Debounced Job" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【C#】實作 Debounced Job</title><link>https://blog.wayne-project.com/2023-02-13/dotnet-core-debounce/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-13/dotnet-core-debounce/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52686405784_425f5b6fca_o.png" alt="Featured image of post 【C#】實作 Debounced Job" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -16005,7 +16005,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;title&amp;gt;DebouncedJob&amp;lt;/title&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;/head&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;body&amp;gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;form action=https://wayne-blog.com/alert method=post target=result id=frm &amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;form action=https://blog.wayne-project.com/alert method=post target=result id=frm &amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;input type=hidden name=msg id=msg /&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;/form&amp;gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="s"&gt; &amp;lt;iframe name=result style=display:none&amp;gt;&amp;lt;/iframe&amp;gt;
@@ -16250,7 +16250,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>學習 CSS 中的 :where() 與 :is() 函式</title><link>https://wayne-blog.com/2023-02-13/css-where-function/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-13/css-where-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52685546952_5615aa17bf_o.jpg" alt="Featured image of post 學習 CSS 中的 :where() 與 :is() 函式" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>學習 CSS 中的 :where() 與 :is() 函式</title><link>https://blog.wayne-project.com/2023-02-13/css-where-function/</link><pubDate>Mon, 13 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-13/css-where-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52685546952_5615aa17bf_o.jpg" alt="Featured image of post 學習 CSS 中的 :where() 與 :is() 函式" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -16686,7 +16686,7 @@ loading="lazy"
 &lt;hr&gt;
 &lt;h2 id="瀏覽器兼容性"&gt;瀏覽器兼容性&lt;/h2&gt;
 &lt;p&gt;所有瀏覽器，無論是桌面瀏覽器還是移動瀏覽器，都完全支持 &lt;code&gt;:where()&lt;/code&gt; 函數，包括對其安全特性的支持。因此，你不必擔心你的樣式是否會在瀏覽器中正確呈現。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Golang 的超級初心者筆記</title><link>https://wayne-blog.com/2023-02-10/golang-beginner-tutorial/</link><pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-10/golang-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52680023246_4af5b0a8eb_o.jpg" alt="Featured image of post Golang 的超級初心者筆記" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Golang 的超級初心者筆記</title><link>https://blog.wayne-project.com/2023-02-10/golang-beginner-tutorial/</link><pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-10/golang-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52680023246_4af5b0a8eb_o.jpg" alt="Featured image of post Golang 的超級初心者筆記" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -16752,7 +16752,7 @@ Go 是一個高效、靜態類型，但是又具有解釋語言的動態類型�
 &lt;p&gt;等等！Unix Like 的使用者先等等，有個更好用的東西可以讓各位使用，我們有 &lt;a class="link" href="https://github.com/moovweb/gvm" target="_blank" rel="noopener"
 &gt;GVM&lt;/a&gt; 可以用，&lt;a class="link" href="https://github.com/moovweb/gvm" target="_blank" rel="noopener"
 &gt;GVM&lt;/a&gt; 可以有效的管理 Go 的版本，連 GOPATH 都幫你設定好，超方便的！即時是最新的也都能馬上使用他下載安裝，真的是棒的沒話說，就讓我們來使用他吧！記得要先看一下 Requirements 喔，不然會裝不起來。&lt;/p&gt;
-&lt;p&gt;另外我的部落格有輕鬆搭建 Go 開發環境的教學 - &lt;a class="link" href="https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/" target="_blank" rel="noopener"
+&lt;p&gt;另外我的部落格有輕鬆搭建 Go 開發環境的教學 - &lt;a class="link" href="https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/" target="_blank" rel="noopener"
 &gt;在 Windows 平台打造完美的 Go 開發環境 (WSL 2)&lt;/a&gt;，可以直接參考該篇文章進行搭建！(開發工具使用 Visual Studio Code)&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="go-指令"&gt;Go 指令&lt;/h2&gt;
@@ -17114,7 +17114,7 @@ Go 是一個高效、靜態類型，但是又具有解釋語言的動態類型�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="c1"&gt;// key value pairs&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="nx"&gt;kvs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;wayne blog&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;website&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://wayne-blog.com/&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;website&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://blog.wayne-project.com/&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;range&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;kvs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -21194,7 +21194,7 @@ float64 在 Go 語言相當於 C 語言的 Double，且 float32 與 float64 是�
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;這邊使用 Prepare 來使用 sql 指令，將值傳給 stmtIns ，操作簡單直覺！&lt;/p&gt;
 &lt;p&gt;以上，這篇先簡單介紹 Golang，待之後專案使用到時，再來繼續深入研究！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -22341,7 +22341,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://blog.wayne-project.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -22551,7 +22551,7 @@ loading="lazy"
 &lt;p&gt;在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code&gt;0.0.0.0&lt;/code&gt;，這樣我的服務訪問方就可以通過我的&lt;strong&gt;多個ip地址&lt;/strong&gt;訪問我的服務。&lt;/p&gt;
 &lt;p&gt;比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code&gt;0.0.0.0&lt;/code&gt;，那麼通過內網地址或外網地址&lt;strong&gt;都可以訪問&lt;/strong&gt;我的應用。&lt;/p&gt;
 &lt;p&gt;但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code&gt;0.0.0.0&lt;/code&gt;，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayne-blog.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://blog.wayne-project.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -22775,7 +22775,7 @@ loading="lazy"
 &lt;p&gt;&lt;strong&gt;Traceroute&lt;/strong&gt; 的方法是在源主機發送UDP數據包給目標主機的時候，會設置一個&lt;strong&gt;不可能達到的目標端口號&lt;/strong&gt;（例如大於30000的端口號），那麼當這個數據包真的到達目標主機的時候，目標主機發現沒有對應的端口號，因此會產生一份&lt;code&gt;端口不可達&lt;/code&gt;的錯誤ICMP報文返回給源主機。&lt;/p&gt;
 &lt;p&gt;可見 &lt;strong&gt;Traceroute&lt;/strong&gt; 的原理確實很取巧，很有趣。如您對 &lt;strong&gt;Traceroute&lt;/strong&gt; 感興趣，可以深入讀一讀《&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004762" target="_blank" rel="noopener"
 &gt;從 Traceroute 看網絡問題&lt;/a&gt;》一文。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能</title><link>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-07/dotnet-core-google-recaptcha/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52674631510_d9525c3729_o.png" alt="Featured image of post ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能</title><link>https://blog.wayne-project.com/2023-02-07/dotnet-core-google-recaptcha/</link><pubDate>Tue, 07 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-07/dotnet-core-google-recaptcha/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52674631510_d9525c3729_o.png" alt="Featured image of post ASP.NET Core 網站如何整合 Google 的 reCAPTCHA Enterprise 功能" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -23454,7 +23454,7 @@ loading="lazy"
 &lt;/ol&gt;
 &lt;p&gt;另外，我想補充說明的是，&lt;a class="link" href="https://www.google.com/recaptcha/about/" target="_blank" rel="noopener"
 &gt;reCAPTCHA Enterprise&lt;/a&gt; 有&lt;strong&gt;每月 100 萬次免費使用額度&lt;/strong&gt;，這些次數主要是「後端」對 &lt;code&gt;reCAPTCHA Enterprise API&lt;/code&gt; 發送驗證 &lt;code&gt;Assessment&lt;/code&gt; (評估) 的次數，對許多網站來說，這個數量應該是綽綽有餘了，所以我才考慮直接使用這個服務。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://blog.wayne-project.com/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -24583,7 +24583,7 @@ loading="lazy"
 &lt;p&gt;&lt;span class="focus"&gt;!!重要!!&lt;/span&gt;&lt;br&gt;
 關於更多 Collection 的操作，可以參考：&lt;a class="link" href="https://www.mongodb.com/docs/manual/reference/method/js-collection/" target="_blank" rel="noopener"
 &gt;Collection Methods&lt;/a&gt;，特別在使用查詢 find，有不同於以往 SQL 的使用語法。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;hr&gt;</description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://blog.wayne-project.com/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -24672,7 +24672,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;npx replace-in-file &lt;span class="s2"&gt;&amp;#34;/pattern([s])/g&amp;#34;&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;replacement&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; src/**/*.ts --isRegex --encoding&lt;span class="o"&gt;=&lt;/span&gt;utf-8
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://wayne-blog.com/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4e163f06ec_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume</title><link>https://blog.wayne-project.com/2023-02-02/docker-persistent-volume/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-02/docker-persistent-volume/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664455010_4e163f06ec_o.jpg" alt="Featured image of post 【Docker】數據持久化與數據共享 - tmpfsMount/BindMount/Volume" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -26132,7 +26132,7 @@ loading="lazy"
 &lt;/div&gt;&lt;ol start="13"&gt;
 &lt;li&gt;Docker Compose 是用於本地開發的一個工具，並不適合用於 Production，它就是為了方便在本地看部署的結果。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr&gt;</description></item><item><title>【MySQL】1251 Error 的解決方式</title><link>https://wayne-blog.com/2023-02-02/mysql-1251-error/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-02/mysql-1251-error/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664722338_fb8cdac86d_o.png" alt="Featured image of post 【MySQL】1251 Error 的解決方式" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【MySQL】1251 Error 的解決方式</title><link>https://blog.wayne-project.com/2023-02-02/mysql-1251-error/</link><pubDate>Thu, 02 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-02/mysql-1251-error/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52664722338_fb8cdac86d_o.png" alt="Featured image of post 【MySQL】1251 Error 的解決方式" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -26272,7 +26272,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【LIFF】認識 LINE Front-end Framework (LIFF) 前端框架 (LIFF v2)</title><link>https://wayne-blog.com/2023-02-01/line-front-end-framework-v2/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-01/line-front-end-framework-v2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52662373535_00afc03eca_o.jpg" alt="Featured image of post 【LIFF】認識 LINE Front-end Framework (LIFF) 前端框架 (LIFF v2)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【LIFF】認識 LINE Front-end Framework (LIFF) 前端框架 (LIFF v2)</title><link>https://blog.wayne-project.com/2023-02-01/line-front-end-framework-v2/</link><pubDate>Wed, 01 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-01/line-front-end-framework-v2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52662373535_00afc03eca_o.jpg" alt="Featured image of post 【LIFF】認識 LINE Front-end Framework (LIFF) 前端框架 (LIFF v2)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -26521,7 +26521,7 @@ padding: 0 5px;
 &gt;&lt;strong&gt;LIFF 的用途&lt;/strong&gt;&lt;/a&gt;、&lt;a class="link" href="https://developers.line.biz/en/docs/liff/overview/#liff-browser" target="_blank" rel="noopener"
 &gt;&lt;strong&gt;LIFF Browser 的存在&lt;/strong&gt;&lt;/a&gt; 與 &lt;a class="link" href="https://developers.line.biz/en/docs/liff/opening-liff-app/" target="_blank" rel="noopener"
 &gt;&lt;strong&gt;LIFF App 的開啟方式&lt;/strong&gt;&lt;/a&gt;，搞懂這些地方，後續在開發上就不會有甚麼困難與障礙了！🚀&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://wayne-blog.com/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_22c917dc9a_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Docker】建立私有 Docker Registry</title><link>https://blog.wayne-project.com/2023-01-31/docker-private-registry/</link><pubDate>Tue, 31 Jan 2023 00:00:05 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-31/docker-private-registry/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660201816_22c917dc9a_o.png" alt="Featured image of post 【Docker】建立私有 Docker Registry" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -26635,7 +26635,7 @@ class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
 &lt;p&gt;以上，一台自建 Docker Registry 便上線服役囉～&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Server-Sent Event】在網頁等待手機端完成操作</title><link>https://wayne-blog.com/2023-01-31/web-wait-for-qrcode-scan/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/web-wait-for-qrcode-scan/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52659620952_80251bfcbf_o.jpg" alt="Featured image of post 【Server-Sent Event】在網頁等待手機端完成操作" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Server-Sent Event】在網頁等待手機端完成操作</title><link>https://blog.wayne-project.com/2023-01-31/web-wait-for-qrcode-scan/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-31/web-wait-for-qrcode-scan/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52659620952_80251bfcbf_o.jpg" alt="Featured image of post 【Server-Sent Event】在網頁等待手機端完成操作" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -27109,7 +27109,7 @@ loading="lazy"
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;瑣碎細節還不少，就不一一介紹了。範例專案已放上 &lt;a class="link" href="https://github.com/wjdesign/web-wait-for-qrcode-scan" target="_blank" rel="noopener"
 &gt;Github&lt;/a&gt;，大家如有興趣再下載回去研究。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget</title><link>https://wayne-blog.com/2023-01-31/windows-chocolatey-scoop-winget/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/windows-chocolatey-scoop-winget/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660107874_752a7075c3_o.jpg" alt="Featured image of post 【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget</title><link>https://blog.wayne-project.com/2023-01-31/windows-chocolatey-scoop-winget/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-31/windows-chocolatey-scoop-winget/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660107874_752a7075c3_o.jpg" alt="Featured image of post 【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -27248,7 +27248,7 @@ loading="lazy"
 &lt;p&gt;Chocolatey 仍是最方便的選擇，單一來源涵蓋幾乎大小會用到的軟體，並能處理 Registry、右鍵選單等系統層次設定，但執行時需要管理者權限。&lt;/p&gt;
 &lt;p&gt;Scoop 以開發用的工具程式為主，最大的優點安裝範圍會限制在當時登入的使用者環境下，不干擾系統設計也不需要管理者權限；Scoop 也能安裝 Chrome、VLC 播放器這類軟體，但需要找到並設定安裝來源。&lt;/p&gt;
 &lt;p&gt;winget 是微軟的官方指令安裝系統，預設透過微軟商店下載安裝，要在 Windows Server 或網路受限環境使用需費點工夫，且因出道較晚，提供的軟體種類不如其他二者齊全。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://wayne-blog.com/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行</title><link>https://blog.wayne-project.com/2023-01-30/npm-partytown-from-web-worker/</link><pubDate>Mon, 30 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-30/npm-partytown-from-web-worker/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52657535787_2ab04e0fac_o.jpg" alt="Featured image of post 前端效能調校：使用 Partytown 將笨重的 JavaScript 放到 Web Workers 執行" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -27414,7 +27414,7 @@ padding: 0 5px;
 &lt;li&gt;&lt;a class="link" href="https://partytown.builder.io/google-tag-manager" target="_blank" rel="noopener"
 &gt;Google Tag Manager&lt;/a&gt; (GTM)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://blog.wayne-project.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -27604,7 +27604,7 @@ loading="lazy"
 &lt;p&gt;任何一方都可以在數據傳送結束後發出連接釋放的通知，待對方確認後進入&lt;strong&gt;半關閉狀態&lt;/strong&gt;。當另一方也沒有數據再發送的時候，則發出連接釋放通知，對方確認後就&lt;strong&gt;完全關閉&lt;/strong&gt;了 TCP 連接。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;通俗的來說，兩次握手就可以釋放一端到另一端的 TCP 連接，完全釋放連接一共需要四次握手。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;舉個例子： A 和 B 打電話，通話即將結束後，A 說&amp;quot;&lt;strong&gt;我沒啥要說的了&lt;/strong&gt;&amp;quot;，B 回答&amp;quot;&lt;strong&gt;我知道了&lt;/strong&gt;&amp;quot;，於是 A 向 B 的連接釋放了。但是 B 可能還會有要說的話，於是 B 可能又巴拉巴拉說了一通，最後 B 說&amp;quot;&lt;strong&gt;我說完了&lt;/strong&gt;&amp;quot;，A 回答&amp;quot;&lt;strong&gt;知道了&lt;/strong&gt;&amp;quot;，於是 B 向 A 的連接釋放了，這樣整個通話就結束了。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>網站前端打 API 時把密碼加密，有意義嗎？</title><link>https://wayne-blog.com/2023-01-17/why-encrypt-in-client/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-17/why-encrypt-in-client/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52634831533_259566b84f_o.jpg" alt="Featured image of post 網站前端打 API 時把密碼加密，有意義嗎？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>網站前端打 API 時把密碼加密，有意義嗎？</title><link>https://blog.wayne-project.com/2023-01-17/why-encrypt-in-client/</link><pubDate>Tue, 17 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-17/why-encrypt-in-client/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52634831533_259566b84f_o.jpg" alt="Featured image of post 網站前端打 API 時把密碼加密，有意義嗎？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -28121,7 +28121,7 @@ padding: 0 5px;
 &lt;/ol&gt;
 &lt;p&gt;若是對這個結論有不同意見，或是有在文章中發現哪些邏輯錯誤或技術錯誤，歡迎留言指正與討論，感恩。&lt;/p&gt;
 &lt;p&gt;補充一下，這篇大多數從技術面來看，除此之外還可以從法遵面或是資安的實務經驗來看，但這些面向我就零經驗了。許願一下有相關經驗的人出來指點迷津，或許會有不同觀點。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Nuxt3】實戰練習 - 實作部落格</title><link>https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/</link><pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52630283696_c93e29e870_o.png" alt="Featured image of post 【Nuxt3】實戰練習 - 實作部落格" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Nuxt3】實戰練習 - 實作部落格</title><link>https://blog.wayne-project.com/2023-01-16/nuxt-nuxt3-practice-project/</link><pubDate>Mon, 16 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-16/nuxt-nuxt3-practice-project/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52630283696_c93e29e870_o.png" alt="Featured image of post 【Nuxt3】實戰練習 - 實作部落格" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -28138,7 +28138,7 @@ padding: 0 5px;
 &gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://ithelp.ithome.com.tw/users/20152617/ironman/5934" target="_blank" rel="noopener"
 &gt;參考網站&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;大家經過 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a&gt; 這篇文章，應該對於 Nuxt 3 有初步的理解，接下來我們將進入實戰部分，我將會以 Nuxt 3 來實作部落格網站，讓已經註冊的使用者可以在網站上發布文章，實作這個網站的程式碼可能不會講解得非常仔細，但一些實務開發上會需要注意的細節我會把個人經驗做一個紀錄，大家可以再參考看看，文末也都會附上完整的範例程式。接下來，讓我們開始吧！&lt;/p&gt;
+&lt;p&gt;大家經過 &lt;a class="link" href="https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a&gt; 這篇文章，應該對於 Nuxt 3 有初步的理解，接下來我們將進入實戰部分，我將會以 Nuxt 3 來實作部落格網站，讓已經註冊的使用者可以在網站上發布文章，實作這個網站的程式碼可能不會講解得非常仔細，但一些實務開發上會需要注意的細節我會把個人經驗做一個紀錄，大家可以再參考看看，文末也都會附上完整的範例程式。接下來，讓我們開始吧！&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="資料庫與會員系統"&gt;資料庫與會員系統&lt;/h2&gt;
 &lt;h3 id="資料庫-database"&gt;資料庫 (Database)&lt;/h3&gt;
@@ -28452,7 +28452,7 @@ class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
 &lt;h3 id="nuxt-3-使用者註冊帳號"&gt;Nuxt 3 使用者註冊帳號&lt;/h3&gt;
-&lt;p&gt;我們將 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a&gt; 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p&gt;
+&lt;p&gt;我們將 &lt;a class="link" href="https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/#%e5%af%a6%e4%bd%9c%e7%b7%b4%e7%bf%92" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記&lt;/a&gt; 這篇文章，所串接的 Google OAuth 及 Cookie 做一個結合，讓使用者透過 Google Auth 登入後可以自動的註冊建立使用者或登入產生 Access Token。&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;./server/api/auth/google.post.js&lt;/code&gt; 程式碼如下：&lt;/p&gt;
 &lt;h5 id="serverapiauthgooglepostjs"&gt;server/api/auth/google.post.js&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
@@ -29396,7 +29396,7 @@ class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
 &lt;h3 id="取消或替換特定頁面的布局模板"&gt;取消或替換特定頁面的布局模板&lt;/h3&gt;
-&lt;p&gt;在&lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a&gt; 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p&gt;
+&lt;p&gt;在&lt;a class="link" href="https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/#%e5%b8%83%e5%b1%80%e6%a8%a1%e6%9d%bf-layouts" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - Nuxt 3 布局模板 (Layouts)&lt;/a&gt; 內有介紹到，我們可以建立多個布局模板，而 Nuxt 也提供我們可以為頁面元件取消使用或選擇特定的布局模板。&lt;/p&gt;
 &lt;p&gt;例如，我們想將登入與註冊頁面，取消套用預設的布局模板，我們就可以使用 &lt;code&gt;definePageMeta()&lt;/code&gt; 來傳入 &lt;code&gt;layout: false&lt;/code&gt; 屬性來取消布局模板的使用。&lt;/p&gt;
 &lt;p&gt;調整登入頁面 &lt;code&gt;./pages/login.vue&lt;/code&gt;&lt;/p&gt;
 &lt;h5 id="pagesloginvue"&gt;pages/login.vue&lt;/h5&gt;
@@ -30575,7 +30575,7 @@ loading="lazy"
 &gt;範例程式碼 - Nuxt 3 - 設置導航守衛與頁面切換效果範例&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="添加-html-meta-tag"&gt;添加 HTML Meta Tag&lt;/h2&gt;
-&lt;p&gt;詳細 Nuxt3 添加 HTML Meta Tag 的說明，可以參考 &lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e6%90%9c%e5%b0%8b%e5%bc%95%e6%93%8e%e6%9c%80%e4%bd%b3%e5%8c%96-seo-%e8%88%87-html-meta-tag" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - 搜尋引擎最佳化 (SEO) 與 HTML Meta Tag&lt;/a&gt;，這邊我們說明為實作的部落格文章添加 Meta，調整 &lt;code&gt;./pages/articles/[id].vue&lt;/code&gt; 檔案，添加以下程式碼：&lt;/p&gt;
+&lt;p&gt;詳細 Nuxt3 添加 HTML Meta Tag 的說明，可以參考 &lt;a class="link" href="https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/#%e6%90%9c%e5%b0%8b%e5%bc%95%e6%93%8e%e6%9c%80%e4%bd%b3%e5%8c%96-seo-%e8%88%87-html-meta-tag" &gt;【Nuxt3】開箱即用的 Nuxt3 玩轉筆記 - 搜尋引擎最佳化 (SEO) 與 HTML Meta Tag&lt;/a&gt;，這邊我們說明為實作的部落格文章添加 Meta，調整 &lt;code&gt;./pages/articles/[id].vue&lt;/code&gt; 檔案，添加以下程式碼：&lt;/p&gt;
 &lt;h5 id="pagesarticlesidvue"&gt;pages/articles/[id].vue&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
@@ -31361,7 +31361,7 @@ loading="lazy"
 &lt;hr&gt;
 &lt;p&gt;&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/day24/nuxt-app-meta" target="_blank" rel="noopener"
 &gt;範例程式碼 - Nuxt 3 - 搜尋引擎最佳化 (SEO) 之設定網頁 Meta 及 OG Tag 範例&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Nuxt3】開箱即用的 Nuxt3 玩轉筆記</title><link>https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/</link><pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52616698791_b7b8bbce05_o.jpg" alt="Featured image of post 【Nuxt3】開箱即用的 Nuxt3 玩轉筆記" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Nuxt3】開箱即用的 Nuxt3 玩轉筆記</title><link>https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/</link><pubDate>Sat, 14 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52616698791_b7b8bbce05_o.jpg" alt="Featured image of post 【Nuxt3】開箱即用的 Nuxt3 玩轉筆記" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -34863,9 +34863,9 @@ loading="lazy"
 &lt;/ul&gt;
 &lt;p&gt;目前在 Vue 3 你仍可以繼續使用 Vue 2 的 Options API，但隨著程式碼邏輯的增加，看似有條理的分類，其實對於理解及維護上沒有想像中便利。&lt;/p&gt;
 &lt;p&gt;Vue 3 提出的&lt;strong&gt;組合式 API (Composition API)&lt;/strong&gt; 則是以邏輯功能來進行分類，你可以將所有與某個功能的 &lt;strong&gt;data&lt;/strong&gt;、&lt;strong&gt;computed&lt;/strong&gt;、&lt;strong&gt;methods&lt;/strong&gt; 與 &lt;strong&gt;watch&lt;/strong&gt; &amp;hellip;等，寫在同一個段落行程一個區塊。&lt;/p&gt;
-&lt;p&gt;詳細說明可閱讀先前撰寫的&lt;a class="link" href="https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/" &gt;圖解 Option API vs Composition API&lt;/a&gt;文章。&lt;/p&gt;
+&lt;p&gt;詳細說明可閱讀先前撰寫的&lt;a class="link" href="https://blog.wayne-project.com/2022-08-11/option-api-vs-composition-api/" &gt;圖解 Option API vs Composition API&lt;/a&gt;文章。&lt;/p&gt;
 &lt;h3 id="mixins-與-composables"&gt;Mixins 與 Composables&lt;/h3&gt;
-&lt;p&gt;在 Options API 可以使用 &lt;code&gt;mixin&lt;/code&gt; 來引入可以重複使用的程式碼，讓不同的元件可以共用函數方法，但隨著專案變大，同一個元件可能使用 mixin 同時來引用許多的共用函數，這將導致容易產生命名衝突、元件間的耦合與來源不夠清晰等問題（詳細原因請參考&lt;a class="link" href="https://wayne-blog.com/2022-12-30/why-use-hooks/" &gt;淺談為什麼 Vue 和 React 都選擇了 Hooks？&lt;/a&gt;）。&lt;/p&gt;
+&lt;p&gt;在 Options API 可以使用 &lt;code&gt;mixin&lt;/code&gt; 來引入可以重複使用的程式碼，讓不同的元件可以共用函數方法，但隨著專案變大，同一個元件可能使用 mixin 同時來引用許多的共用函數，這將導致容易產生命名衝突、元件間的耦合與來源不夠清晰等問題（詳細原因請參考&lt;a class="link" href="https://blog.wayne-project.com/2022-12-30/why-use-hooks/" &gt;淺談為什麼 Vue 和 React 都選擇了 Hooks？&lt;/a&gt;）。&lt;/p&gt;
 &lt;p&gt;Vue 3 為我們帶來了組合式 API，實現了更乾淨的程式碼編排與高效的邏輯重用，**組合式函數 (Composables)**也基於組合式 API 來進行封裝這些可複用的邏輯，更解決了使用 mixin 實現共用函數的缺點。&lt;/p&gt;
 &lt;h3 id="組合式函數-composables-1"&gt;組合式函數 (Composables)&lt;/h3&gt;
 &lt;p&gt;在 Nuxt 3 中要建立一個&lt;code&gt;組合式函數 (Composables)&lt;/code&gt; 我們可以在 &lt;code&gt;composables&lt;/code&gt; 目錄下編寫，這些常用的函數，將會被 Nuxt 3 自動載入做使用，實現在各個元件使用這些函數方法。&lt;/p&gt;
@@ -35076,7 +35076,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;不論在 Nuxt 3 或是 Vue 3，組合式函數 (Composables) 都是能幫助你在整個網站可以共用函數的方法，目前也有專案 &lt;a class="link" href="https://vueuse.org/" target="_blank" rel="noopener"
-&gt;VueUse&lt;/a&gt; 提供了常用與實用的組合式函數集合，能幫我們省去不少開發時間與提升重複使用性，&lt;a class="link" href="https://wayne-blog.com/2022-12-30/npm-vueuse/" &gt;VueUse的介紹請點我前往&lt;/a&gt;。&lt;/p&gt;
+&gt;VueUse&lt;/a&gt; 提供了常用與實用的組合式函數集合，能幫我們省去不少開發時間與提升重複使用性，&lt;a class="link" href="https://blog.wayne-project.com/2022-12-30/npm-vueuse/" &gt;VueUse的介紹請點我前往&lt;/a&gt;。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="插件-plugins"&gt;插件 (Plugins)&lt;/h2&gt;
 &lt;p&gt;在開發時，為了不重複造輪子，我們可能會在網路上找看看有沒有現成的套件可以做使用，如果這個套件在 Nuxt 3 沒有專用的模組或插件，那麼我們就只能依照套件的支援與安裝方式嘗試添加至 Nuxt 中使用。這邊將會介紹在 Nuxt 插件的規則與特性，如何建立自己的插件及安裝 Vue 的插件。&lt;/p&gt;
@@ -35294,7 +35294,7 @@ loading="lazy"
 &lt;p&gt;Nuxt 模組與 Nuxt 插件的差異在於，&lt;code&gt;模組載入執行的時間點更早&lt;/code&gt;，意思是 Nuxt 在啟動伺服器後，首先會&lt;code&gt;依序的載入模組並執行&lt;/code&gt;，接續建立 Nuxt 的環境 (Context) 與 Vue 的實例 (Instance)，最後才開始執行 Nuxt 的插件。&lt;/p&gt;
 &lt;p&gt;因此，Nuxt 模組可以做更多的事情，包含在使用 &lt;code&gt;nuxi dev&lt;/code&gt;、&lt;code&gt;nuxi build&lt;/code&gt; 啟動或建構 Nuxt 時，可以透過模組來覆蓋模板、配置 webpack 及配置插件等許多任務。&lt;/p&gt;
 &lt;h3 id="nuxt-3-安裝使用模組"&gt;Nuxt 3 安裝使用模組&lt;/h3&gt;
-&lt;p&gt;Nuxt 模組是一個導出異步函數的 JavaScript 檔案，當安裝使用模組時，通常會配置在 &lt;code&gt;nuxt.config.ts&lt;/code&gt; 檔案的 &lt;code&gt;modules&lt;/code&gt; 中，例如&lt;a class="link" href="https://wayne-blog.com/2023-01-14/nuxt-try-nuxt3/#%e4%bd%bf%e7%94%a8-nuxt-tailwind-%e6%a8%a1%e7%b5%84" &gt;使用 Nuxt Tailwind 模組&lt;/a&gt; 會添加上 &lt;strong&gt;&amp;rsquo;@nuxtjs/tailwindcss&amp;rsquo;&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Nuxt 模組是一個導出異步函數的 JavaScript 檔案，當安裝使用模組時，通常會配置在 &lt;code&gt;nuxt.config.ts&lt;/code&gt; 檔案的 &lt;code&gt;modules&lt;/code&gt; 中，例如&lt;a class="link" href="https://blog.wayne-project.com/2023-01-14/nuxt-try-nuxt3/#%e4%bd%bf%e7%94%a8-nuxt-tailwind-%e6%a8%a1%e7%b5%84" &gt;使用 Nuxt Tailwind 模組&lt;/a&gt; 會添加上 &lt;strong&gt;&amp;rsquo;@nuxtjs/tailwindcss&amp;rsquo;&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;通常模組的開發人員會提供這些模組應該如何在 &lt;strong&gt;modules&lt;/strong&gt; 屬性來做配置，甚至一些可選用的參數來配置這些模組。&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
@@ -39387,7 +39387,7 @@ loading="lazy"
 &lt;h3 id="網站的-open-graph-og"&gt;網站的 Open Graph (OG)&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;OG&lt;/strong&gt; 是由 Facebook 所提出的設定，全名為 &lt;strong&gt;Open Graph Protocol&lt;/strong&gt;，官方翻譯為「&lt;strong&gt;開放社交關係圖&lt;/strong&gt;」，在設定網站的 &lt;strong&gt;Meta&lt;/strong&gt; 時通常也稱 &lt;strong&gt;OG Tag&lt;/strong&gt;，Facebook 提供了&lt;a class="link" href="https://developers.facebook.com/docs/sharing/webmasters" target="_blank" rel="noopener"
 &gt;網站管理員分享指南&lt;/a&gt;，當初設計的目的是，當網頁中設定了 &lt;strong&gt;OG Tag&lt;/strong&gt;，能讓網頁被分享至社群媒體時，能有呈現更為豐富的內容，例如標題、描述及縮圖等。&lt;/p&gt;
-&lt;p&gt;舉例來說，當&lt;a class="link" href="https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/" target="_blank" rel="noopener"
+&lt;p&gt;舉例來說，當&lt;a class="link" href="https://blog.wayne-project.com/2022-12-12/nodejs-create-openai-line-bot/" target="_blank" rel="noopener"
 &gt;網頁&lt;/a&gt;設定了 &lt;strong&gt;OG Tag&lt;/strong&gt;，以連結形式被分享至 Facebook，會呈現如下的資訊，Facebook 會解析網頁內的 &lt;strong&gt;OG Tag&lt;/strong&gt; 將對應的如標題及縮圖等資訊顯示出來。&lt;/p&gt;
 &lt;p&gt;&lt;img src="https://live.staticflickr.com/65535/52618326446_7205784c15_o.png"
 max-width="100%"
@@ -39917,7 +39917,7 @@ loading="lazy"
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;code&gt;generate&lt;/code&gt; 指令會觸發 &lt;code&gt;build&lt;/code&gt; 的指令並帶有 &lt;strong&gt;prerender&lt;/strong&gt; 為 &lt;code&gt;true&lt;/code&gt; 的參數，最終產生出來的目錄可以直接進行部署，不需要再執行一次 &lt;code&gt;build&lt;/code&gt; 的指令。&lt;/p&gt;
 &lt;h3 id="使用預設配置進行建構---建構通用渲染-universal-rendering-的網站"&gt;使用預設配置進行建構 - 建構通用渲染 (Universal Rendering) 的網站&lt;/h3&gt;
-&lt;p&gt;這邊我們以 &lt;a class="link" href="https://wayne-blog.com/2023-01-16/nuxt-nuxt3-practice-project/" &gt;【Nuxt3】實戰練習 - 實作部落格&lt;/a&gt; 所建立的&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/nuxt-app-blog" target="_blank" rel="noopener"
+&lt;p&gt;這邊我們以 &lt;a class="link" href="https://blog.wayne-project.com/2023-01-16/nuxt-nuxt3-practice-project/" &gt;【Nuxt3】實戰練習 - 實作部落格&lt;/a&gt; 所建立的&lt;a class="link" href="https://github.com/wjdesign/ithome-2022-ironman-nuxt3/tree/nuxt-app-blog" target="_blank" rel="noopener"
 &gt;部落格&lt;/a&gt;作為範例，來嘗試以預設的配置進行建構，目前 Nuxt 3 預設 &lt;code&gt;nuxt.config.ts&lt;/code&gt; 中 &lt;code&gt;ssr&lt;/code&gt; 屬性為 &lt;code&gt;true&lt;/code&gt;，也就使用&lt;strong&gt;通用渲染 (Universal Rendering)&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;我們進入專案目錄，執行下列指令：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
@@ -40601,7 +40601,7 @@ loading="lazy"
 &lt;/ul&gt;
 &lt;p&gt;這邊主要與大家分享幾種 Nuxt 的部署方式，不管是部署在自己的機房主機或雲端，大家可以在挑選合適的解決方案，Nitro 也支援無伺服器 (Serverless) 等部署方式非常的方便，只是要特別注意到 Serverless 執行一些 binary 的問題，再挑選自己適合的部署與服務方式。&lt;/p&gt;
 &lt;p&gt;經過本篇文章，大家應該都對於 Nuxt 3 有初步的理解，接下來下一篇文章我們將會進入實戰練習，將會以 Nuxt 3 來實作一個部落格網站！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>以生活的例子說明單線程和多線程</title><link>https://wayne-blog.com/2023-01-07/single-multi-thread/</link><pubDate>Sat, 07 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-07/single-multi-thread/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52611539777_c564013cbd_o.png" alt="Featured image of post 以生活的例子說明單線程和多線程" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>以生活的例子說明單線程和多線程</title><link>https://blog.wayne-project.com/2023-01-07/single-multi-thread/</link><pubDate>Sat, 07 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-07/single-multi-thread/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52611539777_c564013cbd_o.png" alt="Featured image of post 以生活的例子說明單線程和多線程" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -40710,7 +40710,7 @@ padding: 0 5px;
 &lt;hr&gt;
 &lt;h2 id="總結"&gt;總結&lt;/h2&gt;
 &lt;p&gt;單線程程序：適合IO異步，不能阻塞，不能有大量耗CPU的計算，典型如Nodejs，還有一些網絡程序。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://wayne-blog.com/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【VueUse】一款基於 Vue Composition API 的函式工具集</title><link>https://blog.wayne-project.com/2022-12-30/npm-vueuse/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-30/npm-vueuse/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595409644_aa1fd7bf45_o.png" alt="Featured image of post 【VueUse】一款基於 Vue Composition API 的函式工具集" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -41097,7 +41097,7 @@ loading="lazy"
 &lt;p&gt;例子太多，就不再一一介紹了，但大家應該已經有了一個初步的概念，知道了此庫的作用，一言以蔽之：&lt;strong&gt;助力摸鱼，提前下班&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;它沒辦法做到你之前做不到的事情。&lt;/p&gt;
 &lt;p&gt;它只能做到讓你更輕鬆的完成工作！願你今天也能按時下班。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://wayne-blog.com/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>淺談為什麼 Vue 和 React 都選擇了 Hooks？</title><link>https://blog.wayne-project.com/2022-12-30/why-use-hooks/</link><pubDate>Fri, 30 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-30/why-use-hooks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52595598278_3dc955c418_o.png" alt="Featured image of post 淺談為什麼 Vue 和 React 都選擇了 Hooks？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -41680,7 +41680,7 @@ loading="lazy"
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！</title><link>https://wayne-blog.com/2022-12-29/vitest-unit-test/</link><pubDate>Thu, 29 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-29/vitest-unit-test/</guid><description>&lt;img src="https://madewithnetworkfra.fra1.digitaloceanspaces.com/spatie-space-production/29079/vitest.jpg" alt="Featured image of post 闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！</title><link>https://blog.wayne-project.com/2022-12-29/vitest-unit-test/</link><pubDate>Thu, 29 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-29/vitest-unit-test/</guid><description>&lt;img src="https://madewithnetworkfra.fra1.digitaloceanspaces.com/spatie-space-production/29079/vitest.jpg" alt="Featured image of post 闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -47535,7 +47535,7 @@ loading="lazy"
 &lt;p&gt;Stryker Mutator 的概念就是透過替換不同的符號產生出突變的內容，而我們的測試程式碼應該要捕捉到那些不合理的情況，藉此來保證我們的測試案例有一定的穩固性。&lt;/p&gt;
 &lt;p&gt;然而，可惜的是 &lt;code&gt;stryker-js&lt;/code&gt; 目前僅支援到 Jest 環境，尚未支援 Vitest 的環境，因此我這邊就暫不做介紹了，有興趣者可以追蹤該 &lt;a class="link" href="https://github.com/stryker-mutator/stryker-js/issues/3465" target="_blank" rel="noopener"
 &gt;issue&lt;/a&gt; 目前的最新進度。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>前端面試常考的 JavaScript 手寫題彙整</title><link>https://wayne-blog.com/2022-12-26/js-rebuild-common-function/</link><pubDate>Mon, 26 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-26/js-rebuild-common-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52586703288_92fa0363b4_o.jpg" alt="Featured image of post 前端面試常考的 JavaScript 手寫題彙整" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>前端面試常考的 JavaScript 手寫題彙整</title><link>https://blog.wayne-project.com/2022-12-26/js-rebuild-common-function/</link><pubDate>Mon, 26 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-26/js-rebuild-common-function/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52586703288_92fa0363b4_o.jpg" alt="Featured image of post 前端面試常考的 JavaScript 手寫題彙整" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -48713,7 +48713,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;arrAfter&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// [1, 2, 3, 8]
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Javascript 中，Map、Set、WeakMap 和 WeakSet 的區別？</title><link>https://wayne-blog.com/2022-12-21/js-map-set-difference/</link><pubDate>Wed, 21 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-21/js-map-set-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52576483407_0c40603733_o.jpg" alt="Featured image of post Javascript 中，Map、Set、WeakMap 和 WeakSet 的區別？" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Javascript 中，Map、Set、WeakMap 和 WeakSet 的區別？</title><link>https://blog.wayne-project.com/2022-12-21/js-map-set-difference/</link><pubDate>Wed, 21 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-21/js-map-set-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52576483407_0c40603733_o.jpg" alt="Featured image of post Javascript 中，Map、Set、WeakMap 和 WeakSet 的區別？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -48906,7 +48906,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="nx"&gt;disableElements&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;has&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;loginButton&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// true
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://wayne-blog.com/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別</title><link>https://blog.wayne-project.com/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</link><pubDate>Mon, 19 Dec 2022 00:10:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-19/browser-http1.0-http1.1-http2.0-difference/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571909202_4ddc6d0335_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(三) - HTTP/1、HTTP/1.1 和 HTTP/2 的區別" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -48955,7 +48955,7 @@ padding: 0 5px;
 &lt;p&gt;在 HTTP/2 之前因為安全性問題，多數不會對標頭的訊息進行壓縮，主要是過去的採用的演算法可能遭受 CRIME 攻擊。在 HTTP/2 中，使用 HPACK 算法來避免攻擊，進而能壓縮標頭。因為壓縮標頭，讓傳輸時能大幅減少傳輸的訊息量，進而減少頻寬負擔，也增快傳輸速度。具體上 HPACK 使用一份索引表來定義常用的 http header，並把 http header 存放在表裡，請求的時候只需要發送在表裡的索引位置即可，不須用傳完整的標頭。&lt;/p&gt;
 &lt;h3 id="伺服器主動推送server-push"&gt;伺服器主動推送(Server push)&lt;/h3&gt;
 &lt;p&gt;HTTP/2 允許伺服器端主動向客戶端推送數據，這能協助減少客戶端的請求次數。舉例來說，瀏覽器在過去要請求 &lt;code&gt;index.html&lt;/code&gt; 與 &lt;code&gt;style.css&lt;/code&gt; 來渲染完整的畫面；透過 Server Push，可以在瀏覽器請求 &lt;code&gt;index.html&lt;/code&gt; 時，也由伺服器主動發送 &lt;code&gt;style.css&lt;/code&gt; ，這樣只需要一輪 HTTP 的請求，就可以拿到所需的所有資源。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡</title><link>https://wayne-blog.com/2022-12-19/browser-delegation-capture-bubble/</link><pubDate>Mon, 19 Dec 2022 00:05:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-19/browser-delegation-capture-bubble/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571751437_6018c4804c_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡</title><link>https://blog.wayne-project.com/2022-12-19/browser-delegation-capture-bubble/</link><pubDate>Mon, 19 Dec 2022 00:05:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-19/browser-delegation-capture-bubble/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571751437_6018c4804c_o.jpg" alt="Featured image of post 面試常見的瀏覽器問題(二) - 事件委派、捕獲、冒泡" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -49067,7 +49067,7 @@ loading="lazy"
 &lt;/div&gt;&lt;p&gt;以上面的例子來說(建議在面試時也可以簡單快速手寫這個例子，可以幫助說明)，當我們在子層 &lt;code&gt;&amp;lt;p&amp;gt;&lt;/code&gt; 裝一個 &lt;code&gt;onclick&lt;/code&gt; 的處理器，點下去時，不僅該元素有跑出 &lt;code&gt;alert&lt;/code&gt; ，其父層 &lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; 的 &lt;code&gt;onclick&lt;/code&gt; 也被觸發，然後祖父層 &lt;code&gt;&amp;lt;form&amp;gt;&lt;/code&gt; 的 &lt;code&gt;onclick&lt;/code&gt; 也接續被觸發。&lt;/p&gt;
 &lt;p&gt;這邊有個細節需要分別，在冒泡時的 &lt;code&gt;this&lt;/code&gt; 不必然等於 &lt;code&gt;event.target&lt;/code&gt;，而是會等於 &lt;code&gt;event.currentTarget&lt;/code&gt;。換句話說，&lt;code&gt;this&lt;/code&gt; 是正在執行的處理器 (會一直變成下一個)；而 &lt;code&gt;event.target&lt;/code&gt; 一直都會是真正變點擊的那個(在這邊就是最裡頭的子層)。&lt;/p&gt;
 &lt;p&gt;在實務上，我們有時候不想要冒泡，例如只想要子元素的事件被觸發，不想要父層的元素被觸發，避免干擾。這時候想要不發生冒泡，可以在處理器加上 &lt;code&gt;event.stopPropagation()&lt;/code&gt;(不過這個仍會讓該處理器執行，只是不會冒泡上去)；如果連該處理器的其他事件類別都不想執行的話，可以用 &lt;code&gt;event.stopImmediatePropagation()&lt;/code&gt;。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>面試常見的瀏覽器問題(一) - HTTP caching 機制</title><link>https://wayne-blog.com/2022-12-19/browser-http-caching/</link><pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-19/browser-http-caching/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571693467_4bcdc4d080_o.png" alt="Featured image of post 面試常見的瀏覽器問題(一) - HTTP caching 機制" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>面試常見的瀏覽器問題(一) - HTTP caching 機制</title><link>https://blog.wayne-project.com/2022-12-19/browser-http-caching/</link><pubDate>Mon, 19 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-19/browser-http-caching/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52571693467_4bcdc4d080_o.png" alt="Featured image of post 面試常見的瀏覽器問題(一) - HTTP caching 機制" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -49154,7 +49154,7 @@ loading="lazy"
 &lt;h3 id="last-modified-搭配-if-modified-since"&gt;Last-Modified (搭配 If-Modified-Since)&lt;/h3&gt;
 &lt;p&gt;第二個方式則是在伺服器的回應 header 中加入 &lt;code&gt;Last-Modified&lt;/code&gt;，並標注最後修改該資源的時間，例如 &lt;code&gt;Last-Modified: 2021-11-07 21:32:16&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;當瀏覽器收到帶有 &lt;code&gt;Last-Modified&lt;/code&gt; 的回應後，之後的請求就會帶上 &lt;code&gt;If-Modified-Since&lt;/code&gt;，然後帶上先前收到的時間，例如 &lt;code&gt;If-Modified-Since: 2021-11-07 21:32:16&lt;/code&gt;。伺服器收到帶有 &lt;code&gt;If-Modified-Since&lt;/code&gt; 的請求，比對了時間，如果更新資源的時間沒有變，拿一樣可以回傳 &lt;strong&gt;304 Not Modified&lt;/strong&gt; 給前端，如果變了則回傳 200 以及新的資料。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Tampermonkey】輕鬆上手 - 油猴腳本開發</title><link>https://wayne-blog.com/2022-12-15/tampermonkey-userscript-tutorial/</link><pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-15/tampermonkey-userscript-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564977913_09952966be_o.jpg" alt="Featured image of post 【Tampermonkey】輕鬆上手 - 油猴腳本開發" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Tampermonkey】輕鬆上手 - 油猴腳本開發</title><link>https://blog.wayne-project.com/2022-12-15/tampermonkey-userscript-tutorial/</link><pubDate>Thu, 15 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-15/tampermonkey-userscript-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564977913_09952966be_o.jpg" alt="Featured image of post 【Tampermonkey】輕鬆上手 - 油猴腳本開發" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -49901,7 +49901,7 @@ loading="lazy"
 &lt;blockquote&gt;
 &lt;p&gt;最後分享一下&lt;a class="link" href="https://github.com/wjdesign/TampermonkeyScripts" target="_blank" rel="noopener"
 &gt;我的 Tampermonkey UserScripts 清單&lt;/a&gt;，持續更新，需要的歡迎下載來使用！&lt;/p&gt;&lt;/blockquote&gt;
-&lt;hr&gt;</description></item><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人</title><link>https://blog.wayne-project.com/2022-12-12/nodejs-create-openai-line-bot/</link><pubDate>Mon, 12 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-12/nodejs-create-openai-line-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52558908513_206844d03c_o.png" alt="Featured image of post 用 Node.js 建立你的第一個 OpenAI LINE Bot 聊天機器人" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -50710,9 +50710,9 @@ loading="lazy"
 &lt;p&gt;最後這邊我也附上範例程式碼，如果你想直接拉回去用也是可以的，因為這一份程式碼基本上都是以官方所提供的為主，很少有大幅度調整的部分，所以你可以直接拿來用。&lt;/p&gt;
 &lt;p&gt;希望這一篇可以讓你快快樂樂做出一個 LINE Bot。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;如果你覺得部署到 &lt;strong&gt;Render&lt;/strong&gt; 很難去除錯，其實是可以考慮使用 &lt;strong&gt;ngrok&lt;/strong&gt; 的，&lt;strong&gt;ngrok&lt;/strong&gt; 的使用方法可以參考&lt;a class="link" href="https://wayne-blog.com/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
+&lt;p&gt;如果你覺得部署到 &lt;strong&gt;Render&lt;/strong&gt; 很難去除錯，其實是可以考慮使用 &lt;strong&gt;ngrok&lt;/strong&gt; 的，&lt;strong&gt;ngrok&lt;/strong&gt; 的使用方法可以參考&lt;a class="link" href="https://blog.wayne-project.com/2022-09-26/ngrok-basic/" target="_blank" rel="noopener"
 &gt;這裡&lt;/a&gt;。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;hr&gt;</description></item><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://wayne-blog.com/2022-12-10/use-google-sheet-as-db/</link><pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-10/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>如何用 Google Sheets / Excel 當作資料庫？</title><link>https://blog.wayne-project.com/2022-12-10/use-google-sheet-as-db/</link><pubDate>Sat, 10 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-10/use-google-sheet-as-db/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52550876753_d803ddfa87_o.jpg" alt="Featured image of post 如何用 Google Sheets / Excel 當作資料庫？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -50902,7 +50902,7 @@ loading="lazy"
 &lt;li&gt;&lt;a class="link" href="https://github.com/wjdesign/google-sheet-db" target="_blank" rel="noopener"
 &gt;網站原始碼 Github 空間&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://wayne-blog.com/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享</title><link>https://blog.wayne-project.com/2022-12-09/dotnet-core-docker-note-4/</link><pubDate>Fri, 09 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-09/dotnet-core-docker-note-4/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 4 - ASP.NET Core 網站容器化經驗分享" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -50923,12 +50923,12 @@ padding: 0 5px;
 &gt;參考網站&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="前言"&gt;前言&lt;/h2&gt;
-&lt;p&gt;發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+&lt;p&gt;發表 Docker 筆記以來，一直有網友提醒應改用 Kubernetes (K8S)，關於這點在&lt;a class="link" href="https://blog.wayne-project.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
 &gt;前篇文章&lt;/a&gt;已經提過，用 Docker / Docker-Compose 玩玩小網站還 OK，一旦涉及高可用性如備援、負載平衡，若不依賴現成管理架構，維運操作將複雜到會咬人。而 Kubernetes 正是目前容器管理框架的主流業界標準，尤其如打算將容器直接部署到雲端廠商(Azure、AWS、Google GCP)，不會 Kubernetes 更是寸步難行。故在次聲明以正視聽，在企業環境如需考量高可用性、負載平衡或想直接部署到廠商雲端，一般不會用 Docker-Compose 而會採用 Kubernetes，請大家注意。&lt;/p&gt;
 &lt;p&gt;這篇筆記是我將部落格網站移入 Docker 容器的經驗分享，將記錄 Miniblog.Core ASP.NET Core 網站搬進 Docker 過程遇到的一些眉角。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="reverse-proxy-問題"&gt;Reverse Proxy 問題&lt;/h2&gt;
-&lt;p&gt;由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
+&lt;p&gt;由於我打算在同一機器上共享對外 IP 跑多個網站，因此採行&lt;a class="link" href="https://blog.wayne-project.com/2022-12-08/dotnet-core-docker-note-3/" target="_blank" rel="noopener"
 &gt;前一篇筆記&lt;/a&gt;所說的「以 Compose 組合網站與 DB，網站對映 Host IP/Port，Nginx 另跑容器導向各網站 Port」策略。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="目錄對應"&gt;目錄對應&lt;/h2&gt;
@@ -50944,7 +50944,7 @@ padding: 0 5px;
 &lt;p&gt;參考：&lt;a class="link" href="https://www.arthurtoday.com/2016/07/how-to-setup-docker-container-timezone-host.html" target="_blank" rel="noopener"
 &gt;設定 Docker Container 與 Host 相同時區的方法&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id="取得真實來源-ip-問題"&gt;取得真實來源 IP 問題&lt;/h2&gt;
-&lt;p&gt;Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p&gt;Reverse Proxy 來源 IP 在 &lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 &gt;ASP.NET Core + Nginx on CentOS 安裝筆記&lt;/a&gt; 提過，當 ASP.NET Core 架設在 Reverse Proxy 後方，直接看到的是 Reverse Proxy 的 IP，要得到真實來源 IP，在 Nginx config 需加註 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for，透過 HTTP Header 傳遞內容。而 ASP.NET Core 程式也需修改：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
@@ -51112,7 +51112,7 @@ padding: 0 5px;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;Nginx 壓縮設定的意義可參考&lt;a class="link" href="http://nginx.org/en/docs/http/ngx_http_gzip_module.html" target="_blank" rel="noopener"
 &gt;官方文件&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合</title><link>https://blog.wayne-project.com/2022-12-08/dotnet-core-docker-note-3/</link><pubDate>Thu, 08 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-08/dotnet-core-docker-note-3/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 3 - 共用 Nginx 容器與 Certbot 整合" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -51127,7 +51127,7 @@ padding: 0 5px;
 &gt;參考網站&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="前言"&gt;前言&lt;/h2&gt;
-&lt;p&gt;&lt;a class="link" href="https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
+&lt;p&gt;&lt;a class="link" href="https://blog.wayne-project.com/2022-12-07/dotnet-core-docker-note-2/" target="_blank" rel="noopener"
 &gt;前篇文章&lt;/a&gt;介紹過使用 Docker Compose 設定關聯容器(Web、DB、Reverse Proxy)組成系統，容器被隔離在專用網段(Compose 自動建立的 Bridge)，並可透過容器名稱彼此溝通，Compose 也確保相關服務一起啟動一起關閉，是用多個容器建構系統最簡便的做法。&lt;/p&gt;
 &lt;p&gt;註：關於容器管理 &lt;a class="link" href="https://blog.gcp.expert/kubernetes-gke-introduction/" target="_blank" rel="noopener"
 &gt;Kubernetes&lt;/a&gt;，K8S 提供更強大的功能，支援 Cluster 高可用架構 (單一容器、主機掛掉系統不會死)，為當今在雲端掛載容器以及中大型企業實做容器架構的主流，K8S 無疑可取代 Docker Compose，但其複雜性較高。 目前我在單一 Linux 機跑 Docker 還用不到牛刀(雖然有單機版 &lt;a class="link" href="https://github.com/kubernetes/minikube" target="_blank" rel="noopener"
@@ -51162,7 +51162,7 @@ padding: 0 5px;
 &lt;li&gt;Ngnix&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;3 是我認為較可行且有效率的做法。&lt;/p&gt;
-&lt;p&gt;Nginx 包容器的做法在&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p&gt;Nginx 包容器的做法在&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 &gt;第一篇筆記&lt;/a&gt;已提過，這次我們將重點放在整合 Certbot 及 docker-compose.yml 定義。&lt;/p&gt;
 &lt;p&gt;原本想抓 Nginx 的 Docker Image 自行加裝 certbot 實現自動安裝與更新 &lt;a class="link" href="https://zh.wikipedia.org/wiki/Let%27s_Encrypt" target="_blank" rel="noopener"
 &gt;Let&amp;rsquo;s Encrypt SSL 憑證&lt;/a&gt;。&lt;/p&gt;
@@ -51304,10 +51304,10 @@ padding: 0 5px;
 &lt;/ul&gt;
 &lt;p&gt;若為 &lt;strong&gt;SELinux&lt;/strong&gt; 記得要 &lt;code&gt;chcon -Rt&lt;/code&gt; &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 &gt;參考&lt;/a&gt;，另外 network_mode 指定 host 表示 Nginx 容器將直接使用 Host OS 網段，不另設 Bridge。&lt;/p&gt;
-&lt;p&gt;參考：&lt;a class="link" href="https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
+&lt;p&gt;參考：&lt;a class="link" href="https://blog.wayne-project.com/2022-12-04/docker-compose-link-external-comtainer/" target="_blank" rel="noopener"
 &gt;Docker Compose 鏈接外部容器的幾種方式&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;就醬，Nginx Reverse Proxy 準備好了，下一篇來再來分享我將 ASP.NET Core 搬進 Docker 的經驗。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 2 - 組合容器建構系統</title><link>https://blog.wayne-project.com/2022-12-07/dotnet-core-docker-note-2/</link><pubDate>Wed, 07 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-07/dotnet-core-docker-note-2/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 2 - 組合容器建構系統" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -51323,7 +51323,7 @@ padding: 0 5px;
 &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes-2/" target="_blank" rel="noopener"
 &gt;參考網站&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p&gt;&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 &gt;上篇文章&lt;/a&gt;體驗過在 CentOS 用 Docker Container 分別跑 Nginx 跟 ASP.NET Core 網站，並建立 Reverse Proxy 關係，接著探討在實務上當需要多個 Container 協同運作時應如何規劃整合。&lt;/p&gt;
 &lt;p&gt;一個系統常可再拆解成多個服務。以線上購物網站為例，就可能是由 ASP.NET Core 網站(Kestrel)、MySQL 資料庫、Reverse Proxy、金流 Gateway&amp;hellip; 等多個服務組成，若要以 Docker Container 實現，有幾種策略：&lt;/p&gt;
 &lt;h2 id="策略"&gt;策略&lt;/h2&gt;
@@ -51336,7 +51336,7 @@ padding: 0 5px;
 &lt;li&gt;當需要個別升級資料庫、ASP.NET Core 版本，或是想抽換服務組合時手續複雜，有違模組化精神。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id="2-以個別-container-執行獨立控制"&gt;2. 以個別 Container 執行，獨立控制&lt;/h3&gt;
-&lt;p&gt;如同&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p&gt;如同&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 &gt;前篇文章&lt;/a&gt;的做法，ASP.NET Core 網站跑 Cotainer 繫結到 Host OS 的 5000 Port，用 Container 跑 MySQL，再用 Container 跑 Ngnix 繫結到 Host OS 80 Port，再設定 Reverse Proxy 規則。&lt;/p&gt;
 &lt;p&gt;Container 間串接配置全靠人工，系統管理員需協助哪個 Container 聽哪個 Port，確保彼此不衝突。如此做有兩個缺點：&lt;/p&gt;
 &lt;ul&gt;
@@ -51361,10 +51361,10 @@ padding: 0 5px;
 &lt;p&gt;以 ASP.NET Core Image 為基底，安裝 Nginx，設定 nginx.conf，複製 ASP.NET Core 網站檔案並設定 service nginx start 及 dotnet /app/web.dll 分別啟動 Nginx 及 Kestrel。&lt;/p&gt;
 &lt;p&gt;細節做法可參考這篇文章：&lt;a class="link" href="https://www.sep.com/sep-blog/2017/02/24/nginx-reverse-proxy-to-asp-net-core-same-container/" target="_blank" rel="noopener"
 &gt;Nginx Reverse Proxy to ASP.NET Core – Same Docker Container&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p&gt;不過，該文用的 ASP.NET Core 版本偏舊，若為 ASP.NET Core 2.1 包成 Docker Container 的做法請參考&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 &gt;前文&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id="2-aspnet-corenginx-各自跑-container"&gt;2. ASP.NET Core、Nginx 各自跑 Container&lt;/h3&gt;
-&lt;p&gt;就是我們在&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
+&lt;p&gt;就是我們在&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/" target="_blank" rel="noopener"
 &gt;前篇文章&lt;/a&gt;採行的方式，但有一點要補充，除了直接對映到 Host OS IP 的 TCP Port，也可考慮自訂 Bridge，讓 Container 在隔離網段內溝通，例如：ASP.NET Core 的 5000 Port 只有 Nginx 看得到，從 Host OS 無法存取，如此可避免網路介面(網站、資料庫&amp;hellip;)外露到 Host OS，減少被攻擊的風險，這部分後面再找時間介紹。&lt;/p&gt;
 &lt;h3 id="3-使用-docker-compose-串連"&gt;3. 使用 Docker Compose 串連&lt;/h3&gt;
 &lt;p&gt;ASP.NET Core 與 Nginx 各有自己的容器，使用 Docker Compose 組合串連，一次啟動兩個服務。&lt;/p&gt;
@@ -51440,7 +51440,7 @@ class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
 &lt;p&gt;Docker Compose 非常適合用來組裝 Web、DB 等多個 Container 構建系統，但我發現針對 Nginx 時有些額外考量，這部分留待下集分解。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>ASP.NET Core Docker 筆記 1 - 初探</title><link>https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-06/dotnet-core-docker-note-1/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565101723_e9c2825542_o.png" alt="Featured image of post ASP.NET Core Docker 筆記 1 - 初探" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -51455,7 +51455,7 @@ padding: 0 5px;
 &gt;參考網站&lt;/a&gt;&lt;br&gt;
 &lt;a class="link" href="https://blog.darkthread.net/blog/aspnetcore-docker-notes1/" target="_blank" rel="noopener"
 &gt;參考網站&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;前面研究過&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p&gt;前面研究過&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 &gt;在 CentOS 安裝及設定 ASP.NET Core + Nginx&lt;/a&gt;，習得徒手在 CentOS 安裝部署伺服器的技能，依循 Roadmap 來到下一階段 - 學習使用 Docker 簡化部署。&lt;/p&gt;
 &lt;p&gt;容器化及 Docker 這幾年熱到發燙，有些人甚至認為它已在軟體產業掀起一波革命。(我親身體驗的感想也是：Wow! 難怪會爆紅) 此刻才起步已算遲了，但也不是沒有好處，晚起鳥兒有更多蟲可以吃，Docker 相關的文章資源多如牛毛，這裡便不多花篇幅贅述觀念與基本操作，只簡單整理我對 Docker 的理解。&lt;/p&gt;
 &lt;h2 id="docker-相關介紹"&gt;Docker 相關介紹&lt;/h2&gt;
@@ -51481,7 +51481,7 @@ padding: 0 5px;
 &lt;p&gt;基於 Linux Container 資源數量上的優勢，加上耗用資源較少，軟硬體成本低，我選擇 Linux Container。&lt;/p&gt;
 &lt;p&gt;雖然 Container 間共用底層作業系統，Docker Engine 為容器中的應用程式提供隔離不受干擾的空間（記憶體、檔案系統、網路 Port）。&lt;/p&gt;
 &lt;p&gt;例如：容器 A 寫入 /etc/aaa/default.conf 不影響容器 B /etc/aaa/default.conf 的內容、容器 A 與容器 B 都繫結到 80 Port 也不會衝突。&lt;/p&gt;
-&lt;p&gt;&lt;a class="link" href="https://wayne-blog.com/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
+&lt;p&gt;&lt;a class="link" href="https://blog.wayne-project.com/2014-10-28/docker-10-qa/" target="_blank" rel="noopener"
 &gt;先前文章&lt;/a&gt;提過將 Kestrel 轉為 Linux 服務、設定 www-data 執行權限&amp;hellip; 等步驟，改用 Docker 後簡單很多，生命週期由 Docker 控制，在容器內部權限一律為 root 不需額外規劃權限，直接跑 dotnet WebApp.dll 聽 5000 Port 就好。&lt;/p&gt;
 &lt;p&gt;參考資料：&lt;/p&gt;
 &lt;ul&gt;
@@ -51589,7 +51589,7 @@ loading="lazy"
 &gt;&lt;/p&gt;
 &lt;h3 id="將-nginx-設成-aspnet-core-網站的-reverse-proxy"&gt;將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy&lt;/h3&gt;
 &lt;p&gt;至此，我們做了兩個 Container，myginx 聽 Host OS 80 Port，myapp 聽 Host OS 的 5000 Port，下一步要將 Nginx 設成 ASP.NET Core 網站的 Reverse Proxy。&lt;/p&gt;
-&lt;p&gt;做法跟&lt;a class="link" href="https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
+&lt;p&gt;做法跟&lt;a class="link" href="https://blog.wayne-project.com/2022-12-06/dotnet-nginx-install-on-centos/" target="_blank" rel="noopener"
 &gt;先前文章&lt;/a&gt;介紹過的概念差不多，為求簡便我們直接修改 &lt;strong&gt;conf.d/default.conf&lt;/strong&gt; 將進入 80 Port 的請求導向 5000 Port。(正規做法建議一個網站開一個 conf 檔) Container 的檔案系統是隔離的，將設定檔保存在 Container 裡不是好主意 - 除非每次修改設定存檔就重新產生 Image 並要求未來一律改用新版 Image 建立 Container，否則一旦 Conatiner 被刪除，設定就會消失。同樣問題也會發生在資料庫檔、Log 檔等執行期間要動態更新的內容，這類檔案保存在 Host OS 檔案系統上比較合理，程式換版換了 Container Image 資料才不受影響。Docker 靠 Volume 解決資料保存及共用需求，docker run 有個 -v host-path:container-path 可將 Host OS 特定目錄或檔案對映到 Container，讓 Container 能讀寫 Host OS 的檔案。&lt;/p&gt;
 &lt;p&gt;對 Nginx Container 來說，Reverse Proxy 設定放在 &lt;strong&gt;/etc/nginx/conf.d&lt;/strong&gt;，我選擇在 Host OS 也建立相同路徑並將 Container 的 default.conf 複製出來(指令如下)，修改後在 docker run 加上 &lt;strong&gt;-v /etc/nginx/conf.d:/etc/nginx/conf.d&lt;/strong&gt; 對映回去：&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
@@ -51669,7 +51669,7 @@ loading="lazy"
 &gt;&lt;/p&gt;
 &lt;p&gt;經過以上練習，我們體驗了從 Docker Hub 下載 Image 建立 Docker Containter 跑 Nginx、用 Dockerfile 將 ASP.NET Core 網站包成 Container、用 Port 映對 Host OS TCP Port 到 Container、使用 -v(&amp;ndash;volume) 映對資料夾讓 Container 讀寫 Host OS 檔案。&lt;/p&gt;
 &lt;p&gt;而在實務應用上，相關的 Conatiner 需要組合在一起執行，例如一個 Container 跑網站，一個 Container 跑資料庫，此時可用 docker-compose 簡化管理；另外 Docker 也提供 Bridge 為相關 Container 建立專屬的隔離網段，防止外界接觸到不想對外公開的網路服務，也避免不相干的 Container 彼此干擾&amp;hellip; 這些議題就留待下一篇文章討論。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記</title><link>https://blog.wayne-project.com/2022-12-06/dotnet-nginx-install-on-centos/</link><pubDate>Tue, 06 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-06/dotnet-nginx-install-on-centos/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564798549_d9c11f4419_o.png" alt="Featured image of post 在 CentOS 上安裝 ASP.NET Core + Nginx 的筆記" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -52016,7 +52016,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>JavaScript 中關於 Array 的 13 個入門小技巧！</title><link>https://wayne-blog.com/2022-12-05/js-13-useful-array-tricks/</link><pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-05/js-13-useful-array-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52544052174_68e62fb7f8_o.png" alt="Featured image of post JavaScript 中關於 Array 的 13 個入門小技巧！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>JavaScript 中關於 Array 的 13 個入門小技巧！</title><link>https://blog.wayne-project.com/2022-12-05/js-13-useful-array-tricks/</link><pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-05/js-13-useful-array-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52544052174_68e62fb7f8_o.png" alt="Featured image of post JavaScript 中關於 Array 的 13 個入門小技巧！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -52264,7 +52264,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;sum&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt; &lt;span class="c1"&gt;// returns 14
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>一行 JavaScript 就能完成的 7 個小任務！</title><link>https://wayne-blog.com/2022-12-05/js-7-killer-one-liners/</link><pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-05/js-7-killer-one-liners/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52544218553_b60d2ccdec_o.jpg" alt="Featured image of post 一行 JavaScript 就能完成的 7 個小任務！" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>一行 JavaScript 就能完成的 7 個小任務！</title><link>https://blog.wayne-project.com/2022-12-05/js-7-killer-one-liners/</link><pubDate>Mon, 05 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-05/js-7-killer-one-liners/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52544218553_b60d2ccdec_o.jpg" alt="Featured image of post 一行 JavaScript 就能完成的 7 個小任務！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -52398,7 +52398,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; &lt;span class="sb"&gt;`#&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nb"&gt;Math&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;floor&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;Math&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;random&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="mh"&gt;0xffffff&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;toString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Docker Compose 鏈接外部容器的幾種方式</title><link>https://blog.wayne-project.com/2022-12-04/docker-compose-link-external-comtainer/</link><pubDate>Sun, 04 Dec 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-12-04/docker-compose-link-external-comtainer/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52565233288_251b1a5202_o.jpg" alt="Featured image of post Docker Compose 鏈接外部容器的幾種方式" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -52652,7 +52652,7 @@ padding: 0 5px;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;以上也能充分證明這種方式是屬於單向聯通的。&lt;/p&gt;
 &lt;p&gt;在實際應用中根據自己的需要靈活的選擇這兩種鏈接方式，如果想偷懶的話，大可選擇第二種。不過我更推薦第一種，不難看出無論是聯通性還是靈活性，較為更改網絡模式的第二種都更為友好。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！</title><link>https://wayne-blog.com/2022-11-28/ts-string-type-vs-class/</link><pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-28/ts-string-type-vs-class/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52549840532_0ea4bef6e7_o.png" alt="Featured image of post TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！</title><link>https://blog.wayne-project.com/2022-11-28/ts-string-type-vs-class/</link><pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-28/ts-string-type-vs-class/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52549840532_0ea4bef6e7_o.png" alt="Featured image of post TypeScript 裡 string 和 String，還真不僅僅是大小寫的區別！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -52675,7 +52675,7 @@ padding: 0 5px;
 &lt;h2 id="背景"&gt;背景&lt;/h2&gt;
 &lt;p&gt;與 JavaScript 語言不同的是，TypeScript 使用的是&lt;strong&gt;靜態型別&lt;/strong&gt;(&lt;strong&gt;強型別&lt;/strong&gt;)，比如說它指定了變數可以儲存的資料型別。&lt;/p&gt;
 &lt;p&gt;如下圖所示，如果在 JS 中，指定變數可以儲存的資料型別，會報錯：“&lt;strong&gt;型別註釋只可以在TS檔案中被使用&lt;/strong&gt;”：&lt;/p&gt;
-&lt;p&gt;&lt;img src="https://wayne-blog.com/"
+&lt;p&gt;&lt;img src="https://blog.wayne-project.com/"
 max-width="100%"
 max-height="100%"
 class="gallery-image"
@@ -53014,7 +53014,7 @@ loading="lazy"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://blog.wayne-project.com/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -54052,7 +54052,7 @@ loading="lazy"
 &gt;issues&lt;/a&gt; 將資訊反應給 vsmarketplace，此可能為 marketplace 驗證 extension 時偵測到特定字元組合而阻擋掉，會專人協助處理。&lt;/p&gt;
 &lt;p&gt;附上本人遇到此問題的 &lt;a class="link" href="https://github.com/microsoft/vsmarketplace/issues/522" target="_blank" rel="noopener"
 &gt;Issues&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://wayne-blog.com/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>免JS！純CSS就可打造出，開合式的漢堡選單功能</title><link>https://blog.wayne-project.com/2022-11-21/pure-css-toggle-menu-icon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-21/pure-css-toggle-menu-icon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52514242955_fd814a2b16_o.gif" alt="Featured image of post 免JS！純CSS就可打造出，開合式的漢堡選單功能" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -54320,7 +54320,7 @@ See the Pen &lt;a href="https://codepen.io/WJDesign/pen/vYrpQRY"&gt;
 blog/pure-css-toggle-menu-icon&lt;/a&gt; by wjdesign (&lt;a href="https://codepen.io/WJDesign"&gt;@WJDesign&lt;/a&gt;)
 on &lt;a href="https://codepen.io"&gt;CodePen&lt;/a&gt;.
 &lt;/iframe&gt;
-&lt;hr&gt;</description></item><item><title>避免無效 favicon.ico 存取動作</title><link>https://wayne-blog.com/2022-11-21/prevent-invalid-favicon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-21/prevent-invalid-favicon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52513251827_7a73de7710_o.png" alt="Featured image of post 避免無效 favicon.ico 存取動作" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>避免無效 favicon.ico 存取動作</title><link>https://blog.wayne-project.com/2022-11-21/prevent-invalid-favicon/</link><pubDate>Mon, 21 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-21/prevent-invalid-favicon/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52513251827_7a73de7710_o.png" alt="Featured image of post 避免無效 favicon.ico 存取動作" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -54387,7 +54387,7 @@ loading="lazy"
 &lt;/div&gt;&lt;hr&gt;
 &lt;h2 id="結論"&gt;結論&lt;/h2&gt;
 &lt;p&gt;結論：若只考慮 Chrome，三種做法均可避免瀏覽器嘗試存取 favicon.ico，&lt;strong&gt;第三種做法&lt;/strong&gt;涵蓋瀏覽器最廣。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>localStorage 容量太小？試試 localforage、idb-keyval</title><link>https://wayne-blog.com/2022-11-15/localforage-and-idb-keyval/</link><pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-15/localforage-and-idb-keyval/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52501465120_8e19a1cda3_o.png" alt="Featured image of post localStorage 容量太小？試試 localforage、idb-keyval" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>localStorage 容量太小？試試 localforage、idb-keyval</title><link>https://blog.wayne-project.com/2022-11-15/localforage-and-idb-keyval/</link><pubDate>Tue, 15 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-15/localforage-and-idb-keyval/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52501465120_8e19a1cda3_o.png" alt="Featured image of post localStorage 容量太小？試試 localforage、idb-keyval" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -54940,7 +54940,7 @@ loading="lazy"
 &gt;idb&lt;/a&gt;、&lt;a class="link" href="https://jsstore.net/" target="_blank" rel="noopener"
 &gt;JsStore&lt;/a&gt; 或者 &lt;a class="link" href="https://github.com/google/lovefield" target="_blank" rel="noopener"
 &gt;lovefield&lt;/a&gt; 之類的庫。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>試用 RunKit</title><link>https://wayne-blog.com/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>試用 RunKit</title><link>https://blog.wayne-project.com/2022-11-14/try-runkit/</link><pubDate>Mon, 14 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-14/try-runkit/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52498373077_445fbf68b7_o.jpg" alt="Featured image of post 試用 RunKit" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -55043,7 +55043,7 @@ loading="lazy"
 &lt;p&gt;&lt;a class="link" href="https://api-jdcmj9qsmxmb.runkit.sh/" target="_blank" rel="noopener"
 &gt;https://api-jdcmj9qsmxmb.runkit.sh/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;可以看到，無需配置/運行服務器，就可以有自己的 API 可用，又是 serverless，同時還免費，是不是很爽？&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>.NET SqlClient 安全漏洞 CVE-2022-41064 解讀</title><link>https://wayne-blog.com/2022-11-11/dotnet-cve-2022-41064/</link><pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-11/dotnet-cve-2022-41064/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52491745274_95b2fa11ec_o.jpg" alt="Featured image of post .NET SqlClient 安全漏洞 CVE-2022-41064 解讀" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>.NET SqlClient 安全漏洞 CVE-2022-41064 解讀</title><link>https://blog.wayne-project.com/2022-11-11/dotnet-cve-2022-41064/</link><pubDate>Fri, 11 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-11/dotnet-cve-2022-41064/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52491745274_95b2fa11ec_o.jpg" alt="Featured image of post .NET SqlClient 安全漏洞 CVE-2022-41064 解讀" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -55150,7 +55150,7 @@ padding: 0 5px;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;.NET Framework 請安裝 &lt;a class="link" href="https://devblogs.microsoft.com/dotnet/dotnet-framework-november-2022-security-and-quality-rollup-updates/?WT.mc_id=DOP-MVP-37580" target="_blank" rel="noopener"
 &gt;November 2022 Security and Quality Rollup Updates for .NET Framework&lt;/a&gt;。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://wayne-blog.com/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題</title><link>https://blog.wayne-project.com/2022-11-10/efcore-6-string-not-null/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-10/efcore-6-string-not-null/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489392442_2208a4dc64_o.png" alt="Featured image of post Entity Framework Core 6.0 字串屬性對應欄位 NOT NULL 問題" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -55245,7 +55245,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Vue 2 升級 Vue 3 之全域元件註冊問題</title><link>https://wayne-blog.com/2022-11-10/vue-2to3-global-component/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-10/vue-2to3-global-component/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489820266_b81b766288_o.png" alt="Featured image of post Vue 2 升級 Vue 3 之全域元件註冊問題" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Vue 2 升級 Vue 3 之全域元件註冊問題</title><link>https://blog.wayne-project.com/2022-11-10/vue-2to3-global-component/</link><pubDate>Thu, 10 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-10/vue-2to3-global-component/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52489820266_b81b766288_o.png" alt="Featured image of post Vue 2 升級 Vue 3 之全域元件註冊問題" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -55623,7 +55623,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>使用 bind、call、apply 改變 this 指向的對象</title><link>https://wayne-blog.com/2022-11-09/js-call-apply-bind/</link><pubDate>Wed, 09 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-09/js-call-apply-bind/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52487952181_5991519a08_o.jpg" alt="Featured image of post 使用 bind、call、apply 改變 this 指向的對象" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>使用 bind、call、apply 改變 this 指向的對象</title><link>https://blog.wayne-project.com/2022-11-09/js-call-apply-bind/</link><pubDate>Wed, 09 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-09/js-call-apply-bind/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52487952181_5991519a08_o.jpg" alt="Featured image of post 使用 bind、call、apply 改變 this 指向的對象" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -56089,7 +56089,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-console" data-lang="console"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="gp"&gt;&amp;gt;&lt;/span&gt; &lt;span class="m"&gt;8&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>8 招 JavaScript Console 運用技巧，讓你除錯更高效</title><link>https://wayne-blog.com/2022-11-03/js-8-console-tricks/</link><pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-03/js-8-console-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52473860621_0ede00e99a_o.jpg" alt="Featured image of post 8 招 JavaScript Console 運用技巧，讓你除錯更高效" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>8 招 JavaScript Console 運用技巧，讓你除錯更高效</title><link>https://blog.wayne-project.com/2022-11-03/js-8-console-tricks/</link><pubDate>Thu, 03 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-03/js-8-console-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52473860621_0ede00e99a_o.jpg" alt="Featured image of post 8 招 JavaScript Console 運用技巧，讓你除錯更高效" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -56452,7 +56452,7 @@ loading="lazy"
 &lt;li&gt;我的 Chrome 怪怪的&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;還有哪些方法你也常用，但沒有介紹到的呢？歡迎在底下留言區留言喔&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>TypeScript 的實用方法！大家一定要學會啊！</title><link>https://wayne-blog.com/2022-10-28/ts-useful-tricks/</link><pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-28/ts-useful-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52459954880_4228a13922_o.png" alt="Featured image of post TypeScript 的實用方法！大家一定要學會啊！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>TypeScript 的實用方法！大家一定要學會啊！</title><link>https://blog.wayne-project.com/2022-10-28/ts-useful-tricks/</link><pubDate>Fri, 28 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-28/ts-useful-tricks/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52459954880_4228a13922_o.png" alt="Featured image of post TypeScript 的實用方法！大家一定要學會啊！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -56948,7 +56948,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;};&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>30 個 Javascript 知識點總結，總有你不會的！</title><link>https://wayne-blog.com/2022-10-27/js-30-keypoints/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-27/js-30-keypoints/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457807569_15f64548d9_o.jpg" alt="Featured image of post 30 個 Javascript 知識點總結，總有你不會的！" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>30 個 Javascript 知識點總結，總有你不會的！</title><link>https://blog.wayne-project.com/2022-10-27/js-30-keypoints/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-27/js-30-keypoints/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457807569_15f64548d9_o.jpg" alt="Featured image of post 30 個 Javascript 知識點總結，總有你不會的！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -57431,7 +57431,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>nvm - Nodejs 版本隨你切換</title><link>https://wayne-blog.com/2022-10-27/nodejs-nvm/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-27/nodejs-nvm/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457342886_5035af0537_o.png" alt="Featured image of post nvm - Nodejs 版本隨你切換" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>nvm - Nodejs 版本隨你切換</title><link>https://blog.wayne-project.com/2022-10-27/nodejs-nvm/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-27/nodejs-nvm/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52457342886_5035af0537_o.png" alt="Featured image of post nvm - Nodejs 版本隨你切換" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -58077,7 +58077,7 @@ loading="lazy"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>推薦 12 個值得學習的 TypeScript 寶庫！</title><link>https://wayne-blog.com/2022-10-27/ts-learning-12-website/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-27/ts-learning-12-website/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52458187213_d3e26e7c48_o.png" alt="Featured image of post 推薦 12 個值得學習的 TypeScript 寶庫！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>推薦 12 個值得學習的 TypeScript 寶庫！</title><link>https://blog.wayne-project.com/2022-10-27/ts-learning-12-website/</link><pubDate>Thu, 27 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-27/ts-learning-12-website/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52458187213_d3e26e7c48_o.png" alt="Featured image of post 推薦 12 個值得學習的 TypeScript 寶庫！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -58257,7 +58257,7 @@ loading="lazy"
 &lt;blockquote&gt;
 &lt;p&gt;Github：&lt;a class="link" href="https://github.com/semlinker/awesome-typescript" target="_blank" rel="noopener"
 &gt;https://github.com/semlinker/awesome-typescript&lt;/a&gt;&lt;/p&gt;&lt;/blockquote&gt;
-&lt;hr&gt;</description></item><item><title>Node v19 正式發布</title><link>https://wayne-blog.com/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Node v19 正式發布</title><link>https://blog.wayne-project.com/2022-10-24/nodejs-v19-release/</link><pubDate>Mon, 24 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-24/nodejs-v19-release/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52449163172_6f0c5b3278_o.jpg" alt="Featured image of post Node v19 正式發布" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -58485,9 +58485,9 @@ loading="lazy"
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id="更多"&gt;更多&lt;/h3&gt;
 &lt;p&gt;關於 Node16 升級的諸多小細節，可參閱&lt;a class="link" href="https://github.com/nodejs/node/releases/tag/v16.0.0" target="_blank" rel="noopener"
-&gt;版本發布&lt;/a&gt;獲取更多信息，可持續 &lt;a class="link" href="https://wayne-blog.com/" target="_blank" rel="noopener"
+&gt;版本發布&lt;/a&gt;獲取更多信息，可持續 &lt;a class="link" href="https://blog.wayne-project.com/" target="_blank" rel="noopener"
 &gt;Wayne&amp;rsquo;s Blog&lt;/a&gt; 對各軟件每一次重大版本升級的說明講解。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://wayne-blog.com/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Node.js + Express + MySQL 搭建項目框架</title><link>https://blog.wayne-project.com/2022-10-21/nodejs-express-mysql/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-21/nodejs-express-mysql/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52443177409_7e96fe402c_o.png" alt="Featured image of post Node.js + Express + MySQL 搭建項目框架" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -59191,7 +59191,7 @@ loading="lazy"
 &lt;p&gt;github地址：&lt;a class="link" href="https://github.com/wjdesign/nodejsExpressMysqlDemo" target="_blank" rel="noopener"
 &gt;https://github.com/wjdesign/nodejsExpressMysqlDemo&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;走過路過點個贊唄～&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>NodeJS 防止 xss 攻擊</title><link>https://wayne-blog.com/2022-10-21/nodejs-prevent-xss/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-21/nodejs-prevent-xss/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52442821071_35fc2e7087_o.png" alt="Featured image of post NodeJS 防止 xss 攻擊" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>NodeJS 防止 xss 攻擊</title><link>https://blog.wayne-project.com/2022-10-21/nodejs-prevent-xss/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-21/nodejs-prevent-xss/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52442821071_35fc2e7087_o.png" alt="Featured image of post NodeJS 防止 xss 攻擊" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -59299,7 +59299,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>前端新寵兒？ - Svelte 介紹</title><link>https://wayne-blog.com/2022-10-21/svelte-quick-start/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-21/svelte-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52441500615_771efe89dd_o.png" alt="Featured image of post 前端新寵兒？ - Svelte 介紹" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>前端新寵兒？ - Svelte 介紹</title><link>https://blog.wayne-project.com/2022-10-21/svelte-quick-start/</link><pubDate>Fri, 21 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-21/svelte-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52441500615_771efe89dd_o.png" alt="Featured image of post 前端新寵兒？ - Svelte 介紹" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -60040,7 +60040,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;但此方法有可能遭受 &lt;code&gt;XSS&lt;/code&gt; 攻擊。&lt;br&gt;
-我在 「&lt;a style="text-decoration: underline;" href="https://wayne-blog.com/2022-10-21/nodejs-prevent-xss/" target="_blank"&gt;NodeJS 防止 xss 攻擊&lt;/a&gt;」 中簡單演示過 &lt;code&gt;XSS&lt;/code&gt; 攻擊，有興趣的可以看看。&lt;/p&gt;
+我在 「&lt;a style="text-decoration: underline;" href="https://blog.wayne-project.com/2022-10-21/nodejs-prevent-xss/" target="_blank"&gt;NodeJS 防止 xss 攻擊&lt;/a&gt;」 中簡單演示過 &lt;code&gt;XSS&lt;/code&gt; 攻擊，有興趣的可以看看。&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="樣式綁定"&gt;樣式綁定&lt;/h2&gt;
 &lt;p&gt;在日常開發中，給 &lt;code&gt;HTML&lt;/code&gt; 標籤設置樣式主要通過 &lt;code&gt;行内 style&lt;/code&gt; 和 &lt;code&gt;class&lt;/code&gt; 屬性。&lt;br&gt;
@@ -61303,7 +61303,7 @@ loading="lazy"
 &lt;p&gt;Svelte 是一個 &lt;code&gt;Web&lt;/code&gt; 應用的構建工具，它打包出來的項目體積比較小，性能強，不使用虛擬DOM。&lt;br&gt;
 但 &lt;code&gt;Svelte&lt;/code&gt; 的兼容性和周邊生態相比起 &lt;code&gt;Vue&lt;/code&gt; 和 &lt;code&gt;React&lt;/code&gt; 會差一點。&lt;br&gt;
 所以日常項目中需要根據 Svelte 的優缺點進行取捨。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>將網頁變成Progressive Web Application(PWA)，漸進式的網頁應用程式</title><link>https://wayne-blog.com/2022-10-19/web-pwa/</link><pubDate>Wed, 19 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-19/web-pwa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52438994804_33f71b7e35_o.jpg" alt="Featured image of post 將網頁變成Progressive Web Application(PWA)，漸進式的網頁應用程式" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>將網頁變成Progressive Web Application(PWA)，漸進式的網頁應用程式</title><link>https://blog.wayne-project.com/2022-10-19/web-pwa/</link><pubDate>Wed, 19 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-19/web-pwa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52438994804_33f71b7e35_o.jpg" alt="Featured image of post 將網頁變成Progressive Web Application(PWA)，漸進式的網頁應用程式" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -63193,7 +63193,7 @@ loading="lazy"
 &gt;GitHub&lt;/a&gt;&lt;br&gt;
 Google 官方教學的功能示範：&lt;a class="link" href="https://web-push-book.gauntface.com/demos/notification-examples/" target="_blank" rel="noopener"
 &gt;Notification Examples&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Vben Admin 指南與 Vite 配置</title><link>https://wayne-blog.com/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Vben Admin 指南與 Vite 配置</title><link>https://blog.wayne-project.com/2022-10-12/vben-admin-guide/</link><pubDate>Wed, 12 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-12/vben-admin-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52422113584_3af97c79da_o.png" alt="Featured image of post Vben Admin 指南與 Vite 配置" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -71393,7 +71393,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="c1"&gt;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>用 CSS 來偷資料 - CSS injection</title><link>https://wayne-blog.com/2022-10-03/css-injection/</link><pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-10-03/css-injection/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52401028978_fc63caee61_o.jpg" alt="Featured image of post 用 CSS 來偷資料 - CSS injection" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>用 CSS 來偷資料 - CSS injection</title><link>https://blog.wayne-project.com/2022-10-03/css-injection/</link><pubDate>Mon, 03 Oct 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-10-03/css-injection/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52401028978_fc63caee61_o.jpg" alt="Featured image of post 用 CSS 來偷資料 - CSS injection" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -72680,7 +72680,7 @@ loading="lazy"
 &lt;h3 id="總結-1"&gt;總結&lt;/h3&gt;
 &lt;p&gt;CSS 果真博大精深，真的很佩服這些前輩們可以把 CSS 玩出這麼多花樣，發展出這麼多令人眼界大開的攻擊手法。當初在研究的時候，利用屬性選擇器去 leak 這個我可以理解，用 unicode-range 我也能理解，但是那個用文字高度加上 CSS animation 去變化的，我花了不少時間才搞懂那在幹嘛，連字那個雖然概念好懂，但真的要實作還是會碰到不少問題。&lt;/p&gt;
 &lt;p&gt;最後，這兩篇文章主要算是介紹一下 CSS injection 這個攻擊手法，因此實際的程式碼並不多，而這些攻擊手法都參考自前人們的文章，列表我會附在下面，有興趣的話可以閱讀原文，會講得更詳細一點，如果對哪項攻擊想要深入了解，也可以留言跟我交流。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://wayne-blog.com/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>透過 ngrok 產生臨時用的網址到指定機器</title><link>https://blog.wayne-project.com/2022-09-26/ngrok-basic/</link><pubDate>Mon, 26 Sep 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-09-26/ngrok-basic/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52384429631_a48959b2b8_o.png" alt="Featured image of post 透過 ngrok 產生臨時用的網址到指定機器" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -72847,7 +72847,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>https://wayne-blog.com/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>前端緩存大筆資料：IndexedDB 介紹/應用</title><link>https://blog.wayne-project.com/2022-09-12/use-indexeddb/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-09-12/use-indexeddb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351840670_d321f7cc15_o.jpg" alt="Featured image of post 前端緩存大筆資料：IndexedDB 介紹/應用" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -73638,7 +73638,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>網路管理技術應用實務班筆記</title><link>https://wayne-blog.com/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>網路管理技術應用實務班筆記</title><link>https://blog.wayne-project.com/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -73997,7 +73997,7 @@ loading="lazy"
 &lt;li&gt;使用TCP通訊協定&lt;/li&gt;
 &lt;li&gt;使用port：143 (8080為替代port)&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>https://wayne-blog.com/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人</title><link>https://blog.wayne-project.com/2022-08-25/drone-cicd-with-telegram-bot/</link><pubDate>Thu, 25 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-25/drone-cicd-with-telegram-bot/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52309739568_a0d98a6137_o.png" alt="Featured image of post Telegram 機器人說明，並為你的 Drone CI/CD 配置 Telegram 機器人" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -75281,7 +75281,7 @@ loading="lazy"
 &lt;/ul&gt;
 &lt;p&gt;&lt;a class="link" href="https://plugins.drone.io/plugins/telegram" target="_blank" rel="noopener"
 &gt;詳細參數可參考 Drone Plugin - appleboy/drone-telegram&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>nginx CORS 跨域與反向代理</title><link>https://wayne-blog.com/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>nginx CORS 跨域與反向代理</title><link>https://blog.wayne-project.com/2022-08-23/nginx-cors-and-reverse-proxy/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-23/nginx-cors-and-reverse-proxy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305241864_c3ef911be4_o.jpg" alt="Featured image of post nginx CORS 跨域與反向代理" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -75653,7 +75653,7 @@ loading="lazy"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>https://wayne-blog.com/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書</title><link>https://blog.wayne-project.com/2022-08-23/nginx-ssl-with-lets-encrypt/</link><pubDate>Tue, 23 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-23/nginx-ssl-with-lets-encrypt/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52305205270_220313b3c4_o.png" alt="Featured image of post nginx 設定 ssl ＋ 自動續約 Let’s Encrypt 免費域名證書" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -76065,7 +76065,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h5 id="官方的建議是這個指令可以一天執行兩次讓伺服器的憑證隨時保持在最新的狀態這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新certbot-只有在憑證到期前一個月才會進行更新如果憑證尚未到期就不會更新"&gt;官方的建議是這個指令可以一天執行兩次，讓伺服器的憑證隨時保持在最新的狀態，這裡我是設定讓伺服器每週日凌晨兩點半進行憑證的檢查與更新，&lt;code&gt;Certbot&lt;/code&gt; 只有在憑證到期前一個月才會進行更新，如果憑證尚未到期，就不會更新&lt;/h5&gt;
-&lt;hr&gt;</description></item><item><title>SEO 反向連結建立：終極指南(2022)</title><link>https://wayne-blog.com/2022-08-17/seo-backlinks-building-guide/</link><pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-17/seo-backlinks-building-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52290179402_693c7086dc_o.jpg" alt="Featured image of post SEO 反向連結建立：終極指南(2022)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>SEO 反向連結建立：終極指南(2022)</title><link>https://blog.wayne-project.com/2022-08-17/seo-backlinks-building-guide/</link><pubDate>Wed, 17 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-17/seo-backlinks-building-guide/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52290179402_693c7086dc_o.jpg" alt="Featured image of post SEO 反向連結建立：終極指南(2022)" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -76897,7 +76897,7 @@ loading="lazy"
 &lt;p&gt;以上這就是我的 2022 連結優化指南。&lt;/p&gt;
 &lt;p&gt;從今天的指南中，你最想要優先嘗試哪個策略呢？或你對於某件事有疑問。&lt;/p&gt;
 &lt;p&gt;不論如何，在底下留言讓我知道。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【Callback、Promise、Async/Await】處理非同步事件</title><link>https://wayne-blog.com/2022-08-13/js-async-programs/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-13/js-async-programs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282531224_1f57c841ee_o.jpg" alt="Featured image of post 【Callback、Promise、Async/Await】處理非同步事件" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【Callback、Promise、Async/Await】處理非同步事件</title><link>https://blog.wayne-project.com/2022-08-13/js-async-programs/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-13/js-async-programs/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282531224_1f57c841ee_o.jpg" alt="Featured image of post 【Callback、Promise、Async/Await】處理非同步事件" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -77415,7 +77415,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&amp;gt; &lt;span class="m"&gt;35&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Javascript 的 Async/Await</title><link>https://wayne-blog.com/2022-08-13/js-async-await/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-13/js-async-await/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52281246237_dd06bc8ef9_o.png" alt="Featured image of post Javascript 的 Async/Await" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Javascript 的 Async/Await</title><link>https://blog.wayne-project.com/2022-08-13/js-async-await/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-13/js-async-await/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52281246237_dd06bc8ef9_o.png" alt="Featured image of post Javascript 的 Async/Await" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -77818,7 +77818,7 @@ loading="lazy"
 &lt;hr&gt;
 &lt;h2 id="小結"&gt;小結&lt;/h2&gt;
 &lt;p&gt;坦白說只要你一但熟悉了 async 和 await，就真的回不去了，雖然說 callback 仍然是程式開發裡必備的功能，但對於同步和非同步之間的轉換，以後就交給 async 和 await 來處理吧！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>https://wayne-blog.com/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Javascript 的正則表達式(Regular Expression, regex)</title><link>https://blog.wayne-project.com/2022-08-13/js-regex/</link><pubDate>Sat, 13 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-13/js-regex/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282544509_9802b00af7_o.png" alt="Featured image of post Javascript 的正則表達式(Regular Expression, regex)" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -78361,7 +78361,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>https://wayne-blog.com/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Vue 基本概念與常見面試題筆記</title><link>https://blog.wayne-project.com/2022-08-12/vue-interview-note/</link><pubDate>Fri, 12 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-12/vue-interview-note/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282698225_df2b066743_o.jpg" alt="Featured image of post Vue 基本概念與常見面試題筆記" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -78983,7 +78983,7 @@ vue多次更新數據，最終會進行批處理更新。內部調用的就是ne
 &lt;li&gt;splitChunks抽離公共文件&lt;/li&gt;
 &lt;li&gt;sourceMap優化&lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr&gt;</description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>https://wayne-blog.com/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Vue3.0 快速入門，看完基本可以上手搞開發</title><link>https://blog.wayne-project.com/2022-08-11/vue3-quick-start/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-11/vue3-quick-start/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277578302_d4a3e0c4aa_o.png" alt="Featured image of post Vue3.0 快速入門，看完基本可以上手搞開發" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -79373,7 +79373,7 @@ loading="lazy"
 &gt;&lt;/p&gt;
 &lt;p&gt;接下來到了重頭戲，&lt;code&gt;Vue3&lt;/code&gt; 的招牌特性，&lt;code&gt;Composition API&lt;/code&gt;。&lt;/p&gt;
 &lt;p&gt;關於 &lt;code&gt;Composition API&lt;/code&gt; 這裡有圖解演示，極力推薦。&lt;/p&gt;
-&lt;p&gt;&lt;a class="link" href="https://wayne-blog.com/@wayne-lin/vue3-option-vs-composition" &gt;圖解 Option API vs Composition API&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a class="link" href="https://blog.wayne-project.com/@wayne-lin/vue3-option-vs-composition" &gt;圖解 Option API vs Composition API&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;Composition API&lt;/code&gt; 可以更方便的抽取共通邏輯，但是不要過於在意邏輯程式碼複用，以功能提取程式碼也是一種思路。&lt;/li&gt;
 &lt;/ul&gt;
@@ -81422,7 +81422,7 @@ loading="lazy"
 &lt;li&gt;&lt;a class="link" href="https://juejin.cn/post/6891640356543627278" target="_blank" rel="noopener"
 &gt;那個忙了一夜的Vue3動畫很好，就是太短了&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>圖解 Option API vs Composition API</title><link>https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>圖解 Option API vs Composition API</title><link>https://blog.wayne-project.com/2022-08-11/option-api-vs-composition-api/</link><pubDate>Thu, 11 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-11/option-api-vs-composition-api/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277524312_b6dc5e213c_o.png" alt="Featured image of post 圖解 Option API vs Composition API" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -82074,7 +82074,7 @@ loading="lazy"
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;&lt;a class="link" href="https://link.juejin.cn/?target=https%3A%2F%2Fgithub.com%2Fvuejs%2Frfcs%2Fblob%2Fsfc-improvements%2Factive-rfcs%2F0000-sfc-script-setup.md" target="_blank" rel="noopener"
 &gt;具體看這裡&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>Javascript ES6 特性</title><link>https://wayne-blog.com/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Javascript ES6 特性</title><link>https://blog.wayne-project.com/2022-08-10/javascript-es6/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-10/javascript-es6/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276889089_0bb5aa46f7_o.png" alt="Featured image of post Javascript ES6 特性" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -83222,7 +83222,7 @@ padding: 0 5px;
 &gt;yield&lt;/a&gt;表達式生成的值。&lt;/li&gt;
 &lt;li&gt;Generator.prototype.throw()：向生成器拋出錯誤。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>Vue-cli plugin：使用套件將圖片自動轉檔為webp格式</title><link>https://wayne-blog.com/2022-08-10/vue-cli-use-webp/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-10/vue-cli-use-webp/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282467469_7cf86509a9_o.jpg" alt="Featured image of post Vue-cli plugin：使用套件將圖片自動轉檔為webp格式" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Vue-cli plugin：使用套件將圖片自動轉檔為webp格式</title><link>https://blog.wayne-project.com/2022-08-10/vue-cli-use-webp/</link><pubDate>Wed, 10 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-10/vue-cli-use-webp/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52282467469_7cf86509a9_o.jpg" alt="Featured image of post Vue-cli plugin：使用套件將圖片自動轉檔為webp格式" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -83479,7 +83479,7 @@ padding: 0 5px;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>JavaScript的記憶體空間、賦值和深淺拷貝</title><link>https://wayne-blog.com/2022-08-09/js-deep-copy-vs-shallow-copy/</link><pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-09/js-deep-copy-vs-shallow-copy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277851687_14d13f49a6_o.jpg" alt="Featured image of post JavaScript的記憶體空間、賦值和深淺拷貝" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>JavaScript的記憶體空間、賦值和深淺拷貝</title><link>https://blog.wayne-project.com/2022-08-09/js-deep-copy-vs-shallow-copy/</link><pubDate>Tue, 09 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-09/js-deep-copy-vs-shallow-copy/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52277851687_14d13f49a6_o.jpg" alt="Featured image of post JavaScript的記憶體空間、賦值和深淺拷貝" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -83808,7 +83808,7 @@ padding: 0 5px;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>https://wayne-blog.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD</title><link>https://blog.wayne-project.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</link><pubDate>Mon, 01 Aug 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-08-01/hugo-github-pages-actions-and-cloudflare/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52274839367_8325e83fea_o.jpg" alt="Featured image of post 架設部落格之一條龍免費寶典：Hugo 生成靜態網站、Pages 發布網站、設定 custom domain(free 12 months)、Actions 做 CI/CD" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -84296,7 +84296,7 @@ max-height="100%"
 class="gallery-image"
 loading="lazy"
 &gt;&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>https://wayne-blog.com/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>初學者都該了解的 HTTP 通訊協定基礎</title><link>https://blog.wayne-project.com/2022-07-24/beginner-http-lesson/</link><pubDate>Sun, 24 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-24/beginner-http-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276290470_787c77a1b5_o.jpg" alt="Featured image of post 初學者都該了解的 HTTP 通訊協定基礎" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -84649,7 +84649,7 @@ loading="lazy"
 &lt;h3 id="總結"&gt;總結&lt;/h3&gt;
 &lt;p&gt;根據 &lt;a class="link" href="https://w3techs.com/technologies/details/ce-http2" target="_blank" rel="noopener"
 &gt;w3Techs&lt;/a&gt; 網站，目前使用http/2的網站有45.7%，未來確實會變成主流，身為軟體工程師，還是多少理解來的好。此篇文章僅記錄筆者蒐集資料彙整結果，若有任何錯誤資訊還請直接點出，萬分感謝。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>https://wayne-blog.com/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276285230_7f886f0bca_o.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>初學者學演算法｜從時間複雜度認識常見演算法</title><link>https://blog.wayne-project.com/2022-07-23/common-time-complexity/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-23/common-time-complexity/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276285230_7f886f0bca_o.jpg" alt="Featured image of post 初學者學演算法｜從時間複雜度認識常見演算法" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -84823,7 +84823,7 @@ loading="lazy"
 &lt;/div&gt;&lt;hr&gt;
 &lt;h3 id="小結"&gt;小結&lt;/h3&gt;
 &lt;p&gt;在這篇文章中，我們分別了解了 O(1)、O(n)、O(logn) 的時間複雜度，以及對應到的三個常見演算法。而在接下來的文章中，我們會開始認識新朋友，在演算法中佔有重要地位的「排序法」，以及在更進階的例子。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>從找衣服了解時間複雜度</title><link>https://wayne-blog.com/2022-07-23/learn-time-complexity-by-clothes/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-23/learn-time-complexity-by-clothes/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276282210_c2a38fae3c_o.jpg" alt="Featured image of post 從找衣服了解時間複雜度" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>從找衣服了解時間複雜度</title><link>https://blog.wayne-project.com/2022-07-23/learn-time-complexity-by-clothes/</link><pubDate>Sat, 23 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-23/learn-time-complexity-by-clothes/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276282210_c2a38fae3c_o.jpg" alt="Featured image of post 從找衣服了解時間複雜度" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -84840,7 +84840,7 @@ padding: 0 5px;
 &lt;p&gt;右圖的方式它的時間複雜度是 O(1)，在你沒有忘記其實衣服已經被丟到洗衣籃的前提下，你看一眼，翻都不用翻就可以把紅衣服直接取出（請先忽略掉人腦內建的視覺搜尋系統，那是另一個有趣的故事 XD）。這種不用一個一個找，就直接取出的，時間複雜度就是 O(1)。&lt;/p&gt;
 &lt;p&gt;有了這個時間複雜度的概念後，是不是覺得左邊的那個商品實用性沒這麼高啦～ XDD&lt;/p&gt;
 &lt;p&gt;真的是沒想到學演算法還可以用在購物吧！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>gRPC 基本介紹</title><link>https://wayne-blog.com/2022-07-22/grpc-basic-introduction/</link><pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-22/grpc-basic-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276040314_2afa0e7026_o.png" alt="Featured image of post gRPC 基本介紹" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>gRPC 基本介紹</title><link>https://blog.wayne-project.com/2022-07-22/grpc-basic-introduction/</link><pubDate>Fri, 22 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-22/grpc-basic-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52276040314_2afa0e7026_o.png" alt="Featured image of post gRPC 基本介紹" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -85361,7 +85361,7 @@ loading="lazy"
 &lt;li&gt;&lt;a class="link" href="https://docs.microsoft.com/zh-tw/aspnet/core/grpc/comparison?view=aspnetcore-5.0" target="_blank" rel="noopener"
 &gt;比較 gRPC 服務與 HTTP API&lt;/a&gt; @ Microsoft Docs&lt;/li&gt;
 &lt;/ul&gt;
-&lt;hr&gt;</description></item><item><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title><link>https://wayne-blog.com/2022-07-21/bubble-sort-and-insertion-sort/</link><pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-21/bubble-sort-and-insertion-sort/</guid><description>&lt;img src="https://wayne-blog.com/2022-07-21/bubble-sort-and-insertion-sort/hqdefault.jpg" alt="Featured image of post 彭彭的課程 - 氣泡排序、插入排序的實作與分析" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>彭彭的課程 - 氣泡排序、插入排序的實作與分析</title><link>https://blog.wayne-project.com/2022-07-21/bubble-sort-and-insertion-sort/</link><pubDate>Thu, 21 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-21/bubble-sort-and-insertion-sort/</guid><description>&lt;img src="https://blog.wayne-project.com/2022-07-21/bubble-sort-and-insertion-sort/hqdefault.jpg" alt="Featured image of post 彭彭的課程 - 氣泡排序、插入排序的實作與分析" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -85599,7 +85599,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;timeEnd&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://wayne-blog.com/2022-07-17/atguigu-vue3-note/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-17/atguigu-vue3-note/</guid><description>&lt;img src="https://wayne-blog.com/2022-07-17/atguigu-vue3-note/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>尚硅谷 Vue3 視頻筆記</title><link>https://blog.wayne-project.com/2022-07-17/atguigu-vue3-note/</link><pubDate>Sun, 17 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-17/atguigu-vue3-note/</guid><description>&lt;img src="https://blog.wayne-project.com/2022-07-17/atguigu-vue3-note/index.jpeg" alt="Featured image of post 尚硅谷 Vue3 視頻筆記" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -87129,7 +87129,7 @@ loading="lazy"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>Markdown 語法指南</title><link>https://wayne-blog.com/2022-07-16/markdown-syntax/</link><pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-07-16/markdown-syntax/</guid><description>&lt;img src="https://wayne-blog.com/2022-07-16/markdown-syntax/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown 語法指南" /&gt;&lt;p&gt;Markdown 是讓你快速撰寫筆記，流暢管理知識，支援多種衍生功能的生產力工具&lt;/p&gt;
+&lt;hr&gt;</description></item><item><title>Markdown 語法指南</title><link>https://blog.wayne-project.com/2022-07-16/markdown-syntax/</link><pubDate>Sat, 16 Jul 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-07-16/markdown-syntax/</guid><description>&lt;img src="https://blog.wayne-project.com/2022-07-16/markdown-syntax/pawel-czerwinski-8uZPynIu-rQ-unsplash.jpg" alt="Featured image of post Markdown 語法指南" /&gt;&lt;p&gt;Markdown 是讓你快速撰寫筆記，流暢管理知識，支援多種衍生功能的生產力工具&lt;/p&gt;
 &lt;h2 id="標題"&gt;標題&lt;/h2&gt;
 &lt;p&gt;當您想要將一段文字標示為標題的時候，請使用這個語法。&lt;br&gt;
 請在行首輸入 &lt;code&gt;#&lt;/code&gt; 符號，並在後面加上一個空白後，再輸入標題文字。&lt;br&gt;
@@ -87360,7 +87360,7 @@ loading="lazy"
 &gt;talk&lt;/a&gt; during Gopherfest, November 18, 2015.&amp;#160;&lt;a href="#fnref:1" class="footnote-backref" role="doc-backlink"&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;/div&gt;</description></item><item><title>智慧商業Python數據分析與應用班(版本3.*)</title><link>https://wayne-blog.com/2020-03-15/python-beginner-tutorial/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2020-03-15/python-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52283398446_ed21ce37f2_o.png" alt="Featured image of post 智慧商業Python數據分析與應用班(版本3.*)" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>智慧商業Python數據分析與應用班(版本3.*)</title><link>https://blog.wayne-project.com/2020-03-15/python-beginner-tutorial/</link><pubDate>Sun, 15 Mar 2020 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2020-03-15/python-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52283398446_ed21ce37f2_o.png" alt="Featured image of post 智慧商業Python數據分析與應用班(版本3.*)" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
@@ -91647,7 +91647,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-fallback" data-lang="fallback"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;UPDATE student SET Name = &amp;#34;Amanda&amp;#34; WHERE ID = 1001;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Math Typesetting</title><link>https://wayne-blog.com/2019-03-08/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2019-03-08/math-typesetting/</guid><description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>Math Typesetting</title><link>https://blog.wayne-project.com/2019-03-08/math-typesetting/</link><pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2019-03-08/math-typesetting/</guid><description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;
 &lt;p&gt;In this example we will be using &lt;a class="link" href="https://katex.org/" target="_blank" rel="noopener"
 &gt;KaTeX&lt;/a&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -91678,7 +91678,7 @@ padding: 0 5px;
 &lt;p&gt;Block math:
 $$
 \varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
-$$&lt;/p&gt;</description></item><item><title>Emoji Support</title><link>https://wayne-blog.com/2019-03-05/emoji-support/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2019-03-05/emoji-support/</guid><description>&lt;img src="https://wayne-blog.com/2019-03-05/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
+$$&lt;/p&gt;</description></item><item><title>Emoji Support</title><link>https://blog.wayne-project.com/2019-03-05/emoji-support/</link><pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2019-03-05/emoji-support/</guid><description>&lt;img src="https://blog.wayne-project.com/2019-03-05/emoji-support/the-creative-exchange-d2zvqp3fpro-unsplash.jpg" alt="Featured image of post Emoji Support" /&gt;&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;
 &lt;p&gt;The &lt;a class="link" href="https://gohugo.io/functions/emojify/" target="_blank" rel="noopener"
 &gt;&lt;code&gt;emojify&lt;/code&gt;&lt;/a&gt; function can be called directly in templates or &lt;a class="link" href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes" target="_blank" rel="noopener"
 &gt;Inline Shortcodes&lt;/a&gt;.&lt;/p&gt;
@@ -91701,7 +91701,7 @@ $$&lt;/p&gt;</description></item><item><title>Emoji Support</title><link>https:/
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt; font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>10 個 Q&amp;A 快速認識 Docker</title><link>https://wayne-blog.com/2014-10-28/docker-10-qa/</link><pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2014-10-28/docker-10-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564831824_2754e80d0b_o.png" alt="Featured image of post 10 個 Q&amp;A 快速認識 Docker" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>10 個 Q&amp;A 快速認識 Docker</title><link>https://blog.wayne-project.com/2014-10-28/docker-10-qa/</link><pubDate>Tue, 28 Oct 2014 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2014-10-28/docker-10-qa/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52564831824_2754e80d0b_o.png" alt="Featured image of post 10 個 Q&amp;A 快速認識 Docker" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

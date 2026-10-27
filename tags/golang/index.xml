@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/golang/</link><description>Recent content in Golang on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 11 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>【K6】壓力測試工具介紹</title><link>https://wayne-blog.com/2023-04-11/k6-introduction/</link><pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-04-11/k6-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52808880406_c06b18a888_o.png" alt="Featured image of post 【K6】壓力測試工具介紹" /&gt;&lt;style&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Golang on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://blog.wayne-project.com/tags/golang/</link><description>Recent content in Golang on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Tue, 11 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wayne-project.com/tags/golang/index.xml" rel="self" type="application/rss+xml"/><item><title>【K6】壓力測試工具介紹</title><link>https://blog.wayne-project.com/2023-04-11/k6-introduction/</link><pubDate>Tue, 11 Apr 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-04-11/k6-introduction/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52808880406_c06b18a888_o.png" alt="Featured image of post 【K6】壓力測試工具介紹" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1025,7 +1025,7 @@ loading="lazy"
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;hr&gt;</description></item><item><title>Golang 的超級初心者筆記</title><link>https://wayne-blog.com/2023-02-10/golang-beginner-tutorial/</link><pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-10/golang-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52680023246_4af5b0a8eb_o.jpg" alt="Featured image of post Golang 的超級初心者筆記" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>Golang 的超級初心者筆記</title><link>https://blog.wayne-project.com/2023-02-10/golang-beginner-tutorial/</link><pubDate>Fri, 10 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-10/golang-beginner-tutorial/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52680023246_4af5b0a8eb_o.jpg" alt="Featured image of post Golang 的超級初心者筆記" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1091,7 +1091,7 @@ Go 是一個高效、靜態類型，但是又具有解釋語言的動態類型�
 &lt;p&gt;等等！Unix Like 的使用者先等等，有個更好用的東西可以讓各位使用，我們有 &lt;a class="link" href="https://github.com/moovweb/gvm" target="_blank" rel="noopener"
 &gt;GVM&lt;/a&gt; 可以用，&lt;a class="link" href="https://github.com/moovweb/gvm" target="_blank" rel="noopener"
 &gt;GVM&lt;/a&gt; 可以有效的管理 Go 的版本，連 GOPATH 都幫你設定好，超方便的！即時是最新的也都能馬上使用他下載安裝，真的是棒的沒話說，就讓我們來使用他吧！記得要先看一下 Requirements 喔，不然會裝不起來。&lt;/p&gt;
-&lt;p&gt;另外我的部落格有輕鬆搭建 Go 開發環境的教學 - &lt;a class="link" href="https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/" target="_blank" rel="noopener"
+&lt;p&gt;另外我的部落格有輕鬆搭建 Go 開發環境的教學 - &lt;a class="link" href="https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/" target="_blank" rel="noopener"
 &gt;在 Windows 平台打造完美的 Go 開發環境 (WSL 2)&lt;/a&gt;，可以直接參考該篇文章進行搭建！(開發工具使用 Visual Studio Code)&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id="go-指令"&gt;Go 指令&lt;/h2&gt;
@@ -1453,7 +1453,7 @@ Go 是一個高效、靜態類型，但是又具有解釋語言的動態類型�
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="c1"&gt;// key value pairs&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="nx"&gt;kvs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="kd"&gt;map&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="kt"&gt;string&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;wayne blog&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;website&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://wayne-blog.com/&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;website&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="s"&gt;&amp;#34;https://blog.wayne-project.com/&amp;#34;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="w"&gt;&lt;/span&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;key&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;value&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;:=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;range&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="nx"&gt;kvs&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;
@@ -5533,7 +5533,7 @@ float64 在 Go 語言相當於 C 語言的 Double，且 float32 與 float64 是�
 &lt;/div&gt;
 &lt;/div&gt;&lt;p&gt;這邊使用 Prepare 來使用 sql 指令，將值傳給 stmtIns ，操作簡單直覺！&lt;/p&gt;
 &lt;p&gt;以上，這篇先簡單介紹 Golang，待之後專案使用到時，再來繼續深入研究！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

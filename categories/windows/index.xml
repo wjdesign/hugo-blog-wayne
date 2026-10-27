@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microsoft Windows on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/categories/windows/</link><description>Recent content in Microsoft Windows on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 09 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/categories/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" /&gt;&lt;style&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Microsoft Windows on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://blog.wayne-project.com/categories/windows/</link><description>Recent content in Microsoft Windows on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Thu, 09 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wayne-project.com/categories/windows/index.xml" rel="self" type="application/rss+xml"/><item><title>在 Windows 平台打造完美的 Go 開發環境 (WSL 2)</title><link>https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/</link><pubDate>Thu, 09 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-09/golang-dev-box-in-windows/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52678563078_1c05ac4dfd_o.png" alt="Featured image of post 在 Windows 平台打造完美的 Go 開發環境 (WSL 2)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1145,7 +1145,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayne-blog.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://blog.wayne-project.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1369,7 +1369,7 @@ loading="lazy"
 &lt;p&gt;&lt;strong&gt;Traceroute&lt;/strong&gt; 的方法是在源主機發送UDP數據包給目標主機的時候，會設置一個&lt;strong&gt;不可能達到的目標端口號&lt;/strong&gt;（例如大於30000的端口號），那麼當這個數據包真的到達目標主機的時候，目標主機發現沒有對應的端口號，因此會產生一份&lt;code&gt;端口不可達&lt;/code&gt;的錯誤ICMP報文返回給源主機。&lt;/p&gt;
 &lt;p&gt;可見 &lt;strong&gt;Traceroute&lt;/strong&gt; 的原理確實很取巧，很有趣。如您對 &lt;strong&gt;Traceroute&lt;/strong&gt; 感興趣，可以深入讀一讀《&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004762" target="_blank" rel="noopener"
 &gt;從 Traceroute 看網絡問題&lt;/a&gt;》一文。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>使用 Node.js 串接 MongoDB (含CRUD)</title><link>https://blog.wayne-project.com/2023-02-06/nodejs-using-mongodb/</link><pubDate>Mon, 06 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-06/nodejs-using-mongodb/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52672489703_b6b8a40a1a_o.jpg" alt="Featured image of post 使用 Node.js 串接 MongoDB (含CRUD)" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2498,7 +2498,7 @@ loading="lazy"
 &lt;p&gt;&lt;span class="focus"&gt;!!重要!!&lt;/span&gt;&lt;br&gt;
 關於更多 Collection 的操作，可以參考：&lt;a class="link" href="https://www.mongodb.com/docs/manual/reference/method/js-collection/" target="_blank" rel="noopener"
 &gt;Collection Methods&lt;/a&gt;，特別在使用查詢 find，有不同於以往 SQL 的使用語法。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;hr&gt;</description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法</title><link>https://blog.wayne-project.com/2023-02-03/replace-using-regex-in-3-ways/</link><pubDate>Fri, 03 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-03/replace-using-regex-in-3-ways/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52666393963_8b2453a1b5_o.jpg" alt="Featured image of post 3 種使用 Regex 正則表達式對資料夾中的文字檔進行搜尋與取代的方法" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -2587,7 +2587,7 @@ padding: 0 5px;
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;npx replace-in-file &lt;span class="s2"&gt;&amp;#34;/pattern([s])/g&amp;#34;&lt;/span&gt; &lt;span class="s2"&gt;&amp;#34;replacement&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;&amp;#34;&lt;/span&gt; src/**/*.ts --isRegex --encoding&lt;span class="o"&gt;=&lt;/span&gt;utf-8
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;</description></item><item><title>【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget</title><link>https://wayne-blog.com/2023-01-31/windows-chocolatey-scoop-winget/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-31/windows-chocolatey-scoop-winget/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660107874_752a7075c3_o.jpg" alt="Featured image of post 【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget" /&gt;&lt;style&gt;
+&lt;/div&gt;</description></item><item><title>【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget</title><link>https://blog.wayne-project.com/2023-01-31/windows-chocolatey-scoop-winget/</link><pubDate>Tue, 31 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-31/windows-chocolatey-scoop-winget/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52660107874_752a7075c3_o.jpg" alt="Featured image of post 【Windows】指令式軟體安裝服務比較：Chocolatey、Scoop 與 winget" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

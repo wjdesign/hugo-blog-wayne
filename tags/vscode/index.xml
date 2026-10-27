@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vscode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/vscode/</link><description>Recent content in Vscode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode MCP Servers 與專案導入 Playwright 自動化測試分享</title><link>https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/</link><pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2025-08-30/vscode-mcp-servers-playwright/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg" alt="Featured image of post VSCode MCP Servers 與專案導入 Playwright 自動化測試分享" /&gt;&lt;style&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Vscode on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://blog.wayne-project.com/tags/vscode/</link><description>Recent content in Vscode on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Sat, 30 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wayne-project.com/tags/vscode/index.xml" rel="self" type="application/rss+xml"/><item><title>VSCode MCP Servers 與專案導入 Playwright 自動化測試分享</title><link>https://blog.wayne-project.com/2025-08-30/vscode-mcp-servers-playwright/</link><pubDate>Sat, 30 Aug 2025 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2025-08-30/vscode-mcp-servers-playwright/</guid><description>&lt;img src="https://live.staticflickr.com/65535/54760153017_d732ffcc10_b.jpg" alt="Featured image of post VSCode MCP Servers 與專案導入 Playwright 自動化測試分享" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -828,7 +828,7 @@ loading="lazy"
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id="實戰三playwright-串聯-vitest-ui-跑單元測試"&gt;實戰三：Playwright 串聯 Vitest UI 跑單元測試&lt;/h2&gt;
-&lt;p&gt;串聯一下之前在&lt;a class="link" href="https://wayne-blog.com/2022-12-29/vitest-unit-test" &gt;闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！&lt;/a&gt;，自己撰寫的 Utils tools function 的單元測試好了，讓自己後續可以直接打打字，讓 Agent 幫我跑這些單元測試(工程師沒有最懶，只有更懶)。&lt;/p&gt;
+&lt;p&gt;串聯一下之前在&lt;a class="link" href="https://blog.wayne-project.com/2022-12-29/vitest-unit-test" &gt;闡述單元測試、元件測試，並學習在自己的 Vue3 專案中加入 Vitest！&lt;/a&gt;，自己撰寫的 Utils tools function 的單元測試好了，讓自己後續可以直接打打字，讓 Agent 幫我跑這些單元測試(工程師沒有最懶，只有更懶)。&lt;/p&gt;
 &lt;h5 id="test-tools-unitspects"&gt;test-tools-unit.spec.ts&lt;/h5&gt;
 &lt;div class="highlight"&gt;&lt;div class="chroma"&gt;
 &lt;table class="lntable"&gt;&lt;tr&gt;&lt;td class="lntd"&gt;
@@ -930,7 +930,7 @@ loading="lazy"
 &lt;h2 id="結語"&gt;結語&lt;/h2&gt;
 &lt;p&gt;VSCode MCP Servers 與 Playwright 的結合，讓 extension 開發與測試更現代化、流程自動化。推薦給有志於 VSCode 生態圈、AI 工具、測試自動化的開發者！&lt;/p&gt;
 &lt;p&gt;如有相關問題，歡迎留言討論或參考官方文件。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>【VSCode】重置儲存在雲端的設定、擴充套件與資料！</title><link>https://blog.wayne-project.com/2023-03-31/reset-vscode-settings-cloud-data/</link><pubDate>Fri, 31 Mar 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-03-31/reset-vscode-settings-cloud-data/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52782930740_1e05a50348_o.png" alt="Featured image of post 【VSCode】重置儲存在雲端的設定、擴充套件與資料！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1034,7 +1034,7 @@ loading="lazy"
 &lt;pre tabindex="0" class="chroma"&gt;&lt;code class="language-bash" data-lang="bash"&gt;&lt;span class="line"&gt;&lt;span class="cl"&gt;cmdkey /list &lt;span class="p"&gt;|&lt;/span&gt; Select-String -Pattern &lt;span class="s2"&gt;&amp;#34;LegacyGeneric:target=(vscode.+)&amp;#34;&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; ForEach-Object &lt;span class="o"&gt;{&lt;/span&gt; cmdkey.exe /delete &lt;span class="nv"&gt;$_&lt;/span&gt;.Matches.Groups&lt;span class="o"&gt;[&lt;/span&gt;1&lt;span class="o"&gt;]&lt;/span&gt;.Value &lt;span class="o"&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" /&gt;&lt;style&gt;
+&lt;/div&gt;&lt;hr&gt;</description></item><item><title>【Polacode】一款好用的 VSCode 截圖套件推薦</title><link>https://blog.wayne-project.com/2023-02-14/vscode-plugin-polacode/</link><pubDate>Tue, 14 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-14/vscode-plugin-polacode/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52688573055_35766ac7fc_o.jpg" alt="Featured image of post 【Polacode】一款好用的 VSCode 截圖套件推薦" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -1101,7 +1101,7 @@ loading="lazy"
 &lt;li&gt;Polacode 的 file 會影響你的成品，因此 file 內因為擠壓而換行，儲存出來的成品也會換行。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;介紹這個套件是希望在跟其他開發者討論程式碼，或是自己有撰寫部落格與文章的習慣時，可以讓對方或讀者有個良好的閱讀體驗，閱讀起來會更加順暢！&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>今天來搞一個屬於自己的 VScode Extension 吧！</title><link>https://blog.wayne-project.com/2022-11-22/create-own-vscode-extension/</link><pubDate>Tue, 22 Nov 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-11-22/create-own-vscode-extension/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52516420035_bc4b9df19c_o.png" alt="Featured image of post 今天來搞一個屬於自己的 VScode Extension 吧！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;

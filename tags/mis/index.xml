@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mis on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://wayne-blog.com/tags/mis/</link><description>Recent content in Mis on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://wayne-blog.com/tags/mis/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mis on Wayne's blog | 偉恩的部落格 | 技術博客</title><link>https://blog.wayne-project.com/tags/mis/</link><description>Recent content in Mis on Wayne's blog | 偉恩的部落格 | 技術博客</description><generator>Hugo -- gohugo.io</generator><language>zh-tw</language><lastBuildDate>Wed, 08 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.wayne-project.com/tags/mis/index.xml" rel="self" type="application/rss+xml"/><item><title>你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？</title><link>https://blog.wayne-project.com/2023-02-08/different-in-localhost-ip/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-08/different-in-localhost-ip/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52675709862_d54358fb30_o.jpg" alt="Featured image of post 你/妳真的了解 127.0.0.1 與 0.0.0.0 的區別？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -208,7 +208,7 @@ loading="lazy"
 &lt;p&gt;在實際應用中：一般我們在服務端綁定端口的時候可以選擇綁定到 &lt;code&gt;0.0.0.0&lt;/code&gt;，這樣我的服務訪問方就可以通過我的&lt;strong&gt;多個ip地址&lt;/strong&gt;訪問我的服務。&lt;/p&gt;
 &lt;p&gt;比如：我有一台服務器，一個外網地址A,一個內網地址B，如果我綁定的端口指定了 &lt;code&gt;0.0.0.0&lt;/code&gt;，那麼通過內網地址或外網地址&lt;strong&gt;都可以訪問&lt;/strong&gt;我的應用。&lt;/p&gt;
 &lt;p&gt;但是如果我只綁定了內網地址，那麼通過外網地址就不能訪問。所以如果綁定 &lt;code&gt;0.0.0.0&lt;/code&gt;，也有一定安全隱患，對於只需要內網訪問的服務，可以只綁定內網地址。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://wayne-blog.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>每天都在用的 Ping 命令，它到底是什麼？</title><link>https://blog.wayne-project.com/2023-02-08/what-is-ping/</link><pubDate>Wed, 08 Feb 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-02-08/what-is-ping/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676255219_5b0b2d891c_o.jpg" alt="Featured image of post 每天都在用的 Ping 命令，它到底是什麼？" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -432,7 +432,7 @@ loading="lazy"
 &lt;p&gt;&lt;strong&gt;Traceroute&lt;/strong&gt; 的方法是在源主機發送UDP數據包給目標主機的時候，會設置一個&lt;strong&gt;不可能達到的目標端口號&lt;/strong&gt;（例如大於30000的端口號），那麼當這個數據包真的到達目標主機的時候，目標主機發現沒有對應的端口號，因此會產生一份&lt;code&gt;端口不可達&lt;/code&gt;的錯誤ICMP報文返回給源主機。&lt;/p&gt;
 &lt;p&gt;可見 &lt;strong&gt;Traceroute&lt;/strong&gt; 的原理確實很取巧，很有趣。如您對 &lt;strong&gt;Traceroute&lt;/strong&gt; 感興趣，可以深入讀一讀《&lt;a class="link" href="https://cloud.tencent.com/developer/article/1004762" target="_blank" rel="noopener"
 &gt;從 Traceroute 看網絡問題&lt;/a&gt;》一文。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>關於 TCP 的三次握手與四次揮手，滿分的回答在此！</title><link>https://blog.wayne-project.com/2023-01-28/tcp-three-way-four-way-handshake/</link><pubDate>Sat, 28 Jan 2023 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2023-01-28/tcp-three-way-four-way-handshake/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52676765170_50b661b18d_o.jpg" alt="Featured image of post 關於 TCP 的三次握手與四次揮手，滿分的回答在此！" /&gt;&lt;style&gt;
 .article-content p code {
 background-color: #f5f5f5;
 color: #ff3860;
@@ -622,7 +622,7 @@ loading="lazy"
 &lt;p&gt;任何一方都可以在數據傳送結束後發出連接釋放的通知，待對方確認後進入&lt;strong&gt;半關閉狀態&lt;/strong&gt;。當另一方也沒有數據再發送的時候，則發出連接釋放通知，對方確認後就&lt;strong&gt;完全關閉&lt;/strong&gt;了 TCP 連接。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;通俗的來說，兩次握手就可以釋放一端到另一端的 TCP 連接，完全釋放連接一共需要四次握手。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;舉個例子： A 和 B 打電話，通話即將結束後，A 說&amp;quot;&lt;strong&gt;我沒啥要說的了&lt;/strong&gt;&amp;quot;，B 回答&amp;quot;&lt;strong&gt;我知道了&lt;/strong&gt;&amp;quot;，於是 A 向 B 的連接釋放了。但是 B 可能還會有要說的話，於是 B 可能又巴拉巴拉說了一通，最後 B 說&amp;quot;&lt;strong&gt;我說完了&lt;/strong&gt;&amp;quot;，A 回答&amp;quot;&lt;strong&gt;知道了&lt;/strong&gt;&amp;quot;，於是 B 向 A 的連接釋放了，這樣整個通話就結束了。&lt;/p&gt;
-&lt;hr&gt;</description></item><item><title>網路管理技術應用實務班筆記</title><link>https://wayne-blog.com/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://wayne-blog.com/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" /&gt;&lt;style&gt;
+&lt;hr&gt;</description></item><item><title>網路管理技術應用實務班筆記</title><link>https://blog.wayne-project.com/2022-09-12/network-management-lesson/</link><pubDate>Mon, 12 Sep 2022 00:00:00 +0000</pubDate><guid>https://blog.wayne-project.com/2022-09-12/network-management-lesson/</guid><description>&lt;img src="https://live.staticflickr.com/65535/52351384271_09abac0c54_o.jpg" alt="Featured image of post 網路管理技術應用實務班筆記" /&gt;&lt;style&gt;
 .focus {
 background: #f1e2e2;
 color: #d62c2c;
